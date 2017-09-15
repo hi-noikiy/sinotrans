@@ -2,6 +2,7 @@ bin/
 include/
 lib/
 gitpush.bat
+local.py
 
 pip-selfcheck.json
 *.sqlite3

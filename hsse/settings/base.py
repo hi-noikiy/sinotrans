@@ -120,10 +120,6 @@ MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "media_root")
 MEDIA_ROOT = os.path.join(BASE_DIR, "static_in_env", "media_root")
 
-print "base dir" + BASE_DIR
-print "STATIC_ROOT" + STATIC_ROOT
-print STATICFILES_DIRS
-
 try:
     import settings_security
     EMAIL_HOST_USER = settings_security.USER_NAME
