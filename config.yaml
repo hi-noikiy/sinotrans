@@ -10,7 +10,10 @@ libraries:
   version: "1.8.0"
 - name: "Pillow"
   version: "4.1.0"  
-  
+- name: "django-crispy-forms"
+  version: "1.6.0"
+
+
 handlers:
 - url: /static/
   static_path: static_in_env/static_root
