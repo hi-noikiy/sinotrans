@@ -3,6 +3,8 @@ include/
 lib/
 gitpush.bat
 local.py
+#security_setting.py
+#settings_security.py
 
 pip-selfcheck.json
 *.sqlite3
@@ -17,8 +19,7 @@ pip-selfcheck.json
 
 static_in_env/
 
-security_setting.py
-settings_security.py
+
 
 *.sublime-project
 *.sublime-workspace
