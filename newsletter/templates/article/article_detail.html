@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-6 col-sm-offset-3'>
+		<div class="text-center">
+			<lead><h1>{{object.title}}</h1></lead>
+			time : {{object.publishtime}}
+			<p>{{object.abstract}}</p>
+		</div>
+		<hr>
+
+		<div>
+			{{ object.content|safe }}	
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

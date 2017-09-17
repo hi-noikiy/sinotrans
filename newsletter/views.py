@@ -1,20 +1,36 @@
-from django.shortcuts import render
+
 from django.conf import settings
 from django.core.mail import send_mail
-
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect
 from .forms import SignUpForm,ContactForm
-from .models import SignUp
+from .models import Banner, Article
+
+
+
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import FormView, CreateView
+from django.core.urlresolvers import reverse
+# from django.contrib.auth.forms import AuthenticationForm
+# from django.utils.http import is_safe_url
+# from django.http import HttpResponseRedirect
+
+
+
 
 def home(request):    
 
     title = 'Sign Up now'
+    banners = Banner.objects.filter(active=True).order_by("?")[:6]
+
     form = SignUpForm(request.POST or None)
     context = {
         "title": title,
-        "form": form        
+        "form": form,
+        'banners':banners,
+
     }
-    print request
-    print request.POST
     
     if form.is_valid():
         #form.save()
@@ -32,12 +48,8 @@ def home(request):
             "title": "Thank you"
         }
 
-    if request.user.is_authenticated() and request.user.is_staff:
-        queryset = SignUp.objects.all().order_by('-timestamp') #.filter(full_name__iexact="Justin")        
-        context = {
-            "queryset" : queryset
-        }
     return render(request, "home.html", context)
+
 
 def contact(request):
     title = 'Contact Us'    
@@ -88,4 +100,42 @@ def contact(request):
         "title_align_center": title_align_center,
     }
     return render(request, "forms.html", context)
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = "article/article_detail.html"
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        context["object"] = self.get_object()
+        return context        
+
+    def get(self, request, *args, **kwargs):
+        return super(ArticleDetailView, self).get(request, *args, **kwargs) 
+
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        request.breadcrumbs([
+            ("Home",reverse("home", kwargs={})),
+            ("Newsletter",reverse("ArticleListView", kwargs={})),
+            (instance.title,request.path_info),
+        ])
+        return super(ArticleDetailView, self).dispatch(request,args,kwargs)      
+
+class ArticleListView(ListView): 
+    model = Article
+    template_name = "article/article_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleListView, self).get_context_data(*args, **kwargs)
+        context["objects"] = Article.objects.all()
+        return context       
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            ("Home",reverse("home", kwargs={})),
+            ('Newsletter',request.path_info),
+        ])
+        return super(ArticleListView, self).dispatch(request,args,kwargs)   
+
+
 

@@ -44,6 +44,9 @@ INSTALLED_APPS = (
 	'newsletter',
     'crispy_forms',
     'registration',
+
+    # 3rd party
+    'ckeditor',
 )
 
 MIDDLEWARE_CLASSES = (
