@@ -3,17 +3,6 @@
 {# load myform_tags #}
 {% load i18n %}
 
-{% block content2 %}
-<div class='row'>
-	<div class='col-sm-6 col-sm-offset-3'>
-		<form class="form-horizontal" enctype="multipart/form-data" method="POST" action='' >{% csrf_token %}
-			{{form|crispy}}
-			<input style="width:30%" type="submit" name="submit" class="btn btn-default pull-right" value="submit" />
-		</form> 
-	</div>
-</div>
-{% endblock %}
-
 {% block content %}
 <div class='row'>
 	<div class='col-sm-6 col-sm-offset-3'>
@@ -24,37 +13,8 @@
             <hr>
         </div>         
 		
-		<div>
-			{% if isreadonly %}
-				<a class="btn btn-default" style="margin-top: 5px;" href="{% url 'dailyinspection_detail' pk=object.id  isreadonly=True %}"  >{% trans 'Edit' %}</a>  
-			{% else %}
-            {# include "form_horizontal.html" with submitvalue="Submit" file=True #} 
-            <form class="form-horizontal" enctype="multipart/form-data" method="POST" action='' style="padding: 3px">{% csrf_token %}
-			    {% if form.errors %}
-			        <p style="color: #b75f33;">
-			            {{form.non_field_errors}}
-			        </p>
-			    {% endif %}
-
-			    {% for field in form %}
-			        {% if not 'image_' in field.name %}
-			    		{% include "dailyinspection/field.html" %}			    	
-			        {% endif %}
-			    {% endfor %}
-
-			    {% for field in form %}
-			        {% if 'image_' in field.name %}
-			        	<hr>
-			        	{% include "dailyinspection/field.html" with image=True %}
-			        {% endif %}
-			    {% endfor %}
-
-			    <hr>                 
-	            		            
-			    <input style="width:30%" type="submit" name="submit" class="btn btn-default pull-right" value='{% trans "submit" %}' />
-
-			</form>   
-			{% endif %}			
+		<div> 	            		            
+			<a class="btn btn-default" href="{{object.get_absolute_url_update}}"  >{% trans 'Update' %}</a>
 		</div>
         
 	</div>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin, TemplateView
-from django.views.generic.edit import FormView, CreateView
+from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormMixin, ModelFormMixin
@@ -146,14 +146,18 @@ class DailyInspectionCreateView(CreateView):
         return reverse("dailyinspection_list", kwargs={}) 
 
 
-class DailyInspectionDetailView(ModelFormMixin, DetailView):
-    
+class DailyInspectionDetailView( DetailView):
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_detail.html"
+    
+class DailyInspectionUpdateView(UpdateView): #ModelFormMixin
+    
+    model = DailyInspection
+    template_name = "dailyinspection/dailyinspection_update.html"
     form_class = DailyInspectionForm
 
     def get_context_data(self, *args, **kwargs):
-        context = super(DailyInspectionDetailView, self).get_context_data(*args, **kwargs)
+        context = super(DailyInspectionUpdateView, self).get_context_data(*args, **kwargs)
         object = self.get_object()
         context["object"] =object 
         #selected = [item for item in object.impact]
@@ -163,7 +167,6 @@ class DailyInspectionDetailView(ModelFormMixin, DetailView):
             form = self.form_class(instance = self.get_object()) 
         context["form"] = form
         #context["media"] = settings.MEDIA_URL
-        context["isreadonly"] = self.kwargs.get('isreadonly',True)
         return context        
 
     def get_object(self, *args, **kwargs):
@@ -175,7 +178,7 @@ class DailyInspectionDetailView(ModelFormMixin, DetailView):
         return dailyinspection 
 
     def get(self, request, *args, **kwargs):
-        return super(DailyInspectionDetailView, self).get(request, *args, **kwargs) 
+        return super(DailyInspectionUpdateView, self).get(request, *args, **kwargs) 
 
     def post(self, request, *args, **kwargs):
         form = self.get_form() 
@@ -186,7 +189,7 @@ class DailyInspectionDetailView(ModelFormMixin, DetailView):
         else:            
             return self.form_invalid(form)
 
-        return super(DailyInspectionDetailView, self).post(request, *args, **kwargs) 
+        return super(DailyInspectionUpdateView, self).post(request, *args, **kwargs) 
 
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -195,7 +198,7 @@ class DailyInspectionDetailView(ModelFormMixin, DetailView):
             (_("Daily Inspection"),reverse("dailyinspection_list", kwargs={})),
             (instance,request.path_info),
         ])
-        return super(DailyInspectionDetailView, self).dispatch(request,args,kwargs)   
+        return super(DailyInspectionUpdateView, self).dispatch(request,args,kwargs)   
 
     def get_success_url(self):
         return reverse("dailyinspection_list", kwargs={}) 

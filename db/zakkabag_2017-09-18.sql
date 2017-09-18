@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : zakkabag
+Source Server         : szakkabag
 Source Server Version : 50623
-Source Host           : kdcdquelxuaz.mysql.sae.sina.com.cn:10028
+Source Host           : prqricrbrexa.mysql.sae.sina.com.cn:10180
 Source Database       : zakkabag
 
 Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2017-09-18 22:47:12
+Date: 2017-09-18 23:43:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -324,11 +324,12 @@ CREATE TABLE `carts_cart` (
   PRIMARY KEY (`id`),
   KEY `carts_cart_e8701ad4` (`user_id`),
   CONSTRAINT `carts_cart_user_id_4cb3f9df_fk_authwrapper_myuser_id` FOREIGN KEY (`user_id`) REFERENCES `authwrapper_myuser` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of carts_cart
 -- ----------------------------
+INSERT INTO `carts_cart` VALUES ('1', '2017-09-17 08:40:31', '2017-09-17 08:40:31', '1', '25.00', '1.88', '26.88', '0.07500');
 
 -- ----------------------------
 -- Table structure for `carts_cartitem`
@@ -394,11 +395,12 @@ CREATE TABLE `crowdfundings_crowdfunding` (
   PRIMARY KEY (`id`),
   KEY `crowdfundings_crowdfun_user_id_4896770f_fk_authwrapper_myuser_id` (`user_id`),
   CONSTRAINT `crowdfundings_crowdfun_user_id_4896770f_fk_authwrapper_myuser_id` FOREIGN KEY (`user_id`) REFERENCES `authwrapper_myuser` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crowdfundings_crowdfunding
 -- ----------------------------
+INSERT INTO `crowdfundings_crowdfunding` VALUES ('1', 'health', '测试', '测试', '1', 'crowdfunding/bhe001/-None.jpg', '2017-09-17 07:02:00', '1', '100', '2017-09-17 07:02:00');
 
 -- ----------------------------
 -- Table structure for `django_admin_log`
@@ -641,10 +643,10 @@ CREATE TABLE `django_session` (
 -- ----------------------------
 -- Records of django_session
 -- ----------------------------
-INSERT INTO `django_session` VALUES ('15jd52e6uuty94nrdt8484fd5uztvxnu', 'NzQ2ZjhlMDZlNTBlODFmY2YzYjljNzBlZWEwNDczODEzZWYyMTcwYTp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmNzY3NjE0NDg3NWUzNjU1ZGU5MmRjNmRhODY2NTUyM2I2YmRjYzEiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImF1dGh3cmFwcGVyLmJhY2tlbmRzLmF1dGguTXlCYWNrZW5kIiwiY2FydF9pdGVtX2NvdW50IjowfQ==', '2017-09-30 03:16:27');
-INSERT INTO `django_session` VALUES ('1ckd580npxujsc9tjylfcevk6xy2x8bk', 'NDMwNTJhNTAxMzJiNWQzNDc1YWQwOTIwNDU0YmI2N2RlOWI5YjVlNTp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmNzY3NjE0NDg3NWUzNjU1ZGU5MmRjNmRhODY2NTUyM2I2YmRjYzEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJhdXRod3JhcHBlci5iYWNrZW5kcy5hdXRoLk15QmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIiwiY2FydF9pdGVtX2NvdW50IjowfQ==', '2017-09-30 09:25:29');
+INSERT INTO `django_session` VALUES ('15jd52e6uuty94nrdt8484fd5uztvxnu', 'NzQ2ZjhlMDZlNTBlODFmY2YzYjljNzBlZWEwNDczODEzZWYyMTcwYTp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmNzY3NjE0NDg3NWUzNjU1ZGU5MmRjNmRhODY2NTUyM2I2YmRjYzEiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImF1dGh3cmFwcGVyLmJhY2tlbmRzLmF1dGguTXlCYWNrZW5kIiwiY2FydF9pdGVtX2NvdW50IjowfQ==', '2017-10-01 23:23:29');
+INSERT INTO `django_session` VALUES ('1ckd580npxujsc9tjylfcevk6xy2x8bk', 'NzcwNjM0NmFiZjc1YjQxZmI4NGQ3MTY2MGZkYmNkNTE5YjgwMGQ3YTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiYXV0aHdyYXBwZXIuYmFja2VuZHMuYXV0aC5NeUJhY2tlbmQiLCJfc2Vzc2lvbl9leHBpcnkiOjAsImNhcnRfaXRlbV9jb3VudCI6MCwiX2F1dGhfdXNlcl9oYXNoIjoiNWY3Njc2MTQ0ODc1ZTM2NTVkZTkyZGM2ZGE4NjY1NTIzYjZiZGNjMSIsImNhcnRfaWQiOjF9', '2017-10-02 13:10:38');
 INSERT INTO `django_session` VALUES ('azindq6fk2lc1b6zr1tu5fwhdx95hk6i', 'MjE4OWZhZTYyODk3MzU0NmMxYzU2YmU0MDA3ZmExYWQ5MjkyMjY4Njp7ImNhcnRfaXRlbV9jb3VudCI6MH0=', '2017-10-01 01:55:17');
-INSERT INTO `django_session` VALUES ('dfzs12y8layaqv7xw848wsoz8jsjorhj', 'NzQ2ZjhlMDZlNTBlODFmY2YzYjljNzBlZWEwNDczODEzZWYyMTcwYTp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmNzY3NjE0NDg3NWUzNjU1ZGU5MmRjNmRhODY2NTUyM2I2YmRjYzEiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImF1dGh3cmFwcGVyLmJhY2tlbmRzLmF1dGguTXlCYWNrZW5kIiwiY2FydF9pdGVtX2NvdW50IjowfQ==', '2017-09-25 13:44:18');
+INSERT INTO `django_session` VALUES ('dfzs12y8layaqv7xw848wsoz8jsjorhj', 'NzQ2ZjhlMDZlNTBlODFmY2YzYjljNzBlZWEwNDczODEzZWYyMTcwYTp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmNzY3NjE0NDg3NWUzNjU1ZGU5MmRjNmRhODY2NTUyM2I2YmRjYzEiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImF1dGh3cmFwcGVyLmJhY2tlbmRzLmF1dGguTXlCYWNrZW5kIiwiY2FydF9pdGVtX2NvdW50IjowfQ==', '2017-10-02 15:42:19');
 INSERT INTO `django_session` VALUES ('djppju1u17zbd3v6cpl9fnxeu9d7gi68', 'NzQ2ZjhlMDZlNTBlODFmY2YzYjljNzBlZWEwNDczODEzZWYyMTcwYTp7Il9hdXRoX3VzZXJfaGFzaCI6IjVmNzY3NjE0NDg3NWUzNjU1ZGU5MmRjNmRhODY2NTUyM2I2YmRjYzEiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImF1dGh3cmFwcGVyLmJhY2tlbmRzLmF1dGguTXlCYWNrZW5kIiwiY2FydF9pdGVtX2NvdW50IjowfQ==', '2017-10-01 02:44:52');
 INSERT INTO `django_session` VALUES ('vngztl6f5nxadmpmqkw1w6w8zbq8wdqx', 'MjE4OWZhZTYyODk3MzU0NmMxYzU2YmU0MDA3ZmExYWQ5MjkyMjY4Njp7ImNhcnRfaXRlbV9jb3VudCI6MH0=', '2017-10-01 02:30:26');
 INSERT INTO `django_session` VALUES ('wtnmm27vezeivm7869d63prj4p90v9du', 'MjE4OWZhZTYyODk3MzU0NmMxYzU2YmU0MDA3ZmExYWQ5MjkyMjY4Njp7ImNhcnRfaXRlbV9jb3VudCI6MH0=', '2017-09-18 14:57:00');
@@ -684,13 +686,20 @@ CREATE TABLE `inspection_dailyinspection` (
   `rectification_status` varchar(30) NOT NULL,
   `updated` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of inspection_dailyinspection
 -- ----------------------------
-INSERT INTO `inspection_dailyinspection` VALUES ('1', '[u\'1\', u\'2\', u\'3\']', '杨', 'dailyinspection/machine/2017-08-29-00-36-34-projects-and-energy_TOLsN6G.jpg', 'dailyinspection/machine/2017-08-29-00-36-34-chemicals_Gx8daQd.jpg', '2017-01-01', 'machine', '2017-08-29 00:36:34', '大', '1', '大', 'completed', '2017-09-16 16:25:34');
-INSERT INTO `inspection_dailyinspection` VALUES ('2', '[u\'1\']', '老鹰', 'dailyinspection/people/2017-09-01-10-57-57-automotive.jpg', '', '2017-08-12', 'people', '2017-09-01 10:57:57', '大', '1', '吧', 'completed', '2017-09-16 16:27:25');
+INSERT INTO `inspection_dailyinspection` VALUES ('1', '[u\'1\', u\'3\']', '杨志想', 'dailyinspection/machine/20170829003634-20170813_142510.jpg', 'dailyinspection/machine/20170829003634-20170813_145439.jpg', '2017-01-01', 'method', '2017-08-29 00:36:34', '5K33L1纸箱漏油', '1', '立即要求相关人员进行整改', 'completed', '2017-09-17 13:32:34');
+INSERT INTO `inspection_dailyinspection` VALUES ('2', '[u\'1\']', '严鹰超', 'dailyinspection/people/2017-09-01-10-57-57-automotive.jpg', '', '2017-08-12', 'people', '2017-09-01 10:57:57', 'X3-106前面放货', '1', '立即要求相关人员进行整改', 'completed', '2017-09-17 13:33:20');
+INSERT INTO `inspection_dailyinspection` VALUES ('3', '[u\'1\', u\'3\']', '杨志想', 'dailyinspection/environment/20170917133137-automotive.jpg', '', '2017-08-01', 'environment', '2017-09-17 13:31:37', '52K14散拍未并拍', '1', '立即要求相关人员进行整改', 'completed', '2017-09-17 13:31:37');
+INSERT INTO `inspection_dailyinspection` VALUES ('4', '[u\'3\']', '严鹰超', 'dailyinspection/people/20170917133417-projects-and-energy.jpg', '', '2017-08-14', 'people', '2017-09-17 13:34:17', '清洁工具摆放处有大量水渍', '1', '立即要求相关人员进行整改', 'completed', '2017-09-17 13:34:17');
+INSERT INTO `inspection_dailyinspection` VALUES ('5', '[u\'1\', u\'3\']', '杨志想', 'dailyinspection/device/20170917133517-projects-and-energy.jpg', '', '2017-08-21', 'device', '2017-09-17 13:35:17', '4号液压车损坏', '1', '立即要求相关人员进行整改', 'completed', '2017-09-17 13:35:17');
+INSERT INTO `inspection_dailyinspection` VALUES ('6', '[u\'3\']', '严鹰超', 'dailyinspection/environment/20170917133610-automotive.jpg', '', '2017-09-20', 'environment', '2017-09-17 13:36:10', '5号液压车使用完毕没有及时归位', '1', '立即要求相关人员进行整改', 'uncompleted', '2017-09-18 00:47:41');
+INSERT INTO `inspection_dailyinspection` VALUES ('7', '[u\'1\', u\'3\']', '杨志想', 'dailyinspection/people/20170917133700-chemicals.jpg', '', '2017-08-14', 'people', '2017-09-17 13:37:00', '33J5K库边漏雨', '1', '立即要求相关人员进行整改', 'completed', '2017-09-17 13:37:00');
+INSERT INTO `inspection_dailyinspection` VALUES ('8', '[u\'1\', u\'3\']', '杨志想', 'dailyinspection/environment/20170917133755-1502042224227609564.jpg', '', '2017-08-14', 'environment', '2017-09-17 13:37:55', '叉车停在人行道上，存在安全隐患', '1', '立即要求相关人员进行整改', 'uncompleted', '2017-09-17 13:52:48');
+INSERT INTO `inspection_dailyinspection` VALUES ('9', '[u\'1\', u\'3\']', '严鹰超', 'dailyinspection/device/20170917133842-1502042205287071814.jpg', '', '2017-08-21', 'device', '2017-09-17 13:38:42', '仓库多处使用坏木拍', '1', '立即要求', 'completed', '2017-09-17 13:38:42');
 
 -- ----------------------------
 -- Table structure for `inspection_extinguisher`
@@ -1031,7 +1040,7 @@ CREATE TABLE `inspection_shelf_inspection_record` (
 -- ----------------------------
 -- Records of inspection_shelf_inspection_record
 -- ----------------------------
-INSERT INTO `inspection_shelf_inspection_record` VALUES ('1', '1', '1', '张三', '0.4', '', '1', '1', '2017-08-29');
+INSERT INTO `inspection_shelf_inspection_record` VALUES ('1', '1', '1', '张三', '11.0', '', '1', '1', '2017-08-29');
 INSERT INTO `inspection_shelf_inspection_record` VALUES ('2', '2', '0', '发放', '0.5', '', '2', '1', '2017-08-29');
 
 -- ----------------------------
@@ -1172,11 +1181,12 @@ CREATE TABLE `personalcenter_userprofile` (
   `level` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of personalcenter_userprofile
 -- ----------------------------
+INSERT INTO `personalcenter_userprofile` VALUES ('1', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for `phone_login_phonetoken`

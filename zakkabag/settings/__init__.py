@@ -6,7 +6,7 @@ mysql = True
 sae = False
 
 
-if 'SERVER_SOFTWARE' in os.environ or settings.SAE_LOCAL_VPN == True: 
+if 'SERVER_SOFTWARE' in os.environ or settings.USE_SAE_DB == True: 
 	from .sae import *
 elif sae:
 	from .sae import *

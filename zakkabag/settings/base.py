@@ -176,7 +176,7 @@ STATICFILES_DIRS = (
     #'/var/www/static/',
 )
 
-USE_SAE_BUCKET = False #True if 'SERVER_SOFTWARE' in os.environ else False
+USE_SAE_BUCKET = True if 'SERVER_SOFTWARE' in os.environ else False
 
 if USE_SAE_BUCKET: #'SERVER_SOFTWARE' in os.environ:    
     FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760 # 10M
@@ -279,5 +279,5 @@ PHONE_LOGIN_ATTEMPTS = 100
 
 USE_EXPLICIT_LANG_URL = False
 
-SAE_LOCAL_VPN = False
+USE_SAE_DB = False
 
