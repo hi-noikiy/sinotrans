@@ -1,1 +1,1 @@
-web: gunicorn hsse.wsgi --log-file -
+web: gunicorn zakkabag.wsgi --log-file -
