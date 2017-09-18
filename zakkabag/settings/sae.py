@@ -50,6 +50,6 @@ DATABASES = {
 
 import dj_database_url
 # Parse database configuration from $DATABASE_URL
-DATABASES['default'] =  dj_database_url.config(default="mysql://root:root123@prqricrbrexa.mysql.sae.sina.com.cn:10180/zakkabag")
+DATABASES['default'] =  dj_database_url.config(default="mysql://root:root123@nafuzyyfvaoi.mysql.sae.sina.com.cn:10238/sinotrans")
 
 # MUST use root ?
