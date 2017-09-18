@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+<script>
+{% block jquery %}
+$("#link>a").click(function(event){
+	event.preventDefault();
+	$.ajax({
+		type: "GET", 
+		url: "{% url 'unlink_from_wechat' %}",
+		data: {},
+		success: function(data) {
+			$('#link>a').html('link');
+			//$('#link').css("display": "none"); //it will make ajax = False
+			$('#link').html('');
+		}, 
+		error: function(response, error) {
+			
+		}
+	})
+
+	// $("#add-form").submit() # it will go to the next page
+})
+
+{% endblock %}
+</script>
+
+
+{% block content %}
+
+{% comment%}		
+<!--- for all the tab page, myuser must be provided -->
+{% endcomment%}		
+
+<div class = "row">
+	<div class = "col-sm-6 col-sm-offset-3">
+		<ul class="nav nav-pills ">  
+		  <li role="presentation" class="active"><a href='{% url "personalcenter" id=myuser.id %}'>Profile</a></li>
+		  <li role="presentation"><a href="#">Messages</a></li>
+		  <li role="presentation"><a href='{% url "myuser_profile_extend" id=myuser.id %}'>Score</a></li>
+		  <li role="presentation"><a href='{% url "myorder" id=myuser.id %}'>Order</a></li>
+		  <li role="presentation"><a href="#">Donate</a></li>
+		</ul>
+		<p>
+		{% block subcontent %}
+		<div class = "row">
+			<div class = "col-sm-3 col-xs-3">
+			    <img  id='img' class= 'img-responsive' src={% if wechat %}"{{wechat.get_image_url}}"{% else %}"{{myuser.get_image_url}}"{% endif %}/>
+			</div>
+			<div class = "col-sm-9 col-xs-9">
+			    <div>
+			        {{myuser}} 
+			        | {{myuser.sex}} 
+			        {% if myuser.birthday%}| {{myuser.birthday}}{% endif %}
+			     </div>
+			</div>			
+		</div>
+
+		<div class = "row">
+            <div class = "col-sm-9">			    
+			    {% if wechat %}	
+			    <br>
+			    <h1>Wechat <small><a href='{% url "unlink_from_wechat" %}'>unlink</a></small> </h1>
+			    <div id='link'>							
+				    {{wechat}}  | {{wechat.sex}} | {{wechat.country}} {{wechat.city}}
+				</div>
+				{% endif %}		
+
+				<hr>
+		        <div><a href='{% url "auth_password_change2"%}'>Change Password</a></div>
+		        <div><a href='{% url "profile_detail" id=myuser.id %}'>Change Profile</a></div>		
+	        </div>
+		</div>		
+		{% endblock %}
+
+	</div>
+</div>
+
+{% endblock%}

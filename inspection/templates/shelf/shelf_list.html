@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load myform %}
+
+{% block content %}
+
+<table class="table table-hover table-striped text-center">
+	<thead>		
+		{% for field in object_list.1.get_fields %}
+			{% if field.name == 'shelf_inspection_record' %}
+			{% else %}
+			<th class="text-center">
+				{{ field.verbose_name }}
+			</th>
+			{% endif %}		
+		{% endfor %}
+	</thead>
+	<tbody>
+		{% for object in object_list %}
+		<tr>			
+			{% for field in object.get_fields %}			
+				{% if field.name == 'id' %}
+					<td><a href="{{object.get_absolute_url}}">{{object.id}}</a></td>					
+				{% elif field.name == 'shelf_inspection_record' %}
+				{% else %}
+					<td>{{ object|get_field_value:field.name}}</td>
+				{% endif %}			
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+{% endblock %}

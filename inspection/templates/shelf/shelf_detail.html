@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+	<div class="col-sm-6">
+		{% trans "Shelf Type" %}: {{object.type}} <br>
+		{% trans "Warehouse Number" %}: {{object.warehouse}}<br>
+		{% trans "Warehouse Channel Number" %}: {{object.warehouse_channel}}<br>
+		{% trans "Compartment Number" %}: {{object.compartment}}<br>
+		{% trans "Shelf Number" %}: {{object.number}}
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+	<div class="col-sm-12">
+	<h4>{% trans 'Related Inspections' %}</h4>
+		{% for object_inspection in related_inspection %}
+		<div class="row">
+			<div class="col-sm-3">
+				<a href="{{object_inspection.get_absolute_url}}">{{object_inspection.shelf_inspection.check_date}}</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load myform %}
+
+{% block content %}
+
+<table class="table table-hover table-striped table-container">
+    <caption>Shelf Inspections Record</caption>
+    <thead>
+    </thead>
+    <tbody>    
+        <tr id='form-extract'>
+        <form method="POST" class="ajaxform" id="{{form_id}}" action=''>{% csrf_token %}            
+            {% for field in form %}
+                {% if field.name in form.Meta.hidden_form %}
+                    <td style="display:none" type='hidden'>{{field}}</td>                    
+                    {% if not field.name in form.Meta.hidden %}
+                    <td class="text-center">{{form.instance|get_field_value:field.name}}</td>
+                    {% endif %}
+                {% elif field.name in form.Meta.disabled %}
+                    <td class="text-center">{{form.instance|get_field_value:field.name}}</td>
+                {% else %}
+                    <td>
+                        <div class="displayonly text-center" style="display: block">{{form.instance|get_field_value:field.name}}</div>
+                        <div class="edit" style="display: none">{{field}}</div>
+                    </td>
+                {% endif%}            
+            {% endfor %}
+                <td>
+                    <i class="fa fa-1x fa-pencil-square-o edit-fields" aria-hidden="true" style="padding-top: 40%;"></i>
+                    <input type="image" value=" " class="fa fa-check check-fields" onclick="this.form.submit();" style="display: none;" style="padding-right: 0; margin-right: 0; width:100%" />
+                    <i class="fa fa-times close-fields" aria-hidden="true" style="display: none"></i>
+                    <div id='blank'></div>
+                </td>            
+        </form>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
+
+<!-- issue for replace method, 
+for form inline in table, the structure changed, form doesn't embrace its element, so submit don't work after replace the html
+-->

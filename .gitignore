@@ -1,32 +1,44 @@
-bin/
-include/
-lib/
-gitpush.bat
-local.py
-#security_setting.py
+# backup files
+_backup/
+
+# Security iles
+security_setting.py
 #settings_security.py
 
-pip-selfcheck.json
-*.sqlite3
-.DS_STORE
-.Python
-*.py[cod]
+#static/static_root
+#static_in_env/media_root
+trial.py
 
+# temporaty files
+~$*
+*.tmp
+
+# project file
 .pydevproject
 .project
 .settings/
-
-
-static_in_env/
-
-
-
 *.sublime-project
 *.sublime-workspace
 
+# tools and environment
+bin/
+include/
+lib/
+pip-selfcheck.json
+
+
+dev_server.py
+
+#*.sqlite3
+.DS_STORE
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
+#*.py[cod]
+*.py[co]
+
 
 # C extensions
 *.so
@@ -66,7 +78,7 @@ nosetests.xml
 coverage.xml
 
 # Translations
-*.mo
+#*.mo
 *.pot
 
 # Django stuff:

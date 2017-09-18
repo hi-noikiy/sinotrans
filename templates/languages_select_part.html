@@ -1,0 +1,13 @@
+{% load staticfiles %}
+{% load langs %}
+
+{% if languages %}
+<form class="navbar-form navbar-left" id="language-select-form" method="post" action="{% url 'setlang' %}">{% csrf_token %}
+	<select class="dropdown form-control" onchange="this.form.submit();" name="language">
+		{% for lang in languages %}
+		<option value="{{ lang.code }}" {% if lang.code == default %}selected="selected"{% endif %}>{{ lang.name_local }}</option>
+		{% endfor %}
+	</select>
+	<input name="next" type="hidden" value="{{ request.get_full_path|strip_lang }}" />
+</form>
+{% endif %}

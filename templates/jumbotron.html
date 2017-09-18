@@ -1,0 +1,64 @@
+
+<style>
+{% block style %}
+
+.jumbotron {
+    margin-bottom: 5px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+
+    background-color: #5ACDFF !important;
+    /*color : #F5F5F5;*/
+    color : #000;
+    {% if featured_image.make_image_background %} 
+    background-image: url("{{ featured_image.image.url }}");
+    background-repeat: no-repeat;
+    background-color: #000;
+    background-size: cover; /*stretch to adapt screen*/
+    background-position-y: -272px;
+    {% endif %}    
+}
+
+.jumbotron .img-responsive {
+    max-height: 200px;
+    text-align: center;  
+    vertical-align: middle;
+    margin: auto;   
+}
+{% endblock %}
+</style>
+
+    {% if featured_image %} 
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class='{% if featured_image.make_image_background %} col-sm-12 {% else %} col-sm-6 {% endif %} text-center {% if featured_image.text_right %} pull-right {% endif %}'>
+                    <h1>{{ featured_image.product.title }}</h1>
+                    <p>{{ featured_image.product.description }}</p>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="{{ featured_image.product.get_absolute_url }}" role="button">More Details &raquo;</a>
+                    </p>
+                </div>
+                {% if not featured_image.make_image_background %} 
+                <div class='col-sm-6'>
+                    <img src="{{ featured_image.image.url }}" class='img-responsive'  />
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>    
+    {% else %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                    <h1>crowd founding</h1>
+                    <p>Welcome to Crowd Founding. Join Us today.</p>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="" role="button">Join us &raquo;</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}    

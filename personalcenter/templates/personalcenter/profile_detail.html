@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block jswotag %}
+    {% include "upload/ajax.html" %}
+{% endblock %}
+
+
+<style type="text/css">
+{% block style %}
+.progress {
+    background-color: #dad88a;
+    /*padding-left: 10px;*/
+}
+
+{% endblock %}
+</style>
+    
+<script>
+{% block js %}
+
+$(document).ready(function(){
+    $(".field-area input").addClass("form-control");
+    $(".field-area textarea").addClass("form-control");
+    $(".field-area select").addClass("form-control");
+    $(".field-area>label").addClass("col-sm-2 control-label");
+});
+
+{% endblock %}
+</script>
+
+
+{% block content %}
+
+<div class='col-sm-6 col-sm-offset-3'>
+    <h3>{{ object }}</h3><hr>
+    {% comment %}
+    <form id="form_profile" enctype="multipart/form-data" method="POST" enctype="multipart/form-data" action=""> {% csrf_token %}
+        {% form|crispy %}         
+        <br>
+        <input type="submit" value='Update' class='btn' />
+    </form>
+    {% endcomment %}
+    {% include "form_horizontal.html" with submitvalue="Update" file=True %}
+</div>
+    
+<div class='col-sm-3'>
+    <h3>Head Image</h3><hr>
+    {% comment %}
+    <form id="form_upload"  enctype="multipart/form-data" action="/fileupload/uploadfile " method="POST"> {% csrf_token %}
+        <img  id='img' class= 'img-responsive' src="{{object.get_image_url}}"/>
+        {{upload_form|crispy}}
+        <div class="progress">
+          <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            0%
+          </div>
+        </div>        
+        <div class="processing-file"></div>
+        <input id="buttonSubmit" class="btn btn-primary" type="submit" value="Upload" />        
+    </form>
+    {% endcomment %}
+    {% include "form_fileupload.html" with object=object %}
+</div>
+
+{% endblock %}

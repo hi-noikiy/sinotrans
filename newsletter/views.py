@@ -2,6 +2,7 @@
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from products.models import ProductFeatured,Product
 from django.shortcuts import render, redirect
 from .forms import SignUpForm,ContactForm
 from .models import Banner, Article
@@ -22,12 +23,20 @@ from django.core.urlresolvers import reverse
 def home(request):    
 
     title = 'Sign Up now'
+    featured_image = ProductFeatured.objects.filter(active=True).order_by("?").first()
+    featured_images = ProductFeatured.objects.all()
+    products = Product.objects.all().order_by("?")[:6]
+    products2 = Product.objects.all().order_by("?")[:6]
     banners = Banner.objects.filter(active=True).order_by("?")[:6]
 
     form = SignUpForm(request.POST or None)
     context = {
         "title": title,
         "form": form,
+        "featured_image":featured_image,
+        'featured_images':featured_images,
+        "products":products,
+        "products2":products2,
         'banners':banners,
 
     }

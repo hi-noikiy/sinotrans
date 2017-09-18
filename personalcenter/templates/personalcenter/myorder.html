@@ -1,0 +1,23 @@
+{% extends "personalcenter/personalcenterhome.html" %}
+
+{% block subcontent %}
+	<h3>Your Orders - {{usermodel}} </h3>
+	<table class='table'>
+		<tr>
+			<th>Order Number</th>
+			<th>Item Count</th>
+			<th>Exchange</th>
+		</tr>		
+		{% for object in order_objects %}
+		<tr>
+			<td>
+				<a href='{{ object.get_absolute_url }}'>#{% if object.order_id %}{{ object.order_id }}{% else %}{{ object.id }}{% endif %}</a>
+			</td>
+			<td>
+				{{ object.cart.items.count }}
+			</td>
+			<td>0</td>
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

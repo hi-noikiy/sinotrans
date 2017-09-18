@@ -1,112 +1,74 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+{% load i18n %}
 
-{% block head_title %}Welcome | {% endblock %}
+{% block head_title %}Welcome | {{ block.super }} {% endblock %}
 
 <style>
 {% block style %}
-.jumbotron {
-    background-color: #0E3D14 !important;
-    color : #337AB7;
+.navbar-static-top {
+  margin-bottom: 0px; 
 }
+
+.panel{
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
 {% endblock %}
 </style>
 
-<style>
-.jumbotron {
-    background-color: #0E3D14 !important;
-    color : #337AB7;
-}
-</style>
-
-{% block jumbotron %}
-{% if not request.user.is_authenticated%}
-<!-- Main component for a primary marketing message or call to action -->
-<div class="jumbotron">
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6">
-        <h1>Try Django1.8</h1>
-        <p>The MVP Landing project is designed to get your project started. The goal is to help you launch as soon as possible with the least amount of investment using time or money. Join Us today.</p>
-        <p>To see the difference between static and fixed top navbars, just scroll.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="" role="button">Join us &raquo;</a>
-        </p>
-    </div>
-<!--     <div class="col-sm-6" style="background-color:black;min-height:300px;"> -->
-          <!--
-          <div class='col-sm-6' >
-                <iframe width="560" height="315" src="http://v.youku.com/v_show/id_XMTQyMjMzNjQ2OA==.html" frameborder="0" allowfullscreen></iframe>
-          </div>
-          -->
-          <div class='col-sm-6 video'>
-              <embed width="560" height="315"  src="http://player.youku.com/player.php/Type/Folder/Fid/26679028/Ob/1/sid/XMTQ2Nzg5NjM4NA==/v.swf" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" allowFullScreen="true" mode="transparent" type="application/x-shockwave-flash"></embed>
-          </div>
-    </div>
-  </div>
-</div>
-</div>
-{% endif %}
+{% block breadcrumb  %}
 {% endblock %}
+
+{% block jumbotron %}    
+  {% include "jumbotron.html" with featured_image=featured_image%}
+{% endblock %}
+
+<script type="text/javascript" charset="utf-8">
+{% block jquery %}
+
+{% endblock %}
+</script>
+
+{% block carousel %}  
+  {% include "carousel.html" with objects=banners %}
+{% endblock %}
+
 
 {% block content %}
-{% if request.user.is_authenticated%}
-<h1>You are logged in </h1>
-    {% if queryset %}
-    <h2>Welcome Staff</h2>
-    <table class='table'>
-    {% for instance in queryset %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ instance.email }}</td>
-            <td>{{ instance.full_name }}</td>
-            <td>{{ instance.timestamp|timesince }} ago</td>
-        </tr>
-        {% if instance.email == "abc@gmail.edu" %}
-        <tr><td>is equal</td></tr>
-        {% endif %}
-    {% endfor %}
-    </table>
-    {% endif %}
-
-{% else %}
-<div class="row">
-  <div class="col-md-3 col-sm-6 pull-right">
-    <h1>{{title}}</h1>
-    {{user}}
-    {{request.user}}
-    <form method="POST" action=''> {% csrf_token%}
-    {{form|crispy}}
-    <input type="submit" value="sign up">
-    </form>
+<br>
+<div class= 'row'>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3>Recommended Products</h3>
+    </div>
+    <div class="panel-body scale-product" >
+      {% include "products/products.html" with object_list=products col_class_set="col-sm-2" %}
+    </div>
+    <div style="text-align: -webkit-center;">
+      <p><a class="btn btn-default btn-lg" href="/products" role="button">More</a></p>
+    </div>
   </div>
-
-
-    <div class='col-sm-3'>
-        <p class='lead text-align-center'>Django &amp; Bootstrap</p>
-        <img src='{% static "img/marketing1.jpg" %}' class='img-responsive' />        
-    </div>
-
-    <div class='col-sm-3'>
-        <p class='lead text-align-center'>Created for Starters <br/>
-        <span class='fa-stack fa-lg fa-5x'>
-        <i class='fa fa-comment-o fa-stack-2x'></i>
-        <i style='color:yellow;' class="fa fa-bolt fa-stack-1x"></i>
-        </span> 
-        </p>
-    </div>
-
-    <div class='col-sm-3'>
-        <p class='lead text-align-center'>Always Open Source <br/>
-        <span class="fa-stack fa-lg fa-5x">
-        <i class="fa fa-circle-o-notch fa-stack-2x fa-spin"></i>
-        <!-- <i class="fa fa-square-o fa-stack-2x"></i> -->
-        <i class="fa fa-github fa-stack-1x"></i>
-        </span>
-        </p>
-    </div>  
-  
 </div>
-{% endif %}
+
+<div class='row'>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3>Featured Products</h3>
+    </div>
+    <div class="panel-body scale-product">
+      {% include "products/products.html" with object_list=products2 %}
+    </div>
+  </div>
+</div>
+
 {% endblock %}
+
+<script>
+    $(function(){
+        $('.carousel').carousel();
+    });
+</script>

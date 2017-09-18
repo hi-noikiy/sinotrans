@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-6 col-sm-offset-2'>
+	    <h3>Inspections	</h3>
+	    <hr>
+		<div class="inspection-table">
+		    <div class="inspection-row row" style="font-style: bold">
+		        <div class="inspection-cell inspection-text col-sm-3">
+		            Title
+		        </div>
+		        <div class="inspection-cell inspection-text col-sm-3">
+		            Location
+		        </div>
+		        <div class="inspection-cell inspection-text col-sm-6">
+		            Updated
+		        </div>
+		    </div>
+		    <hr>
+			{% for object in objects %}
+				<div class="inspection-row row">
+					<div class="inspection-cell inspection-img col-sm-3 ">
+						<p class="inspection-title"><a href='{{ object.get_absolute_url }}'>{{object}}</a></p>			
+					</div>
+					<div class="inspection-cell inspection-text col-sm-3">
+						<p class="inspection-abstract">{{object.location}}</p>						
+					</div>	
+					<div class="inspection-cell inspection-text col-sm-6">						
+						<span class="inspection-time">{{object.updated}}</span>
+					</div>					
+				</div>
+				<hr>
+			{% endfor %}
+			<h4><a href='{% url "OfficeInspection_create" %}'>Create New Item</a></h4>
+		</div>
+	</div>
+	<div class='col-sm-3'>
+		<h3>Latest Update</h3>
+		<hr>
+		<ul style="list-style:none; padding-left:2px; margin-left:2px;">
+			{% for object in objects_sort %}
+			<li style="padding-bottom: 5px;">
+				<a href='{{ object.get_absolute_url }}'>{{object}}</a>
+			</li>
+			{% endfor %}
+		</ul>
+
+		
+	</div>
+</div>
+
+{% endblock %}

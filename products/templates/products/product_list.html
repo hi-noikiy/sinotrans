@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+
+{% block content %}
+
+<style type="text/css">
+
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:active {text-decoration: none;}
+a:hover {text-decoration: none;}
+
+div.categorylist{
+	margin-right: 0px; /* if the value > 0, then next div will move to next line*/
+	padding: 5px 8px; 
+	
+	/*
+	min-width : 30px; 
+	display: inline-block;
+
+	background-color: #dff0d8; 
+	border:solid;
+	border-width : 1px;
+	border-color : #D6CCCC;	
+	*/
+}
+
+.category-content .category-body .categorylist:hover{
+	background-color: #d9edf7;
+}
+
+.category-content{
+	
+	/*border-bottom: solid 1px #c3e695;
+	margin-bottom: 5px; */
+	text-decoration: none; 
+	outline: none;
+	border-radius: 2px;
+	border: solid 1px #d9edf7;
+	overflow:hidden;
+}
+
+.category-content .category-suffix{
+	border-right: solid 1px #d9edf7;
+	margin-bottom:-10000px; 
+	padding-bottom:10000px;
+	line-height: 100%;
+	background-color: #d9edf7;
+	/*
+	
+	float:left; 
+	width: 150px; 
+	position:absolute; */
+}
+
+.category-content .category-body{	
+	margin-bottom:-10000px; 
+	padding-bottom:10000px;
+	/*	
+	border-bottom: solid 1px #c3e695;
+	float:left; margin-left:150px; width: 100%*/
+}
+
+.category-content .category-body .active{	
+	/*
+	background-color: #d9edf7;
+	font: bold;
+	*/
+}
+
+.products-thumbnail{
+	/*clear:both*/
+}
+</style>
+
+<div class='col-sm-3 col-md-2'>
+	<nav class="navbar navbar-default">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Search</a>
+	    </div>
+
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<form method="GET" action="{% url 'products' %}">
+				{{ filter_form|crispy }}
+				<input type='hidden' name='q' value='{{ request.GET.q }}' />
+				<input type='submit' value='Apply Filter' class='btn btn-default'>
+			</form>
+			<a href="{% url 'products' %}">Clear Filters</a>    
+	    </div>
+	</nav>
+</div>
+
+<div class='col-sm-9 col-md-10 container'>
+
+	{% block content-center %}
+	<div class='row category-content text-center'>
+		<div class='category-suffix categorylist col-xs-3 col-sm-3 col-md-2'>
+			<a href='{% url "categories" %}'>Categories</a>
+		</div>
+		<div class='category-body  col-xs-9 col-sm-9 col-md-10'>
+			<div class="row">
+				<div class='col-xs-4 col-md-2 categorylist active'>
+					<a href="{% url 'products' %}">All Products</a>
+				</div>				
+
+				{% for category in categories%}
+				<div class='col-xs-4 col-md-2 categorylist'>
+					<a href="{% url 'products' %}?category_id={{category.id}}" style="display: block; " >{{category}}</a>
+				</div>
+				{% cycle '' '' '' '' '' '</div><div class="row">'%} 
+				{% endfor %}
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="row products-thumbnail">
+		{% autopaginate object_list 6 %}
+		{% if object_list.count == 0 %}
+			Nothing found
+		{% else %}
+			{% include "products/products.html" with object_list=object_list %}
+		{% endif %}
+		<div class="text-center">
+		{% paginate %}
+		</div>
+	</div>
+
+	<small><a href='{% url "exchange_rule" %}'>Exchange Rule</a></small> 
+
+	<div class="row">
+		<h1 >
+		<small><a href='{% url "products_create" %}'>New Product</a></small> 
+		</h1>	
+	</div>
+	{% endblock %}
+</div>
+
+{% endblock %}

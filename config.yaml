@@ -1,0 +1,16 @@
+name: zakkabag
+version: 1
+
+libraries:
+- name: "django"
+  version: "1.8.4"
+- name: "chardet"
+  version: "2.3.0"
+- name: "six"
+  version: "1.8.0"
+- name: "Pillow"
+  version: "4.1.0"  
+  
+handlers:
+- url: /static/
+  static_path: static_in_env/static_root

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+<style type="text/css">
+	
+</style>
+
+{% block content %}
+
+<table class="text-center table table-hover table-striped ">
+	<thead>
+		<th></th>
+		{% for date in dates %}
+		<th class="text-center">
+			{{date}}
+		</th>
+		{% endfor %}
+	</thead>
+	<tbody>
+	{% for key,value in counters.items %}
+	<tr>
+		<td>
+			{{key}}
+		</td>
+		{% for key0,value0 in value.items %}
+		<td>
+			{{value0}}
+		</td>
+		{% endfor %}
+	</tr>
+	{% endfor %}		
+	</tbody>
+	
+</table>
+
+
+
+
+{% endblock %}

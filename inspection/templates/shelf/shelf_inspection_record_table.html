@@ -1,0 +1,95 @@
+{% load myform %}
+{% load i18n %}
+
+
+<style type="text/css">
+tr td{
+    padding-left: 1px!important;
+    padding-right: 1px!important;
+    margin-left: 1px!important;
+    margin-right: 1px!important;    
+}
+
+td input[type=''], td input[type='number'], td input[type='text'], td textarea, td select{
+    width: 100%;
+    height: 34px;
+    padding: 3px 3px;
+    margin:0;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+td input[type=checkbox]{ /*input.check*/
+    margin-left: 25%!important;
+    width: 50%!important;;
+}
+
+td .edit-fields{
+    /*padding-top: 40%;*/   
+}
+
+.table-container
+{
+    width: 100%;
+    overflow-y: auto;
+    _overflow: auto;
+    margin: 0 0 1em;
+}
+
+</style>
+
+
+<table class="table table-hover table-striped table-container table-condensed">
+	<caption>{% trans 'Shelf Inspections Record' %}</caption>
+    <thead>
+	    <tr>
+        {% for field in formset.0 %}
+            {% if not field.name in formset.0.Meta.hidden %}
+            <th class="text-center">{{field.label}}</th>
+            {% endif %}
+        {% endfor %}
+            <th></th>
+	    </tr>
+    </thead>
+    <tbody>
+        {% for form in formset %}<tr id='id_tr-{{forloop.counter0}}'>
+        
+        <form method="POST" class="ajaxform" id="id_form-{{forloop.counter0}}" action=''>{% csrf_token %}            
+            {% for field in form %}
+                {% if field.name in form.Meta.hidden_form %}
+                    <td style="display:none" type='hidden'>{{field}}</td>                    
+                    {% if not field.name in form.Meta.hidden %}
+                    <td class="text-center">
+                        {% if 'shelf' == field.name %}<a href="{% url 'shelf_detail' form.instance.shelf.id %}" >{% endif %}
+                        {{form.instance.shelf}}
+                        {% if 'shelf' == field.name %}</a>{% endif %}
+                    </td>
+                    {% endif %}
+                {% elif field.name in form.Meta.disabled %}
+                    <td class="text-center">{{form.instance|get_field_value:field.name}}</td>
+                {% else %}
+                    <td>
+                        <div class="displayonly text-center" style="display: block; {% if field.name == 'gradient' and form.instance.gradient > 1.4 %} background-color:#da678c; {% endif %}">{{form.instance|get_field_value:field.name}}</div>
+                        <div class="edit" style="display: none">{{field}}</div>
+                    </td>
+                {% endif%}            
+            
+            {% endfor %}
+                <td>
+                    <i class="fa fa-1x fa-pencil-square-o edit-fields" aria-hidden="true" ></i>
+                    <input type="image" value=" " class="fa fa-2x fa-check check-fields"  style="display: none; padding-right: 0; margin-right: 0; clear:both;float:left;" />
+                    <i class="fa fa-2x fa-times close-fields" aria-hidden="true" style="display: none"></i>
+                    <div id='blank'></div>
+                </td>
+            
+        </form>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>

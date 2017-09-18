@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+<style type="text/css">
+{% block style %}
+	div.text-detail{
+		color: #2d826f;
+	}
+{% endblock %}	
+</style>
+
+<script>
+{% block jquery %}
+
+
+function setPrice(){
+	var price = $(".variation_select option:selected").attr("data-price")
+
+	var sale_price = $(".variation_select option:selected").attr("data-sale-price")
+	if (sale_price != "" && sale_price != "None" && sale_price != null ) {
+	//$("#price").html("<h3>" + sale_price + " <small style='color:red;text-decoration:line-through;'>Original Price:" + price  + "</small></h3>");
+	$("#price").html("<h3>" + sale_price + " <small class='og-price'>" + price  + "</small></h3>");
+	} else {
+	$("#price").html(price);
+	}
+}
+setPrice()
+
+$(".variation_select").change(function(){
+	setPrice();
+	// var img = $(".variation_select option:selected").attr("data-img")
+	// $("img").attr("src", img);
+})
+
+// ajax add to cart
+
+$("#submit-btn").click(function(event){
+	event.preventDefault();
+	var formData = $("#add-form").serialize();
+	console.log(formData);
+	$.ajax({
+		type: "GET", // "POST"
+		url: "{% url 'cart' %}",
+		data: formData,
+		success: function(data) {
+			//console.log(data)
+			//$("#jquery-message").text("Added " + data.item_added + " Deleted " + data.deleted)
+			showFlashMessage(data.flash_message);
+			updateCartItemCount();
+		}, 
+		error: function(response, error) {
+			// console.log(response)
+			// console.log(error)
+			$("#add-form").submit()
+		}
+	})
+
+	// $("#add-form").submit() # it will go to the next page
+})
+
+{% endblock %}
+</script>
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-8'> 
+		<h2><small>{{object.title}}</small></h2>
+		<!-- {% if object.productimage_set.count > 0 %}
+		<div>
+			{% for img in object.productimage_set.all %}
+			<img  id='img' class= 'img-responsive' src="{{img.image.url}}"/>
+			{% endfor %}
+		</div>
+		{% endif %} --> 
+		{% if object.get_image_url %}
+		<div>
+			<img  id='img' class= 'img-responsive' src='{{ object.get_image_url }}'/>
+		</div>
+		{% endif %}		
+		<p class='lead'>
+			{{object.description|linebreaks}}
+		</p>
+
+		<div>
+			{% if images.count > 0 %}
+			<div class="text-center text-detail"><h2>Product Details</h2></div>
+			{% endif %}
+			{% for img in images %}
+			<div>
+				<img  class= 'img-responsive' style=" margin:auto;" src='{{img.image.url}}'/>				
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class='col-sm-4'>	
+		<form id='add-form' method='GET' action="{% url 'cart' %}"> <!-- add form for AJAX -->
+			<p id='jquery-message' class='lead'></p>
+			{% if object.variation_set.count > 1 %}
+				<h3 id='price'>{{ object.variation_set.first.price }}</h3>		
+				<select  name='item' class='form-control variation_select'>    
+					{% for vari_obj in object.variation_set.all %}
+				    <!-- <option data-img="http://www.spirit1059.com/pics/Feeds/Articles/2015611/118317/Beach.jpg" data-price="{{ vari_obj.price }}" value="{{ vari_obj.id }}">{{ vari_obj }}</option> -->
+					<option  data-sale-price="{{ vari_obj.sale_price }}" data-price="{{ vari_obj.price }}" value="{{ vari_obj.id }}">{{ vari_obj }}</option>
+					{% endfor %}
+				</select>
+			{% else %}
+				<input type="hidden" name='item' value='{{ object.variation_set.first.id }}' /> <!-- need to be added in this section -->
+				<h3 id='price'>{% if object.variation_set.first.sale_price %}
+					{{ object.variation_set.first.sale_price  }}
+					<small class='og-price'>{{ object.variation_set.first.price }}</small>
+					{% else %}			
+					{{ object.variation_set.first.price }}
+					{% endif %}
+				</h3>
+			{% endif %}
+			<br/>
+			<input class='form-control' type='number' name='qty' value='1' />
+			<br/>	
+			<input id='submit-btn' type='submit' value='Add to Cart' class='btn btn-default' />  <!-- submit-btn for AJAX -->
+		</form>
+
+		<br/>
+		<hr/>
+		<p>
+			Share<br/>
+			<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+			<i class="fa fa-facebook-square fa-3x"></i></a>
+
+			<i class="fa fa-twitter-square fa-3x"></i>
+
+			<a href="">
+			<i class="fa fa-weixin fa-3x"></i></a>
+		</p>
+
+		<hr/>
+		<h4>Related Products</h4>
+		<div class='row'>
+		{% for product in related %} 
+			<div class='col-xs-6'>
+				{% include "products/product_thumbnail.html" with product=product price="True" %}
+			</div>
+		{% cycle '' '</div><div class="row">'%}
+		{% endfor %}
+		</div>
+	</div>
+
+	<hr/>
+	<h4><a href="{{object.get_inventory_url}}">Inventory</a></h4>
+
+</div>
+{% endblock %}

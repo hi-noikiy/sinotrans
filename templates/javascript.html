@@ -4,11 +4,105 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <!-- <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script> -->
+    <script src="http://lib.sinaapp.com/js/jquery/1.12.4/jquery-1.12.4.min.js"></script>
     <script>window.jQuery || document.write('<script src="{% static 'js/jquery.min.js' %}"><\/script>')</script>
-    <!-- <script src="../../dist/js/bootstrap.min.js"></script> -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+    
+    <script src="http://lib.sinaapp.com/js/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <!-- <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    
+    <script src="http://lib.sinaapp.com/js/jquery-ui/1.10.2/jquery-ui.min.js"></script>
+    <!-- <script src="{% static 'js/jquery-ui.js' %}"></script> -->
+
+    <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.js"></script>
+    <!-- <script src="{% static 'js/jquery.form.js' %}"></script> -->
+
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <script>
+
+        function updateCartItemCount(){
+            var badge = $("#cart-count-badge");
+
+            $.ajax({
+                type: "GET",
+                url: "{% url 'item_count' %}",
+                success: function(data){
+                    badge.text(data.count);
+                    console.log(data.count);
+                },
+                error: function(response, error) {
+                    console.log(response)
+                    console.log(error);
+                }
+            })
+
+        }
+
+       /*
+        document.body.addEventListener('touchstart',function(event){
+            //event.stopPropagation(); //prevent propagatin
+            //event.preventDefault();  //prevent default brower event
+            start_x = event.targetTouches[0].screenX ;
+            start_y = event.targetTouches[0].screenY ;
+            swipeX = true;
+            swipeY = true ;
+        })
+
+        document.body.addEventListener('touchmove',function(event){
+            moveto_x = event.targetTouches[0].screenX ;
+            moveto_y = event.targetTouches[0].screenY ;
+
+            //left-rigth move
+            if(swipeX && Math.abs(moveto_x-start_x)-Math.abs(moveto_y-start_y)>0)
+            {
+                event.stopPropagation();
+                event.preventDefault(); //prevent brower default event
+                swipeY = false ;
+            }
+            // up-down move, use default behavior
+            else if(swipeY && Math.abs(moveto_x-start_x)-Math.abs(moveto_y-start_y)<0){
+                swipeX = false ;                
+            }
+        })
+        document.body.addEventListener('touchend',function(event){
+            //event.stopPropagation();
+            //event.preventDefault();
+        })
+        */
+
+        /* method 2
+        var xPos = null;
+        var yPos = null;
+        window.addEventListener( "touchmove", function ( event ) {
+            oldX = xPos;
+            oldY = yPos;
+            //var touch = event.originalEvent.touches[0];            
+            //xPos = touch.pageX;
+            //yPos = touch.pageY;
+            var touch = event.targetTouches[0];            
+            xPos = touch.screenX;
+            yPos = touch.screenY;
+            $('.navbar-brand').text(xPos);
+            if ( oldX == null && oldY == null ) {
+                return false;
+            }
+            else {
+                if ( Math.abs( oldX-xPos ) > Math.abs( oldY-yPos ) ) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        } );
+        */
+        
+
+        $(document).ready(function(){
+            updateCartItemCount()
+        })
+
+    </script>

@@ -1,0 +1,16 @@
+<style type="text/css">
+.overdue{
+	color:red;
+}
+</style>
+
+<div class="thumbnail text-center">
+	{% if inspection.get_image_url_before %} 
+		<a href='{{ inspection.get_absolute_url }}'><div class="pdb"><img  id='img' class= 'img-responsive' src='{{inspection.get_image_url_before}}'/></div></a><br/>
+	{% endif %}	
+
+	{{inspection.get_html_due_date}}
+	<span class='owner'>{{inspection.owner}}</span>
+	<span class='status'>{{inspection.get_rectification_status}}</span>
+	<h5><a href='{{ inspection.get_absolute_url }}'>{{inspection.inspection_content}}</a></h5>	
+</div>

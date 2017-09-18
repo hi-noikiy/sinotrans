@@ -1,0 +1,23 @@
+{% extends "inspection/base_inspection.html" %}
+
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-6 col-sm-offset-3'>
+		<div class="text-center">
+			<lead><h2>{{object.location}}</h2></lead>
+			Create : {{object.timestamp}}	     Last Update : {{object.updated}}			
+		</div>
+		<hr>
+
+		<div>	
+            {% include "form_horizontal.html" with submitvalue="Submit" %}
+		</div>
+	</div>
+	<div class='col-sm-3'>
+	</div>
+</div>
+
+
+{% endblock %}

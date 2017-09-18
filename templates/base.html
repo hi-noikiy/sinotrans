@@ -4,36 +4,107 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    {% comment %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endcomment %}
+    <meta http-equiv="Content-Type" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>{% block head_title %}MVP Landing{% endblock %}</title>
+    <title>{% block head_title %}zakkabag{% endblock %}</title>
 
-  {% include 'head_css.html' %}
+    {% include 'head_css.html' %}
 
+    {% block head_css_extend %}{% endblock %}
+
+    <style>
+    {% block style %}{% endblock %}
+    </style>
+      
   </head>
 
   <body>
-  {% include 'navbar.html' %}
+    {% include 'navbar.html' %}
 
-      {% block jumbotron %}
-      {% endblock %}
+    {% if messages %}
+    <div class='container'>
+      <div class='alert alert-success text-center alert-dismissible'>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {% for message in messages %}
+          <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p><br/>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% block breadcrumb  %}
+    <div class="container" style="padding: 10px 0 10px 0px; ">
+        <ol class="breadcrumb" style="margin-bottom:0; background-color: white">
+        {% for breadcrumb in request.breadcrumbs %}     
+            {% if not forloop.last %}
+            <li><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a></li>
+            {% else %} 
+            <li class="active">{{ breadcrumb.name }}</li>
+            {% endif %}
+        {% endfor %}        
+        </ol>
+    </div>  
+    {% endblock %}
+
+    {% block jumbotron %}
+    {% endblock %}
+
+    {% block carousel %}  
+    {% endblock %}
       
     <div class="container">
     <!-- <div class="container-fluid"> -->
-
-
-
       {% block content %}
       {% endblock %}
+    </div>
 
-    </div> <!-- /container -->
+{% comment %}
+    <div class='container'>    
+        <hr>
+        <ul class="list-inline">
+            友情链接：
+            <li><a href="http://www.webdog.cn/" target="_blank">发现中国</a></li>   
+            <li><a href="http://www.aboboo.com/" target="_blank">外语学习</a></li>   
+            <li><a href="http://www.wuzheng.org/" target="_blank">无争围棋网</a></li>  
+            <li><a href="http://www.guokr.com/" target="_blank">果壳网</a></li>  
+            <li><a href="http://www.fuwo.com/" target="_blank">爱福窝</a></li>  
+            <li><a href="http://www.guoku.com/" target="_blank">果库</a></li>  
+            <li><a href="http://www.python88.com/" target="_blank">py社区</a></li> 
+        </ul> 
+    </div>
+{% endcomment %}
 
-  {% include 'javascript.html' %}
+    {% block footer %}
+      {# include "footer.html" #}
+    {% endblock %}
+
+    {% include "javascript.html" %}
+
+    <script>
+    $(document).ready(function(){
+        {% block jquery %}
+ 
+        {% endblock %}
+    });
+    </script>
+
+    <script type="text/javascript">
+        {% block js %}
+
+        {% endblock %}    
+    </script>
+
+    {% block jswotag %} <!-- if want to include a html file, double tag will break the structure-->
+    {% endblock %}  
+
 
   </body>
 </html>

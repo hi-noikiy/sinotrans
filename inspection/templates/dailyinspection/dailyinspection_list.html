@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+
+<style type="text/css">
+{% block style %}
+
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:active {text-decoration: none;}
+a:hover {text-decoration: none;}
+
+div.categorylist{
+	margin-right: 0px; /* if the value > 0, then next div will move to next line*/
+	padding: 15px 8px; 
+	/*background-color: #eef1f3;*/
+}
+
+.categorylist:hover, .category-content .active{
+	background-color: #d9edf7;
+}
+
+.category-content{
+	text-decoration: none; 
+	outline: none;
+	border-radius: 3px;
+	border: solid 1px #d9edf7;
+	overflow:hidden;
+	margin: 1px; /* adapt pic width div */
+	font-size: smaller;
+}
+
+
+{% endblock%}
+</style>
+
+<script>
+{% block js %}
+
+$(document).ready(function(){
+	$("td:contains('uncompleted')").css("background-color","red");
+	$("td:contains('completed')").css("background-color","green");
+
+});
+
+{% endblock %}
+</script>
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-xs-4 col-sm-3 col-md-2 '>
+		<form method="GET" action="{% url 'dailyinspection_list' %}">	
+			{{ InspectionFilterForm|crispy }}
+
+			<!-- <input type='hidden' name='q' value='{{ request.GET.q }}' /> -->
+			<input type='submit' value="{% trans 'Apply Filter' %}" class='btn btn-default'>
+		</form>
+		<a class="btn btn-default" style="margin-top: 5px;" href="{% url 'dailyinspection_list' %}"  >{% trans 'Clear Filters' %}</a>  
+	    <hr>
+	</div>		
+	<div class='col-xs-8 col-sm-9 col-md-10 container'>	
+		
+        
+		<div class="row category-content">
+			<div class='col-xs-4 col-md-2 categorylist active text-center'>
+				<a href="{% url 'dailyinspection_list' %}">{% trans "All Categories" %}</a>
+			</div>				
+
+			{% for category in categories%}
+			<div class='col-xs-4 col-md-2 categorylist  text-center'>
+				<a href="{% url 'dailyinspection_list' %}?category={{category.0}}" style="display: block; " >{{category.1}}</a>
+			</div>
+			{% cycle '' '' '' '' '' '</div><div class="row">'%} 
+			{% endfor %}
+		</div>
+		<br>
+		
+	    <div class="object_lists">
+			{% autopaginate object_list 8 %}
+            
+			{% if object_list.count == 0 %}
+				{% trans "Nothing found" %}
+			{% else %}
+				{% include "dailyinspection/inspections.html" with object_list=object_list %}            	
+			{% endif %}
+            
+			<div class="text-center">
+			{% paginate %}
+			</div>            
+		</div>		
+        
+		<div class="object_create">
+	    	<h4><a href='{% url "dailyinspection_create" %}'>{% trans "Create New Item" %}</a></h4>
+	    	<h4><a href='{% url "shelf_inspection_stat" %}'>{% trans "Inspection Statistic" %}</a></h4>
+	    </div>        
+	</div>
+</div>
+
+<hr>
+<div>
+	<h3>{% trans "Latest Update" %}</h3>
+	<hr>
+	<ul style="list-style:none; padding-left:2px; margin-left:2px;">
+		{% for object in objects_sort %}
+		<li style="padding-bottom: 5px;">
+			<a href='{{ object.get_absolute_url }}'>{{object}}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% endblock %}
+

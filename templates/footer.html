@@ -1,0 +1,104 @@
+
+
+<style type="text/css">
+
+	.foot-link{
+		border: solid 1px #f2dede;
+		border-left: none;
+		border-right:none;
+		background-color: #f8f8f8;
+		padding: 10px 0 10px 0;
+		text-align: left;
+	}
+
+	.foot-link ul{
+		list-style:none; 
+		margin:0;
+		padding:0;
+		padding-top: 1px;
+		padding-bottom: 1px;
+	}
+
+	.footer-certifiate{
+		padding: 30px 0px 30px 0px; 
+		color:white; 
+		background-color: #2d826f;
+	}
+
+	.footer hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+    }
+
+    .footer .form-group {
+        margin-bottom: 5px;
+    }
+
+    .footer .form-control {
+    height: 30px!important;
+    padding: 6px 6px;
+}
+</style>
+
+
+<div class="footer container-fluid" style="margin-top:30px">
+
+	<div class="row foot-link"> 
+	    <div class="col-sm-2 col-sm-offset-3">
+	    	<br><b>FOLLOW US</b><hr>
+	    	<img  class= 'img-responsive' style=" margin:0;" src='{{request.media}}footer/weixin.jpg'/>	
+	    </div>
+	    <div class="col-sm-2" >
+	    	<br><b>ABOUT US</b><hr>
+	    	<ul>		    	
+		    	<li><a href="{% url 'ArticleListView' %}">News</a></li>
+		    	<li><a href="{% url 'products' %}">Products</a></li>
+		    	<li><a href="{% url 'about' %}">About us</a></li>
+	    	</ul>
+	    </div>
+	    <div class="col-sm-2">
+	    	<br><b>CONTACT US</b><hr>
+	    	<ul>		    	
+		    	<li>电话: 13888888888</li>
+		    	<li>地址: 泰州</li>
+		    	<li>联系人: 黄老板</li>
+	    	</ul>	    
+	    	
+	    </div>
+
+	    <div class="col-sm-3">
+	    </div>
+
+	    {% comment %}
+	    <div class="col-sm-2">
+	    	<br><b>FEEDBACK</b><hr>
+	    	<form method='POST' action=''>{% csrf_token %}
+				<div id="div_id_full_name" class="form-group"> 
+					<label for="id_full_name" class="control-label ">Full name</label> 
+					<div class="controls "> 
+						<input class="textinput textInput form-control" id="id_full_name" name="full_name" type="text" /> 
+					</div> 
+				</div> 
+				<div id="div_id_email" class="form-group"> 
+					<label for="id_email" class="control-label  requiredField">Email<span class="asteriskField">*</span> </label> 
+	                <div class="controls "> 
+	                	<input class="emailinput form-control" id="id_email" name="email" type="email" /> 
+	                </div> 
+	            </div> 
+	            <div id="div_id_message" class="form-group"> 
+	            	<label for="id_message" class="control-label  requiredField">Message<span class="asteriskField">*</span> </label> 
+	            	<div class="controls "> 
+	            		<input class="textinput textInput form-control" id="id_message" name="message" type="text" /> 
+	            	</div> 
+	            </div>
+				<input class = 'btn btn-primary' type='submit' value='Submit' />
+			</form>
+	    </div>
+	    {% endcomment %}
+	</div>
+	<div class="row  text-center footer-certifiate">
+		Copyright © 
+	</div>
+</div>
