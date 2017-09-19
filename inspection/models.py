@@ -123,6 +123,27 @@ class DailyInspection(models.Model):
     def get_rectification_status(self):
         return _('Completed') if self.rectification_status == 'completed' else _('Uncompleted')
 
+    def get_location(self):
+        for (a,b) in DailyInspection.daily_insepction_location:
+            if a == self.location:
+                return b
+        return None
+
+    def get_category(self):
+        for (a,b) in DailyInspection.daily_insepction_category:
+            if a == self.category:
+                return b
+        return None
+
+    def get_impact(self):
+        value = ''
+        for item in self.impact:
+            for (a,b) in DailyInspection.daily_insepction_impact:
+                if a == item:
+                    value = "%s,%s" % (value,b)
+                    break
+        return value
+
     def get_created_date(self):
         return self.created.strftime("%Y-%m-%d")
 

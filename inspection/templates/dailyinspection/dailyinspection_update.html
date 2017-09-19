@@ -27,6 +27,12 @@
 		<div>
             {# include "form_horizontal.html" with submitvalue="Submit" file=True #} 
             <form class="form-horizontal" enctype="multipart/form-data" method="POST" action='' style="padding: 3px">{% csrf_token %}
+            	<div class="row" style="margin-bottom: 10px">
+            		<input style="width:30%" type="submit" name="submit" class="btn btn-default pull-right" value='{% trans "submit" %}' />
+            	</div>    
+
+            	<div class="row"><div class="col-sm-12">
+
 			    {% if form.errors %}
 			        <p style="color: #b75f33;">
 			            {{form.non_field_errors}}
@@ -46,9 +52,11 @@
 			        {% endif %}
 			    {% endfor %}
 
+			    </div></div>
+
 			    <hr>                 
 	            		            
-			    <input style="width:30%" type="submit" name="submit" class="btn btn-default pull-right" value='{% trans "submit" %}' />
+			    
 
 			</form>   	
 		</div>

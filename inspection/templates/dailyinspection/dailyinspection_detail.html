@@ -13,7 +13,20 @@
             <hr>
         </div>         
 		
-		<div> 	            		            
+		<div>
+			{% trans 'Category' %} : {{ object.get_category}} <br>
+			{% trans 'Inspection Content' %} : {{ object.inspection_content}} <br>
+			{% trans 'Impact' %} : {{ object.get_impact }} <br>
+			{% trans 'Rectification Measures' %} : {{ object.rectification_measures}} <br>
+			{% trans 'Rectification Status' %} : {{ object.get_rectification_status}} <br>
+			{% trans 'Owner' %} : {{ object.owner}} <br>
+			{% trans 'Due Date' %} : {{ object.due_date}} <br>
+			{% trans 'Picture before Rectification' %} : <img  class= 'img-responsive' src="{{ object.get_image_url_before}}"/> <br>			
+			{% trans 'Picture after Rectification' %} : <img  class= 'img-responsive' src="{{ object.get_image_url_after}}"/> <br>	
+			{% trans 'Location' %} : {{ object.get_location}} <br>
+
+			<hr>
+
 			<a class="btn btn-default" href="{{object.get_absolute_url_update}}"  >{% trans 'Update' %}</a>
 		</div>
         
