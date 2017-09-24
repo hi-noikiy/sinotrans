@@ -3,6 +3,7 @@ from .models import OfficeInspection, DailyInspection, shelf_inspection_record, 
 from django.utils.translation import ugettext_lazy as _
 from django.forms import BaseFormSet,BaseModelFormSet, formset_factory
 from django.forms.models import modelformset_factory
+from django.contrib.admin import widgets                                       
 
 RESULT_OPTION = (
     ('yes', 'Yes'),
@@ -54,6 +55,7 @@ class DailyInspectionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(DailyInspectionForm, self).__init__(*args, **kwargs)
+        self.fields['due_date'].widget = widgets.AdminDateWidget()
 
     def clear_image_after_clear(self):
         if self.data.get('image_after-clear'):

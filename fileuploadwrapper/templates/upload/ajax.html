@@ -117,7 +117,7 @@ function progressWorker(url){
             if (jqXHR.status == 500) {
                 alert('Internal error: ' + jqXHR.responseText);
             } else {
-                alert('Unexpected error.');
+                alert('Unexpected error. status : ' + jqXHR.status);
             }
         }
     });

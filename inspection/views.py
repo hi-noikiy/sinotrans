@@ -279,7 +279,7 @@ class FilterMixin(object):
     def get_context_data(self, *args, **kwargs):
         context = super(FilterMixin, self).get_context_data(*args, **kwargs)
         qs = self.get_queryset()
-        ordering = self.request.GET.get(self.search_ordering_param, '-updated')
+        ordering = self.request.GET.get(self.search_ordering_param, '-created')
         if ordering:
             qs = qs.order_by(ordering)
         filter_class = self.filter_class
