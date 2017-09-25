@@ -1,6 +1,8 @@
 # backup files
 _backup/
 
+static_in_env/
+
 # Security iles
 security_setting.py
 #settings_security.py
