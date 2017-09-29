@@ -9,6 +9,8 @@ from django.utils.translation import ugettext_lazy as _
 import datetime
 from django.utils import timezone
 
+from fields import ThumbnailImageField
+
 # Create your models here.
 
 RESULT_OPTION = (
@@ -38,14 +40,15 @@ class OfficeInspection(models.Model):
 		return reverse("OfficeInspection_detail", kwargs={"pk": self.id })
 
 
-
 def image_upload_to_dailyinspection(instance, filename):
     title, file_extension = filename.split(".")
     #new_filename = "%s-%s.%s" %(instance.created.strftime('%Y-%m-%d-%H-%M-%S'), slugify(title), file_extension)
     new_filename = "%s-%s.%s" %(instance.created.strftime('%Y%m%d%H%M%S'), slugify(title), file_extension)
     return "dailyinspection/%s/%s" %(instance.category, new_filename)
 
+
 class DailyInspection(models.Model):
+
     daily_insepction_category = (
         ('people', _('People')),
         ('device', _('Device')),
@@ -84,7 +87,7 @@ class DailyInspection(models.Model):
     due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False)
     created = models.DateTimeField(_('Inspection Created Date'), auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(_('Inspection Updated Date'), auto_now_add=False, auto_now=True)
-    image_before = models.ImageField(_('Picture before Rectification'), upload_to=image_upload_to_dailyinspection, blank=True, null=True)
+    image_before = ThumbnailImageField(_('Picture before Rectification'), upload_to=image_upload_to_dailyinspection, blank=True, null=True)
     image_after = models.ImageField(_('Picture after Rectification'), upload_to=image_upload_to_dailyinspection, blank=True, null=True)
     #warehouse = models.CharField(_('Warehouse'), max_length=30, choices = daily_insepction_warehouse, blank=False, default = '3#')
     location = models.CharField(_('Location'), max_length=30, choices = daily_insepction_location, blank=False, default = '1')

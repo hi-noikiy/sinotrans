@@ -57,12 +57,12 @@ class DailyInspectionForm(forms.ModelForm):
         super(DailyInspectionForm, self).__init__(*args, **kwargs)
         self.fields['due_date'].widget = widgets.AdminDateWidget()
 
-    def clear_image_after_clear(self):
+    def clear_image_after_rectification(self):
         if self.data.get('image_after-clear'):
             return "on"
         return None
 
-    def clear_image_before_clear(self):
+    def clear_image_before_rectification(self):
         if self.data.get('image_before-clear'):
             return "on"
         return None

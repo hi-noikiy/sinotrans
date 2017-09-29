@@ -13,12 +13,15 @@ from django.db.models import Q
 from django.http import HttpResponse
 import json
 from django.http import Http404
-
+from PIL import Image
+import os
 
 # Create your views here.
 from .models import OfficeInspection, DailyInspection, shelf_inspection_record, shelf_inspection, shelf
 from .forms import OfficeInspectionForm, DailyInspectionForm, InspectionFilterForm, shelf_inspection_recordForm, shelfFilterForm, shelf_inspection_Form
 from .forms import shelf_inspection_record_Formset
+
+from .models import image_upload_to_dailyinspection
 
 # Create your views here.
 
@@ -34,8 +37,6 @@ def gen_qrcode(link):
     img = qr.make_image()
     #img.show()
 
-    from django.conf import settings
-    import os
     photopath = os.path.join(settings.MEDIA_ROOT, "inspection")
     if not os.path.exists(photopath):
         os.makedirs(photopath)
@@ -131,8 +132,60 @@ class OfficeInspectionListView(ListView):
         return super(OfficeInspectionListView, self).dispatch(request,args,kwargs)   
 
 
+def get_dailyinspection_path():
+    if settings.USE_SAE_BUCKET: #'SERVER_SOFTWARE' in os.environ: 
+        return 'dailyinspection'
+    else:
+        insepection_path = os.path.join(settings.MEDIA_ROOT, 'dailyinspection')
+        if not os.path.exists(insepection_path):
+            os.makedirs(insepection_path)
+        return insepection_path
 
+class ThumbnailMixin(object):
+    """docstring for ThumbnailMixin"""
+    def form_valid(self, form, *args, **kwargs):
+        #form.instance = self.get_object(*args, **kwargs)  # without this, form will create another new object
+        obj = form.save(commit = False)
+        instance = self.get_object()
+        obj.id = instance.id
+        obj.created = instance.created
 
+        if form.cleaned_data['image_before']:
+            if instance.image_before:
+                instance.image_before.delete(save=True)
+            if form.clear_image_before_rectification():
+                obj.image_before = None
+            else:
+                in_mem_image_file = form.cleaned_data['image_before']
+                img = Image.open(in_mem_image_file)
+                if img.size[0] > 1024 or img.size[1] > 1000:
+                    newWidth = 1024
+                    newHeight = float(1024) / img.size[0] * img.size[1]
+                    img.thumbnail((newWidth,newHeight),Image.ANTIALIAS)
+                    filename = image_upload_to_dailyinspection(instance, in_mem_image_file.name)
+                    filepath = os.path.join(settings.MEDIA_ROOT, filename)
+                    img.save(filepath)
+                    obj.image_before = filename
+        else:
+            if form.clear_image_before_rectification() is None:
+                obj.image_before = instance.image_before
+            else:
+                instance.image_before.delete(save=True)
+
+        if form.cleaned_data['image_after']:
+            if instance.image_after:
+                instance.image_after.delete(save=True)
+            if form.clear_image_after_rectification():
+                obj.image_after = None
+        else:
+            if form.clear_image_after_rectification() is None:                
+                obj.image_after = instance.image_after
+            else:
+                instance.image_after.delete(save=True)
+        #obj.image = gen_qrcode(self.request.get_host() + reverse("dailyinspection_create", kwargs={}))
+        obj.save()
+
+        return HttpResponseRedirect(self.get_success_url())
 
 class DailyInspectionCreateView(CreateView):
     form_class = DailyInspectionForm
@@ -150,7 +203,7 @@ class DailyInspectionDetailView( DetailView):
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_detail.html"
     
-class DailyInspectionUpdateView(UpdateView): #ModelFormMixin
+class DailyInspectionUpdateView(ThumbnailMixin, UpdateView): #ModelFormMixin
     
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_update.html"
@@ -203,35 +256,7 @@ class DailyInspectionUpdateView(UpdateView): #ModelFormMixin
     def get_success_url(self):
         return reverse("dailyinspection_list", kwargs={}) 
 
-    def form_valid(self, form, *args, **kwargs):
-        #form.instance = self.get_object(*args, **kwargs)  # without this, form will create another new object
-        obj = form.save(commit = False)
-        instance = self.get_object()
-        obj.id = instance.id
-        obj.created = instance.created
-        if form.cleaned_data['image_before']:
-            instance.image_before.delete(save=True)
-            if form.clear_image_before_clear():
-                obj.image_before = None
-        else:
-            if form.clear_image_before_clear() is None:
-                obj.image_before = instance.image_before
-            else:
-                instance.image_before.delete(save=True)
 
-        if form.cleaned_data['image_after']:
-            instance.image_after.delete(save=True)
-            if form.clear_image_after_clear():
-                obj.image_after = None
-        else:
-            if form.clear_image_after_clear() is None:                
-                obj.image_after = instance.image_after
-            else:
-                instance.image_after.delete(save=True)
-        #obj.image = gen_qrcode(self.request.get_host() + reverse("dailyinspection_create", kwargs={}))
-        obj.save()
-
-        return HttpResponseRedirect(self.get_success_url())
 
 '''
 operators = {
