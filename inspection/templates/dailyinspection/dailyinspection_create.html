@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load i18n %}
 
 <style>
 {% block head_css_extend %}
@@ -53,7 +54,7 @@ $(document).ready(function(){
 <div class='row'>
 	<div class='col-sm-6 col-sm-offset-3'>
 		<div class="text-center">
-			<lead><h1>Create New item</h1></lead>
+			<lead><h1>{% trans "Create New Item" %}</h1></lead>
 			<p></p>
 		</div>
 		<hr>

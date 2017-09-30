@@ -14,6 +14,9 @@ def _add_thumb(s):
     return ".".join(parts)
 
 class ThumbnailImageFieldFile(ImageFieldFile):
+
+    create_additional_thumbnail = False
+
     def _get_thumb_path(self):
         return _add_thumb(self.path)
     thumb_path = property(_get_thumb_path)
@@ -24,12 +27,14 @@ class ThumbnailImageFieldFile(ImageFieldFile):
 
     def save(self, name, content, save=True):
         super(ThumbnailImageFieldFile, self).save(name, content, save)
-        img = Image.open(self.path)
-        img.thumbnail(
-            (self.field.thumb_width, self.field.thumb_height),
-            Image.ANTIALIAS
-        )
-        img.save(self.thumb_path, 'JPEG')
+
+        if ThumbnailImageFieldFile.create_additional_thumbnail:
+            img = Image.open(self.path)
+            img.thumbnail(
+                (self.field.thumb_width, self.field.thumb_height),
+                Image.ANTIALIAS
+            )
+            img.save(self.thumb_path, 'JPEG')
 
     def delete(self, save=True):
         if os.path.exists(self.thumb_path):
@@ -56,7 +61,7 @@ class ThumbnailImageField(ImageField):
 
     def pre_save(self, model_instance, add):
         "Returns field's value just before saving."
-        file = super(ThumbnailImageField, self).pre_save(model_instance, add)
+        file = super(ThumbnailImageField, self).pre_save(model_instance, add)  # it will call ImageFieldFile::save
         if file and not file._committed:
             # Commit the file to storage prior to saving the model
             file.save(file.name, file, save=False)

@@ -132,6 +132,9 @@ class OfficeInspectionListView(ListView):
         return super(OfficeInspectionListView, self).dispatch(request,args,kwargs)   
 
 
+THUMBNAIL_WIDTH = 512
+THUMBNAIL_HEIGHT = 500
+
 def get_dailyinspection_path():
     if settings.USE_SAE_BUCKET: #'SERVER_SOFTWARE' in os.environ: 
         return 'dailyinspection'
@@ -141,53 +144,61 @@ def get_dailyinspection_path():
             os.makedirs(insepection_path)
         return insepection_path
 
+
+def save_and_get_image(form, fieldname, instance, obj):
+    in_mem_image_file = form.cleaned_data[fieldname] # new image file
+    instance_file = getattr(instance,fieldname, None)  # original file
+
+    if in_mem_image_file:
+        # delete original file
+        if instance and instance_file:
+            instance_file.delete(save=True)       
+
+        if getattr(form, 'clear_' + fieldname, None)():
+            # clear original filename
+            setattr(obj,fieldname,None)
+        else:            
+            img = Image.open(in_mem_image_file)
+            if img.size[0] > THUMBNAIL_WIDTH or img.size[1] > THUMBNAIL_HEIGHT:
+                newWidth = THUMBNAIL_WIDTH
+                newHeight = float(THUMBNAIL_WIDTH) / img.size[0] * img.size[1]
+                img.thumbnail((newWidth,newHeight),Image.ANTIALIAS)
+                filename = image_upload_to_dailyinspection(instance if instance else obj, in_mem_image_file.name)
+                filepath = os.path.join(settings.MEDIA_ROOT, filename)
+                img.save(filepath)
+                # set new filename
+                setattr(obj,fieldname,filename)
+    else:
+        if instance: # for update only
+            if getattr(form, 'clear_' + fieldname, None)() is None:
+                setattr(obj,fieldname,instance_file)  #keep original value
+            else:    
+                instance_file.delete(save=True) # clear original file
+
 class ThumbnailMixin(object):
     """docstring for ThumbnailMixin"""
     def form_valid(self, form, *args, **kwargs):
         #form.instance = self.get_object(*args, **kwargs)  # without this, form will create another new object
         obj = form.save(commit = False)
-        instance = self.get_object()
-        obj.id = instance.id
-        obj.created = instance.created
+        instance = None
+        try:
+            instance = self.get_object()
+        except:
+            pass
 
-        if form.cleaned_data['image_before']:
-            if instance.image_before:
-                instance.image_before.delete(save=True)
-            if form.clear_image_before_rectification():
-                obj.image_before = None
-            else:
-                in_mem_image_file = form.cleaned_data['image_before']
-                img = Image.open(in_mem_image_file)
-                if img.size[0] > 1024 or img.size[1] > 1000:
-                    newWidth = 1024
-                    newHeight = float(1024) / img.size[0] * img.size[1]
-                    img.thumbnail((newWidth,newHeight),Image.ANTIALIAS)
-                    filename = image_upload_to_dailyinspection(instance, in_mem_image_file.name)
-                    filepath = os.path.join(settings.MEDIA_ROOT, filename)
-                    img.save(filepath)
-                    obj.image_before = filename
-        else:
-            if form.clear_image_before_rectification() is None:
-                obj.image_before = instance.image_before
-            else:
-                instance.image_before.delete(save=True)
+        if instance: #for update
+            obj.id = instance.id
+            obj.created = instance.created
 
-        if form.cleaned_data['image_after']:
-            if instance.image_after:
-                instance.image_after.delete(save=True)
-            if form.clear_image_after_rectification():
-                obj.image_after = None
-        else:
-            if form.clear_image_after_rectification() is None:                
-                obj.image_after = instance.image_after
-            else:
-                instance.image_after.delete(save=True)
-        #obj.image = gen_qrcode(self.request.get_host() + reverse("dailyinspection_create", kwargs={}))
+        save_and_get_image(form, 'image_before', instance, obj)
+
+        save_and_get_image(form, 'image_after', instance, obj)
+
         obj.save()
 
         return HttpResponseRedirect(self.get_success_url())
 
-class DailyInspectionCreateView(CreateView):
+class DailyInspectionCreateView(ThumbnailMixin, CreateView):
     form_class = DailyInspectionForm
     template_name = "dailyinspection/dailyinspection_create.html"
 
