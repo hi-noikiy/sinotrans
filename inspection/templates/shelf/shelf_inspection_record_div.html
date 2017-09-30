@@ -99,7 +99,7 @@ input[type=''], input[type='number'], div.body input[type='checkbox'], input[typ
                     {% if field.name in form.Meta.hidden %}
                         <div style="display:none; float: left;clear: both" type='hidden' >{{field}}</div>
                     {% else %}
-                    <div class="{% cycle 'col1' 'col2' 'col3' 'col4' %}">
+                    <div class="{% cycle 'col1' 'col2' 'col3' 'col4' %}" style="">
                         {% if field.name in form.Meta.hidden_form %}
                             <p style="display:none" type='hidden'>{{field}}</p>
                             {% if 'shelf' == field.name %}<a href="{% url 'shelf_detail' form.instance.shelf.id %}" >{% endif %}
@@ -108,7 +108,7 @@ input[type=''], input[type='number'], div.body input[type='checkbox'], input[typ
                         {% elif field.name in form.Meta.disabled %}
                             <p>{{form.instance|get_field_value:field.name}}</p>
                         {% else %}
-                            <p class="displayonly" style="display: block; {% if field.name == 'gradient' and form.instance.gradient > 1.4 %} background-color:#f2dede; {% endif %}">{{form.instance|get_field_value:field.name}}</p>
+                            <p class="displayonly" style="display: block; {% if field.name == 'gradient' and form.instance.gradient > 1.4 %} background-color:#e671d9; border-radius: 3px; margin: 5px 0 5px; {% endif %}">{{form.instance|get_field_value:field.name}}</p>
                             <p class="edit" style="display: none">{{field}}</p>
                         {% endif%}  
                     </div>

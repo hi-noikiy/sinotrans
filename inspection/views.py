@@ -132,8 +132,8 @@ class OfficeInspectionListView(ListView):
         return super(OfficeInspectionListView, self).dispatch(request,args,kwargs)   
 
 
-THUMBNAIL_WIDTH = 512
-THUMBNAIL_HEIGHT = 500
+THUMBNAIL_WIDTH = 768 # 1024
+THUMBNAIL_HEIGHT = 725 # 1000
 
 def get_dailyinspection_path():
     if settings.USE_SAE_BUCKET: #'SERVER_SOFTWARE' in os.environ: 
