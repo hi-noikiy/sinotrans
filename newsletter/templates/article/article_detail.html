@@ -11,7 +11,7 @@
 		</div>
 		<hr>
 
-		<div>
+		<div class="article-container">
 			{{ object.content|safe }}	
 		</div>
 	</div>
@@ -19,3 +19,14 @@
 
 
 {% endblock %}
+
+<script>
+
+{% block jquery %}
+$('.article-container img').each(function(){
+	$(this).addClass("img-responsive")
+})
+
+{% endblock %}
+
+</script>

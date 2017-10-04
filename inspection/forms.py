@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.forms import BaseFormSet,BaseModelFormSet, formset_factory
 from django.forms.models import modelformset_factory
 from django.contrib.admin import widgets                                       
+from django.forms.widgets import Media
+from django.contrib.admin.templatetags.admin_static import static
 
 RESULT_OPTION = (
     ('yes', 'Yes'),
@@ -75,7 +77,28 @@ class DailyInspectionForm(forms.ModelForm):
             'updated',
         ]
         
+    class Media:
+        css = {
+            'all': ('admin/css/base.css','admin/css/forms.css','css/form_horizontal_layout.css',),
+        }
+        js = ['js/form_horizontal_layout.js']
 
+
+    #inherit from BaseForm
+    @property
+    def media(self):
+        """
+        Provide a description of all media required to render the widgets on this form
+        """        
+        media = Media(js=[static('js/jquery.init.both.js'), '/admin/jsi18n/', static('admin/js/core.js')])
+        for field in self.fields.values():
+            for item in field.widget.media._js:
+                if not item.split('/')[-1] in ''.join(media._js):
+                    media = media + Media(js=[item])
+
+        media = media + Media(self.Media)
+
+        return media
 
     # ModelChoiceField
 

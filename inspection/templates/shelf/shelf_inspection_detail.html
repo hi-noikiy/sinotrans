@@ -154,9 +154,12 @@
 	    var elem_gradient = $("#" + gradient);	    
 	    elem_gradient.parent().prev().text(responseText.gradient);
 	    if(responseText.gradient>1.4){
-	    	elem_gradient.parent().prev().css('background-color','#e671d9');
+	    	//elem_gradient.parent().prev().css('background-color','#e671d9');
+	    	elem_gradient.parent().prev().addClass('highlight-div-cell');
+	    	
 	    }else{
-	    	elem_gradient.parent().prev().css('background-color','');
+	    	//elem_gradient.parent().prev().css('background-color','');
+	    	elem_gradient.parent().prev().removeClass('highlight-div-cell');
 	    }
 	    var is_locked = responseText.form_id + '-' + 'is_locked'	    
 	    var elem_is_locked = $("#" + is_locked);	    
@@ -195,7 +198,7 @@
 </script>
 
 {% block content1 %}
-	{% include "shelf/shelf_inspection_record.html" with object_list=object_list %}    
+	{% include "shelf/shelf_inspection_detail_records_container.html" with object_list=object_list %}    
 {% endblock %}
 
 {% block content %}
@@ -215,7 +218,7 @@
 		{% if object_list.count == 0 %}
 			Nothing found
 		{% else %}
-			{% include "shelf/shelf_inspection_record_div.html" with object_list=object_list %}      	
+			{% include "shelf/shelf_inspection_detail_records_container_div.html" with object_list=object_list %}      	
 		{% endif %}
                  
 	</div>

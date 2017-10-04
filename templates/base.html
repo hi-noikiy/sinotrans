@@ -86,10 +86,10 @@
       {# include "footer.html" #}
     {% endblock %}
 
+    {% include "javascript.html" %}   
+
     {% block javascript_extended %}
     {% endblock %}
-
-    {% include "javascript.html" %}   
 
     <script>
     $(document).ready(function(){

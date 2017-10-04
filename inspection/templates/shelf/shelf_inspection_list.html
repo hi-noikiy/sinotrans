@@ -52,6 +52,9 @@ $(document).ready(function(){
 {% if records.count == 0 %}
 	{% trans "Nothing found" %}
 {% else %}	
+<a href="{% url 'home'  %}"><i class="fa fa-file-excel-o fa-1x" aria-hidden="true"></i></a>
+
+
 <div class="row header">
 	<div class="col-xs-3">{% trans 'Create Date' %}</div>
 	<div class="col-xs-3">{% trans 'Use Condition' %}</div>
