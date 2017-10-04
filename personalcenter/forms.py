@@ -6,6 +6,8 @@ from authwrapper.models import MyUser
 from django.contrib.admin import widgets
 class MyUserForm(forms.ModelForm):
     #birthday = forms.DateField(widget=SelectDateWidget())
+    #birthday = forms.DateField(widget=forms.SelectDateWidget) # availabe in django 1.9
+    
     class Meta:
         model = MyUser
 
