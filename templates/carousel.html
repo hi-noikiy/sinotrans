@@ -40,8 +40,7 @@
 </style>
 
 <div class="mycarousel">
-<div class="container-fluid">
-<div class="row"> 
+  <div class="container-fluid">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -52,14 +51,14 @@
 
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-      	{% for obj in objects %}
-      		{% if forloop.first %}<div class="item active">{% else %}<div class="item">{% endif %}
-	      		<img src="{{obj.image.url}}" alt="{{obj.title}}">
-	      		<div class="carousel-caption">
-	      			{{obj.title}}
-	      		</div>
-      		</div>
-      	{% endfor %}
+        {% for obj in objects %}
+          {% if forloop.first %}<div class="item active">{% else %}<div class="item">{% endif %}
+            <img src="{{obj.image.url}}" alt="{{obj.title}}">
+            <div class="carousel-caption">
+              {{obj.title}}
+            </div>
+          </div>
+        {% endfor %}
       </div>
 
       <!-- Controls -->
@@ -72,7 +71,5 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-
-</div>
-</div>
+  </div>
 </div>
