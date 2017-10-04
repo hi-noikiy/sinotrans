@@ -1,7 +1,7 @@
 # backup files
 _backup/
 
-static_in_env/
+static_in_env/media_root/
 
 # Security iles
 security_setting.py
