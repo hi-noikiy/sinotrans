@@ -6,7 +6,6 @@ from django.db.models.signals import post_delete, post_save, pre_save
 from .utils import file_cleanup, file_cleanup2, save_raw_instance
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-import datetime
 from django.utils import timezone
 from django.http import Http404
 from django.utils import timezone
@@ -128,7 +127,7 @@ class DailyInspection(models.Model):
     def get_html_due_date(self):
         if self.due_date is not None and self.rectification_status == 'uncompleted':
             overdue = ''
-            if self.due_date <= datetime.datetime.now().date() - datetime.timedelta(days=1): # should be 0
+            if self.due_date <= datetime.now().date() - timedelta(days=1): # should be 0
                 overdue = 'overdue'
             html_text = "<span class='due_date %s'>%s</span>" %(overdue, self.due_date)
         else:

@@ -4,9 +4,10 @@ import sys
 
 if __name__ == "__main__":
     root = os.path.dirname(__file__)
+
+    sys.path.insert(0, os.path.join(root, 'site-packages-pip-ko'))	 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zakkabag.settings")
-    root = os.path.dirname(__file__)
-    sys.path.insert(0, os.path.join(root, 'site-packages-pip-ko'))	    
+   
     #for path in sys.path:
     #    print path
 
