@@ -3,6 +3,19 @@
 
 {% block content %}
 
+<form class="row" method="get" action="">
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input class="form-control" type="text" name="q" placeholder="search" value="{{request.GET.q }}" />
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </div>
+</form>
+
+<br>
+
 <table class="table table-hover table-striped text-center">
 	<thead>		
 		{% for field in object_list.1.get_fields %}

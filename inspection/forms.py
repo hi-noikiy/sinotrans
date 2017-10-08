@@ -1,11 +1,17 @@
 from django import forms
-from .models import OfficeInspection, DailyInspection, shelf_inspection_record, shelf, shelf_inspection
 from django.utils.translation import ugettext_lazy as _
 from django.forms import BaseFormSet,BaseModelFormSet, formset_factory
 from django.forms.models import modelformset_factory
 from django.contrib.admin import widgets                                       
 from django.forms.widgets import Media
 from django.contrib.admin.templatetags.admin_static import static
+
+from .models import (
+    OfficeInspection,
+    DailyInspection,
+    shelf_inspection_record, shelf, shelf_inspection,
+    equipment,ElectricalEquipmentInspection
+)
 
 RESULT_OPTION = (
     ('yes', 'Yes'),
@@ -289,3 +295,30 @@ class shelfFilterForm(forms.Form):
                 ) 
     except:
         pass
+
+class ElectricalEquipmentInspectionForm(forms.ModelForm):
+
+    class Meta:
+        model = ElectricalEquipmentInspection
+
+        exclude = {
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ElectricalEquipmentInspectionForm, self).__init__(*args, **kwargs)
+        self.fields['equipment'].queryset = equipment.objects.filter(type='electrical equipment')
+
+    # def clean(self, *args, **kwargs):
+    #     super(ElectricalEquipmentInspectionForm, self).clean(*args, **kwargs)
+    #     equip = self.cleaned_data.get('equipment')
+    #     date_of_inspection = self.cleaned_data.get('date_of_inspection')
+    #     if self.Meta.model.objects.filter(equipment=equip, date_of_inspection=date_of_inspection).exists():
+    #         raise forms.ValidationError('record already exist')
+
+# class ElectricalEquipmentInspectionModelFormSet(BaseModelFormSet):
+#     pass
+
+electrical_equipment_inspection_model_formset = modelformset_factory(ElectricalEquipmentInspection,
+                                            form=ElectricalEquipmentInspectionForm,
+                                            #formset=ElectricalEquipmentInspectionModelFormSet,
+                                            extra=1)

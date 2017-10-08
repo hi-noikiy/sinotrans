@@ -19,7 +19,10 @@
             <li class="active"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>    
             <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>        
             <li><a href="{% url 'about' %}">{% trans 'About' %}</a></li>       
-            {% comment %}                              
+            {% comment %} 
+            {% for lang in request.lang %}
+            	<li><a href="{% url 'set_language' %}?language={{lang.0}}'&next={{request.path}}">{{lang.1}}</a></li>
+            {% endfor %}
             <li><a href="{% url 'set_language' %}?language='zh-cn'&next={{request.path}}">chinese</a></li>
             <li><a href="{% url 'set_language' %}?language='en'&next={{request.path}}">english</a></li>               
             {% endcomment %} 
@@ -43,7 +46,6 @@
                 {% if request.user.is_authenticated %}
                 <li><a href="{% url 'orders' %}">{% trans 'Orders' %}</a></li> 
                 {% endif %}
-                <li><a href="{% url 'CrowdfundingListView' %}">{% trans 'Crowndfunding' %}</a></li> 
                 <li><a href="{% url 'dailyinspection_list' %}">{% trans 'Inspection' %}</a></li>
                 <li><a href="{% url 'shelf_inspection_list' %}">{% trans 'Shelf' %}</a></li>
               </ul>

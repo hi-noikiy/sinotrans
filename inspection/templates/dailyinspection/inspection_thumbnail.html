@@ -2,15 +2,36 @@
 .overdue{
 	color:red;
 }
+
+/*@screen-xs-max: 767px;*/
+/*@screen-sm-min : 758px;*/
+/*@screen-sm-max : 991px;*/
+/*@screen-md-min : 992px;*/
+/*@screen-md-max : 1119px;*/
+/*@screen-lg-min : 1200px;*/
+
+@media (max-width: 767px){
+    .display_single{
+        display: block;
+    }
+}
+/*@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { .row2{background-color: green;  }}*/
+/*@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { background-color: black;  }*/
+@media (min-width: 768px) {
+    .display_single {
+        display: none;
+    }
+}
+
 </style>
 
 <div class="thumbnail text-center">
 	{% if inspection.get_image_url_before %} 
 		<a href='{{ inspection.get_absolute_url }}'><div class="pdb"><img  id='img' class= 'img-responsive' src='{{inspection.get_image_url_before}}'/></div></a><br/>
-	{% endif %}	
+	{% endif %}
 
-	{{inspection.get_html_due_date}}
-	<span class='owner'>{{inspection.owner}}</span>
-	<span class='status'>{{inspection.get_rectification_status}}</span>
-	<h5><a href='{{ inspection.get_absolute_url }}'>{{inspection.inspection_content}}</a></h5>	
+    <small>{{inspection.get_html_due_date}}</small> <span class='owner'>{{inspection.owner}}  </span><span class='status'>{{inspection.get_rectification_status}}</span> <br>
+
+	<a type="button" class="btn btn-primary display_single" style="float:left;padding:4px 12px; margin-left: 10px; margin-top:5px;" href='{{ inspection.get_absolute_url }}'>View</a>
+    <h5><a href='{{ inspection.get_absolute_url }}'>{{inspection.inspection_content|truncatechars:10}}</a></h5>
 </div>

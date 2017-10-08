@@ -4,45 +4,14 @@
 
 <style>
 {% block head_css_extend %}
-{{form.media.css}}
+{{ form.media.css }}
 {% endblock %}
 </style>
-
 
 {% block javascript_extended %}
 {{form.media.js}}
 <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static 'admin/' %}{% endfilter %}";</script>    
 {% endblock %}
-
-
-
-<style type="text/css">
-{% block style %}
-
-.field-area ul{
-	list-style:none;
-}
-
-.field-area li{
-	float:left;
-	width:200px;
-}
-
-{% endblock%}
-</style>
-
-<script>
-{% block js %}
-
-$(document).ready(function(){
-	$(".field-area input").addClass("form-control");
-	$(".field-area select").addClass("form-control");
-	$(".field-area textarea").addClass("form-control");
-	$(".field-area>label").addClass("col-sm-2 control-label");
-});
-
-{% endblock %}
-</script>
 
 {% block content %}
 

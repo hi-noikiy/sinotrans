@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin, TemplateView
-from django.views.generic.edit import FormView, CreateView, UpdateView
+from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormMixin, ModelFormMixin
@@ -15,11 +15,16 @@ import json
 from django.http import Http404
 from PIL import Image
 import os
+from django.contrib import messages
+from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
+from .mixins import StaffRequiredMixin
 
 # Create your views here.
 from .models import OfficeInspection, DailyInspection, shelf_inspection_record, shelf_inspection, shelf
+from .models import  ElectricalEquipmentInspection
 from .forms import OfficeInspectionForm, DailyInspectionForm, InspectionFilterForm, shelf_inspection_recordForm, shelfFilterForm, shelf_inspection_Form
 from .forms import shelf_inspection_record_Formset
+from .forms import ElectricalEquipmentInspectionForm, electrical_equipment_inspection_model_formset
 
 from .models import image_upload_to_dailyinspection
 
@@ -198,11 +203,12 @@ class ThumbnailMixin(object):
 
         return HttpResponseRedirect(self.get_success_url())
 
-class DailyInspectionCreateView(ThumbnailMixin, CreateView):
+class DailyInspectionCreateView(StaffRequiredMixin, ThumbnailMixin, CreateView):
     form_class = DailyInspectionForm
     template_name = "dailyinspection/dailyinspection_create.html"
 
     def form_valid(self, form, *args, **kwargs):
+        messages.success(self.request, _("daily inspection create successfully"), extra_tags='capfirst')
         form = super(DailyInspectionCreateView, self).form_valid(form, *args, **kwargs)
         return form
 
@@ -213,8 +219,8 @@ class DailyInspectionCreateView(ThumbnailMixin, CreateView):
 class DailyInspectionDetailView( DetailView):
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_detail.html"
-    
-class DailyInspectionUpdateView(ThumbnailMixin, UpdateView): #ModelFormMixin
+
+class DailyInspectionUpdateView(StaffRequiredMixin, ThumbnailMixin, UpdateView): #ModelFormMixin
     
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_update.html"
@@ -228,29 +234,31 @@ class DailyInspectionUpdateView(ThumbnailMixin, UpdateView): #ModelFormMixin
         #initial=selected
         form = kwargs.get('form',None) # called in form_invalid
         if form is None:
-            form = self.form_class(instance = self.get_object()) 
+            form = self.form_class(self.request.POST or None, self.request.FILES or None, instance = self.get_object())
         context["form"] = form
         #context["media"] = settings.MEDIA_URL
         return context        
 
-    def get_object(self, *args, **kwargs):
-        dailyinspection_pk = self.kwargs.get("pk")
-        dailyinspection = None
-        if dailyinspection_pk:
-            print dailyinspection_pk
-            dailyinspection = get_object_or_404(DailyInspection, pk=dailyinspection_pk)
-        return dailyinspection 
 
-    def get(self, request, *args, **kwargs):
-        return super(DailyInspectionUpdateView, self).get(request, *args, **kwargs) 
+    # def get_object(self, *args, **kwargs):
+    #     reuse SingleObjectMixin::get_object
+    #     dailyinspection_pk = self.kwargs.get("pk")
+    #     dailyinspection = None
+    #     if dailyinspection_pk:
+    #         dailyinspection = get_object_or_404(DailyInspection, pk=dailyinspection_pk)
+    #     return dailyinspection
+
 
     def post(self, request, *args, **kwargs):
-        form = self.get_form() 
-        self.object = self.get_object(*args, **kwargs)
+        form = self.get_form()
+        # self.object = self.get_object(*args, **kwargs)
 
         if form.is_valid():
+            messages.success(request, _("daily inspection updated successfully"), extra_tags='capfirst')
+            messages.info(request, _("check content please"))
             return self.form_valid(form)
-        else:            
+        else:
+            messages.success(request, _("daily inspection updated fail"))
             return self.form_invalid(form)
 
         return super(DailyInspectionUpdateView, self).post(request, *args, **kwargs) 
@@ -265,9 +273,14 @@ class DailyInspectionUpdateView(ThumbnailMixin, UpdateView): #ModelFormMixin
         return super(DailyInspectionUpdateView, self).dispatch(request,args,kwargs)   
 
     def get_success_url(self):
-        return reverse("dailyinspection_list", kwargs={}) 
+        return reverse("dailyinspection_detail", kwargs={'pk':self.kwargs.get("pk")})
 
+class DailyInspectionDeleteView( StaffRequiredMixin, DeleteView):
+    model = DailyInspection
+    template_name = "dailyinspection/dailyinspection_delete.html"
 
+    def get_success_url(self):
+        return reverse("dailyinspection_list", kwargs={})
 
 '''
 operators = {
@@ -341,8 +354,13 @@ class DailyInspectionListView(FilterMixin, ListView):
     def get_queryset(self, *args, **kwargs):
         qs = super(DailyInspectionListView, self).get_queryset(*args, **kwargs)
         query = self.request.GET.get("q")
+
+        qs  = self.model.objects.all()
+        if not self.request.user.is_staff and not self.request.user.is_superuser:
+            qs =  self.model.objects.external()
+
         if query:
-            qs = self.model.objects.filter(
+            qs = qs.filter(
                 Q(impact__icontains=query) |
                 Q(rectification_measures__icontains=query) |
                 Q(owner__icontains=query) |
@@ -350,7 +368,7 @@ class DailyInspectionListView(FilterMixin, ListView):
                 Q(inspection_content__icontains=query)
                 )
             try:
-                qs2 = self.model.objects.filter(
+                qs2 = qs.filter(
                     Q(rectification_status=query)
                 )
                 qs = (qs | qs2).distinct()
@@ -428,11 +446,32 @@ class shelf_inspection_ListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(shelf_inspection_ListView, self).get_context_data(*args, **kwargs)
-        context["object_list"] = shelf_inspection.objects.all()
-        context["records"] = [(object, \
+
+        queryset = shelf_inspection.objects.all()
+        print queryset
+        records_list = [(object, \
             object.shelf_inspection_record_set.filter(use_condition=1).count(), \
             object.shelf_inspection_record_set.filter(is_locked=False).count(), \
             object.shelf_inspection_record_set.filter(gradient__gt=1.4).count()) for object in shelf_inspection.objects.all()]
+        print records_list
+
+        paginator = Paginator(records_list, 2)
+
+        records = None
+
+        page = self.request.GET.get('page')
+        try:
+            records = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            records = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            records = paginator.page(paginator.num_pages)
+
+        context["object_list"] = queryset
+        context["records"] = records
+        print records
         return context       
 
 
@@ -610,6 +649,17 @@ class shelf_ListView(ListView):
     model = shelf
     template_name = "shelf/shelf_list.html"
 
+    def get_queryset(self,*args,**kwargs):
+        query = self.request.GET.get('q')
+        qs = self.model.objects.all()
+
+        if query:
+            qs = qs.filter(
+                Q(type__icontains=query) |
+                Q(number__icontains = query)
+            ).distinct()
+        return qs
+
 class shelf_inspection_record_DetailView(DetailView):
     model = shelf_inspection_record
     template_name = "shelf/shelf_inspection_record_detail.html"    
@@ -617,3 +667,50 @@ class shelf_inspection_record_DetailView(DetailView):
 # https://www.douban.com/note/350934079/
 # http://blog.csdn.net/xyp84/article/details/7945094
 # http://caibaojian.com/simple-responsive-table.html
+
+
+class ElectricalEquipmentInspectionListView(ListView):
+    model = ElectricalEquipmentInspection
+    queryset = ElectricalEquipmentInspection.objects.get_this_day()
+    #object_list = queryset
+    template_name = "equipment/electronical_equipment_inspection_list.html"
+
+    # def get_queryset(self, *args, **kwargs):
+    #     return self.queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ElectricalEquipmentInspectionListView, self).get_context_data(*args, **kwargs)
+
+        formset = electrical_equipment_inspection_model_formset(queryset=self.model.objects.get_this_day(),
+            initial=[{'use_condition': _('Normal'),}])
+        context["formset"] = formset
+        # context["objects_list"] = self.model.objects.get_this_day()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        #postresult = super(ElectricalEquipmentInspectionListView, self).post(request, *args, **kwargs)
+
+        formset = electrical_equipment_inspection_model_formset(request.POST or None, request.FILES or None)
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.save()
+            messages.success(request, "Your list has been updated.")
+            return redirect(reverse("electronialequipmentinsepction_list",  kwargs={}))
+
+        self.object_list = self.get_queryset() # copy from BaseListView::get
+        context = self.get_context_data()
+        context['formset'] = formset
+        return self.render_to_response(context)
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse("electronialequipmentinsepction_list", kwargs={})
+
+class ElectricalEquipmentInspectionDetailView(DetailView):
+    model = ElectricalEquipmentInspection
+    template_name = "equipment/electronical_equipment_inspection_detail.html"
+
+class ElectricalEquipmentInspectionCreateView(CreateView):
+    model = ElectricalEquipmentInspection
+    form_class = ElectricalEquipmentInspectionForm
+    template_name = "equipment/electronical_equipment_inspection_create.html"

@@ -41,6 +41,21 @@ class MyUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(username, email, phone, password, **extra_fields)
 
+
+    def create_superuser(self, username, email, phone, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(username, email, phone, password,
+                                 **extra_fields)
+
+    '''
+
     def create_superuser(self, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -58,6 +73,8 @@ class MyUserManager(BaseUserManager):
         else:
             return self._create_user(account_type='mail',
                                  **extra_fields)
+
+    '''
  
     ''' COPY for LEARNING
     def get_by_natural_key(self, username):
@@ -151,8 +168,9 @@ class MyAbstractUser(AbstractBaseUser, PermissionsMixin):
 
     image = models.ImageField(upload_to=image_upload_to, blank=True, null=True)
 
+    # below variable is very important for createsuperuser command
     USERNAME_FIELD = 'phone' if 'phone' == settings.ACCOUNT_REGISTER_TYPE  else 'username'
-    REQUIRED_FIELDS = ['email'] if 'phone' == settings.ACCOUNT_REGISTER_TYPE  else ['phone','email']
+    REQUIRED_FIELDS = ['username', 'email'] if 'phone' == settings.ACCOUNT_REGISTER_TYPE  else ['phone','email']
  
     objects = MyUserManager()
  

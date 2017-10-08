@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+<style type="text/css">
+{% block style %}
+tr td select, tr td input{
+    width: 100%;
+    border-radius: 3px;
+    height: 30px;
+    text-indent:3px;
+}
+
+table tr{
+    width:100%;
+}
+
+table tr th{
+    padding:0px;
+    margin:0px;
+    width:30%;
+}
+
+.errorlist{
+    color:#b94a48;
+    font-weight:bold;
+}
+{% endblock %}
+</style>
+{% block content %}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <!--{% for object in object_list %}-->
+            <!--<a href="{{object.get_absolute_url }}"> {{object }} </a></p>-->
+        <!--{% endfor %}-->
+
+        <form method="post" action="">{% csrf_token %}
+            {{ formset.management_form }}
+                {% for form in formset %}
+                <h4> {% if not forloop.last%}
+                <a href="{{form.instance.get_absolute_url }}"> {{form.instance }} </a>
+                {% else %}
+                <a href="{% url 'electronialequipmentinsepction_create' %}">Create New</a>
+                {% endif %}</h4>
+                <table style="width: 100%">
+                    {{ form.as_table }}
+                </table>
+                <hr>
+                {% endfor %}
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}

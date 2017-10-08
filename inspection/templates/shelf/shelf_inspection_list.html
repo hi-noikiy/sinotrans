@@ -7,13 +7,13 @@
 {% block style %}
 
 .header{
-	padding: 10px 0 10px; 
-	background-color: #a5d2e8; 
-	border: 1px solid #337ab7;
+    padding: 10px 0 10px;
+    background-color: #a5d2e8;
+    border: 1px solid #337ab7;
 }
 
 .body:hover{
-	background-color: #d9f6f7;
+    background-color: #d9f6f7;
 }
 
 a:link {text-decoration: none;}
@@ -22,11 +22,11 @@ a:active {text-decoration: none;}
 a:hover {text-decoration: none;}
 
 .row1, .row2{
-	padding: 5px 0 5px; 
+    padding: 5px 0 5px;
 }
 
 .row2{
-	background-color: #d9edf7; 
+    background-color: #d9edf7;
 }
 
 {% endblock%}
@@ -36,12 +36,12 @@ a:hover {text-decoration: none;}
 {% block js %}
 
 $(document).ready(function(){
-	$(".field-area>input").addClass("form-control");
-	$(".field-area textarea").addClass("form-control");
-	$(".field-area select").addClass("form-control");
-	$(".field-area>label").addClass("control-label");
-	
-	$(".field-area image-field a").hide()
+    $(".field-area>input").addClass("form-control");
+    $(".field-area textarea").addClass("form-control");
+    $(".field-area select").addClass("form-control");
+    $(".field-area>label").addClass("control-label");
+
+    $(".field-area image-field a").hide()
 
 });
 
@@ -50,39 +50,54 @@ $(document).ready(function(){
 
 {% block content %}
 {% if records.count == 0 %}
-	{% trans "Nothing found" %}
+    {% trans "Nothing found" %}
 {% else %}	
 <a href="{% url 'home'  %}"><i class="fa fa-file-excel-o fa-1x" aria-hidden="true"></i></a>
 
 
 <div class="row header">
-	<div class="col-xs-3">{% trans 'Create Date' %}</div>
-	<div class="col-xs-3">{% trans 'Use Condition' %}</div>
-	<div class="col-xs-3">{% trans 'Locked' %}</div>
-	<div class="col-xs-3">{% trans 'Gradient' %} > 1.4</div>
+    <div class="col-xs-3">{% trans 'Create Date' %}</div>
+    <div class="col-xs-3">{% trans 'Use Condition' %}</div>
+    <div class="col-xs-3">{% trans 'Locked' %}</div>
+    <div class="col-xs-3">{% trans 'Gradient' %} > 1.4</div>
 </div>
-{% autopaginate records 10 %}
+
 {% for record in records %}
 <div class="row {% cycle 'row1' 'row2' %} body">
-	<div class="col-xs-3"><a href='{{ record.0.get_absolute_url }}'>{{record.0.check_date}}</a></div>
-	<div class="col-xs-3">{{record.1}}</div>
-	<div class="col-xs-3">{{record.2}}</div>
-	<div class="col-xs-3">{{record.3}}</div>
+    <div class="col-xs-3"><a href='{{ record.0.get_absolute_url }}'>{{record.0.check_date}}</a></div>
+    <div class="col-xs-3">{{record.1}}</div>
+    <div class="col-xs-3">{{record.2}}</div>
+    <div class="col-xs-3">{{record.3}}</div>
 </div>
 {% endfor %}
+
 <div class="text-center">
-{% paginate %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if records.has_previous %}
+                <a href="?page={{ records.previous_page_number }}"><< previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ records.number }} of {{ records.paginator.num_pages }}
+            </span>
+
+            {% if records.has_next %}
+                <a href="?page={{ records.next_page_number }}">next >></a>
+            {% endif %}
+        </span>
+    </div>
 </div>
 {% endif %}
 
 <hr>
 <div class="row">
-	<div class="col-sm-12">
-		<h4>
-		<a href='{% url "shelf_list" %}'>{% trans "Shelf List" %}</a>
-		<a href='{% url "shelf_inspection_create" %}'>{% trans "Create Shelf Inspection" %}</a>
-		</h4>
-	</div>
+    <div class="col-sm-12">
+        <h4>
+        <a href='{% url "shelf_list" %}'>{% trans "Shelf List" %}</a>
+        <a href='{% url "shelf_inspection_create" %}'>{% trans "Create Shelf Inspection" %}</a>
+        </h4>
+    </div>
 </div>
 
 

@@ -8,7 +8,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 import datetime
 from django.utils import timezone
-
+from django.http import Http404
+from django.utils import timezone
+from datetime import datetime, timedelta
 from fields import ThumbnailImageField
 
 # Create your models here.
@@ -47,7 +49,10 @@ def image_upload_to_dailyinspection(instance, filename):
     new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), slugify(title), file_extension) # created was not ready for CreateView
     return "dailyinspection/%s/%s" %(instance.category, new_filename)
 
-
+class DailyInspectionManager(models.Manager):
+    def external(self, *args, **kwargs):
+        #raise Http404
+        return super(DailyInspectionManager,self).filter(rectification_status__icontains='uncompleted')
 class DailyInspection(models.Model):
 
     daily_insepction_category = (
@@ -92,6 +97,8 @@ class DailyInspection(models.Model):
     image_after = models.ImageField(_('Picture after Rectification'), upload_to=image_upload_to_dailyinspection, blank=True, null=True)
     #warehouse = models.CharField(_('Warehouse'), max_length=30, choices = daily_insepction_warehouse, blank=False, default = '3#')
     location = models.CharField(_('Location'), max_length=30, choices = daily_insepction_location, blank=False, default = '1')
+
+    objects = DailyInspectionManager()
     
     def __unicode__(self): 
         return _("Daily Inspection ") + self.inspection_content
@@ -101,6 +108,10 @@ class DailyInspection(models.Model):
 
     def get_absolute_url_update(self):
         return reverse("dailyinspection_update", kwargs={"pk": self.id })    
+
+    def get_absolute_url_delete(self):
+        return reverse("dailyinspection_delete", kwargs={"pk": self.id })    
+
 
     def get_image_url_before(self):
         img = self.image_before
@@ -159,6 +170,11 @@ class DailyInspection(models.Model):
         field = DailyInspection._meta.get_field(fieldname)
         return "%s" % self._get_FIELD_display(field)        
 
+    class Meta:
+        verbose_name = _("Daily Inspection")
+        verbose_name_plural = _("Daily Inspection")
+        ordering = ['-created']
+
 post_delete.connect(file_cleanup, sender=DailyInspection, dispatch_uid="DailyInspection.file_cleanup")
 post_save.connect(file_cleanup2, sender=DailyInspection, dispatch_uid="DailyInspection.file_cleanup2")
 pre_save.connect(save_raw_instance, sender=DailyInspection)
@@ -187,9 +203,17 @@ class forklift(models.Model):
     def __unicode__(self): 
         return _("forklift") + self.internal_car_number
 
+    class Meta:
+        verbose_name = _("forklift")
+        verbose_name_plural = _("forklift")
+
 class forklift_image(models.Model):
     forklift = models.ForeignKey(forklift)
     image = models.ImageField(_('image'), upload_to='inspection/forklift', blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("forklift image")
+        verbose_name_plural = _("forklift image")
 
 class forklift_maint(models.Model):
     """docstring for forklift_maint"""
@@ -231,6 +255,9 @@ class forklift_maint(models.Model):
         super(forklift_maint, self).__init__()
         self.arg = arg
 
+    class Meta:
+        verbose_name = _("forklift maintenance")
+        verbose_name_plural = _("forklift maintenance")
 
 class forklift_repair(models.Model):
     damage_reason = models.CharField(_('Damage Reason'), max_length=30, blank=True)
@@ -240,14 +267,26 @@ class forklift_repair(models.Model):
     repaired = models.CharField(_('Repaired'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')  
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    
+
+    class Meta:
+        verbose_name = _("forklift repair")
+        verbose_name_plural = _("forklift repair")
+
 class forklift_annual_inspection(models.Model):
     date = models.DateField(_('Annual Inspection Date'), auto_now_add=False, auto_now=False)
     next_date = models.DateField(_('Next Inspection Date'), auto_now_add=False, auto_now=False)
 
+    class Meta:
+        verbose_name = _("forklift annual inspection")
+        verbose_name_plural = _("forklift annual inspection")
+
 class forklift_annual_inspection_image(models.Model):
     forklift = models.ForeignKey(forklift_annual_inspection)
     image = models.ImageField(_('image'), upload_to='inspection/forklift_annual_inspection', blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("forklift annual inspection image")
+        verbose_name_plural = _("forklift annual inspection image")
 
 '''
 class warehouse(models.Model):
@@ -291,7 +330,10 @@ class shelf(models.Model):
         
         field = shelf._meta.get_field(fieldname)
         return "%s" % self._get_FIELD_display(field)
-            
+
+    class Meta:
+        verbose_name = _('Shelf')
+        verbose_name_plural =  _('Shelf')
 
 
 class shelf_inspection(models.Model):
@@ -303,6 +345,10 @@ class shelf_inspection(models.Model):
 
     def get_absolute_url(self):
         return reverse("shelf_inspection_detail", kwargs={"pk": self.id })
+
+    class Meta:
+        verbose_name = _("shelf inspection")
+        verbose_name_plural = _("shelf inspection")
 
 class shelf_inspection_record(models.Model):
     shelf_inspection_record_use_condition = (
@@ -341,18 +387,30 @@ class shelf_inspection_record(models.Model):
             field = shelf_inspection_record._meta.get_field(fieldname)
             return "%s" % self._get_FIELD_display(field)
 
+    class Meta:
+        verbose_name = _("shelf inspection record")
+        verbose_name_plural = _("shelf inspection record")
 
 class shelf_annual_inspection(models.Model):
     date = models.DateField(_('Annual Inspection Date'), auto_now_add=False, auto_now=False)
     next_date = models.DateField(_('Next Inspection Date'), auto_now_add=False, auto_now=False)
 
+    class Meta:
+        verbose_name = _("shelf annual inspection")
+
 class shelf_annual_inspection_image(models.Model):
     shelf_annual_inspection = models.ForeignKey(shelf_annual_inspection)
     image = models.ImageField(_('image'), upload_to='inspection/shelf_annual_inspection', blank=True, null=True)
 
+    class Meta:
+        verbose_name = _("shelf annual inspection image")
+
 class extinguisher(models.Model):
     name = models.CharField(_('Name'), max_length=30, blank=True)   
     capacity = models.CharField(_('Capacity'), max_length=30, blank=True)   
+
+    class Meta:
+        verbose_name = _("extinguisher")
 
 class extinguisher_inspection(models.Model):
     extinguisher = models.ForeignKey(extinguisher)
@@ -360,9 +418,16 @@ class extinguisher_inspection(models.Model):
     check_result = models.CharField(_('Check Result'), max_length=30, blank=True) 
     check_date = models.DateField(_('Check Date'),auto_now_add=False, auto_now=False)
 
+    class Meta:
+        verbose_name = _("extinguisher inspection")
+
+
 class hydrant(models.Model):
     name = models.CharField(_('Name'), max_length=30, blank=True) 
     accessories = models.CharField(_('Accessories'), max_length=30, blank=True)   
+
+    class Meta:
+        verbose_name = _("hydrant")
 
 class hydrant_inspection(models.Model):
     extinguisher = models.ForeignKey(hydrant)
@@ -370,9 +435,73 @@ class hydrant_inspection(models.Model):
     check_result = models.CharField(_('Check Result'), max_length=30, blank=True) 
     check_date = models.DateField(_('Check Date'),auto_now_add=False, auto_now=False)
 
+    class Meta:
+        verbose_name = _("hydrant inspection")
 
 class rehearsal(models.Model):
     title = models.TextField(_('Title'), max_length=30, blank=True)   
     date = models.DateField(_('Date'),auto_now_add=False, auto_now=False)
     attachment = models.FileField(_('Attachment'), blank=True) 
     
+    class Meta:
+        verbose_name = _("rehearsal")
+
+class equipment(models.Model):
+    equipment_type = (
+        ('electrical equipment', _('electrical equipment')),
+        ('emergency exit door', _('emergency exit door')),
+        ('emergency lamp', _('emergency lamp')),
+        ('entrance door', _('entrance door')),
+        ('downpipe', _('downpipe')),
+        ('fireproof door', _('fireproof door')),
+    )
+
+    name = models.CharField(_('Name'), max_length=30, blank=False, null=False) # name can include location
+    type = models.CharField(_('Type'), choices = equipment_type, max_length=30, blank=False, null=False)
+
+    class Meta:
+        verbose_name = _('equipment')
+
+    def __unicode__(self):
+        return "%s" % (self.name)
+
+class equipment_inspection(models.Model):
+    equipment_use_condition = (
+        ('normal', _('Normal')),
+        ('breakdown', _('Breakdown')),
+    )
+
+    equipment = models.ForeignKey(equipment)
+    use_condition = models.CharField(_('Use Condition'), choices=equipment_use_condition, max_length=30, blank=False,null=False,default='normal')
+    inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
+    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False)
+    updated = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+    class Meta:
+        verbose_name = _('equipment inspection')
+        abstract = True
+        unique_together = (('equipment','inspector','date_of_inspection'),)
+
+    def get_absolute_url(self):
+        return reverse("electronialequipmentinsepction_detail", kwargs={"pk": self.id})
+
+class ElectricalEquipmentInspectionManager(models.Manager):
+    def get_query_set(self):
+        return models.query.QuerySet(self.model, using=self._db)
+
+    def get_this_day(self):
+        start = timezone.now().date()
+        end = start + timedelta(days=1)
+
+        return self.get_query_set().filter(date_of_inspection__range=(start, end))
+
+
+class ElectricalEquipmentInspection(equipment_inspection):
+    objects = ElectricalEquipmentInspectionManager()
+
+    class Meta:
+        abstract = False
+        unique_together = (('equipment','inspector','date_of_inspection'),)
+
+    def __unicode__(self):
+        return "%s" % (self.equipment.name)

@@ -7,8 +7,9 @@ from .views import handleCheckSignature
 from .debug import handleDebug
 from .menu import handleMenuRequest
 
+
 urlpatterns = [
-    url(r'^checksignature$', 'wechat.views.handleCheckSignature'),
-    url(r'^menu', 'wechat.menu.handleMenuRequest', name='handleMenuRequest'),
-    url(r'^debug', 'wechat.debug.handleDebug', name='handleDebug'),
+    url(r'^checksignature$', handleCheckSignature),
+    url(r'^menu', handleMenuRequest, name='handleMenuRequest'),
+    url(r'^debug', handleDebug, name='handleDebug'),
 ]

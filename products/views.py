@@ -277,7 +277,7 @@ class ProductCreateView(CreateView):
 
         # BELOW ALSO WORKS
         else:
-            imageForm = ProductImageForm(request.POST, request.FILES)
+            imageForm = ProductImageForm(request.POST or None, request.FILES or None)
             if imageForm.is_valid():
                 productImage = imageForm.save(commit=False) 
                 productImage.product = self.object

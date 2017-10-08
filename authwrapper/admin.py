@@ -6,7 +6,7 @@ from .models import MyUser, WechatUserProfile
 from .forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-
+from inspection.admin import my_admin_site
 
 
 #refer to django/contrib/auth/admin.py
@@ -48,8 +48,8 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
     search_fields = ('phone','email',)
-    ordering = ('email',)
-    filter_horizontal = ()
+    ordering = ('username',)
+    #filter_horizontal = ('groups', 'user_permissions',) #inherit from base
 
 class WechatUserProfileAdmin(admin.ModelAdmin):
     list_display = ["openid", "unionid", "nickname"]
@@ -62,3 +62,6 @@ admin.site.register(MyUser, UserAdmin)
 # unregister the Group model from admin.
 #admin.site.unregister(Group)
 admin.site.register(WechatUserProfile, WechatUserProfileAdmin)
+
+
+my_admin_site.register(MyUser, UserAdmin)

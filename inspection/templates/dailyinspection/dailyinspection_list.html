@@ -13,7 +13,7 @@ a:hover {text-decoration: none;}
 
 div.categorylist{
 	margin-right: 0px; /* if the value > 0, then next div will move to next line*/
-	padding: 15px 8px; 
+	padding: 15px 8px;
 	/*background-color: #eef1f3;*/
 }
 
@@ -22,7 +22,7 @@ div.categorylist{
 }
 
 .category-content{
-	text-decoration: none; 
+	text-decoration: none;
 	outline: none;
 	border-radius: 3px;
 	border: solid 1px #d9edf7;
@@ -51,50 +51,52 @@ $(document).ready(function(){
 
 <div class='row'>
 	<div class='col-xs-4 col-sm-3 col-md-2 '>
-		<form method="GET" action="{% url 'dailyinspection_list' %}">	
+		<form method="GET" action="{% url 'dailyinspection_list' %}">
 			{{ InspectionFilterForm|crispy }}
 
 			<!-- <input type='hidden' name='q' value='{{ request.GET.q }}' /> -->
-			<input type='submit' value="{% trans 'Apply Filter' %}" class='btn btn-default'>
+			<input type='submit' class='btn btn-primary' style="margin-bottom: 5px;" value="{% trans 'Apply Filter' %}">
+			<a class="btn btn-default"  style="margin-bottom: 5px;" href="{% url 'dailyinspection_list' %}"  >{% trans 'Clear Filters' %}</a>
 		</form>
-		<a class="btn btn-default" style="margin-top: 5px;" href="{% url 'dailyinspection_list' %}"  >{% trans 'Clear Filters' %}</a>  
 	    <hr>
-	</div>		
-	<div class='col-xs-8 col-sm-9 col-md-10 container'>	
-		
+	</div>
+	<div class='col-xs-8 col-sm-9 col-md-10 container'>
+
         
 		<div class="row category-content">
 			<div class='col-xs-4 col-md-2 categorylist active text-center'>
 				<a href="{% url 'dailyinspection_list' %}">{% trans "All Categories" %}</a>
-			</div>				
+			</div>
 
 			{% for category in categories%}
 			<div class='col-xs-4 col-md-2 categorylist  text-center'>
 				<a href="{% url 'dailyinspection_list' %}?category={{category.0}}" style="display: block; " >{{category.1}}</a>
 			</div>
-			{% cycle '' '' '' '' '' '</div><div class="row">'%} 
+			{% cycle '' '' '' '' '' '</div><div class="row">'%}
 			{% endfor %}
 		</div>
 		<br>
-		
+
 	    <div class="object_lists">
 			{% autopaginate object_list 8 %}
             
 			{% if object_list.count == 0 %}
 				{% trans "Nothing found" %}
 			{% else %}
-				{% include "dailyinspection/inspections.html" with object_list=object_list %}            	
+				{% include "dailyinspection/inspections.html" with object_list=object_list %}
 			{% endif %}
             
 			<div class="text-center">
 			{% paginate %}
-			</div>            
-		</div>		
+			</div>
+		</div>
         
 		<div class="object_create">
+            {% if request.user.is_staff or request.user.is_superuser %}
 	    	<h4><a href='{% url "dailyinspection_create" %}'>{% trans "Create New Item" %}</a></h4>
+            {% endif %}
 	    	<h4><a href='{% url "shelf_inspection_stat" %}'>{% trans "Inspection Statistic" %}</a></h4>
-	    </div>        
+	    </div>
 	</div>
 </div>
 

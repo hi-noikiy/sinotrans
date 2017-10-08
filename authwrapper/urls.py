@@ -8,9 +8,11 @@ from .views import logout, login, GetVerificationCode
 from .views import RegistrationView, ProfileUpdateView, RegistrationForgetView
 from django.contrib.auth import views as auth_views
 
+from wechat.views import wechatlogin
+
 urlpatterns = [
 
-    url(r'^wechatlogin/$', 'wechat.views.wechatlogin', name='wechatlogin'), 
+    url(r'^wechatlogin/$', wechatlogin, name='wechatlogin'), 
     url(r'^logout/$', logout, name='logout'), 
     url(r'^login/$', login, name='login'), 
     url(r'^register/$', RegistrationView.as_view(), name='register_phone'), 

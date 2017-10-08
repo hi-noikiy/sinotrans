@@ -14,6 +14,7 @@ class openidmiddleware():
 
 	def process_request(self, request):
 		request.register_type = settings.ACCOUNT_REGISTER_TYPE
+		request.lang = settings.LANGUAGES
 
 		import os
 		if settings.USE_SAE_BUCKET: #'SERVER_SOFTWARE' in os.environ:  

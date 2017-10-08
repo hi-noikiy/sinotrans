@@ -2,13 +2,14 @@
 {% load crispy_forms_tags %}
 {# load myform_tags #}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block content %}
 <div class='row'>
 	<div class='col-sm-6 col-sm-offset-3'>
         
-        <div class="text-center">
-            <lead><h2>{{object.inspection_content}}</h2></lead>
+        <div class="text-center caption">
+            <lead><h2>{{object.inspection_content}}</h2>
             <span><b>{% trans 'Create' %}</b></span> : {{object.created}} &nbsp &nbsp &nbsp <span><b>{% trans 'Last Update' %}</b></span> : {{object.updated}}	
             <hr>
         </div>         
@@ -27,7 +28,14 @@
 
 			<hr>
 
-			<a class="btn btn-default" href="{{object.get_absolute_url_update}}"  >{% trans 'Update' %}</a>
+			{% if request.user.is_staff or request.user.is_superuser %}
+			<a class="btn btn-primary" style="width:100px;" href="{{object.get_absolute_url_update}}">{% trans 'Update' %}</a>
+			{% endif %}
+			<a class="btn btn-secondary" style="width:100px;border-color: #428bca;" href="{% url 'dailyinspection_list' %}">{% trans 'Back' %}</a>
+			<!-- <a href="{% url 'dailyinspection_list' %}"><button class="btn btn-secondary" style="width:100px;" >{% trans 'Back' %}</button></a> -->
+			{% if request.user.is_staff or request.user.is_superuser %}
+			<a class="btn btn-danger pull-right" style="width:100px;" href="{{object.get_absolute_url_delete}}"  >{% trans 'Delete' %}</a>
+			{% endif %}
 		</div>
         
 	</div>

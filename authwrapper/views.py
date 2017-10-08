@@ -172,7 +172,7 @@ class ProfileUpdateView(UpdateView):
             return None
 
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=UserUpdateForm):
         kwargs = self.get_form_kwargs()
         kwargs.update({'instance': self.get_object()})
         form = self.form_class(**kwargs)  
