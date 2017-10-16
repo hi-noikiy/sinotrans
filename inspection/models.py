@@ -308,7 +308,7 @@ class shelf(models.Model):
     is_gradient_measurement_mandatory = models.BooleanField(_('Gradient Measurement Mandatory'), blank=True)
 
     def __unicode__(self): 
-        return "%s %s %s %s %s" % (self.warehouse,self.compartment, self.warehouse_channel,self.group,self.number)
+        return "%s-%s-%s-%s-%s" % (self.warehouse,self.compartment, self.warehouse_channel,self.group,self.number)
 
     def get_shelf_name(self):
         return _('Shelf')
@@ -355,7 +355,7 @@ class shelf_inspection_record(models.Model):
         ('2', _('Breakdown')),
     )
 
-    shelf = models.ForeignKey(shelf)
+    shelf = models.ForeignKey(shelf, verbose_name=_('Shelf'))
     shelf_inspection = models.ForeignKey(shelf_inspection, default=None)
     use_condition = models.CharField(_('Use Condition'), choices = shelf_inspection_record_use_condition, max_length=30, blank=True) 
     is_locked = models.BooleanField(_('Locked'), blank=True)
@@ -504,3 +504,42 @@ class ElectricalEquipmentInspection(equipment_inspection):
 
     def __unicode__(self):
         return "%s" % (self.equipment.name)
+
+month_choice = (
+    ('1jan', _('January')),
+    ('2feb', _('February')),
+    ('3mar', _('March')),
+    ('4apr', _('April')),
+    ('5may', _('May')),
+    ('6jun', _('June')),
+    ('7jul', _('July')),
+    ('8aug', _('August')),
+    ('9sep', _('September')),
+    ('aoct', _('October')),
+    ('bnov', _('November')),
+    ('cdev', _('December')),
+)
+
+class SprayPumpRoomInspectionManager(models.Manager):
+    def get_query_set(self):
+        return models.query.QuerySet(self.model, using=self._db)
+
+    def queryset_ordered(self):
+        # queryset = []
+        # for month in month_choice:
+        #     queryset.append(self.get_query_set().filter(month=month[0]))
+        # return queryset
+
+        return self.get_query_set().all()
+
+class SprayPumpRoomInspection(models.Model):
+    month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False,null=False)
+    voltage_and_power_normal = models.BooleanField(_('voltage and power normal'), blank=True, default=False)
+    indicator_and_instrument_normal = models.BooleanField(_('indicator and instrument normal'), blank=True, default=False)
+
+    objects = SprayPumpRoomInspectionManager()
+    def __unicode__(self):
+        return "Spray Pump Room Inspection %s" % (self.month)
+
+    class Meta:
+        ordering = ('month',)

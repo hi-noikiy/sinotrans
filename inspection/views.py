@@ -21,10 +21,13 @@ from .mixins import StaffRequiredMixin
 
 # Create your views here.
 from .models import OfficeInspection, DailyInspection, shelf_inspection_record, shelf_inspection, shelf
-from .models import  ElectricalEquipmentInspection
+from .models import  ElectricalEquipmentInspection, SprayPumpRoomInspection
 from .forms import OfficeInspectionForm, DailyInspectionForm, InspectionFilterForm, shelf_inspection_recordForm, shelfFilterForm, shelf_inspection_Form
 from .forms import shelf_inspection_record_Formset
-from .forms import ElectricalEquipmentInspectionForm, electrical_equipment_inspection_model_formset
+from .forms import (
+    ElectricalEquipmentInspectionForm, electrical_equipment_inspection_model_formset,
+    SprayPumpRoomInspectionForm,spray_pumproom_inspection_model_formset,
+)
 
 from .models import image_upload_to_dailyinspection
 
@@ -344,7 +347,7 @@ class DailyInspectionListView(FilterMixin, ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(DailyInspectionListView, self).get_context_data(*args, **kwargs)
-        #context["objects_list"] = DailyInspection.objects.order_by('-updated')
+        # context["objects_list"] = DailyInspection.objects.order_by('-updated')
         context["objects_sort"] = DailyInspection.objects.order_by('-updated')
         context["query"] = self.request.GET.get("q")
         context["InspectionFilterForm"] = InspectionFilterForm(data=self.request.GET or None)        
@@ -714,3 +717,42 @@ class ElectricalEquipmentInspectionCreateView(CreateView):
     model = ElectricalEquipmentInspection
     form_class = ElectricalEquipmentInspectionForm
     template_name = "equipment/electronical_equipment_inspection_create.html"
+
+
+class SprayPumproomInspectionListView(ListView):
+    model = SprayPumpRoomInspection
+    queryset = SprayPumpRoomInspection.objects.all() #queryset_ordered()
+
+    template_name = "equipment/spray_pump_room_inspection.html"
+
+    def get_queryset(self, *args, **kwargs):  # queryset has cache
+        return SprayPumpRoomInspection.objects.all()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SprayPumproomInspectionListView, self).get_context_data(*args, **kwargs)
+
+        formset = spray_pumproom_inspection_model_formset(queryset=self.get_queryset(*args, **kwargs))
+        context["formset"] = formset
+        months_exist = [_.month for _ in self.get_queryset()]
+        from inspection.models import month_choice
+        months = [_ for _ in month_choice if _[0] in months_exist]
+        context["months"] = months
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        formset = spray_pumproom_inspection_model_formset(request.POST or None, request.FILES or None)
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.save()
+            messages.success(request, "Your list has been updated.")
+            return redirect(reverse("spraypumproominspection_list",  kwargs={}))
+
+        self.object_list = self.get_queryset() # copy from BaseListView::get
+        context = self.get_context_data()
+        context['formset'] = formset
+        return self.render_to_response(context)
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse("spraypumproominspection_list", kwargs={})

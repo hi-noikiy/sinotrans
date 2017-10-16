@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # 'mptt',
     # 'django_comments',       
     # 'comments',
+    'trainings',
     'authwrapper',
     'newsletter',
     'products',
@@ -59,7 +60,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'registration',
     'django_filters',    
-    'pagination',
+    'pagination', # not supported since django1.9 due to error 'WSGIRequest' object has no attribute 'REQUEST', in django 1.9, Replace `request.REQUEST` with `POST` and `GET`
     'ckeditor',
     'phone_login',
     'rest_framework'
@@ -291,7 +292,7 @@ else:
     APP_ID = 'wx168434ba37e8c17b' #
     APP_SECRET = 'd4624c36b6795d1d99dcf0547af5443d'
 
-ACCOUNT_REGISTER_TYPE = 'phone' #phone, mail
+ACCOUNT_REGISTER_TYPE =  'phone' #phone, 'mail',
 ACCOUNT_ALLOW_MIX_TYPE_LOGIN = True
 
 PHONE_LOGIN_ATTEMPTS = 100

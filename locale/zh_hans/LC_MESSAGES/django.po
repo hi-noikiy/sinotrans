@@ -1,0 +1,2536 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-07 15:27+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\authwrapper\models.py:101
+msgid "username"
+msgstr ""
+
+#: .\authwrapper\models.py:104
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+
+#: .\authwrapper\models.py:115
+msgid "A user with that username already exists."
+msgstr ""
+
+#: .\authwrapper\models.py:118
+msgid "phone"
+msgstr ""
+
+#: .\authwrapper\models.py:119
+msgid "Required. digits and + only."
+msgstr ""
+
+#: .\authwrapper\models.py:121
+msgid "A user with that phone number already exists."
+msgstr ""
+
+#: .\authwrapper\models.py:135
+msgid "first name"
+msgstr ""
+
+#: .\authwrapper\models.py:136
+msgid "last name"
+msgstr ""
+
+#: .\authwrapper\models.py:137
+msgid "email address"
+msgstr ""
+
+#: .\authwrapper\models.py:138
+msgid "sex"
+msgstr ""
+
+#: .\authwrapper\models.py:139
+msgid "birthday"
+msgstr ""
+
+#: .\authwrapper\models.py:140
+msgid "nickname"
+msgstr ""
+
+#: .\authwrapper\models.py:141
+msgid "staff status"
+msgstr ""
+
+#: .\authwrapper\models.py:142
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+
+#: .\authwrapper\models.py:144
+msgid "active"
+msgstr ""
+
+#: .\authwrapper\models.py:145
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: .\authwrapper\models.py:147
+msgid "date joined"
+msgstr ""
+
+#: .\authwrapper\models.py:160
+#: .\site-packages-pip-fail\phone_login\models.py:64
+#: .\site-packages\phone_login\models.py:64
+msgid "user"
+msgstr ""
+
+#: .\authwrapper\models.py:161
+#: .\site-packages-pip-fail\phone_login\models.py:65
+#: .\site-packages\phone_login\models.py:65
+msgid "users"
+msgstr ""
+
+#: .\authwrapper\templates\auth\registration_form.html:5
+#: .\authwrapper\templates\rest_framework\api.html:5
+#: .\templates\registration\registration_form.html:5
+msgid "Register for an account"
+msgstr ""
+
+#: .\authwrapper\templates\auth\registration_form.html:96
+msgid "Register for free!"
+msgstr ""
+
+#: .\authwrapper\templates\auth\registration_form_forget.html:4
+#: .\templates\navbar.html:86 .\templates\navbar.html.py:88
+msgid "Forgot Password"
+msgstr ""
+
+#: .\authwrapper\validators.py:13
+msgid ""
+"Enter a valid username. This value may contain only English letters, "
+"numbers, and ./-/_ characters."
+msgstr ""
+
+#: .\authwrapper\validators.py:23
+msgid ""
+"Enter a valid username. This value may contain only letters, numbers, "
+"and ./-/_ characters."
+msgstr ""
+
+#: .\carts\templates\carts\checkout_view.html:25
+msgid "Forgot password"
+msgstr ""
+
+#: .\carts\templates\carts\checkout_view.html:25
+#: .\templates\registration\login.html:30
+#: .\templates\registration\login.html:33
+msgid "Reset it"
+msgstr ""
+
+#: .\carts\templates\carts\checkout_view.html:26
+msgid "Not member"
+msgstr ""
+
+#: .\carts\templates\carts\checkout_view.html:26 .\templates\navbar.html:67
+#: .\templates\registration\login.html.py:31
+#: .\templates\registration\login.html:34
+msgid "Register"
+msgstr ""
+
+#: .\inspection\apps.py:6 .\inspection\views.py:100 .\inspection\views.py:133
+#: .\templates\navbar.html:50
+msgid "Inspection"
+msgstr ""
+
+#: .\inspection\forms.py:47 .\inspection\models.py:88
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:20
+msgid "Impact"
+msgstr "影响"
+
+#: .\inspection\forms.py:116 .\inspection\models.py:86
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:18
+msgid "Category"
+msgstr "分类"
+
+#: .\inspection\forms.py:125 .\inspection\models.py:90
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:22
+msgid "Rectification Status"
+msgstr "整改状态"
+
+#: .\inspection\forms.py:133 .\inspection\models.py:91
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:23
+msgid "Owner"
+msgstr "责任人"
+
+#: .\inspection\forms.py:232
+msgid "Gradient Check Only"
+msgstr "测量倾斜度"
+
+#: .\inspection\forms.py:238 .\inspection\models.py:302
+#: .\inspection\templates\shelf\shelf_detail.html:7
+msgid "Shelf Type"
+msgstr "货架种类"
+
+#: .\inspection\forms.py:253
+msgid "Warehouse"
+msgstr "仓库"
+
+#: .\inspection\forms.py:269
+msgid "Compartment"
+msgstr "仓间"
+
+#: .\inspection\forms.py:284
+msgid "Warehouse Channel"
+msgstr "仓库通道"
+
+#: .\inspection\models.py:29
+msgid "plug"
+msgstr "开关"
+
+#: .\inspection\models.py:30
+msgid "power"
+msgstr "电源"
+
+#: .\inspection\models.py:58
+msgid "People"
+msgstr "人员"
+
+#: .\inspection\models.py:59
+msgid "Device"
+msgstr "设备"
+
+#: .\inspection\models.py:60
+msgid "Machine"
+msgstr "机器"
+
+#: .\inspection\models.py:61
+msgid "Method"
+msgstr "方法"
+
+#: .\inspection\models.py:62
+msgid "Environment"
+msgstr "环境"
+
+#: .\inspection\models.py:67
+msgid "economic loss"
+msgstr "易造成经济损失"
+
+#: .\inspection\models.py:68
+msgid "personnel injury"
+msgstr "易造成人员伤害"
+
+#: .\inspection\models.py:69
+msgid "non-conformance 5SS standard"
+msgstr "不符合5SS标准"
+
+#: .\inspection\models.py:73 .\inspection\models.py:138
+msgid "Completed"
+msgstr "已完成"
+
+#: .\inspection\models.py:74 .\inspection\models.py:138
+msgid "Uncompleted"
+msgstr "未完成"
+
+#: .\inspection\models.py:83
+msgid "Storage Area"
+msgstr "存储区"
+
+#: .\inspection\models.py:87
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:19
+msgid "Inspection Content"
+msgstr "检查内容"
+
+#: .\inspection\models.py:89
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:21
+msgid "Rectification Measures"
+msgstr "整改措施"
+
+#: .\inspection\models.py:92
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:24
+msgid "Due Date"
+msgstr "截止日期"
+
+#: .\inspection\models.py:93
+msgid "Inspection Created Date"
+msgstr "检查创建日期"
+
+#: .\inspection\models.py:94
+msgid "Inspection Updated Date"
+msgstr "巡检更新日期"
+
+#: .\inspection\models.py:95
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:25
+msgid "Picture before Rectification"
+msgstr "整改前照片"
+
+#: .\inspection\models.py:96
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:26
+msgid "Picture after Rectification"
+msgstr "整改后照片"
+
+#: .\inspection\models.py:98
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:27
+msgid "Location"
+msgstr "位置"
+
+#: .\inspection\models.py:103
+msgid "Daily Inspection "
+msgstr ""
+
+#: .\inspection\models.py:173 .\inspection\models.py:174
+#: .\inspection\views.py:268 .\inspection\views.py:380
+msgid "Daily Inspection"
+msgstr "日常巡检"
+
+#: .\inspection\models.py:185
+msgid "Inner Car Number"
+msgstr ""
+
+#: .\inspection\models.py:186
+msgid "Inner Plate Number"
+msgstr ""
+
+#: .\inspection\models.py:187
+msgid "Forklift Model"
+msgstr ""
+
+#: .\inspection\models.py:188
+msgid "SN"
+msgstr ""
+
+#: .\inspection\models.py:189
+msgid "Forklift Category"
+msgstr ""
+
+#: .\inspection\models.py:190
+msgid "Manufacturer"
+msgstr ""
+
+#: .\inspection\models.py:191
+msgid "Tip Height"
+msgstr ""
+
+#: .\inspection\models.py:192
+msgid "Carrying Capacity"
+msgstr ""
+
+#: .\inspection\models.py:193
+msgid "Self Weight"
+msgstr ""
+
+#: .\inspection\models.py:194
+msgid "Turning Radius"
+msgstr ""
+
+#: .\inspection\models.py:195
+msgid "Front Tyre Size"
+msgstr ""
+
+#: .\inspection\models.py:196
+msgid "Back Tyre Size"
+msgstr ""
+
+#: .\inspection\models.py:197
+msgid "Forklift Width"
+msgstr ""
+
+#: .\inspection\models.py:198
+msgid "Forklift Length"
+msgstr ""
+
+#: .\inspection\models.py:199
+msgid "Fork Length"
+msgstr ""
+
+#: .\inspection\models.py:200
+msgid "Maximum Velocity"
+msgstr ""
+
+#: .\inspection\models.py:203 .\inspection\models.py:206
+#: .\inspection\models.py:207 .\inspection\models.py:251
+msgid "forklift"
+msgstr ""
+
+#: .\inspection\models.py:211 .\inspection\models.py:284
+#: .\inspection\models.py:402
+msgid "image"
+msgstr ""
+
+#: .\inspection\models.py:214 .\inspection\models.py:215
+msgid "forklift image"
+msgstr ""
+
+#: .\inspection\models.py:219
+msgid "clean forklift"
+msgstr ""
+
+#: .\inspection\models.py:220
+msgid "clean and lubricate chain"
+msgstr ""
+
+#: .\inspection\models.py:221
+msgid "lubricate gateshelf and lean cylinder bearing"
+msgstr ""
+
+#: .\inspection\models.py:222
+msgid "lubricate sideswayfork and check work status"
+msgstr ""
+
+#: .\inspection\models.py:223
+msgid "fastening tyre nut"
+msgstr ""
+
+#: .\inspection\models.py:224
+msgid "check tyre status"
+msgstr ""
+
+#: .\inspection\models.py:225
+msgid "check gear oil level and leak"
+msgstr ""
+
+#: .\inspection\models.py:226
+msgid "check hydraulic oil level"
+msgstr ""
+
+#: .\inspection\models.py:227
+msgid "clean all motor and accessories"
+msgstr ""
+
+#: .\inspection\models.py:228
+msgid "check and clean motor cooling fan"
+msgstr ""
+
+#: .\inspection\models.py:229
+msgid "check all cable and connection status"
+msgstr ""
+
+#: .\inspection\models.py:230
+msgid "check battery electrolyte liquidometer ratio"
+msgstr ""
+
+#: .\inspection\models.py:231
+msgid "check charger status"
+msgstr ""
+
+#: .\inspection\models.py:232
+msgid "check pipeline fastening and leak"
+msgstr ""
+
+#: .\inspection\models.py:233
+msgid "check pallet fork and pin lock"
+msgstr ""
+
+#: .\inspection\models.py:234
+msgid "check lubricate pedal and control linkage"
+msgstr ""
+
+#: .\inspection\models.py:235
+msgid "check braking device"
+msgstr ""
+
+#: .\inspection\models.py:236
+msgid "check all motor carbon brush"
+msgstr ""
+
+#: .\inspection\models.py:237
+msgid "check overhead guard and counter weight"
+msgstr ""
+
+#: .\inspection\models.py:238
+msgid "check steering axle and drive axle"
+msgstr ""
+
+#: .\inspection\models.py:239
+msgid "check gateshelf and chain"
+msgstr ""
+
+#: .\inspection\models.py:240
+msgid "check hub bearing"
+msgstr ""
+
+#: .\inspection\models.py:241
+msgid "check steering axle bearing"
+msgstr ""
+
+#: .\inspection\models.py:242
+msgid "check gateshlf bearing"
+msgstr ""
+
+#: .\inspection\models.py:243
+msgid "change gear oil"
+msgstr ""
+
+#: .\inspection\models.py:244
+msgid "change oil suction filter"
+msgstr ""
+
+#: .\inspection\models.py:245
+msgid "change ventilate filter"
+msgstr ""
+
+#: .\inspection\models.py:246
+msgid "change hydraulic oil"
+msgstr ""
+
+#: .\inspection\models.py:258 .\inspection\models.py:259
+msgid "forklift maintenance"
+msgstr ""
+
+#: .\inspection\models.py:262
+msgid "Damage Reason"
+msgstr ""
+
+#: .\inspection\models.py:263
+msgid "Accessories Name"
+msgstr ""
+
+#: .\inspection\models.py:264
+msgid "Accessories Number"
+msgstr ""
+
+#: .\inspection\models.py:265
+msgid "Description"
+msgstr ""
+
+#: .\inspection\models.py:266
+msgid "Repaired"
+msgstr ""
+
+#: .\inspection\models.py:271 .\inspection\models.py:272
+msgid "forklift repair"
+msgstr ""
+
+#: .\inspection\models.py:275 .\inspection\models.py:394
+msgid "Annual Inspection Date"
+msgstr "年检日期"
+
+#: .\inspection\models.py:276 .\inspection\models.py:395
+msgid "Next Inspection Date"
+msgstr "下次检查日期"
+
+#: .\inspection\models.py:279 .\inspection\models.py:280
+msgid "forklift annual inspection"
+msgstr ""
+
+#: .\inspection\models.py:287 .\inspection\models.py:288
+msgid "forklift annual inspection image"
+msgstr ""
+
+#: .\inspection\models.py:303 .\inspection\templates\shelf\shelf_detail.html:8
+msgid "Warehouse Number"
+msgstr "仓库号"
+
+#: .\inspection\models.py:304
+#: .\inspection\templates\shelf\shelf_detail.html:10
+msgid "Compartment Number"
+msgstr "仓间号"
+
+#: .\inspection\models.py:305 .\inspection\templates\shelf\shelf_detail.html:9
+msgid "Warehouse Channel Number"
+msgstr "仓库通道号"
+
+#: .\inspection\models.py:306
+msgid "Shelf Group"
+msgstr "货架组"
+
+#: .\inspection\models.py:307
+#: .\inspection\templates\shelf\shelf_detail.html:11
+msgid "Shelf Number"
+msgstr "货架号"
+
+#: .\inspection\models.py:308
+msgid "Gradient Measurement Mandatory"
+msgstr "倾斜度测量必须"
+
+#: .\inspection\models.py:314 .\inspection\models.py:334
+#: .\inspection\models.py:335
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:7
+#: .\templates\navbar.html:51
+msgid "Shelf"
+msgstr "货架"
+
+#: .\inspection\models.py:339 .\inspection\models.py:418
+#: .\inspection\models.py:435
+msgid "Check Date"
+msgstr "检查日期"
+
+#: .\inspection\models.py:340 .\inspection\models.py:365
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:13
+msgid "Comments"
+msgstr "备注"
+
+#: .\inspection\models.py:343 .\inspection\models.py:349
+#: .\inspection\models.py:350
+msgid "shelf inspection"
+msgstr "货架巡检"
+
+#: .\inspection\models.py:354 .\inspection\views.py:539
+msgid "Normal"
+msgstr "正常"
+
+#: .\inspection\models.py:355
+msgid "Breakdown"
+msgstr "损坏"
+
+#: .\inspection\models.py:360
+#: .\inspection\templates\shelf\shelf_inspection_list.html:60
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:8
+msgid "Use Condition"
+msgstr "使用状况"
+
+#: .\inspection\models.py:361
+#: .\inspection\templates\shelf\shelf_inspection_list.html:61
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:9
+msgid "Locked"
+msgstr "是否锁住"
+
+#: .\inspection\models.py:362 .\inspection\models.py:416
+#: .\inspection\models.py:433
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:10
+msgid "Check Person"
+msgstr "检查人"
+
+#: .\inspection\models.py:363
+#: .\inspection\templates\shelf\shelf_inspection_list.html:62
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:11
+msgid "Gradient"
+msgstr "倾斜度"
+
+#: .\inspection\models.py:364
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:12
+msgid "Forecast Complete Time"
+msgstr "预计完成时间"
+
+#: .\inspection\models.py:368
+msgid "shelf inspection record "
+msgstr "巡检"
+
+#: .\inspection\models.py:390 .\inspection\models.py:391
+msgid "shelf inspection record"
+msgstr ""
+
+#: .\inspection\models.py:398
+msgid "shelf annual inspection"
+msgstr ""
+
+#: .\inspection\models.py:405
+msgid "shelf annual inspection image"
+msgstr ""
+
+#: .\inspection\models.py:408 .\inspection\models.py:425
+msgid "Name"
+msgstr ""
+
+#: .\inspection\models.py:409
+msgid "Capacity"
+msgstr ""
+
+#: .\inspection\models.py:412
+msgid "extinguisher"
+msgstr ""
+
+#: .\inspection\models.py:417 .\inspection\models.py:434
+msgid "Check Result"
+msgstr ""
+
+#: .\inspection\models.py:421
+msgid "extinguisher inspection"
+msgstr ""
+
+#: .\inspection\models.py:426
+msgid "Accessories"
+msgstr ""
+
+#: .\inspection\models.py:429
+msgid "hydrant"
+msgstr ""
+
+#: .\inspection\models.py:438
+msgid "hydrant inspection"
+msgstr ""
+
+#: .\inspection\models.py:441
+msgid "Title"
+msgstr ""
+
+#: .\inspection\models.py:442
+msgid "Date"
+msgstr ""
+
+#: .\inspection\models.py:443
+msgid "Attachment"
+msgstr ""
+
+#: .\inspection\models.py:446
+msgid "rehearsal"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_create.html:21
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:96
+msgid "Create New Item"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:13
+msgid "Create"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:13
+#: .\inspection\templates\dailyinspection\dailyinspection_update.html:61
+msgid "Last Update"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:32
+msgid "Update"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:34
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:35
+#: .\inspection\templates\dailyinspection\dailyinspection_update.html:97
+msgid "Back"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:37
+#: .\site-packages\django 1.8\forms\formsets.py:372
+#: .\site-packages\django\forms\formsets.py:384
+msgid "Delete"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:58
+#: .\inspection\templates\shelf\shelf_inspection_detail.html:211
+msgid "Apply Filter"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:59
+#: .\inspection\templates\shelf\shelf_inspection_detail.html:211
+msgid "Clear Filters"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:68
+msgid "All Categories"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:84
+#: .\inspection\templates\shelf\shelf_inspection_list.html:53
+msgid "Nothing found"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:98
+msgid "Inspection Statistic"
+msgstr "巡检统计"
+
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:105
+msgid "Latest Update"
+msgstr ""
+
+#: .\inspection\templates\dailyinspection\dailyinspection_update.html:98
+#: .\inspection\templates\shelf\shelf_inspection_create.html:10
+msgid "submit"
+msgstr ""
+
+#: .\inspection\templates\shelf\shelf_detail.html:19
+msgid "Related Inspections"
+msgstr ""
+
+#: .\inspection\templates\shelf\shelf_inspection_detail_records_container_div.html:91
+#: .\inspection\templates\shelf\shelf_inspection_detail_records_container_table.html:48
+msgid "Shelf Inspections Record"
+msgstr ""
+
+#: .\inspection\templates\shelf\shelf_inspection_list.html:59
+msgid "Create Date"
+msgstr ""
+
+#: .\inspection\templates\shelf\shelf_inspection_list.html:97
+msgid "Shelf List"
+msgstr ""
+
+#: .\inspection\templates\shelf\shelf_inspection_list.html:98
+msgid "Create Shelf Inspection"
+msgstr ""
+
+#: .\inspection\views.py:99 .\inspection\views.py:132
+#: .\inspection\views.py:267 .\inspection\views.py:379
+#: .\inspection\views.py:478 .\inspection\views.py:547
+#: .\site-packages\breadcrumbs\breadcrumbs.py:81 .\templates\navbar.html.py:19
+msgid "Home"
+msgstr ""
+
+#: .\inspection\views.py:209
+msgid "daily inspection create successfully"
+msgstr ""
+
+#: .\inspection\views.py:255
+msgid "daily inspection updated successfully"
+msgstr ""
+
+#: .\inspection\views.py:256
+msgid "check content please"
+msgstr ""
+
+#: .\inspection\views.py:259
+msgid "daily inspection updated fail"
+msgstr ""
+
+#: .\inspection\views.py:479
+msgid "Shelf Inspection List"
+msgstr ""
+
+#: .\inspection\views.py:548
+msgid "Shelf Inspection Detail"
+msgstr ""
+
+#: .\site-packages\breadcrumbs\breadcrumbs.py:116
+#, python-format
+msgid ""
+"We accept lists of tuples, lists of dicts, or two args as name and url, not "
+"'%s'"
+msgstr ""
+
+#: .\site-packages\crispy_forms\tests\test_form_helper.py:131
+#: .\site-packages\crispy_forms\tests\test_form_helper.py:141
+#: .\site-packages\django 1.8\forms\fields.py:64
+#: .\site-packages\django\forms\fields.py:65
+msgid "This field is required."
+msgstr ""
+
+#: .\site-packages\crispy_forms\tests\test_layout.py:347
+msgid "i18n text"
+msgstr ""
+
+#: .\site-packages\crispy_forms\tests\test_layout.py:349
+msgid "i18n legend"
+msgstr ""
+
+#: .\site-packages\crispy_forms\tests\test_layout_objects.py:131
+#: .\site-packages\django 1.8\core\validators.py:20
+#: .\site-packages\django\core\validators.py:33
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\site-packages\django 1.8\contrib\messages\apps.py:7
+#: .\site-packages\django\contrib\messages\apps.py:7
+msgid "Messages"
+msgstr ""
+
+#: .\site-packages\django 1.8\contrib\sitemaps\apps.py:7
+#: .\site-packages\django\contrib\sitemaps\apps.py:7
+msgid "Site Maps"
+msgstr ""
+
+#: .\site-packages\django 1.8\contrib\staticfiles\apps.py:7
+#: .\site-packages\django\contrib\staticfiles\apps.py:7
+msgid "Static Files"
+msgstr ""
+
+#: .\site-packages\django 1.8\contrib\syndication\apps.py:7
+#: .\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#: .\site-packages\django 1.8\contrib\webdesign\apps.py:7
+#: .\site-packages\django\contrib\webdesign\apps.py:7
+msgid "Web Design"
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:87 1.8\forms\fields.py:712
+#: .\site-packages\django\core\validators.py:98
+#: .\site-packages\django\forms\fields.py:677
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:130
+#: .\site-packages\django\core\validators.py:141
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:141
+#: .\site-packages\django\core\validators.py:152
+msgid "Enter a valid email address."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:215
+#: .\site-packages\django\core\validators.py:225
+msgid ""
+"Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:220
+#: 1.8\core\validators.py:239 .\site-packages\django\core\validators.py:237
+#: .\site-packages\django\core\validators.py:256
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:225
+#: 1.8\core\validators.py:240 .\site-packages\django\core\validators.py:242
+#: .\site-packages\django\core\validators.py:257
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:235
+#: 1.8\core\validators.py:238 .\site-packages\django\core\validators.py:252
+#: .\site-packages\django\core\validators.py:255
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:263
+#: 1.8\db\models\fields\__init__.py:1144
+#: .\site-packages\django\core\validators.py:284
+#: .\site-packages\django\db\models\fields\__init__.py:1130
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:272
+#: .\site-packages\django\core\validators.py:292
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:298
+#: .\site-packages\django\core\validators.py:318
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:305
+#: .\site-packages\django\core\validators.py:325
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\site-packages\django 1.8\core\validators.py:314
+#: .\site-packages\django\core\validators.py:334
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has %"
+"(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has %"
+"(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\core\validators.py:325
+#: .\site-packages\django\core\validators.py:345
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has %(show_value)"
+"d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has %"
+"(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\db\models\base.py:1130 1.8\forms\models.py:722
+#: .\site-packages\django\db\models\base.py:1095
+#: .\site-packages\django\forms\models.py:727
+msgid "and"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\base.py:1132
+#: .\site-packages\django\db\models\base.py:1097
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:107
+#: .\site-packages\django\db\models\fields\__init__.py:110
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:108
+#: .\site-packages\django\db\models\fields\__init__.py:111
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:109
+#: .\site-packages\django\db\models\fields\__init__.py:112
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:110
+#: .\site-packages\django\db\models\fields\__init__.py:113
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
+#. Eg: "Title must be unique for pub_date year"
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:114
+#: .\site-packages\django\db\models\fields\__init__.py:117
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:132
+#: .\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:922
+#: 1.8\db\models\fields\__init__.py:1832
+#: .\site-packages\django\db\models\fields\__init__.py:913
+#: .\site-packages\django\db\models\fields\__init__.py:1817
+msgid "Integer"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:926
+#: 1.8\db\models\fields\__init__.py:1830
+#: .\site-packages\django\db\models\fields\__init__.py:917
+#: .\site-packages\django\db\models\fields\__init__.py:1815
+#, python-format
+msgid "'%(value)s' value must be an integer."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1001
+#: .\site-packages\django\db\models\fields\__init__.py:992
+#, python-format
+msgid "'%(value)s' value must be either True or False."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1003
+#: .\site-packages\django\db\models\fields\__init__.py:994
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1078
+#: .\site-packages\django\db\models\fields\__init__.py:1069
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1139
+#: .\site-packages\django\db\models\fields\__init__.py:1125
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1188
+#: .\site-packages\django\db\models\fields\__init__.py:1174
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1190
+#: 1.8\db\models\fields\__init__.py:1340
+#: .\site-packages\django\db\models\fields\__init__.py:1176
+#: .\site-packages\django\db\models\fields\__init__.py:1319
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1193
+#: .\site-packages\django\db\models\fields\__init__.py:1179
+msgid "Date (without time)"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1338
+#: .\site-packages\django\db\models\fields\__init__.py:1317
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1342
+#: .\site-packages\django\db\models\fields\__init__.py:1321
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1346
+#: .\site-packages\django\db\models\fields\__init__.py:1325
+msgid "Date (with time)"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1498
+#: .\site-packages\django\db\models\fields\__init__.py:1477
+#, python-format
+msgid "'%(value)s' value must be a decimal number."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1500
+#: .\site-packages\django\db\models\fields\__init__.py:1479
+msgid "Decimal number"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1651
+#: .\site-packages\django\db\models\fields\__init__.py:1636
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in [DD] [HH:[MM:]]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1654
+#: .\site-packages\django\db\models\fields\__init__.py:1639
+msgid "Duration"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1705
+#: .\site-packages\django\db\models\fields\__init__.py:1690
+msgid "Email address"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1729
+#: .\site-packages\django\db\models\fields\__init__.py:1714
+msgid "File path"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1796
+#: .\site-packages\django\db\models\fields\__init__.py:1781
+#, python-format
+msgid "'%(value)s' value must be a float."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1798
+#: .\site-packages\django\db\models\fields\__init__.py:1783
+msgid "Floating point number"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1899
+#: .\site-packages\django\db\models\fields\__init__.py:1884
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1914
+#: .\site-packages\django\db\models\fields\__init__.py:1899
+msgid "IPv4 address"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:1950
+#: .\site-packages\django\db\models\fields\__init__.py:1930
+msgid "IP address"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2029
+#: .\site-packages\django\db\models\fields\__init__.py:2014
+#, python-format
+msgid "'%(value)s' value must be either None, True or False."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2031
+#: .\site-packages\django\db\models\fields\__init__.py:2016
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2091
+#: .\site-packages\django\db\models\fields\__init__.py:2076
+msgid "Positive integer"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2103
+#: .\site-packages\django\db\models\fields\__init__.py:2088
+msgid "Positive small integer"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2116
+#: .\site-packages\django\db\models\fields\__init__.py:2101
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2145
+#: .\site-packages\django\db\models\fields\__init__.py:2135
+msgid "Small integer"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2152
+#: .\site-packages\django\db\models\fields\__init__.py:2142
+msgid "Text"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2175
+#: .\site-packages\django\db\models\fields\__init__.py:2168
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2177
+#: .\site-packages\django\db\models\fields\__init__.py:2170
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2180
+#: .\site-packages\django\db\models\fields\__init__.py:2173
+msgid "Time"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2308
+#: .\site-packages\django\db\models\fields\__init__.py:2301
+msgid "URL"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2331
+#: .\site-packages\django\db\models\fields\__init__.py:2324
+msgid "Raw binary data"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\__init__.py:2375
+#: .\site-packages\django\db\models\fields\__init__.py:2368
+#, python-format
+msgid "'%(value)s' is not a valid UUID."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\files.py:239
+#: .\site-packages\django\db\models\fields\files.py:237
+msgid "File"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\files.py:389
+#: .\site-packages\django\db\models\fields\files.py:392
+msgid "Image"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\related.py:1802
+#: .\site-packages\django\db\models\fields\related.py:736
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\related.py:1804
+#: .\site-packages\django\db\models\fields\related.py:738
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\related.py:2034
+#: .\site-packages\django\db\models\fields\related.py:996
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\site-packages\django 1.8\db\models\fields\related.py:2124
+#: .\site-packages\django\db\models\fields\related.py:1113
+msgid "Many-to-many relationship"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:237
+#: .\site-packages\django\forms\fields.py:254
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:280 1.8\forms\fields.py:317
+#: .\site-packages\django\forms\fields.py:299
+#: .\site-packages\django\forms\fields.py:336
+msgid "Enter a number."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:319
+#: .\site-packages\django\core\validators.py:359
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\forms\fields.py:323
+#: .\site-packages\django\core\validators.py:364
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\forms\fields.py:327
+#: .\site-packages\django\core\validators.py:369
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\forms\fields.py:438 1.8\forms\fields.py:1193
+#: .\site-packages\django\forms\fields.py:414
+#: .\site-packages\django\forms\fields.py:1158
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:462 1.8\forms\fields.py:1194
+#: .\site-packages\django\forms\fields.py:438
+#: .\site-packages\django\forms\fields.py:1159
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:484
+#: .\site-packages\django\forms\fields.py:460
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:525
+#: .\site-packages\django\forms\fields.py:489
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:591
+#: .\site-packages\django\forms\fields.py:556
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:592
+#: .\site-packages\django\forms\fields.py:557
+msgid "No file was submitted."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:593
+#: .\site-packages\django\forms\fields.py:558
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:595
+#: .\site-packages\django\forms\fields.py:560
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\forms\fields.py:598
+#: .\site-packages\django\forms\fields.py:563
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:660
+#: .\site-packages\django\forms\fields.py:625
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:827 1.8\forms\fields.py:921
+#: 1.8\forms\models.py:1238 .\site-packages\django\forms\fields.py:792
+#: .\site-packages\django\forms\fields.py:886
+#: .\site-packages\django\forms\models.py:1232
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:922 1.8\forms\fields.py:1037
+#: 1.8\forms\models.py:1237 .\site-packages\django\forms\fields.py:887
+#: .\site-packages\django\forms\fields.py:1002
+#: .\site-packages\django\forms\models.py:1231
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:1038
+#: .\site-packages\django\forms\fields.py:1003
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\fields.py:1264
+#: .\site-packages\django\forms\fields.py:1217
+msgid "Enter a valid UUID."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\site-packages\django 1.8\forms\forms.py:129
+#: .\site-packages\django\forms\forms.py:84
+msgid ":"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\forms.py:214
+#: .\site-packages\django\forms\forms.py:191
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\site-packages\django 1.8\forms\forms.py:659
+#: .\site-packages\django\forms\boundfield.py:167
+msgid ":?.!"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\formsets.py:96
+#: .\site-packages\django\forms\formsets.py:97
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\formsets.py:333
+#: .\site-packages\django\forms\formsets.py:345
+#, python-format
+msgid "Please submit %d or fewer forms."
+msgid_plural "Please submit %d or fewer forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\forms\formsets.py:340
+#: .\site-packages\django\forms\formsets.py:352
+#, python-format
+msgid "Please submit %d or more forms."
+msgid_plural "Please submit %d or more forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\forms\formsets.py:368 1.8\forms\formsets.py:370
+#: .\site-packages\django\forms\formsets.py:380
+#: .\site-packages\django\forms\formsets.py:382
+msgid "Order"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\models.py:716
+#: .\site-packages\django\forms\models.py:721
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\models.py:720
+#: .\site-packages\django\forms\models.py:725
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\models.py:726
+#: .\site-packages\django\forms\models.py:731
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\models.py:734
+#: .\site-packages\django\forms\models.py:739
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\models.py:1057
+#: .\site-packages\django\forms\models.py:1063
+msgid "The inline foreign key did not match the parent instance primary key."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\models.py:1123
+#: .\site-packages\django\forms\models.py:1125
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\models.py:1240
+#: .\site-packages\django\forms\models.py:1234
+#, python-format
+msgid "\"%(pk)s\" is not a valid value for a primary key."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\utils.py:165
+#: .\site-packages\django\forms\utils.py:172
+#, python-format
+msgid ""
+"%(datetime)s couldn't be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\widgets.py:345
+#: .\site-packages\django\forms\widgets.py:353
+msgid "Currently"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\widgets.py:346
+#: .\site-packages\django\forms\widgets.py:354
+msgid "Change"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\widgets.py:347
+#: .\site-packages\django\forms\widgets.py:355
+msgid "Clear"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\widgets.py:555
+#: .\site-packages\django\forms\widgets.py:570
+msgid "Unknown"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\widgets.py:556
+#: .\site-packages\django\forms\widgets.py:571
+msgid "Yes"
+msgstr ""
+
+#: .\site-packages\django 1.8\forms\widgets.py:557
+#: .\site-packages\django\forms\widgets.py:572
+msgid "No"
+msgstr ""
+
+#: .\site-packages\django 1.8\template\defaultfilters.py:865
+#: .\site-packages\django\template\defaultfilters.py:867
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\site-packages\django 1.8\template\defaultfilters.py:894
+#: 1.8\template\defaultfilters.py:906
+#: .\site-packages\django\template\defaultfilters.py:896
+#: .\site-packages\django\template\defaultfilters.py:908
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\template\defaultfilters.py:908
+#: .\site-packages\django\template\defaultfilters.py:910
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\site-packages\django 1.8\template\defaultfilters.py:910
+#: .\site-packages\django\template\defaultfilters.py:912
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\site-packages\django 1.8\template\defaultfilters.py:912
+#: .\site-packages\django\template\defaultfilters.py:914
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\site-packages\django 1.8\template\defaultfilters.py:914
+#: .\site-packages\django\template\defaultfilters.py:916
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\site-packages\django 1.8\template\defaultfilters.py:916
+#: .\site-packages\django\template\defaultfilters.py:918
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dateformat.py:61
+#: .\site-packages\django\utils\dateformat.py:61
+msgid "p.m."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dateformat.py:62
+#: .\site-packages\django\utils\dateformat.py:62
+msgid "a.m."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dateformat.py:67
+#: .\site-packages\django\utils\dateformat.py:67
+msgid "PM"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dateformat.py:68
+#: .\site-packages\django\utils\dateformat.py:68
+msgid "AM"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dateformat.py:151
+#: .\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dateformat.py:153
+#: .\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:6
+#: .\site-packages\django\utils\dates.py:6
+msgid "Monday"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:6
+#: .\site-packages\django\utils\dates.py:6
+msgid "Tuesday"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:6
+#: .\site-packages\django\utils\dates.py:6
+msgid "Wednesday"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:6
+#: .\site-packages\django\utils\dates.py:6
+msgid "Thursday"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:6
+#: .\site-packages\django\utils\dates.py:6
+msgid "Friday"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:7
+#: .\site-packages\django\utils\dates.py:7
+msgid "Saturday"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:7
+#: .\site-packages\django\utils\dates.py:7
+msgid "Sunday"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:10
+#: .\site-packages\django\utils\dates.py:10
+msgid "Mon"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:10
+#: .\site-packages\django\utils\dates.py:10
+msgid "Tue"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:10
+#: .\site-packages\django\utils\dates.py:10
+msgid "Wed"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:10
+#: .\site-packages\django\utils\dates.py:10
+msgid "Thu"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:10
+#: .\site-packages\django\utils\dates.py:10
+msgid "Fri"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:11
+#: .\site-packages\django\utils\dates.py:11
+msgid "Sat"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:11
+#: .\site-packages\django\utils\dates.py:11
+msgid "Sun"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:18
+#: .\site-packages\django\utils\dates.py:18
+msgid "January"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:18
+#: .\site-packages\django\utils\dates.py:18
+msgid "February"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:18
+#: .\site-packages\django\utils\dates.py:18
+msgid "March"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:18
+#: .\site-packages\django\utils\dates.py:18
+msgid "April"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:18
+#: .\site-packages\django\utils\dates.py:18
+msgid "May"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:18
+#: .\site-packages\django\utils\dates.py:18
+msgid "June"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:19
+#: .\site-packages\django\utils\dates.py:19
+msgid "July"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:19
+#: .\site-packages\django\utils\dates.py:19
+msgid "August"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:19
+#: .\site-packages\django\utils\dates.py:19
+msgid "September"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:19
+#: .\site-packages\django\utils\dates.py:19
+msgid "October"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:19
+#: .\site-packages\django\utils\dates.py:19
+msgid "November"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:20
+#: .\site-packages\django\utils\dates.py:20
+msgid "December"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:23
+#: .\site-packages\django\utils\dates.py:23
+msgid "jan"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:23
+#: .\site-packages\django\utils\dates.py:23
+msgid "feb"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:23
+#: .\site-packages\django\utils\dates.py:23
+msgid "mar"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:23
+#: .\site-packages\django\utils\dates.py:23
+msgid "apr"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:23
+#: .\site-packages\django\utils\dates.py:23
+msgid "may"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:23
+#: .\site-packages\django\utils\dates.py:23
+msgid "jun"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:24
+#: .\site-packages\django\utils\dates.py:24
+msgid "jul"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:24
+#: .\site-packages\django\utils\dates.py:24
+msgid "aug"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:24
+#: .\site-packages\django\utils\dates.py:24
+msgid "sep"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:24
+#: .\site-packages\django\utils\dates.py:24
+msgid "oct"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:24
+#: .\site-packages\django\utils\dates.py:24
+msgid "nov"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:24
+#: .\site-packages\django\utils\dates.py:24
+msgid "dec"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:31
+#: .\site-packages\django\utils\dates.py:31
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:32
+#: .\site-packages\django\utils\dates.py:32
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:33
+#: .\site-packages\django\utils\dates.py:33
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:34
+#: .\site-packages\django\utils\dates.py:34
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:35
+#: .\site-packages\django\utils\dates.py:35
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:36
+#: .\site-packages\django\utils\dates.py:36
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:37
+#: .\site-packages\django\utils\dates.py:37
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:38
+#: .\site-packages\django\utils\dates.py:38
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:39
+#: .\site-packages\django\utils\dates.py:39
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:40
+#: .\site-packages\django\utils\dates.py:40
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:41
+#: .\site-packages\django\utils\dates.py:41
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:42
+#: .\site-packages\django\utils\dates.py:42
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:45
+#: .\site-packages\django\utils\dates.py:45
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:46
+#: .\site-packages\django\utils\dates.py:46
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:47
+#: .\site-packages\django\utils\dates.py:47
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:48
+#: .\site-packages\django\utils\dates.py:48
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:49
+#: .\site-packages\django\utils\dates.py:49
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:50
+#: .\site-packages\django\utils\dates.py:50
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:51
+#: .\site-packages\django\utils\dates.py:51
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:52
+#: .\site-packages\django\utils\dates.py:52
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:53
+#: .\site-packages\django\utils\dates.py:53
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:54
+#: .\site-packages\django\utils\dates.py:54
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:55
+#: .\site-packages\django\utils\dates.py:55
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\dates.py:56
+#: .\site-packages\django\utils\dates.py:56
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\ipv6.py:10
+#: .\site-packages\django\utils\ipv6.py:10
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\text.py:79
+#: .\site-packages\django\utils\text.py:77
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s..."
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\text.py:248
+#: .\site-packages\django\utils\text.py:246
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\site-packages\django 1.8\utils\text.py:267 1.8\utils\timesince.py:58
+#: .\site-packages\django\utils\text.py:265
+#: .\site-packages\django\utils\timesince.py:63
+msgid ", "
+msgstr ""
+
+#: .\site-packages\django 1.8\utils\timesince.py:10
+#: .\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\utils\timesince.py:11
+#: .\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\utils\timesince.py:12
+#: .\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\utils\timesince.py:13
+#: .\site-packages\django\utils\timesince.py:14
+#, python-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\utils\timesince.py:14
+#: .\site-packages\django\utils\timesince.py:15
+#, python-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\utils\timesince.py:15
+#: .\site-packages\django\utils\timesince.py:16
+#, python-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\site-packages\django 1.8\utils\timesince.py:47
+#: .\site-packages\django\utils\timesince.py:52
+msgid "0 minutes"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\csrf.py:107
+#: .\site-packages\django\views\csrf.py:107
+msgid "Forbidden"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\csrf.py:108
+#: .\site-packages\django\views\csrf.py:108
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\csrf.py:112
+#: .\site-packages\django\views\csrf.py:112
+msgid ""
+"You are seeing this message because this HTTPS site requires a 'Referer "
+"header' to be sent by your Web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\csrf.py:117
+#: .\site-packages\django\views\csrf.py:117
+msgid ""
+"If you have configured your browser to disable 'Referer' headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for 'same-"
+"origin' requests."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\csrf.py:122
+#: .\site-packages\django\views\csrf.py:122
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\csrf.py:127
+#: .\site-packages\django\views\csrf.py:127
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for 'same-origin' requests."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\csrf.py:132
+#: .\site-packages\django\views\csrf.py:132
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\debug.py:583
+#: .\site-packages\django\views\debug.py:508
+msgid "Welcome to Django"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\debug.py:584
+#: .\site-packages\django\views\debug.py:509
+msgid "It worked!"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\debug.py:585
+#: .\site-packages\django\views\debug.py:510
+msgid "Congratulations on your first Django-powered page."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\debug.py:586
+#: .\site-packages\django\views\debug.py:511
+msgid ""
+"Of course, you haven't actually done any work yet. Next, start your first "
+"app by running <code>python manage.py startapp [app_label]</code>."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\debug.py:588
+#: .\site-packages\django\views\debug.py:513
+msgid ""
+"You're seeing this message because you have <code>DEBUG = True</code> in "
+"your Django settings file and you haven't configured any URLs. Get to work!"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\dates.py:48
+#: .\site-packages\django\views\generic\dates.py:48
+msgid "No year specified"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\dates.py:104
+#: .\site-packages\django\views\generic\dates.py:104
+msgid "No month specified"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\dates.py:163
+#: .\site-packages\django\views\generic\dates.py:163
+msgid "No day specified"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\dates.py:219
+#: .\site-packages\django\views\generic\dates.py:219
+msgid "No week specified"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\dates.py:378
+#: 1.8\views\generic\dates.py:406
+#: .\site-packages\django\views\generic\dates.py:378
+#: .\site-packages\django\views\generic\dates.py:406
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\dates.py:660
+#: .\site-packages\django\views\generic\dates.py:660
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\dates.py:694
+#: .\site-packages\django\views\generic\dates.py:694
+#, python-format
+msgid "Invalid date string '%(datestr)s' given format '%(format)s'"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\detail.py:55
+#: .\site-packages\django\views\generic\detail.py:55
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\list.py:76
+#: .\site-packages\django\views\generic\list.py:76
+msgid "Page is not 'last', nor can it be converted to an int."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\list.py:81
+#: .\site-packages\django\views\generic\list.py:81
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\generic\list.py:172
+#: .\site-packages\django\views\generic\list.py:172
+#, python-format
+msgid "Empty list and '%(class_name)s.allow_empty' is False."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\static.py:58
+#: .\site-packages\django\views\static.py:58
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\site-packages\django 1.8\views\static.py:60
+#: .\site-packages\django\views\static.py:60
+#, python-format
+msgid "\"%(path)s\" does not exist"
+msgstr ""
+
+#: .\site-packages\django 1.8\views\static.py:100
+#: .\site-packages\django\views\static.py:100
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\site-packages\django\core\validators.py:232
+msgid ""
+"Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\site-packages\django\utils\translation\__init__.py:234
+msgid "name"
+msgstr ""
+
+#: .\site-packages\pagination\templates\pagination\pagination.html:5
+#: .\site-packages\pagination\templates\pagination\pagination.html:7
+msgid "previous"
+msgstr ""
+
+#: .\site-packages\pagination\templates\pagination\pagination.html:21
+#: .\site-packages\pagination\templates\pagination\pagination.html:23
+msgid "next"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:319
+msgid "usage: "
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:827
+msgid ".__call__() not defined"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1122
+#, python-format
+msgid "unknown parser %r (choices: %s)"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1163
+#, python-format
+msgid "argument \"-\" with mode %r"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1174
+#, python-format
+msgid "can't open '%s': %s"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1371
+#, python-format
+msgid "cannot merge actions - two groups are named %r"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1409
+msgid "'required' is an invalid argument for positionals"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1429
+#, python-format
+msgid "invalid option string %r: must start with a character %r"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1450
+#, python-format
+msgid "dest= is required for options like %r"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1467
+#, python-format
+msgid "invalid conflict_resolution value: %r"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1485
+#, python-format
+msgid "conflicting option string(s): %s"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1548
+msgid "mutually exclusive arguments must be optional"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1618
+msgid "positional arguments"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1619
+msgid "optional arguments"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1637
+msgid "show this help message and exit"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1643
+msgid "show program's version number and exit"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1675
+msgid "cannot have multiple subparser arguments"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1727
+#, python-format
+msgid "unrecognized arguments: %s"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1821
+#, python-format
+msgid "not allowed with argument %s"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1867
+#: .\site-packages\sae-dependency\argparse.py:1881
+#, python-format
+msgid "ignored explicit argument %r"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1971
+msgid "too few arguments"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:1978
+#, python-format
+msgid "argument %s is required"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2003
+#, python-format
+msgid "one of the arguments %s is required"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2049
+msgid "expected one argument"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2050
+msgid "expected at most one argument"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2051
+msgid "expected at least one argument"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2053
+#, python-format
+msgid "expected %s argument(s)"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2110
+#, python-format
+msgid "ambiguous option: %s could match %s"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2172
+#, python-format
+msgid "unexpected option string: %s"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2273
+#, python-format
+msgid "%r is not callable"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2289
+#, python-format
+msgid "invalid %s value: %r"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2299
+#, python-format
+msgid "invalid choice: %r (choose from %s)"
+msgstr ""
+
+#: .\site-packages\sae-dependency\argparse.py:2392
+#, python-format
+msgid "%s: error: %s\n"
+msgstr ""
+
+#: .\templates\navbar.html:20
+msgid "Contact"
+msgstr ""
+
+#: .\templates\navbar.html:21
+msgid "About"
+msgstr ""
+
+#: .\templates\navbar.html:43
+msgid "Projects"
+msgstr ""
+
+#: .\templates\navbar.html:46
+msgid "Products"
+msgstr ""
+
+#: .\templates\navbar.html:48
+msgid "Orders"
+msgstr ""
+
+#: .\templates\navbar.html:57 .\templates\navbar.html.py:60
+#: .\templates\navbar.html:65
+msgid "Logout"
+msgstr ""
+
+#: .\templates\navbar.html:72
+msgid "Login"
+msgstr ""
+
+#: .\templates\navbar.html:82 .\templates\registration\login.html.py:5
+#: .\templates\registration\login.html:19
+msgid "Log in"
+msgstr ""
+
+#: .\templates\registration\activate.html:5
+msgid "Account activation failed."
+msgstr ""
+
+#: .\templates\registration\activation_complete.html:4
+msgid "Account Activated"
+msgstr ""
+
+#: .\templates\registration\activation_complete.html:8
+msgid "Your account is now activated."
+msgstr ""
+
+#: .\templates\registration\activation_complete.html:10
+msgid "You can log in."
+msgstr ""
+
+#: .\templates\registration\activation_email.html:6
+msgid "registration"
+msgstr ""
+
+#: .\templates\registration\activation_email.html:11
+#, python-format
+msgid ""
+"\n"
+"    You (or someone pretending to be you) have asked to register an account "
+"at\n"
+"    %(site_name)s.  If this wasn't you, please ignore this email\n"
+"    and your address will be removed from our records.\n"
+"    "
+msgstr ""
+
+#: .\templates\registration\activation_email.html:18
+#, python-format
+msgid ""
+"\n"
+"    To activate this account, please click the following link within the "
+"next\n"
+"    %(expiration_days)s days:\n"
+"    "
+msgstr ""
+
+#: .\templates\registration\activation_email.html:30
+#, python-format
+msgid ""
+"\n"
+"    Sincerely,\n"
+"    %(site_name)s Management\n"
+"    "
+msgstr ""
+
+#: .\templates\registration\activation_email.txt:2
+#, python-format
+msgid ""
+"\n"
+"You (or someone pretending to be you) have asked to register an account at\n"
+"%(site_name)s.  If this wasn't you, please ignore this email\n"
+"and your address will be removed from our records.\n"
+msgstr ""
+
+#: .\templates\registration\activation_email.txt:7
+#, python-format
+msgid ""
+"\n"
+"To activate this account, please click the following link within the next\n"
+"%(expiration_days)s days:\n"
+msgstr ""
+
+#: .\templates\registration\activation_email.txt:14
+#, python-format
+msgid ""
+"\n"
+"Sincerely,\n"
+"%(site_name)s Management\n"
+msgstr ""
+
+#: .\templates\registration\activation_email_subject.txt:1
+msgid "Account activation on"
+msgstr ""
+
+#: .\templates\registration\login.html:30
+#: .\templates\registration\login.html:33
+msgid "Forgot your password?"
+msgstr ""
+
+#: .\templates\registration\login.html:31
+#: .\templates\registration\login.html:34
+msgid "Not a member?"
+msgstr ""
+
+#: .\templates\registration\logout.html:4
+msgid "Logged out"
+msgstr ""
+
+#: .\templates\registration\logout.html:7
+msgid "Successfully logged out"
+msgstr ""
+
+#: .\templates\registration\password_change_done.html:4
+msgid "Password changed"
+msgstr ""
+
+#: .\templates\registration\password_change_done.html:7
+msgid "Password successfully changed!"
+msgstr ""
+
+#: .\templates\registration\password_change_form.html:5
+#: .\templates\registration\password_change_form.html:14
+msgid "Change password"
+msgstr ""
+
+#: .\templates\registration\password_reset_complete.html:4
+msgid "Password reset complete"
+msgstr ""
+
+#: .\templates\registration\password_reset_complete.html:8
+msgid "Your password has been reset!"
+msgstr ""
+
+#: .\templates\registration\password_reset_complete.html:9
+#, python-format
+msgid "You may now <a href=\"%(login_url)s\">log in</a>"
+msgstr ""
+
+#: .\templates\registration\password_reset_confirm.html:5
+msgid "Confirm password reset"
+msgstr ""
+
+#: .\templates\registration\password_reset_confirm.html:11
+msgid "Enter your new password below to reset your password:"
+msgstr ""
+
+#: .\templates\registration\password_reset_confirm.html:15
+msgid "Set password"
+msgstr ""
+
+#: .\templates\registration\password_reset_done.html:4
+msgid "Password reset"
+msgstr ""
+
+#: .\templates\registration\password_reset_done.html:8
+msgid ""
+"\n"
+"    We have sent you an email with a link to reset your password. Please "
+"check\n"
+"    your email and click the link to continue.\n"
+"    "
+msgstr ""
+
+#: .\templates\registration\password_reset_email.html:3
+msgid "Greetings"
+msgstr ""
+
+#: .\templates\registration\password_reset_email.html:5
+#, python-format
+msgid ""
+"\n"
+"You are receiving this email because you (or someone pretending to be you)\n"
+"requested that your password be reset on the %(domain)s site. If you do not\n"
+"wish to reset your password, please ignore this message.\n"
+msgstr ""
+
+#: .\templates\registration\password_reset_email.html:11
+msgid ""
+"\n"
+"To reset your password, please click the following link, or copy and paste "
+"it\n"
+"into your web browser:\n"
+msgstr ""
+
+#: .\templates\registration\password_reset_email.html:18
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: .\templates\registration\password_reset_email.html:21
+msgid "Best regards"
+msgstr ""
+
+#: .\templates\registration\password_reset_email.html:22
+msgid "Management"
+msgstr ""
+
+#: .\templates\registration\password_reset_form.html:5
+#: .\templates\registration\password_reset_form.html:18
+msgid "Reset password"
+msgstr ""
+
+#: .\templates\registration\password_reset_form.html:11
+msgid ""
+"\n"
+"    Forgot your password? Enter your email in the form below and we'll send "
+"you instructions for creating a new one.\n"
+"    "
+msgstr ""
+
+#: .\templates\registration\registration_closed.html:4
+msgid "Registration is closed"
+msgstr ""
+
+#: .\templates\registration\registration_closed.html:7
+msgid "Sorry, but registration is closed at this moment. Come back later."
+msgstr ""
+
+#: .\templates\registration\registration_complete.html:4
+msgid "Activation email sent"
+msgstr ""
+
+#: .\templates\registration\registration_complete.html:7
+msgid "Please check your email to complete the registration process."
+msgstr ""
+
+#: .\templates\registration\registration_form.html:14
+msgid "Submit"
+msgstr ""

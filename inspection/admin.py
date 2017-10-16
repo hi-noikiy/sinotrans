@@ -4,7 +4,8 @@ from .models import (
     DailyInspection,
     forklift_maint, forklift,forklift_image, forklift_repair, forklift_annual_inspection, forklift_annual_inspection_image,
     shelf, shelf_inspection, shelf_inspection_record,
-    equipment, ElectricalEquipmentInspection)
+    equipment, ElectricalEquipmentInspection,
+    SprayPumpRoomInspection)
 from .forms import (
     DailyInspectionForm,
     ElectricalEquipmentInspectionForm,
@@ -95,10 +96,10 @@ class forkliftAdmin(admin.ModelAdmin):
 
 
 class shelfAdmin(admin.ModelAdmin):
-    list_display = ['id',"type", "warehouse",'compartment','group','number','is_gradient_measurement_mandatory']
-    list_editable = ["type", "warehouse",'compartment','group','number','is_gradient_measurement_mandatory']
-    list_filter = ["type", "warehouse",'compartment','group','is_gradient_measurement_mandatory']
-    search_fields = ["type", "warehouse",'compartment','group','number']
+    list_display = ['id',"type", "warehouse",'compartment','warehouse_channel', 'group','number','is_gradient_measurement_mandatory']
+    list_editable = ["type", "warehouse",'compartment','warehouse_channel','group','number','is_gradient_measurement_mandatory']
+    list_filter = ["type", "warehouse",'compartment','warehouse_channel','group','is_gradient_measurement_mandatory']
+    search_fields = ["type", "warehouse",'compartment','warehouse_channel','group','number']
     list_display_links = ['id']
     list_per_page = 10
     list_max_show_all = 80
@@ -150,6 +151,7 @@ class shelf_inspectionAdmin(admin.ModelAdmin):
 class equipmentAdmin(admin.ModelAdmin):
     list_display = ["name","type"]
     list_editable = ["name", "type"]
+    list_filter = [ "type"]
 
     class Meta:
         model = equipment
@@ -157,6 +159,7 @@ class equipmentAdmin(admin.ModelAdmin):
 class ElectricalEquipmentInspectionAdmin(admin.ModelAdmin):
     list_display = ["equipment","use_condition","inspector","date_of_inspection","updated"]
     list_editable = ["use_condition","inspector"]
+    list_filter = ["equipment","use_condition","inspector","date_of_inspection"]
     form = ElectricalEquipmentInspectionForm
 
     class Meta:
@@ -168,6 +171,13 @@ class ElectricalEquipmentInspectionAdmin(admin.ModelAdmin):
         }
         js = ("js/jquery.min.js","js/model_admin.js",)
 
+class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
+    list_display = ['month',"voltage_and_power_normal","indicator_and_instrument_normal"]
+    list_editable = ["voltage_and_power_normal","indicator_and_instrument_normal"]
+
+    class Meta:
+        model = SprayPumpRoomInspection
+
 admin.site.register(DailyInspection, DailyInspectionAdmin)
 admin.site.register(OfficeInspection, OfficeInspectionAdmin)
 admin.site.register(forklift, forkliftAdmin)
@@ -175,6 +185,7 @@ admin.site.register(shelf, shelfAdmin)
 admin.site.register(shelf_inspection, shelf_inspectionAdmin)
 admin.site.register(equipment, equipmentAdmin)
 admin.site.register(ElectricalEquipmentInspection, ElectricalEquipmentInspectionAdmin)
+admin.site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
@@ -183,5 +194,5 @@ my_admin_site.register(shelf, shelfAdmin)
 my_admin_site.register(shelf_inspection, shelf_inspectionAdmin)
 my_admin_site.register(equipment, equipmentAdmin)
 my_admin_site.register(ElectricalEquipmentInspection, ElectricalEquipmentInspectionAdmin)
-
+my_admin_site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
 

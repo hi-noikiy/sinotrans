@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3" style="overflow-x:scroll;overflow-y:hidden;">
+        <!--{% for object in object_list %}-->
+            <!--<a href="{{object.get_absolute_url }}"> {{object }} </a></p>-->
+        <!--{% endfor %}-->
+
+        <form method="post" action="">{% csrf_token %}
+            {{ formset.management_form }}
+
+            <table class="table table-hover table-striped table-container table-condensed" >
+                <thead>
+                <tr>
+                    <th>Spray Pump Room</th>
+                    {% for month in months %}
+                    <th>{{month.1}}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for field in formset.0 %}
+                <tr style="{% if field.name == 'id' %}display:none; {% endif %}">
+                    <th>{{field.label_tag}}</th>
+                    {% for form in formset %}
+                        <td>
+                            {% for field0 in form %}
+                                {% if field0.name == field.name %}
+                                    <span style="display: none">{{field0.label_tag}}</span>
+                                    {{field0}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+
+                    {% comment %}
+                    <td><span style="display: none">{{formset.0.voltage_and_power_normal.label_tag}}</span>{{formset.0.voltage_and_power_normal}}
+                    <input id="id_form-0-id" name="form-0-id" type="hidden" value="1"></td>
+                    <td><span style="display: none">{{formset.1.voltage_and_power_normal.label_tag}}</span>{{formset.1.voltage_and_power_normal}}
+                    <input id="id_form-1-id" name="form-1-id" type="hidden" value="2"></td>
+                    {% endcomment %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}

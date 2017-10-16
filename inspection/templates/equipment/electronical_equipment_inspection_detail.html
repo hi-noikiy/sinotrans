@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {{object }}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div>
+            {{object}}
+        </div>
+        <br>
+        <div>
+            <a href="{% url 'electronialequipmentinsepction_list' %}" type="button" class="btn btn-primary">Return</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

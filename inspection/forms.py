@@ -10,7 +10,7 @@ from .models import (
     OfficeInspection,
     DailyInspection,
     shelf_inspection_record, shelf, shelf_inspection,
-    equipment,ElectricalEquipmentInspection
+    equipment,ElectricalEquipmentInspection,SprayPumpRoomInspection
 )
 
 RESULT_OPTION = (
@@ -297,6 +297,10 @@ class shelfFilterForm(forms.Form):
         pass
 
 class ElectricalEquipmentInspectionForm(forms.ModelForm):
+    use_condition = forms.ChoiceField(
+        choices=ElectricalEquipmentInspection.equipment_use_condition,
+        widget=forms.RadioSelect,
+    )
 
     class Meta:
         model = ElectricalEquipmentInspection
@@ -307,6 +311,9 @@ class ElectricalEquipmentInspectionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ElectricalEquipmentInspectionForm, self).__init__(*args, **kwargs)
         self.fields['equipment'].queryset = equipment.objects.filter(type='electrical equipment')
+
+        # self.fields['use_condition'].choices = ElectricalEquipmentInspection.equipment_use_condition
+        # self.fields['use_condition'].widget = forms.RadioSelect
 
     # def clean(self, *args, **kwargs):
     #     super(ElectricalEquipmentInspectionForm, self).clean(*args, **kwargs)
@@ -322,3 +329,15 @@ electrical_equipment_inspection_model_formset = modelformset_factory(ElectricalE
                                             form=ElectricalEquipmentInspectionForm,
                                             #formset=ElectricalEquipmentInspectionModelFormSet,
                                             extra=1)
+
+class SprayPumpRoomInspectionForm(forms.ModelForm):
+    class Meta:
+        model = SprayPumpRoomInspection
+
+        exclude = {
+            'month',
+        }
+
+spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInspection,
+                                            form=SprayPumpRoomInspectionForm,
+                                            extra=0)
