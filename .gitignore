@@ -1,6 +1,8 @@
 # backup files
 _backup/
 
+env-*/
+
 static_in_env/media_root/
 
 # Security iles
