@@ -45,15 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
-    # 'mptt',
-    # 'django_comments',       
-    # 'comments',
     'trainings',
     'authwrapper',
     'newsletter',
-    'products',
-    'carts',
-    'orders',
     'personalcenter',
     'inspection', # (1) 'inspection.apps.InspectionConfig', (2) or use default_app_config = 'inspection.apps.InspectionConfig' in inspection/__init__.py
     'zakkabag',
@@ -63,11 +57,6 @@ INSTALLED_APPS = [
     'pagination', # not supported since django1.9 due to error 'WSGIRequest' object has no attribute 'REQUEST', in django 1.9, Replace `request.REQUEST` with `POST` and `GET`
     'ckeditor',
     'phone_login',
-    'rest_framework'
-
-
-    # 'django.contrib.comments',
-    # 'threadedcomments',
 ]
 
 MIDDLEWARE_CLASSES = (

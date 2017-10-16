@@ -1,5 +1,5 @@
 
-Django==1.8.4
+Django==1.9
 django-breadcrumbs==1.1.3
 django-ckeditor==5.2.2
 django-contrib-comments==1.7.3
@@ -16,4 +16,3 @@ django-phonenumber-field==1.3.0
 phonenumbers==8.8.2
 Babel==2.4.0
 django-sendsms==0.2.3
-django-polymorphic==1.0.2

@@ -13,8 +13,6 @@ from django.utils.text import slugify
 
 from .models import UserProfile
 from authwrapper.models import WechatUserProfile
-from products.models import Product
-from orders.models import Order, UserCheckout
 from .forms import MyUserForm#, UploadFileForm
 from fileuploadwrapper.forms import UploadFileForm
 
@@ -51,8 +49,6 @@ def personalcenterhome(request,id):
     template = "personalcenter/personalcenterhome.html"
     context = {    
         "myuser": myuser,
-        'wechat': wechat,
-        'product' : Product.objects.all()[0],   
     }
 
     return render(request, template, context)

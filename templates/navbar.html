@@ -37,14 +37,11 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href='{% url "cart" %}'><i class="fa fa-shopping-cart fa-navbar-cart"></i> <span id="cart-count-badge" class='badge'>{{ request.session.cart_item_count }}</span></a></li>            
+            <li><a href=''><i class="fa fa-shopping-cart fa-navbar-cart"></i> <span id="cart-count-badge" class='badge'>0</span></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'Projects' %} <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                
-                <li><a href="{% url 'products' %}">{% trans 'Products' %}</a></li>
+              <ul class="dropdown-menu" role="menu">                
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'orders' %}">{% trans 'Orders' %}</a></li> 
                 {% endif %}
                 <li><a href="{% url 'dailyinspection_list' %}">{% trans 'Inspection' %}</a></li>
                 <li><a href="{% url 'shelf_inspection_list' %}">{% trans 'Shelf' %}</a></li>
