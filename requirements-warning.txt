@@ -1,0 +1,12 @@
+pyOpenSSL
+pyasn1
+ndg-httpsclient
+
+cryptography
+six
+idna
+ipaddress
+enum34
+cffi
+pycparser
+cryptograph
