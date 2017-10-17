@@ -17,3 +17,4 @@ phonenumbers==8.8.2
 Babel==2.4.0
 django-sendsms==0.2.3
 Pillow==4.1.0
+
