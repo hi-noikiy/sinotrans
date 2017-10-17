@@ -1,3 +1,2 @@
 
 MySQL-python==1.2.3
-Pillow==4.1.0
