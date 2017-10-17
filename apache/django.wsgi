@@ -4,6 +4,8 @@ import sys
 
 root = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(root, '..', 'site-packages'))
+sys.path.insert(0, os.path.join(root, '..', 'site-packages-pip-fail'))
+sys.path.insert(0, os.path.join(root, '..', 'site-packages-upgrade-stop'))
 
 #Calculate the path based on the location of the WSGI script.
 apache_configuration= os.path.dirname(__file__) 
