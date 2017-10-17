@@ -4,7 +4,8 @@ _backup/
 env-*/
 site-packages-pyd/
 
-static_in_env/media_root/
+static_in_env/static_root/
+static_in_env/media_root/DB_SQL_*/
 
 # Security iles
 security_setting.py

@@ -1,0 +1,6 @@
+article / artical-title ( this is for list image)
+banner / filename
+profile / user / filename
+product / category / product-title / filename
+crowdfunding / user / instance-title instance-id filename
+dailyinspection / datetime-filename
