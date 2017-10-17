@@ -4,6 +4,7 @@ import sys
 
 root = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(root, '..', 'site-packages'))
+sys.path.insert(0, os.path.join(root, '..', 'site-packages', 'djangos', '1.9'))
 sys.path.insert(0, os.path.join(root, '..', 'site-packages-pip-fail'))
 sys.path.insert(0, os.path.join(root, '..', 'site-packages-upgrade-stop'))
 
