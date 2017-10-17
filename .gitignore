@@ -2,6 +2,7 @@
 _backup/
 
 env-*/
+site-packages-pyd/
 
 static_in_env/media_root/
 
