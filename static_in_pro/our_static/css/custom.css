@@ -35,7 +35,8 @@
     border-radius: 3px; 
 }
 
+/* overwrite row css */
 .container-fluid .row{
-    padding-left: 0px;
-    padding-right: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
 }
