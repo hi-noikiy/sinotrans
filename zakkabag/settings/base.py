@@ -197,6 +197,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static_in_env", "static_root")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static_in_pro", "our_static"),
     os.path.join(BASE_DIR, "inspection", "static"),
+	os.path.join(BASE_DIR, "site-packages-djangos", "1.9", "django", "contrib", "admin", "static"),
 )
 
 USE_SAE_BUCKET = True if 'SERVER_SOFTWARE' in os.environ else False
