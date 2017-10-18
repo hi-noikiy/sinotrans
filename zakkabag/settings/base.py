@@ -113,7 +113,7 @@ WSGI_APPLICATION = 'zakkabag.wsgi.application'
 
 import socket
 
-DB_SQLITE = True    
+DB_SQLITE = False    
 DB_HEROKU = False
 DB_MYSQL = False
 DB_SAE = False
@@ -126,8 +126,6 @@ DATABASES = {
 	}
 }
 
-MEDIA_PREFIX = "DB_SQLITE"
-
 if os.getenv('DJANGO_SQL_SERVER'):
     DB_MYSQL = True
     MEDIA_PREFIX = "DB_SQL_" + socket.gethostname()
@@ -135,7 +133,8 @@ elif 'SERVER_SOFTWARE' in os.environ:
     DB_SAE = True
     MEDIA_PREFIX = "DB_SAE"	
 else:
-    pass
+    DB_SQLITE = True
+    MEDIA_PREFIX = "DB_SQLITE"
 	
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -191,9 +190,10 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "static_root")
 STATIC_ROOT = os.path.join(BASE_DIR, "static_in_env", "static_root")
-
+#if False == DB_SQLITE:
+#    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "static_root")
+	
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static_in_pro", "our_static"),
     os.path.join(BASE_DIR, "inspection", "static"),
@@ -218,10 +218,12 @@ if USE_SAE_BUCKET: #'SERVER_SOFTWARE' in os.environ:
 
     MEDIA_URL = '/'    
 else:
-    import socket
+    import socket    
     MEDIA_ROOT = os.path.join(BASE_DIR, "static_in_env", "media_root")
+#    if False == DB_SQLITE:
+#        MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "media_root")    
     if MEDIA_PREFIX:
-        MEDIA_ROOT = os.path.join(MEDIA_ROOT, MEDIA_PREFIX)	
+        MEDIA_ROOT = os.path.join(MEDIA_ROOT, MEDIA_PREFIX)			
     CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'ckeditor/uploads') #not used
     MEDIA_URL = '/media/'
 
