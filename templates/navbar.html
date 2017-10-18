@@ -18,22 +18,16 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>    
             <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>        
-            <li><a href="{% url 'about' %}">{% trans 'About' %}</a></li>       
-            {% comment %} 
-            {% for lang in request.lang %}
-            	<li><a href="{% url 'set_language' %}?language={{lang.0}}'&next={{request.path}}">{{lang.1}}</a></li>
-            {% endfor %}
-            <li><a href="{% url 'set_language' %}?language='zh-cn'&next={{request.path}}">chinese</a></li>
-            <li><a href="{% url 'set_language' %}?language='en'&next={{request.path}}">english</a></li>               
-            {% endcomment %} 
+            <li><a href="{% url 'about' %}">{% trans 'About' %}</a></li>
 
+            {% comment %}
             <form class="navbar-form navbar-left" method="GET" role="search" action='{% url "dailyinspection_list" %}'>
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search" name="q"  value='{{ request.GET.q }}'>
               </div>
                <!--  <button type="submit" class="btn btn-default">Submit</button> -->
             </form>
-            <li><a href=""><i id = "scarn-QR" class="fa fa-qrcode" aria-hidden="true"></i></a></li>
+            {% endcomment %}
           </ul>
 
           <ul class="nav navbar-nav navbar-right">

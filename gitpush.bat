@@ -1,3 +1,3 @@
 git add .
 git commit -m "update"
-git push sae master:1
+git push origin master
