@@ -23,3 +23,6 @@ os.environ['DJANGO_SETTINGS_MODULE'] = "zakkabag.settings"
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
+
+import django
+print "django version : " + django.VERSION
