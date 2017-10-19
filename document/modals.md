@@ -1,0 +1,2 @@
+- https://www.abidibo.net/blog/2014/05/26/how-implement-modal-popup-django-forms-bootstrap/
+- https://getbootstrap.com/docs/3.3/javascript/#modals
