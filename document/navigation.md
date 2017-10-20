@@ -1,0 +1,3 @@
+- http://v3.bootcss.com/javascript/#affix
+- http://www.shouce.ren/api/view/a/11313
+- http://www.runoob.com/bootstrap/bootstrap-navigation-elements.html  nav-stacked
