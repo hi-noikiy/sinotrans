@@ -7,6 +7,8 @@ from django.contrib.admin import widgets
 class MyUserForm(forms.ModelForm):
     #birthday = forms.DateField(widget=SelectDateWidget())
     #birthday = forms.DateField(widget=forms.SelectDateWidget) # availabe in django 1.9
+
+    #first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'})) 
     
     class Meta:
         model = MyUser
@@ -20,10 +22,21 @@ class MyUserForm(forms.ModelForm):
             'image'
         ]
 
+        """
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class':'form-control'}),
+        }
+        """
+
     def __init__(self, *args, **kwargs):
         super(MyUserForm, self).__init__(*args, **kwargs)
         self.fields['sex'].empty_label = None     
         self.fields['birthday'].widget = widgets.AdminDateWidget()   
+
+        for field in self.Meta.fields:
+             self.fields[field].widget.attrs={"class":"form-control"}
+
+        
 
     def clean_image(self):
         if self.cleaned_data.get("image") != None:

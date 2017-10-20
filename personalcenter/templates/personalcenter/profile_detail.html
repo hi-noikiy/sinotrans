@@ -14,21 +14,13 @@
     /*padding-left: 10px;*/
 }
 
+.field-area select{
+	@extend .form-control;
+	/*color: red;* method 4/
+}
+
 {% endblock %}
 </style>
-    
-<script>
-{% block js %}
-
-$(document).ready(function(){
-    $(".field-area input").addClass("form-control");
-    $(".field-area textarea").addClass("form-control");
-    $(".field-area select").addClass("form-control");
-    $(".field-area>label").addClass("col-sm-2 control-label");
-});
-
-{% endblock %}
-</script>
 
 
 {% block content %}

@@ -127,11 +127,6 @@ class ProfileDetailView(FormMixin, DetailView):
         #upload_file_form.fields['image'].queryset = self.get_object(*args, **kwargs).image
         context["upload_form"] = upload_file_form
 
-        usermodel = UserModel.objects.get(id=self.kwargs.get("id"))
-        if UserCheckout.objects.filter(user = usermodel):
-            usercheckout = UserCheckout.objects.get(user = usermodel)
-            context["object_list"] = Order.objects.filter(user = usercheckout)
-
         return context
 
     def get_object(self, *args, **kwargs):
