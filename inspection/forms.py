@@ -65,6 +65,10 @@ class DailyInspectionForm(forms.ModelForm):
         super(DailyInspectionForm, self).__init__(*args, **kwargs)
         self.fields['due_date'].widget = widgets.AdminDateWidget()
 
+        for field in self.fields.values():
+            if not field in self.Meta.exclude:
+                field.widget.attrs={"class":"form-control"}
+
     def clear_image_after(self):
         if self.data.get('image_after-clear'):
             return "on"
@@ -87,7 +91,7 @@ class DailyInspectionForm(forms.ModelForm):
         css = {
             'all': ('admin/css/base.css','admin/css/forms.css','css/form_horizontal_layout.css',),
         }
-        js = ['js/form_horizontal_layout.js']
+        #js = ['js/form_horizontal_layout.js']
 
 
     #inherit from BaseForm
