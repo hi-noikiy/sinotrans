@@ -32,21 +32,6 @@ a:hover {text-decoration: none;}
 {% endblock%}
 </style>
 
-<script>
-{% block js %}
-
-$(document).ready(function(){
-    $(".field-area>input").addClass("form-control");
-    $(".field-area textarea").addClass("form-control");
-    $(".field-area select").addClass("form-control");
-    $(".field-area>label").addClass("control-label");
-
-    $(".field-area image-field a").hide()
-
-});
-
-{% endblock %}
-</script>
 
 {% block content %}
 {% if records.count == 0 %}

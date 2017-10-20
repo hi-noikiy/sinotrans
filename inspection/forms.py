@@ -67,7 +67,10 @@ class DailyInspectionForm(forms.ModelForm):
 
         for field in self.fields.values():
             if not field in self.Meta.exclude:
-                field.widget.attrs={"class":"form-control"}
+                if 'class' in field.widget.attrs.keys():
+                    field.widget.attrs['class'] = field.widget.attrs['class'] + ' form-control'
+                else:
+                    field.widget.attrs['class'] = 'form-control'
 
     def clear_image_after(self):
         if self.data.get('image_after-clear'):
