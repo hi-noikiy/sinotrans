@@ -42,6 +42,7 @@ class OfficeInspection(models.Model):
 
 
 def image_upload_to_dailyinspection(instance, filename):
+    print filename
     title, file_extension = filename.split(".")
     #new_filename = "%s-%s.%s" %(instance.created.strftime('%Y-%m-%d-%H-%M-%S'), slugify(title), file_extension)
     #new_filename = "%s-%s.%s" %(instance.created.strftime('%Y%m%d%H%M%S'), slugify(title), file_extension)

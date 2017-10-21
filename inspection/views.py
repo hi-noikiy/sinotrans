@@ -218,11 +218,29 @@ class DailyInspectionCreateView(StaffRequiredMixin, ThumbnailMixin, CreateView):
     def get_success_url(self, *args, **kwargs):
         return reverse("dailyinspection_list", kwargs={}) 
 
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("Daily Inspection"),reverse("dailyinspection_list", kwargs={})),
+            (instance,request.path_info),
+        ])
+        return super(DailyInspectionCreateView, self).dispatch(request,args,kwargs)   
+        
 
 class DailyInspectionDetailView( DetailView):
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_detail.html"
 
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("Daily Inspection"),reverse("dailyinspection_list", kwargs={})),
+            (instance,request.path_info),
+        ])
+        return super(DailyInspectionDetailView, self).dispatch(request,args,kwargs)   
+        
 class DailyInspectionUpdateView(StaffRequiredMixin, ThumbnailMixin, UpdateView): #ModelFormMixin
     
     model = DailyInspection
