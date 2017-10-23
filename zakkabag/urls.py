@@ -35,7 +35,8 @@ urlpatterns = [
     url(r'^auth/', include('authwrapper.urls')),
     url(r'^inspection/', include('inspection.urls')),
     url(r'^fileupload/', include('fileuploadwrapper.urls')),
-
+    url(r'^equipments/', include('equipments.urls')),
+    
     url(r'^accounts/', include('registration.backends.default.urls')),    
     url(r'^setlang/$', set_language, name='setlang'),
     url(r'^phone_login/', include('phone_login.urls')),    

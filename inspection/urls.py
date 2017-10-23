@@ -19,9 +19,6 @@ from .views import (
     shelf_DetailView,
     shelf_ListView,
     shelf_inspection_record_DetailView,
-    ElectricalEquipmentInspectionListView,
-    ElectricalEquipmentInspectionDetailView,
-    ElectricalEquipmentInspectionCreateView,
     SprayPumproomInspectionListView,
 )
 
@@ -45,10 +42,6 @@ urlpatterns = [
 
     url(r'^shelfdetail/(?P<pk>\d+)/$', shelf_DetailView.as_view(), name='shelf_detail'),  
     url(r'^shelflist$', shelf_ListView.as_view(), name='shelf_list'),
-
-    url(r'^electronicalequipmentinspection/list/$', ElectricalEquipmentInspectionListView.as_view(), name='electronialequipmentinsepction_list'),
-    url(r'^electronicalequipmentinspection/detail/(?P<pk>\d+)/$', ElectricalEquipmentInspectionDetailView.as_view(), name='electronialequipmentinsepction_detail'),
-    url(r'^electronicalequipmentinspection/create/$', ElectricalEquipmentInspectionCreateView.as_view(), name='electronialequipmentinsepction_create'),
 
     url(r'^spraypumproominspection/list/$', SprayPumproomInspectionListView.as_view(),
         name='spraypumproominspection_list'),

@@ -4,11 +4,10 @@ from .models import (
     DailyInspection,
     forklift_maint, forklift,forklift_image, forklift_repair, forklift_annual_inspection, forklift_annual_inspection_image,
     shelf, shelf_inspection, shelf_inspection_record,
-    equipment, ElectricalEquipmentInspection,
     SprayPumpRoomInspection)
+    
 from .forms import (
     DailyInspectionForm,
-    ElectricalEquipmentInspectionForm,
 )
 from django.core.urlresolvers import reverse
 from django.contrib.sites.shortcuts import get_current_site
@@ -44,7 +43,7 @@ class DailyInspectionAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            "all": ("css/model_admin.css",)
+            "all": ("css/inspection.css", "css/model_admin.css")
         }
         js = ("js/jquery.min.js","js/model_admin.js",)
         
@@ -147,30 +146,6 @@ class shelf_inspectionAdmin(admin.ModelAdmin):
         shelf_inspection_recordInline,
     ]
 
-
-class equipmentAdmin(admin.ModelAdmin):
-    list_display = ["name","type"]
-    list_editable = ["name", "type"]
-    list_filter = [ "type"]
-
-    class Meta:
-        model = equipment
-
-class ElectricalEquipmentInspectionAdmin(admin.ModelAdmin):
-    list_display = ["equipment","use_condition","inspector","date_of_inspection","updated"]
-    list_editable = ["use_condition","inspector"]
-    list_filter = ["equipment","use_condition","inspector","date_of_inspection"]
-    form = ElectricalEquipmentInspectionForm
-
-    class Meta:
-        model = ElectricalEquipmentInspection
-
-    class Media:
-        css = {
-            "all": ("css/model_admin.css","css/equipment.css")
-        }
-        js = ("js/jquery.min.js","js/model_admin.js",)
-
 class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
     list_display = ['month',"voltage_and_power_normal","indicator_and_instrument_normal"]
     list_editable = ["voltage_and_power_normal","indicator_and_instrument_normal"]
@@ -183,8 +158,6 @@ admin.site.register(OfficeInspection, OfficeInspectionAdmin)
 admin.site.register(forklift, forkliftAdmin)
 admin.site.register(shelf, shelfAdmin)
 admin.site.register(shelf_inspection, shelf_inspectionAdmin)
-admin.site.register(equipment, equipmentAdmin)
-admin.site.register(ElectricalEquipmentInspection, ElectricalEquipmentInspectionAdmin)
 admin.site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
@@ -192,7 +165,5 @@ my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
 my_admin_site.register(forklift, forkliftAdmin)
 my_admin_site.register(shelf, shelfAdmin)
 my_admin_site.register(shelf_inspection, shelf_inspectionAdmin)
-my_admin_site.register(equipment, equipmentAdmin)
-my_admin_site.register(ElectricalEquipmentInspection, ElectricalEquipmentInspectionAdmin)
 my_admin_site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
 

@@ -6,7 +6,6 @@ from django.db.models.signals import post_delete, post_save, pre_save
 from .utils import file_cleanup, file_cleanup2, save_raw_instance
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
 from django.http import Http404
 from django.utils import timezone
 from datetime import datetime, timedelta
@@ -446,6 +445,7 @@ class rehearsal(models.Model):
     class Meta:
         verbose_name = _("rehearsal")
 
+"""
 class equipment(models.Model):
     equipment_type = (
         ('electrical equipment', _('electrical equipment')),
@@ -505,6 +505,7 @@ class ElectricalEquipmentInspection(equipment_inspection):
 
     def __unicode__(self):
         return "%s" % (self.equipment.name)
+"""
 
 month_choice = (
     ('1jan', _('January')),

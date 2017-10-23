@@ -47,7 +47,17 @@ table li input[type="radio"]{
 
 {% block content %}
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-xs-3">
+        <div style="margin-right:20%;">
+            <p>设备种类</p>
+            <ul class="nav nav-pills nav-stacked">
+              {% for category in categories %}
+              <li {% ifequal category.id current_category|add:"0" %}class='active'{% endifequal %}><a href="{% url 'electronialequipmentinsepction_list' %}?category_id={{category.id}}">{{category}}</a></li>
+              {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-xs-6">
         <!--{% for object in object_list %}-->
             <!--<a href="{{object.get_absolute_url }}"> {{object }} </a></p>-->
         <!--{% endfor %}-->
