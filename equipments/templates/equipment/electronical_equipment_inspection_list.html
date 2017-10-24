@@ -5,42 +5,6 @@
 
 <style type="text/css">
 {% block style %}
-tr td select, tr td input, tr td textarea{
-    width: 100%;
-    border-radius: 3px;
-    height: 30px;
-    text-indent:3px;
-}
-
-table tr{
-    width:100%;
-}
-
-table tr th{
-    padding:0px;
-    margin:0px;
-    width:30%;
-}
-
-.errorlist{
-    color:#b94a48;
-    font-weight:bold;
-}
-
-table ul{
-	list-style:none;
-}
-
-table li{
-	float:left;
-	width:50%;
-}
-
-table li input[type="radio"]{
-    height:20px;
-    width:20px;
-    margin:10px;
-}
 
 ul.nav-stacked{
     background-color: #eee;
@@ -114,37 +78,6 @@ ul.nav-stacked{
             <div class="col-sm-3">{{object.date_of_inspection}}</div>
             {% endfor %}
         </div>
-        <br>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#form_inspection_today">
-                    快速更新今天的检查
-                </a>
-                </h4>
-            </div>
-            <div id="form_inspection_today" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <form method="post" action="">{% csrf_token %}
-                        {{ formset.management_form }}
-                            {% for form in formset %}
-                            <h4> {% if not forloop.last%}
-                            <a href="{{form.instance.get_absolute_url }}"> {{form.instance }} </a>
-                            {% else %}
-                            <a href="{% url 'electronialequipmentinsepction_create' %}">Create New</a>
-                            {% endif %}</h4>
-                            <table style="width: 100%">
-                                {{ form.as_table }}
-                            </table>
-                            <hr>
-                            {% endfor %}
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                    </form>
-                </div>
-            </div>
-        </div>
-
 
     </div>
 </div>
