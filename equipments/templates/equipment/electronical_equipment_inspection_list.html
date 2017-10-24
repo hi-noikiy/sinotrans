@@ -42,7 +42,7 @@ ul.nav-stacked{
 
 {% block content %}
 <div class="row">
-    <div class="col-xs-3">
+    <div class="col-sm-3">
         <div style="margin-right:20%;">
             <p class="nav-title">分类检查</p>
             <ul class="nav nav-pills nav-stacked">
@@ -52,7 +52,7 @@ ul.nav-stacked{
             </ul>
         </div>
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
         <!--{% for object in object_list %}-->
             <!--<a href="{{object.get_absolute_url }}"> {{object }} </a></p>-->
         <!--{% endfor %}-->
@@ -64,18 +64,18 @@ ul.nav-stacked{
             </div>
         </div>
         <div class="row list-title text-center" >
-            <div class="col-sm-3">Equipment</div>
-            <div class="col-sm-3">Use Condition</div>
-            <div class="col-sm-3">Inspector</div>
-            <div class="col-sm-3">Date of inspection</div>
+            <div class="col-xs-3">Equipment</div>
+            <div class="col-xs-3">Use Condition</div>
+            <div class="col-xs-3">Inspector</div>
+            <div class="col-xs-3">Date of inspection</div>
         </div>
 
         <div class="row text-center" >
             {% for object in object_list %}
-            <div class="col-sm-3"><i class="fa fa-check-circle" aria-hidden="true"> {{object.equipment}}</i></div>
-            <div class="col-sm-3">{{object.use_condition}}</div>
-            <div class="col-sm-3">{{object.inspector}}</div>
-            <div class="col-sm-3">{{object.date_of_inspection}}</div>
+            <div class="col-xs-3"><i class="fa fa-check-circle" aria-hidden="true"> {{object.equipment}}</i></div>
+            <div class="col-xs-3">{{object.use_condition}}</div>
+            <div class="col-xs-3">{{object.inspector}}</div>
+            <div class="col-xs-3">{{object.date_of_inspection}}</div>
             {% endfor %}
         </div>
 
