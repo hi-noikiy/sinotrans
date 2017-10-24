@@ -8,6 +8,8 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormMixin, ModelFormMixin
+from django.contrib import messages
+
 from .models import  (
     ElectricalEquipmentInspection,
     EquipmentType,
@@ -40,10 +42,10 @@ class ElectricalEquipmentInspectionListView(ListView):
             initial=[{'use_condition': _('Normal'),}])
         context["formset"] = formset
         # context["objects_list"] = self.model.objects.get_this_day()
-        qs = Equipment.objects.all()
+        qs = ElectricalEquipmentInspection.objects.all()
         category_id = self.request.GET.get("category_id", None)
         if category_id:
-            qs = Equipment.objects.all().filter(type__id=category_id)
+            qs = ElectricalEquipmentInspection.objects.all().filter(equipment__type__id=category_id)
         context["categories"] = EquipmentType.objects.all()
         context["current_category"] = category_id
         context["object_list"] = qs

@@ -5,7 +5,7 @@
 
 <style type="text/css">
 {% block style %}
-tr td select, tr td input{
+tr td select, tr td input, tr td textarea{
     width: 100%;
     border-radius: 3px;
     height: 30px;
@@ -41,6 +41,37 @@ table li input[type="radio"]{
     width:20px;
     margin:10px;
 }
+
+ul.nav-stacked{
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+ .nav-title{
+    padding: 10px 15px 10px 15px;
+    background-color: #428bca;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color: #f5f5f5;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #ccc!important; /*overwrite bootstrap*/
+}
+
+.list-title{
+    background-color: #428bca; 
+    border-radius: 3px; 
+    color:white;
+}
+
+.list-title div{
+    border-color: white;
+    padding-top: 8px; 
+    padding-bottom: 8px;     
+}
+
 {% endblock %}
 </style>
 
@@ -49,7 +80,7 @@ table li input[type="radio"]{
 <div class="row">
     <div class="col-xs-3">
         <div style="margin-right:20%;">
-            <p>设备种类</p>
+            <p class="nav-title">分类检查</p>
             <ul class="nav nav-pills nav-stacked">
               {% for category in categories %}
               <li {% ifequal category.id current_category|add:"0" %}class='active'{% endifequal %}><a href="{% url 'electronialequipmentinsepction_list' %}?category_id={{category.id}}">{{category}}</a></li>
@@ -61,22 +92,60 @@ table li input[type="radio"]{
         <!--{% for object in object_list %}-->
             <!--<a href="{{object.get_absolute_url }}"> {{object }} </a></p>-->
         <!--{% endfor %}-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <i class="fa fa-plus-square" aria-hidden="true"> add new equipment</i>
+                </div>
+            </div>
+        </div>
+        <div class="row list-title text-center" >
+            <div class="col-sm-3">Equipment</div>
+            <div class="col-sm-3">Use Condition</div>
+            <div class="col-sm-3">Inspector</div>
+            <div class="col-sm-3">Date of inspection</div>
+        </div>
 
-        <form method="post" action="">{% csrf_token %}
-            {{ formset.management_form }}
-                {% for form in formset %}
-                <h4> {% if not forloop.last%}
-                <a href="{{form.instance.get_absolute_url }}"> {{form.instance }} </a>
-                {% else %}
-                <a href="{% url 'electronialequipmentinsepction_create' %}">Create New</a>
-                {% endif %}</h4>
-                <table style="width: 100%">
-                    {{ form.as_table }}
-                </table>
-                <hr>
-                {% endfor %}
-            <input type="submit" class="btn btn-primary" value="Submit">
-        </form>
+        <div class="row text-center" >
+            {% for object in object_list %}
+            <div class="col-sm-3"><i class="fa fa-check-circle" aria-hidden="true"> {{object.equipment}}</i></div>
+            <div class="col-sm-3">{{object.use_condition}}</div>
+            <div class="col-sm-3">{{object.inspector}}</div>
+            <div class="col-sm-3">{{object.date_of_inspection}}</div>
+            {% endfor %}
+        </div>
+        <br>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#form_inspection_today">
+                    快速更新今天的检查
+                </a>
+                </h4>
+            </div>
+            <div id="form_inspection_today" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form method="post" action="">{% csrf_token %}
+                        {{ formset.management_form }}
+                            {% for form in formset %}
+                            <h4> {% if not forloop.last%}
+                            <a href="{{form.instance.get_absolute_url }}"> {{form.instance }} </a>
+                            {% else %}
+                            <a href="{% url 'electronialequipmentinsepction_create' %}">Create New</a>
+                            {% endif %}</h4>
+                            <table style="width: 100%">
+                                {{ form.as_table }}
+                            </table>
+                            <hr>
+                            {% endfor %}
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 {% endblock %}
