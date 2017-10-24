@@ -1,3 +1,7 @@
+- http://python.usyiyi.cn/documents/django_182/ref/forms/widgets.html
+- https://www.kancloud.cn/wizardforcel/django-chinese-docs-18/98918
+
+
 # 日历控件
 
 admin site 中的日历控件使用方法很简单
