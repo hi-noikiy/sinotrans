@@ -100,7 +100,7 @@ class DailyInspection(models.Model):
     objects = DailyInspectionManager()
     
     def __unicode__(self): 
-        return _("Daily Inspection ") + self.inspection_content
+        return _("Daily Inspection") +"-" +  self.inspection_content
 
     def get_absolute_url(self):
         return reverse("dailyinspection_detail", kwargs={"pk": self.id })    
@@ -365,7 +365,7 @@ class shelf_inspection_record(models.Model):
     comments = models.TextField(_('Comments'), max_length=30, blank=True,null=True)
 
     def __unicode__(self): 
-        return _("shelf inspection record ") + "%s" % (self.shelf)
+        return _("shelf inspection record") + " %s" % (self.shelf)
 
     def get_absolute_url(self):
         return reverse("shelf_inspection_record_detail", kwargs={"pk": self.id })

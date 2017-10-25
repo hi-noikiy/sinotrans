@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
-
+{% load i18n %}
 
 <style type="text/css">
 {% block style %}
@@ -28,6 +28,13 @@ table tr.danger th{
     border-bottom: solid 1px #f9b9c3;
 }
 
+.table>thead>tr>td.danger, .table>tbody>tr>td.danger, .table>tfoot>tr>td.danger, .table>thead>tr>th.danger, .table>tbody>tr>th.danger, .table>tfoot>tr>th.danger, .table>thead>tr.danger>td, .table>tbody>tr.danger>td, .table>tfoot>tr.danger>td, .table>thead>tr.danger>th, .table>tbody>tr.danger>th, .table>tfoot>tr.danger>th {
+    background-color: #f1eaea;
+    border-color: #f7cccc;
+    color: #555;
+}
+
+
 {% endblock %}
 </style>
 
@@ -39,7 +46,7 @@ table tr.danger th{
 <div class="row">
     <div class="col-sm-3">
         <div style="margin-right:20%;">
-            <p class="nav-title">分类检查</p>
+            <p class="nav-title">{% trans "Insepction Categories" %}</p>
             <ul class="nav nav-pills nav-stacked">
               <li><a href="{% url 'equipmentinsepction_list' %}">All</a></li>
               {% for category in categories %}
@@ -65,10 +72,10 @@ table tr.danger th{
 
                 <table class="table table-striped table-hover table-responsive table-condensed" cellspacing='0'>
                     <tr class="danger" style="border-top-width: 2px;">
-                        <th>Equipment</th>
-                        <th>Use Condition</th>
-                        <th>Inspector</th>
-                        <th>Date of inspection</th>
+                        <th>{% trans "Equipment" %} </th>
+                        <th>{% trans "Use Condition" %} </th>
+                        <th>{% trans "Inspector" %} </th>
+                        <th>{% trans "Date of inspection" %} </th>
                         <th></th>
                     </tr>
                     {% for object in object_list %}

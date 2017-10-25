@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 15:27+0800\n"
+"POT-Creation-Date: 2017-10-25 14:41+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,83 +17,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\authwrapper\models.py:101
+#: .\authwrapper\models.py:118
 msgid "username"
 msgstr ""
 
-#: .\authwrapper\models.py:104
+#: .\authwrapper\models.py:121
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: .\authwrapper\models.py:115
+#: .\authwrapper\models.py:132
 msgid "A user with that username already exists."
 msgstr ""
 
-#: .\authwrapper\models.py:118
+#: .\authwrapper\models.py:135
 msgid "phone"
 msgstr ""
 
-#: .\authwrapper\models.py:119
+#: .\authwrapper\models.py:136
 msgid "Required. digits and + only."
 msgstr ""
 
-#: .\authwrapper\models.py:121
+#: .\authwrapper\models.py:138
 msgid "A user with that phone number already exists."
 msgstr ""
 
-#: .\authwrapper\models.py:135
+#: .\authwrapper\models.py:152
 msgid "first name"
 msgstr ""
 
-#: .\authwrapper\models.py:136
+#: .\authwrapper\models.py:153
 msgid "last name"
 msgstr ""
 
-#: .\authwrapper\models.py:137
+#: .\authwrapper\models.py:154
 msgid "email address"
 msgstr ""
 
-#: .\authwrapper\models.py:138
+#: .\authwrapper\models.py:155
 msgid "sex"
 msgstr ""
 
-#: .\authwrapper\models.py:139
+#: .\authwrapper\models.py:156
 msgid "birthday"
 msgstr ""
 
-#: .\authwrapper\models.py:140
+#: .\authwrapper\models.py:157
 msgid "nickname"
 msgstr ""
 
-#: .\authwrapper\models.py:141
+#: .\authwrapper\models.py:158
 msgid "staff status"
 msgstr ""
 
-#: .\authwrapper\models.py:142
+#: .\authwrapper\models.py:159
 msgid "Designates whether the user can log into this admin site."
 msgstr ""
 
-#: .\authwrapper\models.py:144
+#: .\authwrapper\models.py:161
 msgid "active"
 msgstr ""
 
-#: .\authwrapper\models.py:145
+#: .\authwrapper\models.py:162
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
 
-#: .\authwrapper\models.py:147
+#: .\authwrapper\models.py:164
 msgid "date joined"
 msgstr ""
 
-#: .\authwrapper\models.py:160
+#: .\authwrapper\models.py:178
 #: .\site-packages-pip-fail\phone_login\models.py:64
 #: .\site-packages\phone_login\models.py:64
 msgid "user"
 msgstr ""
 
-#: .\authwrapper\models.py:161
+#: .\authwrapper\models.py:179
 #: .\site-packages-pip-fail\phone_login\models.py:65
 #: .\site-packages\phone_login\models.py:65
 msgid "users"
@@ -110,7 +110,7 @@ msgid "Register for free!"
 msgstr ""
 
 #: .\authwrapper\templates\auth\registration_form_forget.html:4
-#: .\templates\navbar.html:86 .\templates\navbar.html.py:88
+#: .\templates\navbar.html:80 .\templates\navbar.html.py:82
 msgid "Forgot Password"
 msgstr ""
 
@@ -126,170 +126,214 @@ msgid ""
 "and ./-/_ characters."
 msgstr ""
 
-#: .\carts\templates\carts\checkout_view.html:25
-msgid "Forgot password"
-msgstr ""
+#: .\equipments\models.py:12 .\equipments\models.py:22
+#: .\inspection\models.py:408 .\inspection\models.py:425
+msgid "Name"
+msgstr "ÂêçÂ≠ó"
 
-#: .\carts\templates\carts\checkout_view.html:25
-#: .\templates\registration\login.html:30
-#: .\templates\registration\login.html:33
-msgid "Reset it"
-msgstr ""
+#: .\equipments\models.py:15
+msgid "Equipment Type"
+msgstr "ËÆæÂ§áÁ±ªÂûã"
 
-#: .\carts\templates\carts\checkout_view.html:26
-msgid "Not member"
-msgstr ""
+#: .\equipments\models.py:23
+msgid "Type"
+msgstr "Á±ªÂûã"
 
-#: .\carts\templates\carts\checkout_view.html:26 .\templates\navbar.html:67
-#: .\templates\registration\login.html.py:31
-#: .\templates\registration\login.html:34
-msgid "Register"
-msgstr ""
+#: .\equipments\models.py:26
+#: .\equipments\templates\equipment\equipment_inspection_list.html:75
+#: .\templates\navbar.html:44
+msgid "Equipment"
+msgstr "ËÆæÂ§á"
 
-#: .\inspection\apps.py:6 .\inspection\views.py:100 .\inspection\views.py:133
-#: .\templates\navbar.html:50
+#: .\equipments\models.py:33 .\equipments\views.py:91
+#: .\inspection\models.py:354 .\inspection\views.py:559
+msgid "Normal"
+msgstr "Ê≠£Â∏∏"
+
+#: .\equipments\models.py:34 .\inspection\models.py:355
+msgid "Breakdown"
+msgstr "ÊçüÂùè"
+
+#: .\equipments\models.py:38
+#: .\equipments\templates\equipment\equipment_inspection_list.html:76
+#: .\inspection\models.py:360
+#: .\inspection\templates\shelf\shelf_inspection_list.html:45
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:8
+msgid "Use Condition"
+msgstr "‰ΩøÁî®Áä∂ÂÜµ"
+
+#: .\equipments\models.py:39
+#: .\equipments\templates\equipment\equipment_inspection_list.html:77
+msgid "Inspector"
+msgstr "Ê£ÄÊü•‰∫∫"
+
+#: .\equipments\models.py:40 .\inspection\models.py:340
+#: .\inspection\models.py:365
+#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:13
+msgid "Comments"
+msgstr "Â§áÊ≥®"
+
+#: .\equipments\models.py:41
+msgid "Date of Inspection"
+msgstr "Ê£ÄÊü•Êó•Êúü"
+
+#: .\equipments\models.py:45
+msgid "Equipment Inspection"
+msgstr "ËÆæÂ§áÊ£ÄÊü•"
+
+#: .\equipments\templates\equipment\equipment_inspection_list.html:49
+#| msgid "Inspection Statistic"
+msgid "Insepction Categories"
+msgstr "Ê£ÄÊü•ÁßçÁ±ª"
+
+#: .\equipments\templates\equipment\equipment_inspection_list.html:78
+#| msgid "Date of Inspection"
+msgid "Date of inspection"
+msgstr "Ê£ÄÊü•Êó•Êúü"
+
+#: .\inspection\apps.py:6 .\inspection\views.py:103 .\inspection\views.py:136
+#: .\templates\navbar.html:22 .\templates\navbar.html.py:42
 msgid "Inspection"
-msgstr ""
+msgstr "Â∑°Ê£Ä"
 
-#: .\inspection\forms.py:47 .\inspection\models.py:88
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:20
+#: .\inspection\forms.py:53 .\inspection\models.py:88
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:67
 msgid "Impact"
-msgstr "”∞œÏ"
+msgstr "ÂΩ±Âìç"
 
-#: .\inspection\forms.py:116 .\inspection\models.py:86
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:18
+#: .\inspection\forms.py:129 .\inspection\models.py:86
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:65
 msgid "Category"
-msgstr "∑÷¿‡"
+msgstr "ÂàÜÁ±ª"
 
-#: .\inspection\forms.py:125 .\inspection\models.py:90
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:22
+#: .\inspection\forms.py:138 .\inspection\models.py:90
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:69
 msgid "Rectification Status"
-msgstr "’˚∏ƒ◊¥Ã¨"
+msgstr "Êï¥ÊîπÁä∂ÊÄÅ"
 
-#: .\inspection\forms.py:133 .\inspection\models.py:91
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:23
+#: .\inspection\forms.py:146 .\inspection\models.py:91
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:70
 msgid "Owner"
-msgstr "‘»Œ»À"
+msgstr "Ë¥üË¥£‰∫∫"
 
-#: .\inspection\forms.py:232
+#: .\inspection\forms.py:245
 msgid "Gradient Check Only"
-msgstr "≤‚¡ø«„–±∂»"
+msgstr "‰ªÖÂÄæÊñúÂ∫¶ÊµãÈáè"
 
-#: .\inspection\forms.py:238 .\inspection\models.py:302
+#: .\inspection\forms.py:251 .\inspection\models.py:302
 #: .\inspection\templates\shelf\shelf_detail.html:7
 msgid "Shelf Type"
-msgstr "ªıº‹÷÷¿‡"
+msgstr "Ë¥ßÊû∂Á±ªÂûã"
 
-#: .\inspection\forms.py:253
+#: .\inspection\forms.py:266
 msgid "Warehouse"
-msgstr "≤÷ø‚"
+msgstr "‰ªìÂ∫ì"
 
-#: .\inspection\forms.py:269
+#: .\inspection\forms.py:282
 msgid "Compartment"
-msgstr "≤÷º‰"
+msgstr "‰ªìÈó¥"
 
-#: .\inspection\forms.py:284
+#: .\inspection\forms.py:297
 msgid "Warehouse Channel"
-msgstr "≤÷ø‚Õ®µ¿"
+msgstr "‰ªìÂ∫ìÈÄöÈÅì"
+
+#: .\inspection\models.py:28
+msgid "plug"
+msgstr "ÊèíÂ∫ß"
 
 #: .\inspection\models.py:29
-msgid "plug"
-msgstr "ø™πÿ"
-
-#: .\inspection\models.py:30
 msgid "power"
-msgstr "µÁ‘¥"
+msgstr "ÂäüÁéá"
 
 #: .\inspection\models.py:58
 msgid "People"
-msgstr "»À‘±"
+msgstr "‰∫∫Âëò"
 
 #: .\inspection\models.py:59
 msgid "Device"
-msgstr "…Ë±∏"
+msgstr "ËÆæÂ§á"
 
 #: .\inspection\models.py:60
 msgid "Machine"
-msgstr "ª˙∆˜"
+msgstr "Êú∫Âô®"
 
 #: .\inspection\models.py:61
 msgid "Method"
-msgstr "∑Ω∑®"
+msgstr "ÊñπÊ≥ï"
 
 #: .\inspection\models.py:62
 msgid "Environment"
-msgstr "ª∑æ≥"
+msgstr "ÁéØÂ¢É"
 
 #: .\inspection\models.py:67
 msgid "economic loss"
-msgstr "“◊‘Ï≥…æ≠º√À ß"
+msgstr "ÁªèÊµéÊçüÂ§±"
 
 #: .\inspection\models.py:68
 msgid "personnel injury"
-msgstr "“◊‘Ï≥…»À‘±…À∫¶"
+msgstr "‰∫∫Âëò‰º§‰∫°"
 
 #: .\inspection\models.py:69
 msgid "non-conformance 5SS standard"
-msgstr "≤ª∑˚∫œ5SS±Í◊º"
+msgstr "‰∏çÁ¨¶Âêà5SSÊ†áÂáÜ"
 
 #: .\inspection\models.py:73 .\inspection\models.py:138
 msgid "Completed"
-msgstr "“—ÕÍ≥…"
+msgstr "Â∑≤ÂÆåÊàê"
 
 #: .\inspection\models.py:74 .\inspection\models.py:138
 msgid "Uncompleted"
-msgstr "Œ¥ÕÍ≥…"
+msgstr "Êú™ÂÆåÊàê"
 
 #: .\inspection\models.py:83
 msgid "Storage Area"
-msgstr "¥Ê¥¢«¯"
+msgstr "Â≠òÂÇ®Âå∫"
 
 #: .\inspection\models.py:87
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:19
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:66
 msgid "Inspection Content"
-msgstr "ºÏ≤Èƒ⁄»›"
+msgstr "Â∑°Ê£ÄÂÜÖÂÆπ"
 
 #: .\inspection\models.py:89
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:21
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:68
 msgid "Rectification Measures"
-msgstr "’˚∏ƒ¥Î ©"
+msgstr "Êï¥ÊîπÊé™ÊñΩ"
 
 #: .\inspection\models.py:92
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:24
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:71
 msgid "Due Date"
-msgstr "Ωÿ÷π»’∆⁄"
+msgstr "Êà™Ê≠¢Êó•Êúü"
 
 #: .\inspection\models.py:93
 msgid "Inspection Created Date"
-msgstr "ºÏ≤È¥¥Ω®»’∆⁄"
+msgstr "Â∑°Ê£ÄÂàõÂª∫Êó•Êúü"
 
 #: .\inspection\models.py:94
 msgid "Inspection Updated Date"
-msgstr "—≤ºÏ∏¸–¬»’∆⁄"
+msgstr "Â∑°Ê£ÄÊõ¥Êñ∞Êó•Êúü"
 
 #: .\inspection\models.py:95
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:25
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:72
 msgid "Picture before Rectification"
-msgstr "’˚∏ƒ«∞’’∆¨"
+msgstr "Êï¥ÊîπÂâçÁÖßÁâá"
 
 #: .\inspection\models.py:96
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:26
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:73
 msgid "Picture after Rectification"
-msgstr "’˚∏ƒ∫Û’’∆¨"
+msgstr "Êï¥ÊîπÂêéÁÖßÁâá"
 
 #: .\inspection\models.py:98
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:27
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:74
+#: .\trainings\models.py:7
 msgid "Location"
-msgstr "Œª÷√"
+msgstr "‰ΩçÁΩÆ"
 
-#: .\inspection\models.py:103
-msgid "Daily Inspection "
-msgstr ""
-
-#: .\inspection\models.py:173 .\inspection\models.py:174
-#: .\inspection\views.py:268 .\inspection\views.py:380
+#: .\inspection\models.py:103 .\inspection\models.py:173
+#: .\inspection\models.py:174 .\inspection\views.py:223
+#: .\inspection\views.py:237 .\inspection\views.py:289
+#: .\inspection\views.py:401
 msgid "Daily Inspection"
-msgstr "»’≥£—≤ºÏ"
+msgstr "Êó•Â∏∏Â∑°Ê£Ä"
 
 #: .\inspection\models.py:185
 msgid "Inner Car Number"
@@ -305,7 +349,7 @@ msgstr ""
 
 #: .\inspection\models.py:188
 msgid "SN"
-msgstr ""
+msgstr "Â∫èÂàóÂè∑"
 
 #: .\inspection\models.py:189
 msgid "Forklift Category"
@@ -313,7 +357,7 @@ msgstr ""
 
 #: .\inspection\models.py:190
 msgid "Manufacturer"
-msgstr ""
+msgstr "Âà∂ÈÄ†ÂïÜ"
 
 #: .\inspection\models.py:191
 msgid "Tip Height"
@@ -511,11 +555,11 @@ msgstr ""
 
 #: .\inspection\models.py:275 .\inspection\models.py:394
 msgid "Annual Inspection Date"
-msgstr "ƒÍºÏ»’∆⁄"
+msgstr ""
 
 #: .\inspection\models.py:276 .\inspection\models.py:395
 msgid "Next Inspection Date"
-msgstr "œ¬¥ŒºÏ≤È»’∆⁄"
+msgstr ""
 
 #: .\inspection\models.py:279 .\inspection\models.py:280
 msgid "forklift annual inspection"
@@ -527,108 +571,82 @@ msgstr ""
 
 #: .\inspection\models.py:303 .\inspection\templates\shelf\shelf_detail.html:8
 msgid "Warehouse Number"
-msgstr "≤÷ø‚∫≈"
+msgstr ""
 
 #: .\inspection\models.py:304
 #: .\inspection\templates\shelf\shelf_detail.html:10
 msgid "Compartment Number"
-msgstr "≤÷º‰∫≈"
+msgstr "‰ªìÈó¥Âè∑"
 
 #: .\inspection\models.py:305 .\inspection\templates\shelf\shelf_detail.html:9
 msgid "Warehouse Channel Number"
-msgstr "≤÷ø‚Õ®µ¿∫≈"
+msgstr "‰ªìÂ∫ìÈÄöÈÅìÂè∑"
 
 #: .\inspection\models.py:306
 msgid "Shelf Group"
-msgstr "ªıº‹◊È"
+msgstr "Ë¥ßÊû∂ÁªÑ"
 
 #: .\inspection\models.py:307
 #: .\inspection\templates\shelf\shelf_detail.html:11
 msgid "Shelf Number"
-msgstr "ªıº‹∫≈"
+msgstr "Ë¥ßÊû∂Âè∑"
 
 #: .\inspection\models.py:308
 msgid "Gradient Measurement Mandatory"
-msgstr "«„–±∂»≤‚¡ø±ÿ–Î"
+msgstr "Á´ãÊü±Ë¥ßÊû∂"
 
 #: .\inspection\models.py:314 .\inspection\models.py:334
-#: .\inspection\models.py:335
+#: .\inspection\models.py:335 .\inspection\models.py:358
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:7
-#: .\templates\navbar.html:51
+#: .\templates\navbar.html:43
 msgid "Shelf"
-msgstr "ªıº‹"
+msgstr "Ë¥ßÊû∂"
 
 #: .\inspection\models.py:339 .\inspection\models.py:418
 #: .\inspection\models.py:435
 msgid "Check Date"
-msgstr "ºÏ≤È»’∆⁄"
-
-#: .\inspection\models.py:340 .\inspection\models.py:365
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:13
-msgid "Comments"
-msgstr "±∏◊¢"
+msgstr "Ê£ÄÊü•Êó•Êúü"
 
 #: .\inspection\models.py:343 .\inspection\models.py:349
 #: .\inspection\models.py:350
 msgid "shelf inspection"
-msgstr "ªıº‹—≤ºÏ"
-
-#: .\inspection\models.py:354 .\inspection\views.py:539
-msgid "Normal"
-msgstr "’˝≥£"
-
-#: .\inspection\models.py:355
-msgid "Breakdown"
-msgstr "Àªµ"
-
-#: .\inspection\models.py:360
-#: .\inspection\templates\shelf\shelf_inspection_list.html:60
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:8
-msgid "Use Condition"
-msgstr " π”√◊¥øˆ"
+msgstr "Ë¥ßÊû∂Ê£ÄÊü•"
 
 #: .\inspection\models.py:361
-#: .\inspection\templates\shelf\shelf_inspection_list.html:61
+#: .\inspection\templates\shelf\shelf_inspection_list.html:46
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:9
 msgid "Locked"
-msgstr " «∑ÒÀ¯◊°"
+msgstr "Â∑≤ÈîÅÂÆö"
 
 #: .\inspection\models.py:362 .\inspection\models.py:416
 #: .\inspection\models.py:433
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:10
 msgid "Check Person"
-msgstr "ºÏ≤È»À"
+msgstr "Ê£ÄÊü•‰∫∫"
 
 #: .\inspection\models.py:363
-#: .\inspection\templates\shelf\shelf_inspection_list.html:62
+#: .\inspection\templates\shelf\shelf_inspection_list.html:47
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:11
 msgid "Gradient"
-msgstr "«„–±∂»"
+msgstr "ÂÄæÊñúÂ∫¶"
 
 #: .\inspection\models.py:364
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:12
 msgid "Forecast Complete Time"
-msgstr "‘§º∆ÕÍ≥… ±º‰"
+msgstr "È¢ÑËÆ°ÂÆåÊàêÊó•Êúü"
 
-#: .\inspection\models.py:368
-msgid "shelf inspection record "
-msgstr "—≤ºÏ"
-
-#: .\inspection\models.py:390 .\inspection\models.py:391
+#: .\inspection\models.py:368 .\inspection\models.py:390
+#: .\inspection\models.py:391
 msgid "shelf inspection record"
-msgstr ""
+msgstr "Ë¥ßÊû∂Â∑°Ê£ÄËÆ∞ÂΩï"
 
 #: .\inspection\models.py:398
 msgid "shelf annual inspection"
-msgstr ""
+msgstr "Ë¥ßÊû∂Âπ¥Â∫¶Ê£ÄÊü•"
 
 #: .\inspection\models.py:405
 msgid "shelf annual inspection image"
-msgstr ""
-
-#: .\inspection\models.py:408 .\inspection\models.py:425
-msgid "Name"
-msgstr ""
+msgstr "Ë¥ßÊû∂Âπ¥Â∫¶Ê£ÄÊü•ÂõæÁâá"
 
 #: .\inspection\models.py:409
 msgid "Capacity"
@@ -662,7 +680,8 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: .\inspection\models.py:442
+#: .\inspection\models.py:442 .\trainings\models.py:6 .\trainings\models.py:14
+#: .\trainings\models.py:15
 msgid "Date"
 msgstr ""
 
@@ -674,240 +693,308 @@ msgstr ""
 msgid "rehearsal"
 msgstr ""
 
+#: .\inspection\models.py:511
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
+#: .\site-packages-djangos\1.9\django\utils\dates.py:18
+msgid "January"
+msgstr ""
+
+#: .\inspection\models.py:512
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
+#: .\site-packages-djangos\1.9\django\utils\dates.py:18
+msgid "February"
+msgstr ""
+
+#: .\inspection\models.py:513
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
+#: .\site-packages-djangos\1.9\django\utils\dates.py:18
+msgid "March"
+msgstr ""
+
+#: .\inspection\models.py:514
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
+#: .\site-packages-djangos\1.9\django\utils\dates.py:18
+msgid "April"
+msgstr ""
+
+#: .\inspection\models.py:515
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
+#: .\site-packages-djangos\1.9\django\utils\dates.py:18
+msgid "May"
+msgstr ""
+
+#: .\inspection\models.py:516
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
+#: .\site-packages-djangos\1.9\django\utils\dates.py:18
+msgid "June"
+msgstr ""
+
+#: .\inspection\models.py:517
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
+#: .\site-packages-djangos\1.9\django\utils\dates.py:19
+msgid "July"
+msgstr ""
+
+#: .\inspection\models.py:518
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
+#: .\site-packages-djangos\1.9\django\utils\dates.py:19
+msgid "August"
+msgstr ""
+
+#: .\inspection\models.py:519
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
+#: .\site-packages-djangos\1.9\django\utils\dates.py:19
+msgid "September"
+msgstr ""
+
+#: .\inspection\models.py:520
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
+#: .\site-packages-djangos\1.9\django\utils\dates.py:19
+msgid "October"
+msgstr ""
+
+#: .\inspection\models.py:521
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
+#: .\site-packages-djangos\1.9\django\utils\dates.py:19
+msgid "November"
+msgstr ""
+
+#: .\inspection\models.py:522
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:20
+#: .\site-packages-djangos\1.9\django\utils\dates.py:20
+msgid "December"
+msgstr ""
+
+#: .\inspection\models.py:538
+msgid "Month"
+msgstr ""
+
+#: .\inspection\models.py:539
+msgid "voltage and power normal"
+msgstr ""
+
+#: .\inspection\models.py:540
+msgid "indicator and instrument normal"
+msgstr ""
+
 #: .\inspection\templates\dailyinspection\dailyinspection_create.html:21
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:96
 msgid "Create New Item"
-msgstr ""
+msgstr "ÂàõÂª∫Êñ∞È°πÁõÆ"
 
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:13
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:58
 msgid "Create"
-msgstr ""
+msgstr "ÂàõÂª∫"
 
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:13
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:59
 #: .\inspection\templates\dailyinspection\dailyinspection_update.html:61
 msgid "Last Update"
-msgstr ""
+msgstr "ÊúÄËøëÊõ¥Êñ∞"
 
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:32
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:79
 msgid "Update"
-msgstr ""
+msgstr "Êõ¥Êñ∞"
 
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:34
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:35
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:81
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:82
 #: .\inspection\templates\dailyinspection\dailyinspection_update.html:97
 msgid "Back"
-msgstr ""
+msgstr "ÂêéÈÄÄ"
 
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:37
-#: .\site-packages\django 1.8\forms\formsets.py:372
-#: .\site-packages\django\forms\formsets.py:384
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:84
+#: .\site-packages-djangos\1.8.4\django\forms\formsets.py:372
+#: .\site-packages-djangos\1.9\django\forms\formsets.py:384
 msgid "Delete"
-msgstr ""
+msgstr "Âà†Èô§"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:58
-#: .\inspection\templates\shelf\shelf_inspection_detail.html:211
+#: .\inspection\templates\shelf\shelf_inspection_detail.html:196
 msgid "Apply Filter"
-msgstr ""
+msgstr "ËøáÊª§"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:59
-#: .\inspection\templates\shelf\shelf_inspection_detail.html:211
+#: .\inspection\templates\shelf\shelf_inspection_detail.html:196
 msgid "Clear Filters"
-msgstr ""
+msgstr "Ê∏ÖÈô§ËøáÊª§"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:68
 msgid "All Categories"
-msgstr ""
+msgstr "ÊâÄÊúâÁßçÁ±ª"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:84
-#: .\inspection\templates\shelf\shelf_inspection_list.html:53
+#: .\inspection\templates\shelf\shelf_inspection_detail.html:204
+#: .\inspection\templates\shelf\shelf_inspection_list.html:38
 msgid "Nothing found"
-msgstr ""
+msgstr "Êó†ËÆ∞ÂΩï"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:98
 msgid "Inspection Statistic"
-msgstr "—≤ºÏÕ≥º∆"
+msgstr "Â∑°Ê£ÄÁªüËÆ°"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:105
 msgid "Latest Update"
-msgstr ""
+msgstr "ÊúÄËøëÊõ¥Êñ∞"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_update.html:98
 #: .\inspection\templates\shelf\shelf_inspection_create.html:10
 msgid "submit"
-msgstr ""
+msgstr "Êèê‰∫§"
 
 #: .\inspection\templates\shelf\shelf_detail.html:19
 msgid "Related Inspections"
-msgstr ""
+msgstr "Áõ∏ÂÖ≥Â∑°Ê£Ä"
 
 #: .\inspection\templates\shelf\shelf_inspection_detail_records_container_div.html:91
 #: .\inspection\templates\shelf\shelf_inspection_detail_records_container_table.html:48
 msgid "Shelf Inspections Record"
-msgstr ""
+msgstr "Ë¥ßÊû∂Ê£ÄÊü•ËÆ∞ÂΩï"
 
-#: .\inspection\templates\shelf\shelf_inspection_list.html:59
+#: .\inspection\templates\shelf\shelf_inspection_list.html:44
 msgid "Create Date"
-msgstr ""
+msgstr "ÂàõÂª∫Êó•Êúü"
 
-#: .\inspection\templates\shelf\shelf_inspection_list.html:97
+#: .\inspection\templates\shelf\shelf_inspection_list.html:82
 msgid "Shelf List"
-msgstr ""
+msgstr "Ë¥ßÊû∂ÂàóË°®"
 
-#: .\inspection\templates\shelf\shelf_inspection_list.html:98
+#: .\inspection\templates\shelf\shelf_inspection_list.html:83
 msgid "Create Shelf Inspection"
-msgstr ""
+msgstr "ÂàõÂª∫Ë¥ßÊû∂Ê£ÄÊü•"
 
-#: .\inspection\views.py:99 .\inspection\views.py:132
-#: .\inspection\views.py:267 .\inspection\views.py:379
-#: .\inspection\views.py:478 .\inspection\views.py:547
+#: .\inspection\views.py:102 .\inspection\views.py:135
+#: .\inspection\views.py:222 .\inspection\views.py:236
+#: .\inspection\views.py:288 .\inspection\views.py:400
+#: .\inspection\views.py:498 .\inspection\views.py:567
 #: .\site-packages\breadcrumbs\breadcrumbs.py:81 .\templates\navbar.html.py:19
 msgid "Home"
-msgstr ""
+msgstr "‰∏ªÈ°µ"
 
-#: .\inspection\views.py:209
+#: .\inspection\views.py:212
 msgid "daily inspection create successfully"
-msgstr ""
+msgstr "Êó•Â∏∏Â∑°Ê£ÄÂàõÂª∫ÊàêÂäü"
 
-#: .\inspection\views.py:255
+#: .\inspection\views.py:276
 msgid "daily inspection updated successfully"
-msgstr ""
+msgstr "Êó•Â∏∏Â∑°Ê£ÄÊõ¥Êñ∞ÊàêÂäü"
 
-#: .\inspection\views.py:256
+#: .\inspection\views.py:277
 msgid "check content please"
-msgstr ""
+msgstr "ËØ∑Ê£ÄÊü•ÂÜÖÂÆπ"
 
-#: .\inspection\views.py:259
+#: .\inspection\views.py:280
 msgid "daily inspection updated fail"
-msgstr ""
+msgstr "Êó•Â∏∏Â∑°Ê£ÄÊõ¥Êñ∞Â§±Ë¥•"
 
-#: .\inspection\views.py:479
+#: .\inspection\views.py:499
 msgid "Shelf Inspection List"
-msgstr ""
+msgstr "Ë¥ßÊû∂Ê£ÄÊü•ÂàóË°®"
 
-#: .\inspection\views.py:548
+#: .\inspection\views.py:568
 msgid "Shelf Inspection Detail"
-msgstr ""
+msgstr "Ë¥ßÊû∂Ê£ÄÊü•ËØ¶ÊÉÖ"
 
-#: .\site-packages\breadcrumbs\breadcrumbs.py:116
-#, python-format
-msgid ""
-"We accept lists of tuples, lists of dicts, or two args as name and url, not "
-"'%s'"
-msgstr ""
-
-#: .\site-packages\crispy_forms\tests\test_form_helper.py:131
-#: .\site-packages\crispy_forms\tests\test_form_helper.py:141
-#: .\site-packages\django 1.8\forms\fields.py:64
-#: .\site-packages\django\forms\fields.py:65
-msgid "This field is required."
-msgstr ""
-
-#: .\site-packages\crispy_forms\tests\test_layout.py:347
-msgid "i18n text"
-msgstr ""
-
-#: .\site-packages\crispy_forms\tests\test_layout.py:349
-msgid "i18n legend"
-msgstr ""
-
-#: .\site-packages\crispy_forms\tests\test_layout_objects.py:131
-#: .\site-packages\django 1.8\core\validators.py:20
-#: .\site-packages\django\core\validators.py:33
-msgid "Enter a valid value."
-msgstr ""
-
-#: .\site-packages\django 1.8\contrib\messages\apps.py:7
-#: .\site-packages\django\contrib\messages\apps.py:7
+#: .\site-packages-djangos\1.8.4\django\contrib\messages\apps.py:7
+#: .\site-packages-djangos\1.9\django\contrib\messages\apps.py:7
 msgid "Messages"
-msgstr ""
+msgstr "Ê∂àÊÅØ"
 
-#: .\site-packages\django 1.8\contrib\sitemaps\apps.py:7
-#: .\site-packages\django\contrib\sitemaps\apps.py:7
+#: .\site-packages-djangos\1.8.4\django\contrib\sitemaps\apps.py:7
+#: .\site-packages-djangos\1.9\django\contrib\sitemaps\apps.py:7
 msgid "Site Maps"
-msgstr ""
+msgstr "Âú∞Âõæ"
 
-#: .\site-packages\django 1.8\contrib\staticfiles\apps.py:7
-#: .\site-packages\django\contrib\staticfiles\apps.py:7
+#: .\site-packages-djangos\1.8.4\django\contrib\staticfiles\apps.py:7
+#: .\site-packages-djangos\1.9\django\contrib\staticfiles\apps.py:7
 msgid "Static Files"
 msgstr ""
 
-#: .\site-packages\django 1.8\contrib\syndication\apps.py:7
-#: .\site-packages\django\contrib\syndication\apps.py:7
+#: .\site-packages-djangos\1.8.4\django\contrib\syndication\apps.py:7
+#: .\site-packages-djangos\1.9\django\contrib\syndication\apps.py:7
 msgid "Syndication"
 msgstr ""
 
-#: .\site-packages\django 1.8\contrib\webdesign\apps.py:7
-#: .\site-packages\django\contrib\webdesign\apps.py:7
+#: .\site-packages-djangos\1.8.4\django\contrib\webdesign\apps.py:7
+#: .\site-packages-djangos\1.9\django\contrib\webdesign\apps.py:7
 msgid "Web Design"
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:87 1.8\forms\fields.py:712
-#: .\site-packages\django\core\validators.py:98
-#: .\site-packages\django\forms\fields.py:677
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:20
+#: .\site-packages-djangos\1.9\django\core\validators.py:33
+#: .\site-packages\crispy_forms\tests\test_layout_objects.py:131
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:87
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:712
+#: .\site-packages-djangos\1.9\django\core\validators.py:98
+#: .\site-packages-djangos\1.9\django\forms\fields.py:677
 msgid "Enter a valid URL."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:130
-#: .\site-packages\django\core\validators.py:141
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:130
+#: .\site-packages-djangos\1.9\django\core\validators.py:141
 msgid "Enter a valid integer."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:141
-#: .\site-packages\django\core\validators.py:152
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:141
+#: .\site-packages-djangos\1.9\django\core\validators.py:152
 msgid "Enter a valid email address."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:215
-#: .\site-packages\django\core\validators.py:225
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:215
+#: .\site-packages-djangos\1.9\django\core\validators.py:225
 msgid ""
 "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:220
-#: 1.8\core\validators.py:239 .\site-packages\django\core\validators.py:237
-#: .\site-packages\django\core\validators.py:256
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:220
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:239
+#: .\site-packages-djangos\1.9\django\core\validators.py:237
+#: .\site-packages-djangos\1.9\django\core\validators.py:256
 msgid "Enter a valid IPv4 address."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:225
-#: 1.8\core\validators.py:240 .\site-packages\django\core\validators.py:242
-#: .\site-packages\django\core\validators.py:257
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:225
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:240
+#: .\site-packages-djangos\1.9\django\core\validators.py:242
+#: .\site-packages-djangos\1.9\django\core\validators.py:257
 msgid "Enter a valid IPv6 address."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:235
-#: 1.8\core\validators.py:238 .\site-packages\django\core\validators.py:252
-#: .\site-packages\django\core\validators.py:255
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:235
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:238
+#: .\site-packages-djangos\1.9\django\core\validators.py:252
+#: .\site-packages-djangos\1.9\django\core\validators.py:255
 msgid "Enter a valid IPv4 or IPv6 address."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:263
-#: 1.8\db\models\fields\__init__.py:1144
-#: .\site-packages\django\core\validators.py:284
-#: .\site-packages\django\db\models\fields\__init__.py:1130
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:263
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1144
+#: .\site-packages-djangos\1.9\django\core\validators.py:284
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1130
 msgid "Enter only digits separated by commas."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:272
-#: .\site-packages\django\core\validators.py:292
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:272
+#: .\site-packages-djangos\1.9\django\core\validators.py:292
 #, python-format
 msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:298
-#: .\site-packages\django\core\validators.py:318
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:298
+#: .\site-packages-djangos\1.9\django\core\validators.py:318
 #, python-format
 msgid "Ensure this value is less than or equal to %(limit_value)s."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:305
-#: .\site-packages\django\core\validators.py:325
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:305
+#: .\site-packages-djangos\1.9\django\core\validators.py:325
 #, python-format
 msgid "Ensure this value is greater than or equal to %(limit_value)s."
 msgstr ""
 
-#: .\site-packages\django 1.8\core\validators.py:314
-#: .\site-packages\django\core\validators.py:334
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:314
+#: .\site-packages-djangos\1.9\django\core\validators.py:334
 #, python-format
 msgid ""
 "Ensure this value has at least %(limit_value)d character (it has %"
@@ -918,8 +1005,8 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\core\validators.py:325
-#: .\site-packages\django\core\validators.py:345
+#: .\site-packages-djangos\1.8.4\django\core\validators.py:325
+#: .\site-packages-djangos\1.9\django\core\validators.py:345
 #, python-format
 msgid ""
 "Ensure this value has at most %(limit_value)d character (it has %(show_value)"
@@ -930,330 +1017,339 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\db\models\base.py:1130 1.8\forms\models.py:722
-#: .\site-packages\django\db\models\base.py:1095
-#: .\site-packages\django\forms\models.py:727
+#: .\site-packages-djangos\1.8.4\django\db\models\base.py:1130
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:722
+#: .\site-packages-djangos\1.9\django\db\models\base.py:1095
+#: .\site-packages-djangos\1.9\django\forms\models.py:727
 msgid "and"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\base.py:1132
-#: .\site-packages\django\db\models\base.py:1097
+#: .\site-packages-djangos\1.8.4\django\db\models\base.py:1132
+#: .\site-packages-djangos\1.9\django\db\models\base.py:1097
 #, python-format
 msgid "%(model_name)s with this %(field_labels)s already exists."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:107
-#: .\site-packages\django\db\models\fields\__init__.py:110
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:107
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:110
 #, python-format
 msgid "Value %(value)r is not a valid choice."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:108
-#: .\site-packages\django\db\models\fields\__init__.py:111
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:108
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:111
 msgid "This field cannot be null."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:109
-#: .\site-packages\django\db\models\fields\__init__.py:112
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:109
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:112
 msgid "This field cannot be blank."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:110
-#: .\site-packages\django\db\models\fields\__init__.py:113
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:110
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:113
 #, python-format
 msgid "%(model_name)s with this %(field_label)s already exists."
 msgstr ""
 
 #. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
 #. Eg: "Title must be unique for pub_date year"
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:114
-#: .\site-packages\django\db\models\fields\__init__.py:117
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:114
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:117
 #, python-format
 msgid ""
 "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:132
-#: .\site-packages\django\db\models\fields\__init__.py:134
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:132
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:134
 #, python-format
 msgid "Field of type: %(field_type)s"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:922
-#: 1.8\db\models\fields\__init__.py:1832
-#: .\site-packages\django\db\models\fields\__init__.py:913
-#: .\site-packages\django\db\models\fields\__init__.py:1817
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:922
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1832
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:913
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1817
 msgid "Integer"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:926
-#: 1.8\db\models\fields\__init__.py:1830
-#: .\site-packages\django\db\models\fields\__init__.py:917
-#: .\site-packages\django\db\models\fields\__init__.py:1815
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:926
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1830
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:917
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1815
 #, python-format
 msgid "'%(value)s' value must be an integer."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1001
-#: .\site-packages\django\db\models\fields\__init__.py:992
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1001
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:992
 #, python-format
 msgid "'%(value)s' value must be either True or False."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1003
-#: .\site-packages\django\db\models\fields\__init__.py:994
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1003
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:994
 msgid "Boolean (Either True or False)"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1078
-#: .\site-packages\django\db\models\fields\__init__.py:1069
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1078
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1069
 #, python-format
 msgid "String (up to %(max_length)s)"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1139
-#: .\site-packages\django\db\models\fields\__init__.py:1125
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1139
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1125
 msgid "Comma-separated integers"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1188
-#: .\site-packages\django\db\models\fields\__init__.py:1174
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1188
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1174
 #, python-format
 msgid ""
 "'%(value)s' value has an invalid date format. It must be in YYYY-MM-DD "
 "format."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1190
-#: 1.8\db\models\fields\__init__.py:1340
-#: .\site-packages\django\db\models\fields\__init__.py:1176
-#: .\site-packages\django\db\models\fields\__init__.py:1319
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1190
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1340
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1176
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1319
 #, python-format
 msgid ""
 "'%(value)s' value has the correct format (YYYY-MM-DD) but it is an invalid "
 "date."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1193
-#: .\site-packages\django\db\models\fields\__init__.py:1179
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1193
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1179
 msgid "Date (without time)"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1338
-#: .\site-packages\django\db\models\fields\__init__.py:1317
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1338
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1317
 #, python-format
 msgid ""
 "'%(value)s' value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
 "uuuuuu]][TZ] format."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1342
-#: .\site-packages\django\db\models\fields\__init__.py:1321
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1342
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1321
 #, python-format
 msgid ""
 "'%(value)s' value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
 "[TZ]) but it is an invalid date/time."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1346
-#: .\site-packages\django\db\models\fields\__init__.py:1325
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1346
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1325
 msgid "Date (with time)"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1498
-#: .\site-packages\django\db\models\fields\__init__.py:1477
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1498
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1477
 #, python-format
 msgid "'%(value)s' value must be a decimal number."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1500
-#: .\site-packages\django\db\models\fields\__init__.py:1479
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1500
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1479
 msgid "Decimal number"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1651
-#: .\site-packages\django\db\models\fields\__init__.py:1636
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1651
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1636
 #, python-format
 msgid ""
 "'%(value)s' value has an invalid format. It must be in [DD] [HH:[MM:]]ss[."
 "uuuuuu] format."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1654
-#: .\site-packages\django\db\models\fields\__init__.py:1639
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1654
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1639
 msgid "Duration"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1705
-#: .\site-packages\django\db\models\fields\__init__.py:1690
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1705
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1690
 msgid "Email address"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1729
-#: .\site-packages\django\db\models\fields\__init__.py:1714
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1729
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1714
 msgid "File path"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1796
-#: .\site-packages\django\db\models\fields\__init__.py:1781
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1796
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1781
 #, python-format
 msgid "'%(value)s' value must be a float."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1798
-#: .\site-packages\django\db\models\fields\__init__.py:1783
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1798
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1783
 msgid "Floating point number"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1899
-#: .\site-packages\django\db\models\fields\__init__.py:1884
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1899
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1884
 msgid "Big (8 byte) integer"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1914
-#: .\site-packages\django\db\models\fields\__init__.py:1899
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1914
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1899
 msgid "IPv4 address"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:1950
-#: .\site-packages\django\db\models\fields\__init__.py:1930
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:1950
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:1930
 msgid "IP address"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2029
-#: .\site-packages\django\db\models\fields\__init__.py:2014
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2029
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2014
 #, python-format
 msgid "'%(value)s' value must be either None, True or False."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2031
-#: .\site-packages\django\db\models\fields\__init__.py:2016
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2031
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2016
 msgid "Boolean (Either True, False or None)"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2091
-#: .\site-packages\django\db\models\fields\__init__.py:2076
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2091
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2076
 msgid "Positive integer"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2103
-#: .\site-packages\django\db\models\fields\__init__.py:2088
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2103
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2088
 msgid "Positive small integer"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2116
-#: .\site-packages\django\db\models\fields\__init__.py:2101
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2116
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2101
 #, python-format
 msgid "Slug (up to %(max_length)s)"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2145
-#: .\site-packages\django\db\models\fields\__init__.py:2135
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2145
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2135
 msgid "Small integer"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2152
-#: .\site-packages\django\db\models\fields\__init__.py:2142
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2152
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2142
 msgid "Text"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2175
-#: .\site-packages\django\db\models\fields\__init__.py:2168
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2175
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2168
 #, python-format
 msgid ""
 "'%(value)s' value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
 "format."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2177
-#: .\site-packages\django\db\models\fields\__init__.py:2170
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2177
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2170
 #, python-format
 msgid ""
 "'%(value)s' value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
 "invalid time."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2180
-#: .\site-packages\django\db\models\fields\__init__.py:2173
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2180
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2173
 msgid "Time"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2308
-#: .\site-packages\django\db\models\fields\__init__.py:2301
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2308
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2301
 msgid "URL"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2331
-#: .\site-packages\django\db\models\fields\__init__.py:2324
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2331
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2324
 msgid "Raw binary data"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\__init__.py:2375
-#: .\site-packages\django\db\models\fields\__init__.py:2368
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2375
+#: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2368
 #, python-format
 msgid "'%(value)s' is not a valid UUID."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\files.py:239
-#: .\site-packages\django\db\models\fields\files.py:237
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\files.py:239
+#: .\site-packages-djangos\1.9\django\db\models\fields\files.py:237
 msgid "File"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\files.py:389
-#: .\site-packages\django\db\models\fields\files.py:392
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\files.py:389
+#: .\site-packages-djangos\1.9\django\db\models\fields\files.py:392
 msgid "Image"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\related.py:1802
-#: .\site-packages\django\db\models\fields\related.py:736
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\related.py:1802
+#: .\site-packages-djangos\1.9\django\db\models\fields\related.py:736
 #, python-format
 msgid "%(model)s instance with %(field)s %(value)r does not exist."
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\related.py:1804
-#: .\site-packages\django\db\models\fields\related.py:738
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\related.py:1804
+#: .\site-packages-djangos\1.9\django\db\models\fields\related.py:738
 msgid "Foreign Key (type determined by related field)"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\related.py:2034
-#: .\site-packages\django\db\models\fields\related.py:996
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\related.py:2034
+#: .\site-packages-djangos\1.9\django\db\models\fields\related.py:996
 msgid "One-to-one relationship"
 msgstr ""
 
-#: .\site-packages\django 1.8\db\models\fields\related.py:2124
-#: .\site-packages\django\db\models\fields\related.py:1113
+#: .\site-packages-djangos\1.8.4\django\db\models\fields\related.py:2124
+#: .\site-packages-djangos\1.9\django\db\models\fields\related.py:1113
 msgid "Many-to-many relationship"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:237
-#: .\site-packages\django\forms\fields.py:254
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:64
+#: .\site-packages-djangos\1.9\django\forms\fields.py:65
+#: .\site-packages\crispy_forms\tests\test_form_helper.py:131
+#: .\site-packages\crispy_forms\tests\test_form_helper.py:141
+msgid "This field is required."
+msgstr ""
+
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:237
+#: .\site-packages-djangos\1.9\django\forms\fields.py:254
 msgid "Enter a whole number."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:280 1.8\forms\fields.py:317
-#: .\site-packages\django\forms\fields.py:299
-#: .\site-packages\django\forms\fields.py:336
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:280
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:317
+#: .\site-packages-djangos\1.9\django\forms\fields.py:299
+#: .\site-packages-djangos\1.9\django\forms\fields.py:336
 msgid "Enter a number."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:319
-#: .\site-packages\django\core\validators.py:359
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:319
+#: .\site-packages-djangos\1.9\django\core\validators.py:359
 #, python-format
 msgid "Ensure that there are no more than %(max)s digit in total."
 msgid_plural "Ensure that there are no more than %(max)s digits in total."
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\forms\fields.py:323
-#: .\site-packages\django\core\validators.py:364
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:323
+#: .\site-packages-djangos\1.9\django\core\validators.py:364
 #, python-format
 msgid "Ensure that there are no more than %(max)s decimal place."
 msgid_plural "Ensure that there are no more than %(max)s decimal places."
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\forms\fields.py:327
-#: .\site-packages\django\core\validators.py:369
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:327
+#: .\site-packages-djangos\1.9\django\core\validators.py:369
 #, python-format
 msgid ""
 "Ensure that there are no more than %(max)s digit before the decimal point."
@@ -1262,45 +1358,47 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\forms\fields.py:438 1.8\forms\fields.py:1193
-#: .\site-packages\django\forms\fields.py:414
-#: .\site-packages\django\forms\fields.py:1158
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:438
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:1193
+#: .\site-packages-djangos\1.9\django\forms\fields.py:414
+#: .\site-packages-djangos\1.9\django\forms\fields.py:1158
 msgid "Enter a valid date."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:462 1.8\forms\fields.py:1194
-#: .\site-packages\django\forms\fields.py:438
-#: .\site-packages\django\forms\fields.py:1159
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:462
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:1194
+#: .\site-packages-djangos\1.9\django\forms\fields.py:438
+#: .\site-packages-djangos\1.9\django\forms\fields.py:1159
 msgid "Enter a valid time."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:484
-#: .\site-packages\django\forms\fields.py:460
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:484
+#: .\site-packages-djangos\1.9\django\forms\fields.py:460
 msgid "Enter a valid date/time."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:525
-#: .\site-packages\django\forms\fields.py:489
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:525
+#: .\site-packages-djangos\1.9\django\forms\fields.py:489
 msgid "Enter a valid duration."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:591
-#: .\site-packages\django\forms\fields.py:556
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:591
+#: .\site-packages-djangos\1.9\django\forms\fields.py:556
 msgid "No file was submitted. Check the encoding type on the form."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:592
-#: .\site-packages\django\forms\fields.py:557
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:592
+#: .\site-packages-djangos\1.9\django\forms\fields.py:557
 msgid "No file was submitted."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:593
-#: .\site-packages\django\forms\fields.py:558
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:593
+#: .\site-packages-djangos\1.9\django\forms\fields.py:558
 msgid "The submitted file is empty."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:595
-#: .\site-packages\django\forms\fields.py:560
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:595
+#: .\site-packages-djangos\1.9\django\forms\fields.py:560
 #, python-format
 msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
@@ -1308,666 +1406,612 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\forms\fields.py:598
-#: .\site-packages\django\forms\fields.py:563
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:598
+#: .\site-packages-djangos\1.9\django\forms\fields.py:563
 msgid "Please either submit a file or check the clear checkbox, not both."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:660
-#: .\site-packages\django\forms\fields.py:625
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:660
+#: .\site-packages-djangos\1.9\django\forms\fields.py:625
 msgid ""
 "Upload a valid image. The file you uploaded was either not an image or a "
 "corrupted image."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:827 1.8\forms\fields.py:921
-#: 1.8\forms\models.py:1238 .\site-packages\django\forms\fields.py:792
-#: .\site-packages\django\forms\fields.py:886
-#: .\site-packages\django\forms\models.py:1232
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:827
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:921
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:1238
+#: .\site-packages-djangos\1.9\django\forms\fields.py:792
+#: .\site-packages-djangos\1.9\django\forms\fields.py:886
+#: .\site-packages-djangos\1.9\django\forms\models.py:1232
 #, python-format
 msgid "Select a valid choice. %(value)s is not one of the available choices."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:922 1.8\forms\fields.py:1037
-#: 1.8\forms\models.py:1237 .\site-packages\django\forms\fields.py:887
-#: .\site-packages\django\forms\fields.py:1002
-#: .\site-packages\django\forms\models.py:1231
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:922
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:1037
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:1237
+#: .\site-packages-djangos\1.9\django\forms\fields.py:887
+#: .\site-packages-djangos\1.9\django\forms\fields.py:1002
+#: .\site-packages-djangos\1.9\django\forms\models.py:1231
 msgid "Enter a list of values."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:1038
-#: .\site-packages\django\forms\fields.py:1003
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:1038
+#: .\site-packages-djangos\1.9\django\forms\fields.py:1003
 msgid "Enter a complete value."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\fields.py:1264
-#: .\site-packages\django\forms\fields.py:1217
+#: .\site-packages-djangos\1.8.4\django\forms\fields.py:1264
+#: .\site-packages-djangos\1.9\django\forms\fields.py:1217
 msgid "Enter a valid UUID."
 msgstr ""
 
 #. Translators: This is the default suffix added to form field labels
-#: .\site-packages\django 1.8\forms\forms.py:129
-#: .\site-packages\django\forms\forms.py:84
+#: .\site-packages-djangos\1.8.4\django\forms\forms.py:129
+#: .\site-packages-djangos\1.9\django\forms\forms.py:84
 msgid ":"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\forms.py:214
-#: .\site-packages\django\forms\forms.py:191
+#: .\site-packages-djangos\1.8.4\django\forms\forms.py:214
+#: .\site-packages-djangos\1.9\django\forms\forms.py:191
 #, python-format
 msgid "(Hidden field %(name)s) %(error)s"
 msgstr ""
 
 #. Translators: If found as last label character, these punctuation
 #. characters will prevent the default label_suffix to be appended to the label
-#: .\site-packages\django 1.8\forms\forms.py:659
-#: .\site-packages\django\forms\boundfield.py:167
+#: .\site-packages-djangos\1.8.4\django\forms\forms.py:659
+#: .\site-packages-djangos\1.9\django\forms\boundfield.py:167
 msgid ":?.!"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\formsets.py:96
-#: .\site-packages\django\forms\formsets.py:97
+#: .\site-packages-djangos\1.8.4\django\forms\formsets.py:96
+#: .\site-packages-djangos\1.9\django\forms\formsets.py:97
 msgid "ManagementForm data is missing or has been tampered with"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\formsets.py:333
-#: .\site-packages\django\forms\formsets.py:345
+#: .\site-packages-djangos\1.8.4\django\forms\formsets.py:333
+#: .\site-packages-djangos\1.9\django\forms\formsets.py:345
 #, python-format
 msgid "Please submit %d or fewer forms."
 msgid_plural "Please submit %d or fewer forms."
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\forms\formsets.py:340
-#: .\site-packages\django\forms\formsets.py:352
+#: .\site-packages-djangos\1.8.4\django\forms\formsets.py:340
+#: .\site-packages-djangos\1.9\django\forms\formsets.py:352
 #, python-format
 msgid "Please submit %d or more forms."
 msgid_plural "Please submit %d or more forms."
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\forms\formsets.py:368 1.8\forms\formsets.py:370
-#: .\site-packages\django\forms\formsets.py:380
-#: .\site-packages\django\forms\formsets.py:382
+#: .\site-packages-djangos\1.8.4\django\forms\formsets.py:368
+#: .\site-packages-djangos\1.8.4\django\forms\formsets.py:370
+#: .\site-packages-djangos\1.9\django\forms\formsets.py:380
+#: .\site-packages-djangos\1.9\django\forms\formsets.py:382
 msgid "Order"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\models.py:716
-#: .\site-packages\django\forms\models.py:721
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:716
+#: .\site-packages-djangos\1.9\django\forms\models.py:721
 #, python-format
 msgid "Please correct the duplicate data for %(field)s."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\models.py:720
-#: .\site-packages\django\forms\models.py:725
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:720
+#: .\site-packages-djangos\1.9\django\forms\models.py:725
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\models.py:726
-#: .\site-packages\django\forms\models.py:731
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:726
+#: .\site-packages-djangos\1.9\django\forms\models.py:731
 #, python-format
 msgid ""
 "Please correct the duplicate data for %(field_name)s which must be unique "
 "for the %(lookup)s in %(date_field)s."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\models.py:734
-#: .\site-packages\django\forms\models.py:739
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:734
+#: .\site-packages-djangos\1.9\django\forms\models.py:739
 msgid "Please correct the duplicate values below."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\models.py:1057
-#: .\site-packages\django\forms\models.py:1063
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:1057
+#: .\site-packages-djangos\1.9\django\forms\models.py:1063
 msgid "The inline foreign key did not match the parent instance primary key."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\models.py:1123
-#: .\site-packages\django\forms\models.py:1125
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:1123
+#: .\site-packages-djangos\1.9\django\forms\models.py:1125
 msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\models.py:1240
-#: .\site-packages\django\forms\models.py:1234
+#: .\site-packages-djangos\1.8.4\django\forms\models.py:1240
+#: .\site-packages-djangos\1.9\django\forms\models.py:1234
 #, python-format
 msgid "\"%(pk)s\" is not a valid value for a primary key."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\utils.py:165
-#: .\site-packages\django\forms\utils.py:172
+#: .\site-packages-djangos\1.8.4\django\forms\utils.py:165
+#: .\site-packages-djangos\1.9\django\forms\utils.py:172
 #, python-format
 msgid ""
 "%(datetime)s couldn't be interpreted in time zone %(current_timezone)s; it "
 "may be ambiguous or it may not exist."
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\widgets.py:345
-#: .\site-packages\django\forms\widgets.py:353
+#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:345
+#: .\site-packages-djangos\1.9\django\forms\widgets.py:353
 msgid "Currently"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\widgets.py:346
-#: .\site-packages\django\forms\widgets.py:354
+#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:346
+#: .\site-packages-djangos\1.9\django\forms\widgets.py:354
 msgid "Change"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\widgets.py:347
-#: .\site-packages\django\forms\widgets.py:355
+#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:347
+#: .\site-packages-djangos\1.9\django\forms\widgets.py:355
 msgid "Clear"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\widgets.py:555
-#: .\site-packages\django\forms\widgets.py:570
+#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:555
+#: .\site-packages-djangos\1.9\django\forms\widgets.py:570
 msgid "Unknown"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\widgets.py:556
-#: .\site-packages\django\forms\widgets.py:571
+#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:556
+#: .\site-packages-djangos\1.9\django\forms\widgets.py:571
 msgid "Yes"
 msgstr ""
 
-#: .\site-packages\django 1.8\forms\widgets.py:557
-#: .\site-packages\django\forms\widgets.py:572
+#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:557
+#: .\site-packages-djangos\1.9\django\forms\widgets.py:572
 msgid "No"
 msgstr ""
 
-#: .\site-packages\django 1.8\template\defaultfilters.py:865
-#: .\site-packages\django\template\defaultfilters.py:867
+#: .\site-packages-djangos\1.8.4\django\template\defaultfilters.py:865
+#: .\site-packages-djangos\1.9\django\template\defaultfilters.py:867
 msgid "yes,no,maybe"
 msgstr ""
 
-#: .\site-packages\django 1.8\template\defaultfilters.py:894
-#: 1.8\template\defaultfilters.py:906
-#: .\site-packages\django\template\defaultfilters.py:896
-#: .\site-packages\django\template\defaultfilters.py:908
+#: .\site-packages-djangos\1.8.4\django\template\defaultfilters.py:894
+#: .\site-packages-djangos\1.8.4\django\template\defaultfilters.py:906
+#: .\site-packages-djangos\1.9\django\template\defaultfilters.py:896
+#: .\site-packages-djangos\1.9\django\template\defaultfilters.py:908
 #, python-format
 msgid "%(size)d byte"
 msgid_plural "%(size)d bytes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\template\defaultfilters.py:908
-#: .\site-packages\django\template\defaultfilters.py:910
+#: .\site-packages-djangos\1.8.4\django\template\defaultfilters.py:908
+#: .\site-packages-djangos\1.9\django\template\defaultfilters.py:910
 #, python-format
 msgid "%s KB"
 msgstr ""
 
-#: .\site-packages\django 1.8\template\defaultfilters.py:910
-#: .\site-packages\django\template\defaultfilters.py:912
+#: .\site-packages-djangos\1.8.4\django\template\defaultfilters.py:910
+#: .\site-packages-djangos\1.9\django\template\defaultfilters.py:912
 #, python-format
 msgid "%s MB"
 msgstr ""
 
-#: .\site-packages\django 1.8\template\defaultfilters.py:912
-#: .\site-packages\django\template\defaultfilters.py:914
+#: .\site-packages-djangos\1.8.4\django\template\defaultfilters.py:912
+#: .\site-packages-djangos\1.9\django\template\defaultfilters.py:914
 #, python-format
 msgid "%s GB"
 msgstr ""
 
-#: .\site-packages\django 1.8\template\defaultfilters.py:914
-#: .\site-packages\django\template\defaultfilters.py:916
+#: .\site-packages-djangos\1.8.4\django\template\defaultfilters.py:914
+#: .\site-packages-djangos\1.9\django\template\defaultfilters.py:916
 #, python-format
 msgid "%s TB"
 msgstr ""
 
-#: .\site-packages\django 1.8\template\defaultfilters.py:916
-#: .\site-packages\django\template\defaultfilters.py:918
+#: .\site-packages-djangos\1.8.4\django\template\defaultfilters.py:916
+#: .\site-packages-djangos\1.9\django\template\defaultfilters.py:918
 #, python-format
 msgid "%s PB"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dateformat.py:61
-#: .\site-packages\django\utils\dateformat.py:61
+#: .\site-packages-djangos\1.8.4\django\utils\dateformat.py:61
+#: .\site-packages-djangos\1.9\django\utils\dateformat.py:61
 msgid "p.m."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dateformat.py:62
-#: .\site-packages\django\utils\dateformat.py:62
+#: .\site-packages-djangos\1.8.4\django\utils\dateformat.py:62
+#: .\site-packages-djangos\1.9\django\utils\dateformat.py:62
 msgid "a.m."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dateformat.py:67
-#: .\site-packages\django\utils\dateformat.py:67
+#: .\site-packages-djangos\1.8.4\django\utils\dateformat.py:67
+#: .\site-packages-djangos\1.9\django\utils\dateformat.py:67
 msgid "PM"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dateformat.py:68
-#: .\site-packages\django\utils\dateformat.py:68
+#: .\site-packages-djangos\1.8.4\django\utils\dateformat.py:68
+#: .\site-packages-djangos\1.9\django\utils\dateformat.py:68
 msgid "AM"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dateformat.py:151
-#: .\site-packages\django\utils\dateformat.py:153
+#: .\site-packages-djangos\1.8.4\django\utils\dateformat.py:151
+#: .\site-packages-djangos\1.9\django\utils\dateformat.py:153
 msgid "midnight"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dateformat.py:153
-#: .\site-packages\django\utils\dateformat.py:155
+#: .\site-packages-djangos\1.8.4\django\utils\dateformat.py:153
+#: .\site-packages-djangos\1.9\django\utils\dateformat.py:155
 msgid "noon"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:6
-#: .\site-packages\django\utils\dates.py:6
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:6
+#: .\site-packages-djangos\1.9\django\utils\dates.py:6
 msgid "Monday"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:6
-#: .\site-packages\django\utils\dates.py:6
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:6
+#: .\site-packages-djangos\1.9\django\utils\dates.py:6
 msgid "Tuesday"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:6
-#: .\site-packages\django\utils\dates.py:6
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:6
+#: .\site-packages-djangos\1.9\django\utils\dates.py:6
 msgid "Wednesday"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:6
-#: .\site-packages\django\utils\dates.py:6
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:6
+#: .\site-packages-djangos\1.9\django\utils\dates.py:6
 msgid "Thursday"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:6
-#: .\site-packages\django\utils\dates.py:6
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:6
+#: .\site-packages-djangos\1.9\django\utils\dates.py:6
 msgid "Friday"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:7
-#: .\site-packages\django\utils\dates.py:7
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:7
+#: .\site-packages-djangos\1.9\django\utils\dates.py:7
 msgid "Saturday"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:7
-#: .\site-packages\django\utils\dates.py:7
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:7
+#: .\site-packages-djangos\1.9\django\utils\dates.py:7
 msgid "Sunday"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:10
-#: .\site-packages\django\utils\dates.py:10
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:10
+#: .\site-packages-djangos\1.9\django\utils\dates.py:10
 msgid "Mon"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:10
-#: .\site-packages\django\utils\dates.py:10
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:10
+#: .\site-packages-djangos\1.9\django\utils\dates.py:10
 msgid "Tue"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:10
-#: .\site-packages\django\utils\dates.py:10
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:10
+#: .\site-packages-djangos\1.9\django\utils\dates.py:10
 msgid "Wed"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:10
-#: .\site-packages\django\utils\dates.py:10
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:10
+#: .\site-packages-djangos\1.9\django\utils\dates.py:10
 msgid "Thu"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:10
-#: .\site-packages\django\utils\dates.py:10
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:10
+#: .\site-packages-djangos\1.9\django\utils\dates.py:10
 msgid "Fri"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:11
-#: .\site-packages\django\utils\dates.py:11
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:11
+#: .\site-packages-djangos\1.9\django\utils\dates.py:11
 msgid "Sat"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:11
-#: .\site-packages\django\utils\dates.py:11
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:11
+#: .\site-packages-djangos\1.9\django\utils\dates.py:11
 msgid "Sun"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:18
-#: .\site-packages\django\utils\dates.py:18
-msgid "January"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:18
-#: .\site-packages\django\utils\dates.py:18
-msgid "February"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:18
-#: .\site-packages\django\utils\dates.py:18
-msgid "March"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:18
-#: .\site-packages\django\utils\dates.py:18
-msgid "April"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:18
-#: .\site-packages\django\utils\dates.py:18
-msgid "May"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:18
-#: .\site-packages\django\utils\dates.py:18
-msgid "June"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:19
-#: .\site-packages\django\utils\dates.py:19
-msgid "July"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:19
-#: .\site-packages\django\utils\dates.py:19
-msgid "August"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:19
-#: .\site-packages\django\utils\dates.py:19
-msgid "September"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:19
-#: .\site-packages\django\utils\dates.py:19
-msgid "October"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:19
-#: .\site-packages\django\utils\dates.py:19
-msgid "November"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:20
-#: .\site-packages\django\utils\dates.py:20
-msgid "December"
-msgstr ""
-
-#: .\site-packages\django 1.8\utils\dates.py:23
-#: .\site-packages\django\utils\dates.py:23
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:23
+#: .\site-packages-djangos\1.9\django\utils\dates.py:23
 msgid "jan"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:23
-#: .\site-packages\django\utils\dates.py:23
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:23
+#: .\site-packages-djangos\1.9\django\utils\dates.py:23
 msgid "feb"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:23
-#: .\site-packages\django\utils\dates.py:23
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:23
+#: .\site-packages-djangos\1.9\django\utils\dates.py:23
 msgid "mar"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:23
-#: .\site-packages\django\utils\dates.py:23
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:23
+#: .\site-packages-djangos\1.9\django\utils\dates.py:23
 msgid "apr"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:23
-#: .\site-packages\django\utils\dates.py:23
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:23
+#: .\site-packages-djangos\1.9\django\utils\dates.py:23
 msgid "may"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:23
-#: .\site-packages\django\utils\dates.py:23
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:23
+#: .\site-packages-djangos\1.9\django\utils\dates.py:23
 msgid "jun"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:24
-#: .\site-packages\django\utils\dates.py:24
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:24
+#: .\site-packages-djangos\1.9\django\utils\dates.py:24
 msgid "jul"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:24
-#: .\site-packages\django\utils\dates.py:24
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:24
+#: .\site-packages-djangos\1.9\django\utils\dates.py:24
 msgid "aug"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:24
-#: .\site-packages\django\utils\dates.py:24
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:24
+#: .\site-packages-djangos\1.9\django\utils\dates.py:24
 msgid "sep"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:24
-#: .\site-packages\django\utils\dates.py:24
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:24
+#: .\site-packages-djangos\1.9\django\utils\dates.py:24
 msgid "oct"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:24
-#: .\site-packages\django\utils\dates.py:24
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:24
+#: .\site-packages-djangos\1.9\django\utils\dates.py:24
 msgid "nov"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:24
-#: .\site-packages\django\utils\dates.py:24
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:24
+#: .\site-packages-djangos\1.9\django\utils\dates.py:24
 msgid "dec"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:31
-#: .\site-packages\django\utils\dates.py:31
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:31
+#: .\site-packages-djangos\1.9\django\utils\dates.py:31
 msgctxt "abbrev. month"
 msgid "Jan."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:32
-#: .\site-packages\django\utils\dates.py:32
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:32
+#: .\site-packages-djangos\1.9\django\utils\dates.py:32
 msgctxt "abbrev. month"
 msgid "Feb."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:33
-#: .\site-packages\django\utils\dates.py:33
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:33
+#: .\site-packages-djangos\1.9\django\utils\dates.py:33
 msgctxt "abbrev. month"
 msgid "March"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:34
-#: .\site-packages\django\utils\dates.py:34
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:34
+#: .\site-packages-djangos\1.9\django\utils\dates.py:34
 msgctxt "abbrev. month"
 msgid "April"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:35
-#: .\site-packages\django\utils\dates.py:35
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:35
+#: .\site-packages-djangos\1.9\django\utils\dates.py:35
 msgctxt "abbrev. month"
 msgid "May"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:36
-#: .\site-packages\django\utils\dates.py:36
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:36
+#: .\site-packages-djangos\1.9\django\utils\dates.py:36
 msgctxt "abbrev. month"
 msgid "June"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:37
-#: .\site-packages\django\utils\dates.py:37
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:37
+#: .\site-packages-djangos\1.9\django\utils\dates.py:37
 msgctxt "abbrev. month"
 msgid "July"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:38
-#: .\site-packages\django\utils\dates.py:38
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:38
+#: .\site-packages-djangos\1.9\django\utils\dates.py:38
 msgctxt "abbrev. month"
 msgid "Aug."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:39
-#: .\site-packages\django\utils\dates.py:39
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:39
+#: .\site-packages-djangos\1.9\django\utils\dates.py:39
 msgctxt "abbrev. month"
 msgid "Sept."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:40
-#: .\site-packages\django\utils\dates.py:40
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:40
+#: .\site-packages-djangos\1.9\django\utils\dates.py:40
 msgctxt "abbrev. month"
 msgid "Oct."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:41
-#: .\site-packages\django\utils\dates.py:41
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:41
+#: .\site-packages-djangos\1.9\django\utils\dates.py:41
 msgctxt "abbrev. month"
 msgid "Nov."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:42
-#: .\site-packages\django\utils\dates.py:42
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:42
+#: .\site-packages-djangos\1.9\django\utils\dates.py:42
 msgctxt "abbrev. month"
 msgid "Dec."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:45
-#: .\site-packages\django\utils\dates.py:45
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:45
+#: .\site-packages-djangos\1.9\django\utils\dates.py:45
 msgctxt "alt. month"
 msgid "January"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:46
-#: .\site-packages\django\utils\dates.py:46
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:46
+#: .\site-packages-djangos\1.9\django\utils\dates.py:46
 msgctxt "alt. month"
 msgid "February"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:47
-#: .\site-packages\django\utils\dates.py:47
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:47
+#: .\site-packages-djangos\1.9\django\utils\dates.py:47
 msgctxt "alt. month"
 msgid "March"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:48
-#: .\site-packages\django\utils\dates.py:48
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:48
+#: .\site-packages-djangos\1.9\django\utils\dates.py:48
 msgctxt "alt. month"
 msgid "April"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:49
-#: .\site-packages\django\utils\dates.py:49
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:49
+#: .\site-packages-djangos\1.9\django\utils\dates.py:49
 msgctxt "alt. month"
 msgid "May"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:50
-#: .\site-packages\django\utils\dates.py:50
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:50
+#: .\site-packages-djangos\1.9\django\utils\dates.py:50
 msgctxt "alt. month"
 msgid "June"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:51
-#: .\site-packages\django\utils\dates.py:51
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:51
+#: .\site-packages-djangos\1.9\django\utils\dates.py:51
 msgctxt "alt. month"
 msgid "July"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:52
-#: .\site-packages\django\utils\dates.py:52
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:52
+#: .\site-packages-djangos\1.9\django\utils\dates.py:52
 msgctxt "alt. month"
 msgid "August"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:53
-#: .\site-packages\django\utils\dates.py:53
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:53
+#: .\site-packages-djangos\1.9\django\utils\dates.py:53
 msgctxt "alt. month"
 msgid "September"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:54
-#: .\site-packages\django\utils\dates.py:54
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:54
+#: .\site-packages-djangos\1.9\django\utils\dates.py:54
 msgctxt "alt. month"
 msgid "October"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:55
-#: .\site-packages\django\utils\dates.py:55
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:55
+#: .\site-packages-djangos\1.9\django\utils\dates.py:55
 msgctxt "alt. month"
 msgid "November"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\dates.py:56
-#: .\site-packages\django\utils\dates.py:56
+#: .\site-packages-djangos\1.8.4\django\utils\dates.py:56
+#: .\site-packages-djangos\1.9\django\utils\dates.py:56
 msgctxt "alt. month"
 msgid "December"
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\ipv6.py:10
-#: .\site-packages\django\utils\ipv6.py:10
+#: .\site-packages-djangos\1.8.4\django\utils\ipv6.py:10
+#: .\site-packages-djangos\1.9\django\utils\ipv6.py:10
 msgid "This is not a valid IPv6 address."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\text.py:79
-#: .\site-packages\django\utils\text.py:77
+#: .\site-packages-djangos\1.8.4\django\utils\text.py:79
+#: .\site-packages-djangos\1.9\django\utils\text.py:77
 #, python-format
 msgctxt "String to return when truncating text"
 msgid "%(truncated_text)s..."
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\text.py:248
-#: .\site-packages\django\utils\text.py:246
+#: .\site-packages-djangos\1.8.4\django\utils\text.py:248
+#: .\site-packages-djangos\1.9\django\utils\text.py:246
 msgid "or"
 msgstr ""
 
 #. Translators: This string is used as a separator between list elements
-#: .\site-packages\django 1.8\utils\text.py:267 1.8\utils\timesince.py:58
-#: .\site-packages\django\utils\text.py:265
-#: .\site-packages\django\utils\timesince.py:63
+#: .\site-packages-djangos\1.8.4\django\utils\text.py:267
+#: .\site-packages-djangos\1.8.4\django\utils\timesince.py:58
+#: .\site-packages-djangos\1.9\django\utils\text.py:265
+#: .\site-packages-djangos\1.9\django\utils\timesince.py:63
 msgid ", "
 msgstr ""
 
-#: .\site-packages\django 1.8\utils\timesince.py:10
-#: .\site-packages\django\utils\timesince.py:11
+#: .\site-packages-djangos\1.8.4\django\utils\timesince.py:10
+#: .\site-packages-djangos\1.9\django\utils\timesince.py:11
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\utils\timesince.py:11
-#: .\site-packages\django\utils\timesince.py:12
+#: .\site-packages-djangos\1.8.4\django\utils\timesince.py:11
+#: .\site-packages-djangos\1.9\django\utils\timesince.py:12
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\utils\timesince.py:12
-#: .\site-packages\django\utils\timesince.py:13
+#: .\site-packages-djangos\1.8.4\django\utils\timesince.py:12
+#: .\site-packages-djangos\1.9\django\utils\timesince.py:13
 #, python-format
 msgid "%d week"
 msgid_plural "%d weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\utils\timesince.py:13
-#: .\site-packages\django\utils\timesince.py:14
+#: .\site-packages-djangos\1.8.4\django\utils\timesince.py:13
+#: .\site-packages-djangos\1.9\django\utils\timesince.py:14
 #, python-format
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\utils\timesince.py:14
-#: .\site-packages\django\utils\timesince.py:15
+#: .\site-packages-djangos\1.8.4\django\utils\timesince.py:14
+#: .\site-packages-djangos\1.9\django\utils\timesince.py:15
 #, python-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\utils\timesince.py:15
-#: .\site-packages\django\utils\timesince.py:16
+#: .\site-packages-djangos\1.8.4\django\utils\timesince.py:15
+#: .\site-packages-djangos\1.9\django\utils\timesince.py:16
 #, python-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\site-packages\django 1.8\utils\timesince.py:47
-#: .\site-packages\django\utils\timesince.py:52
+#: .\site-packages-djangos\1.8.4\django\utils\timesince.py:47
+#: .\site-packages-djangos\1.9\django\utils\timesince.py:52
 msgid "0 minutes"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\csrf.py:107
-#: .\site-packages\django\views\csrf.py:107
+#: .\site-packages-djangos\1.8.4\django\views\csrf.py:107
+#: .\site-packages-djangos\1.9\django\views\csrf.py:107
 msgid "Forbidden"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\csrf.py:108
-#: .\site-packages\django\views\csrf.py:108
+#: .\site-packages-djangos\1.8.4\django\views\csrf.py:108
+#: .\site-packages-djangos\1.9\django\views\csrf.py:108
 msgid "CSRF verification failed. Request aborted."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\csrf.py:112
-#: .\site-packages\django\views\csrf.py:112
+#: .\site-packages-djangos\1.8.4\django\views\csrf.py:112
+#: .\site-packages-djangos\1.9\django\views\csrf.py:112
 msgid ""
 "You are seeing this message because this HTTPS site requires a 'Referer "
 "header' to be sent by your Web browser, but none was sent. This header is "
@@ -1975,163 +2019,178 @@ msgid ""
 "hijacked by third parties."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\csrf.py:117
-#: .\site-packages\django\views\csrf.py:117
+#: .\site-packages-djangos\1.8.4\django\views\csrf.py:117
+#: .\site-packages-djangos\1.9\django\views\csrf.py:117
 msgid ""
 "If you have configured your browser to disable 'Referer' headers, please re-"
 "enable them, at least for this site, or for HTTPS connections, or for 'same-"
 "origin' requests."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\csrf.py:122
-#: .\site-packages\django\views\csrf.py:122
+#: .\site-packages-djangos\1.8.4\django\views\csrf.py:122
+#: .\site-packages-djangos\1.9\django\views\csrf.py:122
 msgid ""
 "You are seeing this message because this site requires a CSRF cookie when "
 "submitting forms. This cookie is required for security reasons, to ensure "
 "that your browser is not being hijacked by third parties."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\csrf.py:127
-#: .\site-packages\django\views\csrf.py:127
+#: .\site-packages-djangos\1.8.4\django\views\csrf.py:127
+#: .\site-packages-djangos\1.9\django\views\csrf.py:127
 msgid ""
 "If you have configured your browser to disable cookies, please re-enable "
 "them, at least for this site, or for 'same-origin' requests."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\csrf.py:132
-#: .\site-packages\django\views\csrf.py:132
+#: .\site-packages-djangos\1.8.4\django\views\csrf.py:132
+#: .\site-packages-djangos\1.9\django\views\csrf.py:132
 msgid "More information is available with DEBUG=True."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\debug.py:583
-#: .\site-packages\django\views\debug.py:508
+#: .\site-packages-djangos\1.8.4\django\views\debug.py:583
+#: .\site-packages-djangos\1.9\django\views\debug.py:508
 msgid "Welcome to Django"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\debug.py:584
-#: .\site-packages\django\views\debug.py:509
+#: .\site-packages-djangos\1.8.4\django\views\debug.py:584
+#: .\site-packages-djangos\1.9\django\views\debug.py:509
 msgid "It worked!"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\debug.py:585
-#: .\site-packages\django\views\debug.py:510
+#: .\site-packages-djangos\1.8.4\django\views\debug.py:585
+#: .\site-packages-djangos\1.9\django\views\debug.py:510
 msgid "Congratulations on your first Django-powered page."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\debug.py:586
-#: .\site-packages\django\views\debug.py:511
+#: .\site-packages-djangos\1.8.4\django\views\debug.py:586
+#: .\site-packages-djangos\1.9\django\views\debug.py:511
 msgid ""
 "Of course, you haven't actually done any work yet. Next, start your first "
 "app by running <code>python manage.py startapp [app_label]</code>."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\debug.py:588
-#: .\site-packages\django\views\debug.py:513
+#: .\site-packages-djangos\1.8.4\django\views\debug.py:588
+#: .\site-packages-djangos\1.9\django\views\debug.py:513
 msgid ""
 "You're seeing this message because you have <code>DEBUG = True</code> in "
 "your Django settings file and you haven't configured any URLs. Get to work!"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\dates.py:48
-#: .\site-packages\django\views\generic\dates.py:48
+#: .\site-packages-djangos\1.8.4\django\views\generic\dates.py:48
+#: .\site-packages-djangos\1.9\django\views\generic\dates.py:48
 msgid "No year specified"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\dates.py:104
-#: .\site-packages\django\views\generic\dates.py:104
+#: .\site-packages-djangos\1.8.4\django\views\generic\dates.py:104
+#: .\site-packages-djangos\1.9\django\views\generic\dates.py:104
 msgid "No month specified"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\dates.py:163
-#: .\site-packages\django\views\generic\dates.py:163
+#: .\site-packages-djangos\1.8.4\django\views\generic\dates.py:163
+#: .\site-packages-djangos\1.9\django\views\generic\dates.py:163
 msgid "No day specified"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\dates.py:219
-#: .\site-packages\django\views\generic\dates.py:219
+#: .\site-packages-djangos\1.8.4\django\views\generic\dates.py:219
+#: .\site-packages-djangos\1.9\django\views\generic\dates.py:219
 msgid "No week specified"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\dates.py:378
-#: 1.8\views\generic\dates.py:406
-#: .\site-packages\django\views\generic\dates.py:378
-#: .\site-packages\django\views\generic\dates.py:406
+#: .\site-packages-djangos\1.8.4\django\views\generic\dates.py:378
+#: .\site-packages-djangos\1.8.4\django\views\generic\dates.py:406
+#: .\site-packages-djangos\1.9\django\views\generic\dates.py:378
+#: .\site-packages-djangos\1.9\django\views\generic\dates.py:406
 #, python-format
 msgid "No %(verbose_name_plural)s available"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\dates.py:660
-#: .\site-packages\django\views\generic\dates.py:660
+#: .\site-packages-djangos\1.8.4\django\views\generic\dates.py:660
+#: .\site-packages-djangos\1.9\django\views\generic\dates.py:660
 #, python-format
 msgid ""
 "Future %(verbose_name_plural)s not available because %(class_name)s."
 "allow_future is False."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\dates.py:694
-#: .\site-packages\django\views\generic\dates.py:694
+#: .\site-packages-djangos\1.8.4\django\views\generic\dates.py:694
+#: .\site-packages-djangos\1.9\django\views\generic\dates.py:694
 #, python-format
 msgid "Invalid date string '%(datestr)s' given format '%(format)s'"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\detail.py:55
-#: .\site-packages\django\views\generic\detail.py:55
+#: .\site-packages-djangos\1.8.4\django\views\generic\detail.py:55
+#: .\site-packages-djangos\1.9\django\views\generic\detail.py:55
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\list.py:76
-#: .\site-packages\django\views\generic\list.py:76
+#: .\site-packages-djangos\1.8.4\django\views\generic\list.py:76
+#: .\site-packages-djangos\1.9\django\views\generic\list.py:76
 msgid "Page is not 'last', nor can it be converted to an int."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\list.py:81
-#: .\site-packages\django\views\generic\list.py:81
+#: .\site-packages-djangos\1.8.4\django\views\generic\list.py:81
+#: .\site-packages-djangos\1.9\django\views\generic\list.py:81
 #, python-format
 msgid "Invalid page (%(page_number)s): %(message)s"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\generic\list.py:172
-#: .\site-packages\django\views\generic\list.py:172
+#: .\site-packages-djangos\1.8.4\django\views\generic\list.py:172
+#: .\site-packages-djangos\1.9\django\views\generic\list.py:172
 #, python-format
 msgid "Empty list and '%(class_name)s.allow_empty' is False."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\static.py:58
-#: .\site-packages\django\views\static.py:58
+#: .\site-packages-djangos\1.8.4\django\views\static.py:58
+#: .\site-packages-djangos\1.9\django\views\static.py:58
 msgid "Directory indexes are not allowed here."
 msgstr ""
 
-#: .\site-packages\django 1.8\views\static.py:60
-#: .\site-packages\django\views\static.py:60
+#: .\site-packages-djangos\1.8.4\django\views\static.py:60
+#: .\site-packages-djangos\1.9\django\views\static.py:60
 #, python-format
 msgid "\"%(path)s\" does not exist"
 msgstr ""
 
-#: .\site-packages\django 1.8\views\static.py:100
-#: .\site-packages\django\views\static.py:100
+#: .\site-packages-djangos\1.8.4\django\views\static.py:100
+#: .\site-packages-djangos\1.9\django\views\static.py:100
 #, python-format
 msgid "Index of %(directory)s"
 msgstr ""
 
-#: .\site-packages\django\core\validators.py:232
+#: .\site-packages-djangos\1.9\django\core\validators.py:232
 msgid ""
 "Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or "
 "hyphens."
 msgstr ""
 
-#: .\site-packages\django\utils\translation\__init__.py:234
+#: .\site-packages-djangos\1.9\django\utils\translation\__init__.py:234
 msgid "name"
 msgstr ""
 
-#: .\site-packages\pagination\templates\pagination\pagination.html:5
-#: .\site-packages\pagination\templates\pagination\pagination.html:7
+#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:5
+#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:7
 msgid "previous"
 msgstr ""
 
-#: .\site-packages\pagination\templates\pagination\pagination.html:21
-#: .\site-packages\pagination\templates\pagination\pagination.html:23
+#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:21
+#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:23
 msgid "next"
+msgstr ""
+
+#: .\site-packages\breadcrumbs\breadcrumbs.py:116
+#, python-format
+msgid ""
+"We accept lists of tuples, lists of dicts, or two args as name and url, not "
+"'%s'"
+msgstr ""
+
+#: .\site-packages\crispy_forms\tests\test_layout.py:347
+msgid "i18n text"
+msgstr ""
+
+#: .\site-packages\crispy_forms\tests\test_layout.py:349
+msgid "i18n legend"
 msgstr ""
 
 #: .\site-packages\sae-dependency\argparse.py:319
@@ -2287,47 +2346,52 @@ msgstr ""
 msgid "%s: error: %s\n"
 msgstr ""
 
+#: .\templates\footer.html:55 .\templates\footer.html.py:57
+msgid "About Us"
+msgstr "ÂÖ≥‰∫éÊàë‰ª¨"
+
 #: .\templates\navbar.html:20
 msgid "Contact"
-msgstr ""
+msgstr "ËÅîÁ≥ª"
 
 #: .\templates\navbar.html:21
 msgid "About"
-msgstr ""
+msgstr "ÂÖ≥‰∫é"
 
-#: .\templates\navbar.html:43
+#: .\templates\navbar.html:38
 msgid "Projects"
+msgstr "È°πÁõÆ"
+
+#: .\templates\navbar.html:45
+msgid "Spray Pump"
 msgstr ""
 
-#: .\templates\navbar.html:46
-msgid "Products"
-msgstr ""
-
-#: .\templates\navbar.html:48
-msgid "Orders"
-msgstr ""
-
-#: .\templates\navbar.html:57 .\templates\navbar.html.py:60
-#: .\templates\navbar.html:65
+#: .\templates\navbar.html:51 .\templates\navbar.html.py:54
+#: .\templates\navbar.html:59
 msgid "Logout"
-msgstr ""
+msgstr "Ê≥®ÈîÄ"
 
-#: .\templates\navbar.html:72
+#: .\templates\navbar.html:61 .\templates\registration\login.html.py:31
+#: .\templates\registration\login.html:34
+msgid "Register"
+msgstr "Ê≥®ÂÜå"
+
+#: .\templates\navbar.html:66
 msgid "Login"
-msgstr ""
+msgstr "ÁôªÈôÜ"
 
-#: .\templates\navbar.html:82 .\templates\registration\login.html.py:5
+#: .\templates\navbar.html:76 .\templates\registration\login.html.py:5
 #: .\templates\registration\login.html:19
 msgid "Log in"
-msgstr ""
+msgstr "ÁôªÈôÜ"
 
 #: .\templates\registration\activate.html:5
 msgid "Account activation failed."
-msgstr ""
+msgstr "Ë¥¶Êà∑ÊøÄÊ¥ªÂ§±Ë¥•"
 
 #: .\templates\registration\activation_complete.html:4
 msgid "Account Activated"
-msgstr ""
+msgstr "Ë¥¶Êà∑Â∑≤ÊøÄÊ¥ª"
 
 #: .\templates\registration\activation_complete.html:8
 msgid "Your account is now activated."
@@ -2403,6 +2467,11 @@ msgstr ""
 #: .\templates\registration\login.html:30
 #: .\templates\registration\login.html:33
 msgid "Forgot your password?"
+msgstr ""
+
+#: .\templates\registration\login.html:30
+#: .\templates\registration\login.html:33
+msgid "Reset it"
 msgstr ""
 
 #: .\templates\registration\login.html:31
@@ -2534,3 +2603,21 @@ msgstr ""
 #: .\templates\registration\registration_form.html:14
 msgid "Submit"
 msgstr ""
+
+#: .\trainings\models.py:8
+msgid "Topic"
+msgstr ""
+
+#: .\trainings\models.py:9
+msgid "type"
+msgstr ""
+
+#: .\trainings\models.py:10
+msgid "Content"
+msgstr ""
+
+#~ msgid "Daily Inspection "
+#~ msgstr "Êó•Â∏∏Â∑°Ê£Ä"
+
+#~ msgid "shelf inspection record "
+#~ msgstr "Ë¥ßÊû∂Â∑°Ê£ÄËÆ∞ÂΩï"
