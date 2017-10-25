@@ -42,10 +42,13 @@ class EquipmentInspectionListView(ListView):
 
         queryset = ElectricalEquipmentInspection.objects.all()
         category_id = self.request.GET.get("category_id", None)
-        if category_id:
-            queryset = ElectricalEquipmentInspection.objects.all().filter(equipment__type__id=category_id)
 
-        paginator = Paginator(queryset, 2)
+        if category_id and int(category_id) > 0:
+            queryset = ElectricalEquipmentInspection.objects.all().filter(equipment__type__id=category_id)
+        else:
+            category_id = 0
+
+        paginator = Paginator(queryset, 10)
 
         qs = None
         page = self.request.GET.get('page')
@@ -58,7 +61,6 @@ class EquipmentInspectionListView(ListView):
 
         context["categories"] = EquipmentType.objects.all()
         context["current_category"] = category_id
-        context["object_list"] = qs
         context["object_list"] = qs
         return context
 
@@ -73,6 +75,18 @@ class EquipmentInspectionCreateView(CreateView):
     model = ElectricalEquipmentInspection
     form_class = ElectricalEquipmentInspectionForm
     template_name = "equipment/equipment_inspection_create_form.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(EquipmentInspectionCreateView, self).get_context_data(*args, **kwargs)
+
+        form = self.get_form()
+        cat = self.kwargs.get('cat',None)
+        if cat and int(cat)>0:
+            form.fields['equipment'].queryset = Equipment.objects.filter(type__id=cat)
+
+        context["form"] = form
+
+        return context
 
     def form_valid(self, form):
         instance = form.save()
@@ -112,14 +126,28 @@ class EquipmentInspectionQuickUpdateView(ListView):
     def get_success_url(self, *args, **kwargs):
         return reverse("equipmentinsepction_quickupdate", kwargs={})    
 
-class ElectricalEquipmentInspectionUpdateView(UpdateView):
+class EquipmentInspectionUpdateView(UpdateView):
     model = ElectricalEquipmentInspection
     form_class = ElectricalEquipmentInspectionForm
     template_name = 'equipment/equipment_inspection_edit_form.html'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(EquipmentInspectionUpdateView, self).get_context_data(*args, **kwargs)
+
+        form = self.get_form()
+        try:
+            instance = ElectricalEquipmentInspection.objects.filter(pk=self.kwargs.get('pk',None))[0]
+            form.fields['equipment'].choices = ((instance.equipment.id, instance.equipment), )        
+        except:
+            pass
+
+        context["form"] = form
+
+        return context
+
     def dispatch(self, *args, **kwargs):
         self.item_id = kwargs['pk']
-        return super(ElectricalEquipmentInspectionUpdateView, self).dispatch(*args, **kwargs)
+        return super(EquipmentInspectionUpdateView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         form.save()

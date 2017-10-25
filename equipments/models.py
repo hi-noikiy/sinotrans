@@ -13,6 +13,7 @@ class EquipmentType(models.Model):
 
     class Meta:
         verbose_name = _('Equipment Type')
+        verbose_name_plural = _('Equipment Type')
 
     def __unicode__(self):
         return "%s" % (self.name)
@@ -24,6 +25,7 @@ class Equipment(models.Model):
 
     class Meta:
         verbose_name = _('Equipment')
+        verbose_name_plural = _('Equipment')
 
     def __unicode__(self):
         return "%s" % (self.name) 
@@ -34,7 +36,7 @@ class AbstractEquipmentInspection(models.Model):
         ('breakdown', _('Breakdown')),
     )
 
-    equipment = models.ForeignKey(Equipment)
+    equipment = models.ForeignKey(Equipment, verbose_name=_('Equipment'))
     use_condition = models.CharField(_('Use Condition'), choices=equipment_use_condition, max_length=30, blank=False,null=False,default='normal')
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
     comments = models.TextField(_('Comments'), max_length=130, blank=True)   

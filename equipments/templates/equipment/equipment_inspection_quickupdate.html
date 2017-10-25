@@ -68,7 +68,7 @@ table li input[type="radio"]{
                             <h4> {% if not forloop.last%}
                             <a href="{{form.instance.get_absolute_url }}"> {{form.instance }} </a>
                             {% else %}
-                            <a href="{% url 'electronialequipmentinsepction_create' %}">Create New</a>
+                            <a href="{% url 'electronialequipmentinsepction_create' cat=current_category|add:"0" %}">Create New</a>
                             {% endif %}</h4>
                             <table style="width: 100%">
                                 {{ form.as_table }}

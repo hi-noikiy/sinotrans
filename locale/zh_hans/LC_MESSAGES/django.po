@@ -2364,7 +2364,7 @@ msgstr "项目"
 
 #: .\templates\navbar.html:45
 msgid "Spray Pump"
-msgstr ""
+msgstr "喷淋泵"
 
 #: .\templates\navbar.html:51 .\templates\navbar.html.py:54
 #: .\templates\navbar.html:59

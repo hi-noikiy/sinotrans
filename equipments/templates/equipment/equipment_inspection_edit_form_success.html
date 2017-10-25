@@ -7,7 +7,6 @@
     <div class="modal-body">
         <p>You can close now!</p>
         <script>
-          $(this).append('<div>????</div>');
           setTimeout(function() { 
             jQuery('#modal').modal('hide'); }, 1000);
             $('body').on('hidden.bs.modal', '.modal', function () {
@@ -19,3 +18,5 @@
     </div>
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
+
+<!-- need to add cremove for cancel -->

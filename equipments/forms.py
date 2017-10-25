@@ -1,5 +1,6 @@
 from django import forms
 from django.forms.models import modelformset_factory
+from django.utils.translation import ugettext_lazy as _
 
 from .models import (
     Equipment, EquipmentType, ElectricalEquipmentInspection,
@@ -7,6 +8,7 @@ from .models import (
 
 class ElectricalEquipmentInspectionForm(forms.ModelForm):
     use_condition = forms.ChoiceField(
+    	label=_('Use Condition'),
         choices=ElectricalEquipmentInspection.equipment_use_condition,
         #widget=forms.RadioSelect,
         widget=forms.Select,
@@ -20,7 +22,8 @@ class ElectricalEquipmentInspectionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ElectricalEquipmentInspectionForm, self).__init__(*args, **kwargs)
-        #self.fields['equipment'].queryset = Equipment.objects.filter(type=EquipmentType(name='Electronic'))
+         
+        #self.fields['equipment'].queryset = Equipment.objects.filter(type__id=kwargs.get('cat',None))
 
 
         for field in self.fields.values():
