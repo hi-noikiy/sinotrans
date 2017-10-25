@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
-
+from django.http import HttpResponse, Http404
+from django.template.loader import render_to_string
 
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin, TemplateView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
@@ -26,17 +27,17 @@ from .forms import (
 # http://caibaojian.com/simple-responsive-table.html
 
 
-class ElectricalEquipmentInspectionListView(ListView):
+class EquipmentInspectionListView(ListView):
     model = ElectricalEquipmentInspection
     queryset = ElectricalEquipmentInspection.objects.get_this_day()
     #object_list = queryset
-    template_name = "equipment/electronical_equipment_inspection_list.html"
+    template_name = "equipment/equipment_inspection_list.html"
 
     # def get_queryset(self, *args, **kwargs):
     #     return self.queryset
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ElectricalEquipmentInspectionListView, self).get_context_data(*args, **kwargs)
+        context = super(EquipmentInspectionListView, self).get_context_data(*args, **kwargs)
 
         formset = electrical_equipment_inspection_model_formset(queryset=self.model.objects.get_this_day(),
             initial=[{'use_condition': _('Normal'),}])
@@ -52,7 +53,7 @@ class ElectricalEquipmentInspectionListView(ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-        #postresult = super(ElectricalEquipmentInspectionListView, self).post(request, *args, **kwargs)
+        #postresult = super(EquipmentInspectionListView, self).post(request, *args, **kwargs)
 
         formset = electrical_equipment_inspection_model_formset(request.POST or None, request.FILES or None)
         if formset.is_valid():
@@ -60,7 +61,7 @@ class ElectricalEquipmentInspectionListView(ListView):
             for instance in instances:
                 instance.save()
             messages.success(request, "Your list has been updated.")
-            return redirect(reverse("electronialequipmentinsepction_list",  kwargs={}))
+            return redirect(reverse("equipmentinsepction_list",  kwargs={}))
 
         self.object_list = self.get_queryset() # copy from BaseListView::get
         context = self.get_context_data()
@@ -68,22 +69,22 @@ class ElectricalEquipmentInspectionListView(ListView):
         return self.render_to_response(context)
 
     def get_success_url(self, *args, **kwargs):
-        return reverse("electronialequipmentinsepction_list", kwargs={})
+        return reverse("equipmentinsepction_list", kwargs={})
 
-class ElectricalEquipmentInspectionDetailView(DetailView):
+class EquipmentInspectionDetailView(DetailView):
     model = ElectricalEquipmentInspection
-    template_name = "equipment/electronical_equipment_inspection_detail.html"
+    template_name = "equipment/equipment_inspection_detail.html"
 
-class ElectricalEquipmentInspectionCreateView(CreateView):
+class EquipmentInspectionCreateView(CreateView):
     model = ElectricalEquipmentInspection
     form_class = ElectricalEquipmentInspectionForm
-    template_name = "equipment/electronical_equipment_inspection_create.html"
+    template_name = "equipment/equipment_inspection_create.html"
 
 class ElectricalEquipmentInspectionQuickUpdateView(ListView):
     model = ElectricalEquipmentInspection
     queryset = ElectricalEquipmentInspection.objects.get_this_day()
     #object_list = queryset
-    template_name = "equipment/electronical_equipment_inspection_quickupdate.html"
+    template_name = "equipment/equipment_inspection_quickupdate.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ElectricalEquipmentInspectionQuickUpdateView, self).get_context_data(*args, **kwargs)
@@ -103,7 +104,7 @@ class ElectricalEquipmentInspectionQuickUpdateView(ListView):
             for instance in instances:
                 instance.save()
             messages.success(request, "Your list has been updated.")
-            return redirect(reverse("electronialequipmentinsepction_quickupdate",  kwargs={}))
+            return redirect(reverse("equipmentinsepction_quickupdate",  kwargs={}))
 
         self.object_list = self.get_queryset() # copy from BaseListView::get
         context = self.get_context_data()
@@ -111,4 +112,18 @@ class ElectricalEquipmentInspectionQuickUpdateView(ListView):
         return self.render_to_response(context)
 
     def get_success_url(self, *args, **kwargs):
-        return reverse("electronialequipmentinsepction_quickupdate", kwargs={})    
+        return reverse("equipmentinsepction_quickupdate", kwargs={})    
+
+class ElectricalEquipmentInspectionUpdateView(UpdateView):
+    model = ElectricalEquipmentInspection
+    form_class = ElectricalEquipmentInspectionForm
+    template_name = 'equipment/equipment_inspection_edit_form.html'
+
+    def dispatch(self, *args, **kwargs):
+        self.item_id = kwargs['pk']
+        return super(ElectricalEquipmentInspectionUpdateView, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.save()
+        item = ElectricalEquipmentInspection.objects.get(id=self.item_id)
+        return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item}))        

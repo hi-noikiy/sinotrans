@@ -21,6 +21,14 @@ class ElectricalEquipmentInspectionForm(forms.ModelForm):
         super(ElectricalEquipmentInspectionForm, self).__init__(*args, **kwargs)
         #self.fields['equipment'].queryset = Equipment.objects.filter(type=EquipmentType(name='Electronic'))
 
+
+        for field in self.fields.values():
+            if not field in self.Meta.exclude:
+                if 'class' in field.widget.attrs.keys():
+                    field.widget.attrs['class'] = field.widget.attrs['class'] + ' form-control'
+                else:
+                    field.widget.attrs['class'] = 'form-control'
+
         # self.fields['use_condition'].choices = ElectricalEquipmentInspection.equipment_use_condition
         # self.fields['use_condition'].widget = forms.RadioSelect
 

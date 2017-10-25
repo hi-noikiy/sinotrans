@@ -28,7 +28,7 @@ class Equipment(models.Model):
     def __unicode__(self):
         return "%s" % (self.name) 
 
-class EquipmentInspection(models.Model):
+class AbstractEquipmentInspection(models.Model):
     equipment_use_condition = (
         ('normal', _('Normal')),
         ('breakdown', _('Breakdown')),
@@ -47,7 +47,7 @@ class EquipmentInspection(models.Model):
         unique_together = (('equipment','inspector','date_of_inspection'),)
 
     def get_absolute_url(self):
-        return reverse("electronialequipmentinsepction_detail", kwargs={"pk": self.id})    
+        return reverse("equipmentinsepction_detail", kwargs={"pk": self.id})    
 
 class ElectricalEquipmentInspectionManager(models.Manager):
     def get_query_set(self):
@@ -60,7 +60,7 @@ class ElectricalEquipmentInspectionManager(models.Manager):
         return self.get_query_set().filter(date_of_inspection__range=(start, end))
 
 
-class ElectricalEquipmentInspection(EquipmentInspection):
+class ElectricalEquipmentInspection(AbstractEquipmentInspection):
     objects = ElectricalEquipmentInspectionManager()
 
     class Meta:

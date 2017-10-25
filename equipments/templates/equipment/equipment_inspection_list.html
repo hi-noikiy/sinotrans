@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+
+<style type="text/css">
+{% block style %}
+
+ul.nav-stacked{
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+ .nav-title{
+    padding: 10px 15px 10px 15px;
+    background-color: #428bca;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color: #f5f5f5;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #ccc!important; /*overwrite bootstrap*/
+}
+
+
+{% endblock %}
+</style>
+
+{% block jswotag %}
+<script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}    
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-3">
+        <div style="margin-right:20%;">
+            <p class="nav-title">分类检查</p>
+            <ul class="nav nav-pills nav-stacked">
+              {% for category in categories %}
+              <li {% ifequal category.id current_category|add:"0" %}class='active'{% endifequal %}><a href="{% url 'equipmentinsepction_list' %}?category_id={{category.id}}">{{category}}</a></li>
+              {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-6">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <i class="fa fa-plus-square" aria-hidden="true"> add</i>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+        <table class="table table-bordered table-hovered "cellspacing='0'>
+            <tr>
+                <th>Equipment</th>
+                <th>Use Condition</th>
+                <th>Inspector</th>
+                <th>Date of inspection</th>
+                <th></th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td> {{object.equipment}}</td>
+                    <td> {{object.use_condition}}</td>
+                    <td> {{object.inspector}}</td>
+                    <td> {{object.date_of_inspection}}</td>
+                    <td>
+                        <a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id %}" data-target="#modal" title="edit item" data-tooltip></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+{% endblock %}

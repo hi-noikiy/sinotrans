@@ -483,7 +483,7 @@ class equipment_inspection(models.Model):
         unique_together = (('equipment','inspector','date_of_inspection'),)
 
     def get_absolute_url(self):
-        return reverse("electronialequipmentinsepction_detail", kwargs={"pk": self.id})
+        return reverse("equipmentinsepction_detail", kwargs={"pk": self.id})
 
 class ElectricalEquipmentInspectionManager(models.Manager):
     def get_query_set(self):

@@ -4,17 +4,19 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from .views import (
-    ElectricalEquipmentInspectionListView,
-    ElectricalEquipmentInspectionDetailView,
-    ElectricalEquipmentInspectionCreateView,
+    EquipmentInspectionListView,
+    EquipmentInspectionDetailView,
+    EquipmentInspectionCreateView,
+    ElectricalEquipmentInspectionUpdateView,
     ElectricalEquipmentInspectionQuickUpdateView,
 )
 
 urlpatterns = [
 
-    url(r'^electronicalequipmentinspection/quickupdate/$', ElectricalEquipmentInspectionQuickUpdateView.as_view(), name='electronialequipmentinsepction_quickupdate'),
-    url(r'^electronicalequipmentinspection/list/$', ElectricalEquipmentInspectionListView.as_view(), name='electronialequipmentinsepction_list'),
-    url(r'^electronicalequipmentinspection/detail/(?P<pk>\d+)/$', ElectricalEquipmentInspectionDetailView.as_view(), name='electronialequipmentinsepction_detail'),
-    url(r'^electronicalequipmentinspection/create/$', ElectricalEquipmentInspectionCreateView.as_view(), name='electronialequipmentinsepction_create'),
+    url(r'^equipmentinspection/quickupdate/$', ElectricalEquipmentInspectionQuickUpdateView.as_view(), name='equipmentinsepction_quickupdate'),
+    url(r'^equipmentinspection/list/$', EquipmentInspectionListView.as_view(), name='equipmentinsepction_list'),
+    url(r'^equipmentinspection/detail/(?P<pk>\d+)/$', EquipmentInspectionDetailView.as_view(), name='equipmentinsepction_detail'),
+    url(r'^equipmentinspection/update/(?P<pk>\d+)/$', ElectricalEquipmentInspectionUpdateView.as_view(), name='equipmentinsepction_update'),
+    url(r'^equipmentinspection/create/$', EquipmentInspectionCreateView.as_view(), name='equipmentinsepction_create'),
 
 ]
