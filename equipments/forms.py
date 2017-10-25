@@ -29,6 +29,8 @@ class ElectricalEquipmentInspectionForm(forms.ModelForm):
                 else:
                     field.widget.attrs['class'] = 'form-control'
 
+        self.fields['date_of_inspection'].widget.attrs['class'] = self.fields['date_of_inspection'].widget.attrs['class'] + ' calendar'
+
         # self.fields['use_condition'].choices = ElectricalEquipmentInspection.equipment_use_condition
         # self.fields['use_condition'].widget = forms.RadioSelect
 
