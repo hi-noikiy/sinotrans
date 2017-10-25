@@ -55,7 +55,7 @@
                     {% endfor %}
               </div>
               <div class="modal-footer">
-                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel" />
+                <input id="form_cancel" type="button" class="btn btn-default" data-dismiss="modal" value="Cancel" />
                 <input type="submit" class="btn btn-primary" value="save" style="margin-bottom: 5px;" />
               </div>
         </form>
@@ -68,6 +68,13 @@
                 }
             }
             $('#item_update_form').ajaxForm(form_options);
+
+            $('#form_cancel').click(function() {
+                jQuery('#modal').modal('hide'); 
+                $('body').on('hidden.bs.modal', '.modal', function () {
+                    $(this).removeData('bs.modal');
+                });
+            });
         </script>
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
