@@ -78,7 +78,11 @@ class EquipmentInspectionDetailView(DetailView):
 class EquipmentInspectionCreateView(CreateView):
     model = ElectricalEquipmentInspection
     form_class = ElectricalEquipmentInspectionForm
-    template_name = "equipment/equipment_inspection_create.html"
+    template_name = "equipment/equipment_inspection_create_form.html"
+
+    def form_valid(self, form):
+        instance = form.save()
+        return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': instance}))  
 
 class ElectricalEquipmentInspectionQuickUpdateView(ListView):
     model = ElectricalEquipmentInspection

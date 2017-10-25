@@ -7,9 +7,10 @@
               <div class="modal-body">
                   <p>You can close now!</p>
                   <script>
-                    setTimeout(function() { jQuery('#modal').modal('hide'); }, 1000);
-                    $('body').on('hidden.bs.modal', '.modal', function () {
-                        $(this).removeData('bs.modal');
+                    setTimeout(function() { 
+                      jQuery('#modal').modal('hide'); }, 1000);
+                      $('body').on('hidden.bs.modal', '.modal', function () {
+                      $(this).removeData('bs.modal');
                     });
                   </script>
               </div>

@@ -8,7 +8,8 @@ from .models import (
 class ElectricalEquipmentInspectionForm(forms.ModelForm):
     use_condition = forms.ChoiceField(
         choices=ElectricalEquipmentInspection.equipment_use_condition,
-        widget=forms.RadioSelect,
+        #widget=forms.RadioSelect,
+        widget=forms.Select,
     )
 
     class Meta:
