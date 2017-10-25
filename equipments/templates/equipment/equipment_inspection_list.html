@@ -54,28 +54,32 @@ ul.nav-stacked{
             </div>
         </div>
 
-        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
-        <table class="table table-bordered table-hovered "cellspacing='0'>
-            <tr>
-                <th>Equipment</th>
-                <th>Use Condition</th>
-                <th>Inspector</th>
-                <th>Date of inspection</th>
-                <th></th>
-            </tr>
-            {% for object in object_list %}
-                <tr>
-                    <td> {{object.equipment}}</td>
-                    <td> {{object.use_condition}}</td>
-                    <td> {{object.inspector}}</td>
-                    <td> {{object.date_of_inspection}}</td>
-                    <td>
-                        <a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id %}" data-target="#modal" title="edit item" data-tooltip></a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+                <table class="table table-bordered table-hovered "cellspacing='0'>
+                    <tr>
+                        <th>Equipment</th>
+                        <th>Use Condition</th>
+                        <th>Inspector</th>
+                        <th>Date of inspection</th>
+                        <th></th>
+                    </tr>
+                    {% for object in object_list %}
+                        <tr>
+                            <td> {{object.equipment}}</td>
+                            <td> {{object.use_condition}}</td>
+                            <td> {{object.inspector}}</td>
+                            <td> {{object.date_of_inspection}}</td>
+                            <td>
+                                <a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id %}" data-target="#modal" title="edit item" data-tooltip></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
 
     </div>
 </div>
