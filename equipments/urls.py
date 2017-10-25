@@ -8,12 +8,12 @@ from .views import (
     EquipmentInspectionDetailView,
     EquipmentInspectionCreateView,
     ElectricalEquipmentInspectionUpdateView,
-    ElectricalEquipmentInspectionQuickUpdateView,
+    EquipmentInspectionQuickUpdateView,
 )
 
 urlpatterns = [
 
-    url(r'^equipmentinspection/quickupdate/$', ElectricalEquipmentInspectionQuickUpdateView.as_view(), name='equipmentinsepction_quickupdate'),
+    url(r'^equipmentinspection/quickupdate/$', EquipmentInspectionQuickUpdateView.as_view(), name='equipmentinsepction_quickupdate'),
     url(r'^equipmentinspection/list/$', EquipmentInspectionListView.as_view(), name='equipmentinsepction_list'),
     url(r'^equipmentinspection/detail/(?P<pk>\d+)/$', EquipmentInspectionDetailView.as_view(), name='equipmentinsepction_detail'),
     url(r'^equipmentinspection/update/(?P<pk>\d+)/$', ElectricalEquipmentInspectionUpdateView.as_view(), name='equipmentinsepction_update'),

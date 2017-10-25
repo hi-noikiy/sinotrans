@@ -53,6 +53,7 @@ table tr.danger th{
         <div class="row">
             <div class="col-sm-12">
                 <div class="pull-right">
+                    <i class="fa fa-download fa-2x" aria-hidden="true"></i>
                     <a class="fa fa-plus-square fa-2x" style="padding-right: 5px;" data-toggle="modal" href="{% url 'equipmentinsepction_create' %}" data-target="#modal" title="create item" data-tooltip></a>
                 </div>
             </div>
@@ -82,6 +83,24 @@ table tr.danger th{
                         </tr>
                     {% endfor %}
                 </table>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if object_list.has_previous %}
+                        <a href="?page={{ object_list.previous_page_number }}{% if current_category %}&category_id={{current_category}}{% endif %}"><< previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}
+                    </span>
+
+                    {% if object_list.has_next %}
+                        <a href="?page={{ object_list.next_page_number }}{% if current_category %}&category_id={{current_category}}{% endif %}">next >></a>
+                    {% endif %}
+                </span>
             </div>
         </div>
 

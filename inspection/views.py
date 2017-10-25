@@ -467,12 +467,11 @@ class shelf_inspection_ListView(ListView):
         context = super(shelf_inspection_ListView, self).get_context_data(*args, **kwargs)
 
         queryset = shelf_inspection.objects.all()
-        print queryset
+
         records_list = [(object, \
             object.shelf_inspection_record_set.filter(use_condition=1).count(), \
             object.shelf_inspection_record_set.filter(is_locked=False).count(), \
             object.shelf_inspection_record_set.filter(gradient__gt=1.4).count()) for object in shelf_inspection.objects.all()]
-        print records_list
 
         paginator = Paginator(records_list, 2)
 
