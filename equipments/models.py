@@ -51,6 +51,9 @@ class AbstractEquipmentInspection(models.Model):
     def get_absolute_url(self):
         return reverse("equipmentinsepction_detail", kwargs={"pk": self.id})    
 
+    def get_use_condition(self):
+        return _('Normal') if self.use_condition == 'normal' else _('Breakdown')
+        
 class ElectricalEquipmentInspectionManager(models.Manager):
     def get_query_set(self):
         return models.query.QuerySet(self.model, using=self._db)

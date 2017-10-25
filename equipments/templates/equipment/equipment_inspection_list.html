@@ -83,7 +83,7 @@ table tr.danger th, table tr td{
                     {% for object in object_list %}
                         <tr>
                             <td> {{object.equipment}}</td>
-                            <td> {{object.use_condition}}</td>
+                            <td> {{object.get_use_condition}}</td>
                             <td> {{object.inspector}}</td>
                             <td> {{object.date_of_inspection}}</td>
                             <td>
