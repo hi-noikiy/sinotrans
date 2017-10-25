@@ -105,7 +105,7 @@ table tr.danger th, table tr td{
                     {% endif %}
 
                     <span class="current">
-                        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}
+                        {{ object_list.number }} of {{ object_list.paginator.num_pages }}
                     </span>
 
                     {% if object_list.has_next %}

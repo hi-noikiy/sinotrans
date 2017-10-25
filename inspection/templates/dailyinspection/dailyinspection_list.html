@@ -77,7 +77,14 @@ $(document).ready(function(){
 		</div>
 		<br>
 
-	    <div class="object_lists">
+		<div class="object_create pull-right">
+            {% if request.user.is_staff or request.user.is_superuser %}
+	    	<a class="fa fa-plus-square fa-2x" href="{% url 'dailyinspection_create' %}" title='{% trans "Create New Item" %}' ></a>
+            {% endif %}
+            <a class="fa fa-area-chart fa-2x"  href="{% url 'shelf_inspection_stat' %}"  title='{% trans "Inspection Statistic" %}' ></a>
+	    </div>
+
+	    <div class="object_lists" style="clear: both;">
 			{% autopaginate object_list 8 %}
             
 			{% if object_list.count == 0 %}
@@ -90,13 +97,6 @@ $(document).ready(function(){
 			{% paginate %}
 			</div>
 		</div>
-        
-		<div class="object_create">
-            {% if request.user.is_staff or request.user.is_superuser %}
-	    	<h4><a href='{% url "dailyinspection_create" %}'>{% trans "Create New Item" %}</a></h4>
-            {% endif %}
-	    	<h4><a href='{% url "shelf_inspection_stat" %}'>{% trans "Inspection Statistic" %}</a></h4>
-	    </div>
 	</div>
 </div>
 

@@ -206,6 +206,7 @@ class ThumbnailMixin(object):
 
 class DailyInspectionCreateView(StaffRequiredMixin, ThumbnailMixin, CreateView):
     form_class = DailyInspectionForm
+    model = DailyInspection
     template_name = "dailyinspection/dailyinspection_create.html"
 
     def form_valid(self, form, *args, **kwargs):
@@ -217,11 +218,10 @@ class DailyInspectionCreateView(StaffRequiredMixin, ThumbnailMixin, CreateView):
         return reverse("dailyinspection_list", kwargs={}) 
 
     def dispatch(self, request, *args, **kwargs):
-        instance = self.get_object()
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_("Daily Inspection"),reverse("dailyinspection_list", kwargs={})),
-            (instance,request.path_info),
+            (_('Create'),request.path_info),
         ])
         return super(DailyInspectionCreateView, self).dispatch(request,args,kwargs)   
         
@@ -232,6 +232,7 @@ class DailyInspectionDetailView( DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()
+
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_("Daily Inspection"),reverse("dailyinspection_list", kwargs={})),
