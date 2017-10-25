@@ -541,7 +541,7 @@ class SprayPumpRoomInspection(models.Model):
 
     objects = SprayPumpRoomInspectionManager()
     def __unicode__(self):
-        return "Spray Pump Room Inspection %s" % (self.month)
+        return _("Spray Pump Room Inspection") + " %s" % (self.month)
 
     class Meta:
         ordering = ('month',)

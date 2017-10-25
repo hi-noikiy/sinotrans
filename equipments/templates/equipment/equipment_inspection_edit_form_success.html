@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-lg">
+<div class="modal-dialog modal-lg" style="display: block;">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -12,6 +12,20 @@
             $('body').on('hidden.bs.modal', '.modal', function () {
               $(this).removeData('bs.modal');
           });
+
+          if({{is_create_view}}) {
+            $('tr:first').after('<tr class="equipment-inspection-item"><td>{{ object.equipment }}</td><td>{{ object.get_use_condition }}</td><td>{{ object.inspector }}</td><td>{{ object.date_of_inspection }}</td><td><a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a></td></tr>');
+            $('tr.equipment-inspection-item a').click(function() {
+                $(this).parent().parent().siblings().removeClass('edit-item');
+                $(this).parent().parent().addClass('edit-item');
+            });
+          }else{
+            $('tr.edit-item td:nth-child(1)').replaceWith('<td>{{ object.equipment }}</td>');
+            $('tr.edit-item td:nth-child(2)').replaceWith('<td>{{ object.get_use_condition }}</td>');
+            $('tr.edit-item td:nth-child(3)').replaceWith('<td>{{ object.inspector }}</td>');
+            $('tr.edit-item td:nth-child(4)').replaceWith('<td>{{ object.date_of_inspection }}</td>');
+          }
+
         </script>
     </div>
     <div class="modal-footer">

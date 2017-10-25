@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-25 14:41+0800\n"
+"POT-Creation-Date: 2017-10-25 21:48+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,70 +126,76 @@ msgid ""
 "and ./-/_ characters."
 msgstr ""
 
-#: .\equipments\models.py:12 .\equipments\models.py:22
-#: .\inspection\models.py:408 .\inspection\models.py:425
-msgid "Name"
-msgstr "名字"
-
-#: .\equipments\models.py:15
-msgid "Equipment Type"
-msgstr "设备类型"
-
-#: .\equipments\models.py:23
-msgid "Type"
-msgstr "类型"
-
-#: .\equipments\models.py:26
-#: .\equipments\templates\equipment\equipment_inspection_list.html:75
-#: .\templates\navbar.html:44
-msgid "Equipment"
-msgstr "设备"
-
-#: .\equipments\models.py:33 .\equipments\views.py:91
-#: .\inspection\models.py:354 .\inspection\views.py:559
-msgid "Normal"
-msgstr "正常"
-
-#: .\equipments\models.py:34 .\inspection\models.py:355
-msgid "Breakdown"
-msgstr "损坏"
-
-#: .\equipments\models.py:38
-#: .\equipments\templates\equipment\equipment_inspection_list.html:76
+#: .\equipments\forms.py:11 .\equipments\models.py:40
+#: .\equipments\templates\equipment\equipment_inspection_list.html:78
 #: .\inspection\models.py:360
 #: .\inspection\templates\shelf\shelf_inspection_list.html:45
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:8
 msgid "Use Condition"
 msgstr "使用状况"
 
+#: .\equipments\models.py:12 .\equipments\models.py:23
+#: .\inspection\models.py:408 .\inspection\models.py:425
+msgid "Name"
+msgstr "名字"
+
+#: .\equipments\models.py:15 .\equipments\models.py:16
+msgid "Equipment Type"
+msgstr "设备类型"
+
+#: .\equipments\models.py:24
+msgid "Type"
+msgstr "类型"
+
+#: .\equipments\models.py:27 .\equipments\models.py:28
 #: .\equipments\models.py:39
 #: .\equipments\templates\equipment\equipment_inspection_list.html:77
+#: .\templates\navbar.html:44
+msgid "Equipment"
+msgstr "设备"
+
+#: .\equipments\models.py:35 .\equipments\models.py:55
+#: .\equipments\views.py:105 .\inspection\models.py:354
+#: .\inspection\views.py:560
+msgid "Normal"
+msgstr "正常"
+
+#: .\equipments\models.py:36 .\equipments\models.py:55
+#: .\inspection\models.py:355
+msgid "Breakdown"
+msgstr "损坏"
+
+#: .\equipments\models.py:41
+#: .\equipments\templates\equipment\equipment_inspection_list.html:79
 msgid "Inspector"
 msgstr "检查人"
 
-#: .\equipments\models.py:40 .\inspection\models.py:340
+#: .\equipments\models.py:42 .\inspection\models.py:340
 #: .\inspection\models.py:365
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:13
 msgid "Comments"
 msgstr "备注"
 
-#: .\equipments\models.py:41
+#: .\equipments\models.py:43
 msgid "Date of Inspection"
 msgstr "检查日期"
 
-#: .\equipments\models.py:45
+#: .\equipments\models.py:47
 msgid "Equipment Inspection"
 msgstr "设备检查"
 
-#: .\equipments\templates\equipment\equipment_inspection_list.html:49
-#| msgid "Inspection Statistic"
+#: .\equipments\templates\equipment\equipment_inspection_list.html:51
 msgid "Insepction Categories"
 msgstr "检查种类"
 
-#: .\equipments\templates\equipment\equipment_inspection_list.html:78
-#| msgid "Date of Inspection"
+#: .\equipments\templates\equipment\equipment_inspection_list.html:80
 msgid "Date of inspection"
 msgstr "检查日期"
+
+#: .\equipments\templates\equipment\spray_pump_room_inspection.html:17
+#| msgid "Spray Pump"
+msgid "Spray Pump Room"
+msgstr "喷淋泵房"
 
 #: .\inspection\apps.py:6 .\inspection\views.py:103 .\inspection\views.py:136
 #: .\templates\navbar.html:22 .\templates\navbar.html.py:42
@@ -330,8 +336,8 @@ msgstr "位置"
 
 #: .\inspection\models.py:103 .\inspection\models.py:173
 #: .\inspection\models.py:174 .\inspection\views.py:223
-#: .\inspection\views.py:237 .\inspection\views.py:289
-#: .\inspection\views.py:401
+#: .\inspection\views.py:238 .\inspection\views.py:290
+#: .\inspection\views.py:402
 msgid "Daily Inspection"
 msgstr "日常巡检"
 
@@ -678,111 +684,117 @@ msgstr ""
 
 #: .\inspection\models.py:441
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: .\inspection\models.py:442 .\trainings\models.py:6 .\trainings\models.py:14
 #: .\trainings\models.py:15
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: .\inspection\models.py:443
 msgid "Attachment"
-msgstr ""
+msgstr "附件"
 
 #: .\inspection\models.py:446
 msgid "rehearsal"
-msgstr ""
+msgstr "演习"
 
 #: .\inspection\models.py:511
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "January"
-msgstr ""
+msgstr "一月"
 
 #: .\inspection\models.py:512
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "February"
-msgstr ""
+msgstr "二月"
 
 #: .\inspection\models.py:513
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "March"
-msgstr ""
+msgstr "三月"
 
 #: .\inspection\models.py:514
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "April"
-msgstr ""
+msgstr "四月"
 
 #: .\inspection\models.py:515
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "May"
-msgstr ""
+msgstr "五月"
 
 #: .\inspection\models.py:516
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "June"
-msgstr ""
+msgstr "六月"
 
 #: .\inspection\models.py:517
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "July"
-msgstr ""
+msgstr "七月"
 
 #: .\inspection\models.py:518
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "August"
-msgstr ""
+msgstr "八月"
 
 #: .\inspection\models.py:519
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "September"
-msgstr ""
+msgstr "九月"
 
 #: .\inspection\models.py:520
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "October"
-msgstr ""
+msgstr "十月"
 
 #: .\inspection\models.py:521
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "November"
-msgstr ""
+msgstr "十一月"
 
 #: .\inspection\models.py:522
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:20
 #: .\site-packages-djangos\1.9\django\utils\dates.py:20
 msgid "December"
-msgstr ""
+msgstr "十二月"
 
 #: .\inspection\models.py:538
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 #: .\inspection\models.py:539
 msgid "voltage and power normal"
-msgstr ""
+msgstr "电压电源正常"
 
 #: .\inspection\models.py:540
 msgid "indicator and instrument normal"
-msgstr ""
+msgstr "各指示信号灯，仪表正常"
+
+#: .\inspection\models.py:544
+#| msgid "Date of Inspection"
+msgid "Spray Pump Room Inspection"
+msgstr "喷淋泵房检查"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_create.html:21
-#: .\inspection\templates\dailyinspection\dailyinspection_list.html:96
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:82
 msgid "Create New Item"
 msgstr "创建新项目"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:58
+#: .\inspection\views.py:224
 msgid "Create"
 msgstr "创建"
 
@@ -822,14 +834,14 @@ msgid "All Categories"
 msgstr "所有种类"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:84
+msgid "Inspection Statistic"
+msgstr "巡检统计"
+
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:91
 #: .\inspection\templates\shelf\shelf_inspection_detail.html:204
 #: .\inspection\templates\shelf\shelf_inspection_list.html:38
 msgid "Nothing found"
 msgstr "无记录"
-
-#: .\inspection\templates\dailyinspection\dailyinspection_list.html:98
-msgid "Inspection Statistic"
-msgstr "巡检统计"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:105
 msgid "Latest Update"
@@ -862,36 +874,46 @@ msgid "Create Shelf Inspection"
 msgstr "创建货架检查"
 
 #: .\inspection\views.py:102 .\inspection\views.py:135
-#: .\inspection\views.py:222 .\inspection\views.py:236
-#: .\inspection\views.py:288 .\inspection\views.py:400
-#: .\inspection\views.py:498 .\inspection\views.py:567
+#: .\inspection\views.py:222 .\inspection\views.py:237
+#: .\inspection\views.py:289 .\inspection\views.py:401
+#: .\inspection\views.py:499 .\inspection\views.py:568
 #: .\site-packages\breadcrumbs\breadcrumbs.py:81 .\templates\navbar.html.py:19
 msgid "Home"
 msgstr "主页"
 
-#: .\inspection\views.py:212
+#: .\inspection\views.py:213
 msgid "daily inspection create successfully"
 msgstr "日常巡检创建成功"
 
-#: .\inspection\views.py:276
+#: .\inspection\views.py:277
 msgid "daily inspection updated successfully"
 msgstr "日常巡检更新成功"
 
-#: .\inspection\views.py:277
+#: .\inspection\views.py:278
 msgid "check content please"
 msgstr "请检查内容"
 
-#: .\inspection\views.py:280
+#: .\inspection\views.py:281
 msgid "daily inspection updated fail"
 msgstr "日常巡检更新失败"
 
-#: .\inspection\views.py:499
+#: .\inspection\views.py:500
 msgid "Shelf Inspection List"
 msgstr "货架检查列表"
 
-#: .\inspection\views.py:568
+#: .\inspection\views.py:569
 msgid "Shelf Inspection Detail"
 msgstr "货架检查详情"
+
+#: .\newsletter\templates\article\article_list.html:108
+msgid "Top News"
+msgstr ""
+
+#: .\newsletter\templates\article\article_list.html:125
+#, fuzzy
+#| msgid "Messages"
+msgid "Scroll Messages"
+msgstr "消息"
 
 #: .\site-packages-djangos\1.8.4\django\contrib\messages\apps.py:7
 #: .\site-packages-djangos\1.9\django\contrib\messages\apps.py:7

@@ -85,12 +85,13 @@ class EquipmentInspectionCreateView(CreateView):
             form.fields['equipment'].queryset = Equipment.objects.filter(type__id=cat)
 
         context["form"] = form
+        context["is_create_view"] = True
 
         return context
 
     def form_valid(self, form):
         instance = form.save()
-        return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': instance}))  
+        return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': instance, "is_create_view" : 1 }))  
 
 class EquipmentInspectionQuickUpdateView(ListView):
     model = ElectricalEquipmentInspection
@@ -152,4 +153,4 @@ class EquipmentInspectionUpdateView(UpdateView):
     def form_valid(self, form):
         form.save()
         item = ElectricalEquipmentInspection.objects.get(id=self.item_id)
-        return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item}))        
+        return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item, "is_create_view" : 0 }))        
