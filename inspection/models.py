@@ -485,7 +485,7 @@ class equipment_inspection(models.Model):
     def get_absolute_url(self):
         return reverse("equipmentinsepction_detail", kwargs={"pk": self.id})
 
-class ElectricalEquipmentInspectionManager(models.Manager):
+class EquipmentInspectionManager(models.Manager):
     def get_query_set(self):
         return models.query.QuerySet(self.model, using=self._db)
 
@@ -496,8 +496,8 @@ class ElectricalEquipmentInspectionManager(models.Manager):
         return self.get_query_set().filter(date_of_inspection__range=(start, end))
 
 
-class ElectricalEquipmentInspection(equipment_inspection):
-    objects = ElectricalEquipmentInspectionManager()
+class EquipmentInspection(equipment_inspection):
+    objects = EquipmentInspectionManager()
 
     class Meta:
         abstract = False

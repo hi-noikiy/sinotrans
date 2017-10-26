@@ -13,13 +13,13 @@ from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
 
 from .models import  (
-    ElectricalEquipmentInspection,
+    EquipmentInspection,
     EquipmentType,
     Equipment,
     )
 
 from .forms import (
-    ElectricalEquipmentInspectionForm, electrical_equipment_inspection_model_formset,
+    EquipmentInspectionForm, equipment_inspection_model_formset,
 )
 
 # Create your views here.
@@ -29,8 +29,8 @@ from .forms import (
 
 
 class EquipmentInspectionListView(ListView):
-    model = ElectricalEquipmentInspection
-    queryset = ElectricalEquipmentInspection.objects.get_this_day()
+    model = EquipmentInspection
+    queryset = EquipmentInspection.objects.get_this_day()
     #object_list = queryset
     template_name = "equipment/equipment_inspection_list.html"
 
@@ -40,11 +40,11 @@ class EquipmentInspectionListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(EquipmentInspectionListView, self).get_context_data(*args, **kwargs)
 
-        queryset = ElectricalEquipmentInspection.objects.all()
+        queryset = EquipmentInspection.objects.all()
         category_id = self.request.GET.get("category_id", None)
 
         if category_id and int(category_id) > 0:
-            queryset = ElectricalEquipmentInspection.objects.all().filter(equipment__type__id=category_id)
+            queryset = EquipmentInspection.objects.all().filter(equipment__type__id=category_id)
         else:
             category_id = 0
 
@@ -68,12 +68,12 @@ class EquipmentInspectionListView(ListView):
         return reverse("equipmentinsepction_list", kwargs={})
 
 class EquipmentInspectionDetailView(DetailView):
-    model = ElectricalEquipmentInspection
+    model = EquipmentInspection
     template_name = "equipment/equipment_inspection_detail.html"
 
 class EquipmentInspectionCreateView(CreateView):
-    model = ElectricalEquipmentInspection
-    form_class = ElectricalEquipmentInspectionForm
+    model = EquipmentInspection
+    form_class = EquipmentInspectionForm
     template_name = "equipment/equipment_inspection_create_form.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -94,8 +94,8 @@ class EquipmentInspectionCreateView(CreateView):
         return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': instance, "is_create_view" : 1 }))  
 
 class EquipmentInspectionQuickUpdateView(ListView):
-    model = ElectricalEquipmentInspection
-    queryset = ElectricalEquipmentInspection.objects.get_this_day()
+    model = EquipmentInspection
+    queryset = EquipmentInspection.objects.get_this_day()
     #object_list = queryset
     template_name = "equipment/equipment_inspection_quickupdate.html"
 
@@ -128,8 +128,8 @@ class EquipmentInspectionQuickUpdateView(ListView):
         return reverse("equipmentinsepction_quickupdate", kwargs={})    
 
 class EquipmentInspectionUpdateView(UpdateView):
-    model = ElectricalEquipmentInspection
-    form_class = ElectricalEquipmentInspectionForm
+    model = EquipmentInspection
+    form_class = EquipmentInspectionForm
     template_name = 'equipment/equipment_inspection_edit_form.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -137,7 +137,7 @@ class EquipmentInspectionUpdateView(UpdateView):
 
         form = self.get_form()
         try:
-            instance = ElectricalEquipmentInspection.objects.filter(pk=self.kwargs.get('pk',None))[0]
+            instance = EquipmentInspection.objects.filter(pk=self.kwargs.get('pk',None))[0]
             form.fields['equipment'].choices = ((instance.equipment.id, instance.equipment), )        
         except:
             pass
@@ -152,5 +152,5 @@ class EquipmentInspectionUpdateView(UpdateView):
 
     def form_valid(self, form):
         form.save()
-        item = ElectricalEquipmentInspection.objects.get(id=self.item_id)
+        item = EquipmentInspection.objects.get(id=self.item_id)
         return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item, "is_create_view" : 0 }))        

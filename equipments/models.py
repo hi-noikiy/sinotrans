@@ -45,6 +45,7 @@ class AbstractEquipmentInspection(models.Model):
 
     class Meta:
         verbose_name = _('Equipment Inspection')
+        verbose_name_plural = _('Equipment Inspection')
         abstract = True
         unique_together = (('equipment','inspector','date_of_inspection'),)
 
@@ -65,11 +66,13 @@ class ElectricalEquipmentInspectionManager(models.Manager):
         return self.get_query_set().filter(date_of_inspection__range=(start, end))
 
 
-class ElectricalEquipmentInspection(AbstractEquipmentInspection):
+class EquipmentInspection(AbstractEquipmentInspection):
     objects = ElectricalEquipmentInspectionManager()
 
     class Meta:
         abstract = False
-
+        verbose_name = _('Equipment Inspection')
+        verbose_name_plural = _('Equipment Inspection')
+        
     def __unicode__(self):
-        return "%s" % (self.equipment.name)            
+        return "%s" % (self.equipment.name)    

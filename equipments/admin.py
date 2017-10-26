@@ -4,11 +4,11 @@ from inspection.admin import my_admin_site
 from .models import (
     Equipment, 
     EquipmentType,
-    ElectricalEquipmentInspection,
+    EquipmentInspection,
     )
 
 from .forms import (
-    ElectricalEquipmentInspectionForm,
+    EquipmentInspectionForm,
 )
 
 # Register your models here.
@@ -28,14 +28,14 @@ class EquipmentAdmin(admin.ModelAdmin):
     class Meta:
         model = Equipment
 
-class ElectricalEquipmentInspectionAdmin(admin.ModelAdmin):
+class EquipmentInspectionAdmin(admin.ModelAdmin):
     list_display = ["equipment","use_condition","inspector","date_of_inspection","updated"]
     list_editable = ["use_condition","inspector"]
     list_filter = ["equipment","use_condition","inspector","date_of_inspection"]
-    form = ElectricalEquipmentInspectionForm
+    form = EquipmentInspectionForm
 
     class Meta:
-        model = ElectricalEquipmentInspection
+        model = EquipmentInspection
 
     class Media:
         css = {
@@ -47,8 +47,8 @@ class ElectricalEquipmentInspectionAdmin(admin.ModelAdmin):
 
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentType, EquipmentTypeAdmin)
-admin.site.register(ElectricalEquipmentInspection, ElectricalEquipmentInspectionAdmin)
+admin.site.register(EquipmentInspection, EquipmentInspectionAdmin)
 
 my_admin_site.register(Equipment, EquipmentAdmin)
 my_admin_site.register(EquipmentType, EquipmentTypeAdmin)
-my_admin_site.register(ElectricalEquipmentInspection, ElectricalEquipmentInspectionAdmin)        
+my_admin_site.register(EquipmentInspection, EquipmentInspectionAdmin)        

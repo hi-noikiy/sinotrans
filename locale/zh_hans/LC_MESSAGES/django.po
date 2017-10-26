@@ -577,7 +577,7 @@ msgstr ""
 
 #: .\inspection\models.py:303 .\inspection\templates\shelf\shelf_detail.html:8
 msgid "Warehouse Number"
-msgstr ""
+msgstr "仓库号"
 
 #: .\inspection\models.py:304
 #: .\inspection\templates\shelf\shelf_detail.html:10

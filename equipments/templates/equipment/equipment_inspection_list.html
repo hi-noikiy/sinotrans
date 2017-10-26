@@ -29,9 +29,9 @@ table tr.danger th{
 }
 
 .table>thead>tr>td.danger, .table>tbody>tr>td.danger, .table>tfoot>tr>td.danger, .table>thead>tr>th.danger, .table>tbody>tr>th.danger, .table>tfoot>tr>th.danger, .table>thead>tr.danger>td, .table>tbody>tr.danger>td, .table>tfoot>tr.danger>td, .table>thead>tr.danger>th, .table>tbody>tr.danger>th, .table>tfoot>tr.danger>th {
-    background-color: #f1eaea;
-    border-color: #f7cccc;
-    color: #555;
+    background-color: #428bca;
+    border-color: #428bca;
+    color: white;
 }
 
 table tr.danger th, table tr td{
@@ -125,7 +125,7 @@ table tr.danger th, table tr td{
 <script>
 {% block jquery %}
     $('tr.equipment-inspection-item a').click(function() {
-        $(this).parent().parent().siblings().removeClass('edit-item');
+        $(this).parent().parent().siblings().removeClass('active');
         $(this).parent().parent().addClass('edit-item');
     });
 {% endblock %}
