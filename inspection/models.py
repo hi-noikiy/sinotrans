@@ -404,6 +404,7 @@ class shelf_annual_inspection_image(models.Model):
     class Meta:
         verbose_name = _("shelf annual inspection image")
 
+""" to be delete """
 class extinguisher(models.Model):
     name = models.CharField(_('Name'), max_length=30, blank=True)   
     capacity = models.CharField(_('Capacity'), max_length=30, blank=True)   
@@ -436,6 +437,7 @@ class hydrant_inspection(models.Model):
 
     class Meta:
         verbose_name = _("hydrant inspection")
+""" to be delete """
 
 class rehearsal(models.Model):
     title = models.TextField(_('Title'), max_length=30, blank=True)   
@@ -445,67 +447,6 @@ class rehearsal(models.Model):
     class Meta:
         verbose_name = _("rehearsal")
 
-"""
-class equipment(models.Model):
-    equipment_type = (
-        ('electrical equipment', _('electrical equipment')),
-        ('emergency exit door', _('emergency exit door')),
-        ('emergency lamp', _('emergency lamp')),
-        ('entrance door', _('entrance door')),
-        ('downpipe', _('downpipe')),
-        ('fireproof door', _('fireproof door')),
-    )
-
-    name = models.CharField(_('Name'), max_length=30, blank=False, null=False) # name can include location
-    type = models.CharField(_('Type'), choices = equipment_type, max_length=30, blank=False, null=False)
-
-    class Meta:
-        verbose_name = _('equipment')
-
-    def __unicode__(self):
-        return "%s" % (self.name)
-
-class equipment_inspection(models.Model):
-    equipment_use_condition = (
-        ('normal', _('Normal')),
-        ('breakdown', _('Breakdown')),
-    )
-
-    equipment = models.ForeignKey(equipment)
-    use_condition = models.CharField(_('Use Condition'), choices=equipment_use_condition, max_length=30, blank=False,null=False,default='normal')
-    inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False)
-    updated = models.DateTimeField(auto_now_add=True, auto_now=False)
-
-    class Meta:
-        verbose_name = _('equipment inspection')
-        abstract = True
-        unique_together = (('equipment','inspector','date_of_inspection'),)
-
-    def get_absolute_url(self):
-        return reverse("equipmentinsepction_detail", kwargs={"pk": self.id})
-
-class EquipmentInspectionManager(models.Manager):
-    def get_query_set(self):
-        return models.query.QuerySet(self.model, using=self._db)
-
-    def get_this_day(self):
-        start = timezone.now().date()
-        end = start + timedelta(days=1)
-
-        return self.get_query_set().filter(date_of_inspection__range=(start, end))
-
-
-class EquipmentInspection(equipment_inspection):
-    objects = EquipmentInspectionManager()
-
-    class Meta:
-        abstract = False
-        unique_together = (('equipment','inspector','date_of_inspection'),)
-
-    def __unicode__(self):
-        return "%s" % (self.equipment.name)
-"""
 
 month_choice = (
     ('1jan', _('January')),
@@ -538,6 +479,8 @@ class SprayPumpRoomInspection(models.Model):
     month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False,null=False)
     voltage_and_power_normal = models.BooleanField(_('voltage and power normal'), blank=True, default=False)
     indicator_and_instrument_normal = models.BooleanField(_('indicator and instrument normal'), blank=True, default=False)
+    inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
+    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False,default='1970-01-01')
 
     objects = SprayPumpRoomInspectionManager()
     def __unicode__(self):
@@ -545,3 +488,6 @@ class SprayPumpRoomInspection(models.Model):
 
     class Meta:
         ordering = ('month',)
+        verbose_name = _("Spray Pump Room Inspection")
+        verbose_name_plural = _("Spray Pump Room Inspection")
+        #unique_together = (('month','yera',),)
