@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import (
     OfficeInspection,
     DailyInspection,
-    forklift_maint, forklift,forklift_image, forklift_repair, forklift_annual_inspection, forklift_annual_inspection_image,
     shelf, shelf_inspection, shelf_inspection_record,
     SprayPumpRoomInspection)
     
@@ -47,51 +46,7 @@ class DailyInspectionAdmin(admin.ModelAdmin):
         }
         js = ("js/jquery.min.js","js/model_admin.js",)
         
-class forklift_imageInline(admin.TabularInline):
-    model = forklift_image
-    extra = 0
-    max_num = 10
 
-class forkliftAdmin(admin.ModelAdmin):
-    list_display = ["internal_car_number", "internal_plate_number",'sn']
-    search_fields = ('internal_car_number',)
-    list_filter = ('category',)
-    ordering = ('sn',)
-
-    fieldsets= [
-        ('Information',{
-             'fields':
-                (
-                 'internal_car_number',
-                 'internal_plate_number',
-                 'model',
-                 'sn',
-                 'category',
-                 'width',
-                 'length'
-                 )}),
-        ("Record",{
-             'fields':
-                 (
-                 'manufacturer',                 
-                 'tip_height',                                  
-                 'carrying_capacity',
-                 'self_weight',
-                 'turning_radius',
-                 'front_tyre_size',
-                 'back_tyre_size',   
-                 'fork_length',
-                 'maximum_velocity'
-                 )}),]    
-
-    #readonly_fields = ('internal_car_number',)
-
-    inlines = [
-        forklift_imageInline,
-    ]
-
-    class Meta:
-        model = forklift
 
 
 class shelfAdmin(admin.ModelAdmin):
@@ -155,14 +110,12 @@ class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
 
 admin.site.register(DailyInspection, DailyInspectionAdmin)
 admin.site.register(OfficeInspection, OfficeInspectionAdmin)
-admin.site.register(forklift, forkliftAdmin)
 admin.site.register(shelf, shelfAdmin)
 admin.site.register(shelf_inspection, shelf_inspectionAdmin)
 admin.site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
-my_admin_site.register(forklift, forkliftAdmin)
 my_admin_site.register(shelf, shelfAdmin)
 my_admin_site.register(shelf_inspection, shelf_inspectionAdmin)
 my_admin_site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)

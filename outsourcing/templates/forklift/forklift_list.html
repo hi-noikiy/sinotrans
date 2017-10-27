@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-3 '>
+		placehold
+	</div>
+	<div class='col-sm-6 '>
+	    <div class="object_lists" style="clear: both;">
+			{% autopaginate object_list 8 %}
+            
+			{% if object_list.count == 0 %}
+				{% trans "Nothing found" %}
+			{% else %}
+				{% for object in object_list %}
+					{{object}}
+
+					<hr>
+
+					{% if object.forkliftimage_set.count > 0 %}
+						{% for img in object.forkliftimage_set.all %}						
+							<img class= 'img-responsive' src={{img.image.url}} />
+						{% endfor %}
+					{% endif %}
+
+					<hr>
+
+					{% if object.forkliftmaint_set.count > 0 %}
+						{% for forkliftmaint in object.forkliftmaint_set.all %}						
+							{{forkliftmaint}}<br>
+						{% endfor %}
+					{% endif %}		
+
+					<hr>
+
+					{% if object.forkliftrepair_set.count > 0 %}
+						{% for forkliftrepair in object.forkliftrepair_set.all %}						
+							{{forkliftrepair}}<br>
+						{% endfor %}
+					{% endif %}	
+
+					<hr>
+
+					{% if object.forkliftannualinspection_set.count > 0 %}
+						{% for forkliftannualinspection in object.forkliftannualinspection_set.all %}						
+							{{forkliftannualinspection}}<br>
+							{% if forkliftannualinspection.forkliftannualinspectionimage_set.count > 0 %}
+								{% for img in forkliftannualinspection.forkliftannualinspectionimage_set.all %}						
+									<img class= 'img-responsive' src={{img.image.url}} />
+								{% endfor %}
+							{% endif %}							
+						{% endfor %}
+					{% endif %}						
+				{% endfor %}
+			{% endif %}
+            
+			<div class="text-center">
+			{% paginate %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

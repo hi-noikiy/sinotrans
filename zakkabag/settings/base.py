@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'equipments',
     'trainings',    
+    'outsourcing',        
     'authwrapper',
     'newsletter',
     'personalcenter',
