@@ -938,7 +938,6 @@ msgid "forklift annual inspection image"
 msgstr "叉车年检图片"
 
 #: .\outsourcing\views.py:30
-#, fuzzy
 #| msgid "forklift"
 msgid "Forklift"
 msgstr "叉车"

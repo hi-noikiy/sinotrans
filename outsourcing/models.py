@@ -34,6 +34,9 @@ class Forklift(models.Model):
     def __unicode__(self): 
         return _("forklift") + self.internal_car_number
 
+    def get_absolute_url(self):
+        return reverse("forklift_detail", kwargs={"pk": self.pk })
+
     class Meta:
         verbose_name = _("forklift")
         verbose_name_plural = _("forklift")

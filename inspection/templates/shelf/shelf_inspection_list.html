@@ -6,28 +6,6 @@
 <style type="text/css">
 {% block style %}
 
-.header{
-    padding: 10px 0 10px;
-    background-color: #a5d2e8;
-    border: 1px solid #337ab7;
-}
-
-.body:hover{
-    background-color: #d9f6f7;
-}
-
-a:link {text-decoration: none;}
-a:visited {text-decoration: none;}
-a:active {text-decoration: none;}
-a:hover {text-decoration: none;}
-
-.row1, .row2{
-    padding: 5px 0 5px;
-}
-
-.row2{
-    background-color: #d9edf7;
-}
 
 {% endblock%}
 </style>
@@ -40,7 +18,7 @@ a:hover {text-decoration: none;}
 <a href="{% url 'home'  %}"><i class="fa fa-file-excel-o fa-1x" aria-hidden="true"></i></a>
 
 
-<div class="row header">
+<div class="row div-table-header">
     <div class="col-xs-3">{% trans 'Create Date' %}</div>
     <div class="col-xs-3">{% trans 'Use Condition' %}</div>
     <div class="col-xs-3">{% trans 'Locked' %}</div>
@@ -48,7 +26,7 @@ a:hover {text-decoration: none;}
 </div>
 
 {% for record in records %}
-<div class="row {% cycle 'row1' 'row2' %} body">
+<div class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-body">
     <div class="col-xs-3"><a href='{{ record.0.get_absolute_url }}'>{{record.0.check_date}}</a></div>
     <div class="col-xs-3">{{record.1}}</div>
     <div class="col-xs-3">{{record.2}}</div>

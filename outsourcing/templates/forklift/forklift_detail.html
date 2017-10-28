@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-3 '>
+		placehold
+	</div>
+	<div class='col-sm-9 '>
+
+		<div class="panel panel-default">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            {% trans "Base Information" %}
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+				<table class="forklift-detail custom-style-1 table-striped table-hover table-responsive table-condensed">
+					<tbody>
+						<tr>
+							<th>{% trans "Inner Car Number" %}</th><td>{{object.internal_car_number}}</td>
+						</tr>
+						<tr>
+							<th>{% trans "Forklift Model" %}</th><td>{{object.internal_plate_number}}</td>
+						</tr>
+						<tr>					
+							<th>{% trans "SN" %}</th><td>{{object.model}}</td>
+						</tr>
+						<tr>					
+							<th>{% trans "Forklift Category" %}</th><td>{{object.sn}}</td>
+						</tr>
+						<tr>					
+							<th>{% trans "Manufacturer" %}</th><td>{{object.category}}</td>
+						</tr>
+						<tr>					
+							<th>{% trans "forklift image" %}</th><td>{{object.manufacturer}}</td>
+						</tr>
+
+					</tbody>
+				</table>	
+		    </div>
+		</div>
+
+
+
+		<div class="panel panel-default">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            {% trans "forklift image" %}
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+				{% if object.forkliftimage_set.count > 0 %}
+					{% for img in object.forkliftimage_set.all %}						
+						<img class= 'img-responsive' src={{img.image.url}} />
+					{% endfor %}
+				{% endif %}
+		    </div>
+		</div>
+
+
+
+		<div class="panel panel-default">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            {% trans "forklift maintenance" %}
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+				{% if object.forkliftmaint_set.count > 0 %}
+					{% for forkliftmaint in object.forkliftmaint_set.all %}						
+						{{forkliftmaint}}<br>
+					{% endfor %}
+				{% endif %}		
+		    </div>
+		</div>
+
+
+
+		<div class="panel panel-default">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            {% trans "forklift repair" %}
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+				{% if object.forkliftrepair_set.count > 0 %}
+					{% for forkliftrepair in object.forkliftrepair_set.all %}						
+						{{forkliftrepair}}<br>
+					{% endfor %}
+				{% endif %}		
+		    </div>
+		</div>
+
+
+
+		<div class="panel panel-default">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            {% trans "forklift annual inspection" %}
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+				{% if object.forkliftannualinspection_set.count > 0 %}
+					{% for forkliftannualinspection in object.forkliftannualinspection_set.all %}						
+						{{forkliftannualinspection}}<br>
+						{% if forkliftannualinspection.forkliftannualinspectionimage_set.count > 0 %}
+							{% for img in forkliftannualinspection.forkliftannualinspectionimage_set.all %}						
+								<img class= 'img-responsive' src={{img.image.url}} />
+							{% endfor %}
+						{% endif %}							
+					{% endfor %}
+				{% endif %}		
+		    </div>
+		</div>
+
+
+	</div>
+</div>
+
+{% endblock %}					

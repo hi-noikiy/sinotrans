@@ -47,5 +47,5 @@ class ForklifDetailView(DetailView):
             (_("Forklift"),reverse("forklift_list", kwargs={})),            
             (self.get_object(), request.path_info),
         ])
-        return super(ForkliftListView, self).dispatch(request,args,kwargs)           
+        return super(ForklifDetailView, self).dispatch(request,args,kwargs)           
 

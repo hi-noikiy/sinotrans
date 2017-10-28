@@ -11,6 +11,12 @@ a:visited {text-decoration: none;}
 a:active {text-decoration: none;}
 a:hover {text-decoration: none;}
 
+.left-bar{
+	background-color: aliceblue;
+	border-radius : 3px;
+	color: #777;
+	padding-top: 8px;
+}
 div.categorylist{
 	margin-right: 0px; /* if the value > 0, then next div will move to next line*/
 	padding: 15px 8px;
@@ -50,7 +56,7 @@ $(document).ready(function(){
 {% block content %}
 
 <div class='row'>
-	<div class='col-xs-4 col-sm-3 col-md-2 '>
+	<div class='col-xs-4 col-sm-3 col-md-2 left-bar'>
 		<form method="GET" action="{% url 'dailyinspection_list' %}">
 			{{ InspectionFilterForm|crispy }}
 
