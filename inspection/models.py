@@ -161,6 +161,7 @@ class DailyInspection(models.Model):
     def get_created_date(self):
         return self.created.strftime("%Y-%m-%d")
 
+    # can be replaced by field.value_to_string(object)
     def get_field_value(self,fieldname):
 
         if not hasattr(self, fieldname):
@@ -203,6 +204,7 @@ class shelf(models.Model):
     def get_fields(self):
         return shelf._meta.get_fields()
 
+    # can be replaced by field.value_to_string(object)
     def get_field_value(self,fieldname):
 
         if not hasattr(self, fieldname):
@@ -251,6 +253,7 @@ class shelf_inspection_record(models.Model):
     def get_absolute_url(self):
         return reverse("shelf_inspection_record_detail", kwargs={"pk": self.id })
 
+    # can be replaced by field.value_to_string(object)
     def get_field_value(self,fieldname):
 
         if not hasattr(self, fieldname):

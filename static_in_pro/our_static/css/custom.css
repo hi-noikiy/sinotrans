@@ -82,6 +82,14 @@ table tr.cus-head th {
     text-align: center;
 }
 
+table.transposition{
+    text-align:left;
+}
+
+table.transposition tr th{
+    width:40%;
+}
+
 /* strip style */
 .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th ,

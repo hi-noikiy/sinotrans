@@ -11,8 +11,16 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from .models import (
-	Forklift
+	Forklift, ForkliftMaint, 
 	)
+
+def option_value_convertion(tuple_enum,key):
+	dict_enum = dict(tuple_enum)
+	if key in dict_enum.keys():
+		return dict_enum[key]
+	else:
+		return None
+
 # Create your views here.
 class ForkliftListView(ListView): 
     model = Forklift
@@ -38,6 +46,15 @@ class ForklifDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ForklifDetailView, self).get_context_data(*args, **kwargs)
         context["object"] = self.get_object()
+
+        exclude = {
+        'id','updated','created','forklift'
+        }
+        forklift_maint_objects = ForkliftMaint.objects.filter(forklift=self.get_object())
+        for forklift_maint_object in forklift_maint_objects:
+        	from .models import RESULT_OPTION
+        	forklift_maint_object.fields = dict((field.verbose_name, option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))) for field in forklift_maint_object._meta.fields if not field.name in exclude)
+        context["forklift_maint_objects"] = forklift_maint_objects
         
         return context       
 
