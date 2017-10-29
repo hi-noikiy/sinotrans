@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +31,22 @@
   </head>
 
   <body>
+
     {% include 'navbar.html' %}
+
+    {% block nav-2nd %}
+    <div class="container-fluid nva-bar-2">
+        <div class='container'>    
+            <ul class="list-inline">
+                <li><a href="{% url 'dailyinspection_list' %}">{% trans 'Inspection' %}</a></li>
+                <li><a href="{% url 'shelf_inspection_list' %}">{% trans 'Shelf' %}</a></li>
+                <li><a href="{% url 'equipmentinsepction_list' %}">{% trans 'Equipment' %}</a></li>
+                <li><a href="{% url 'forklift_list' %}">{% trans 'Forklift' %}</a></li>                
+                <li><a href="{% url 'spraypumproominspection_list' %}">{% trans 'Spray Pump' %}</a></li>
+            </ul> 
+        </div>
+    </div>
+    {% endblock %}
 
     {% block breadcrumb  %}
     <div class="container" style="padding: 10px 0 10px 0px; ">
@@ -77,25 +93,15 @@
       {% endblock %}
     </div>
 
-{% comment %}
-    <div class='container'>    
-        <hr>
-        <ul class="list-inline">
-            友情链接：
-            <li><a href="http://www.webdog.cn/" target="_blank">发现中国</a></li>   
-            <li><a href="http://www.aboboo.com/" target="_blank">外语学习</a></li>   
-            <li><a href="http://www.wuzheng.org/" target="_blank">无争围棋网</a></li>  
-            <li><a href="http://www.guokr.com/" target="_blank">果壳网</a></li>  
-            <li><a href="http://www.fuwo.com/" target="_blank">爱福窝</a></li>  
-            <li><a href="http://www.guoku.com/" target="_blank">果库</a></li>  
-            <li><a href="http://www.python88.com/" target="_blank">py社区</a></li> 
-        </ul> 
-    </div>
-{% endcomment %}
+    {% block scroll %}
+      {% include "scroll.html" %}
+    {% endblock %}
 
     {% block footer %}
       {% include "footer.html" %}
     {% endblock %}
+
+
 
     {% include "javascript.html" %}   
 

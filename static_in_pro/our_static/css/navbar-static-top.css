@@ -4,9 +4,9 @@ body {
 
 
 .navbar-static-top {
-  background-color: #5ACDFF;
-  margin-bottom: 0px;
-  border-color: #00B2FF;    
+  /*background-color: #5ACDFF;*/
+  /*border-color: #00B2FF;*/
+  margin-bottom: 0px;  
 }
 
 .navbar-default .navbar-brand {
@@ -36,4 +36,20 @@ body {
 
 .navbar-toggle {
 	background-color: #5ACDFF !important;
+}
+
+
+
+/* nav bar second level */
+.nva-bar-2 {
+	background-color: #f8f8f8;
+	border-bottom: solid 1px #e7e7e7;
+	background: -webkit-linear-gradient(#f8f8f8, #d9d9d9); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(#f8f8f8, #d9d9d9); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(#f8f8f8, #d9d9d9); /* Firefox 3.6 - 15 */
+	background: linear-gradient(#f8f8f8, #d9d9d9); /* standard */	
+}
+
+.nva-bar-2 ul, .nva-bar-2  ol{
+    margin-top: 10px; /* = margin bottom*/
 }

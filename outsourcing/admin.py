@@ -50,10 +50,10 @@ class ForkliftRepairAdmin(admin.ModelAdmin):
     ordering = ('repaire_date',) 
 
 class ForkliftMaintAdmin(admin.ModelAdmin):
-    list_display = ["clean_forklift", ]
-    search_fields = ("clean_forklift", )
-    list_filter = ("clean_forklift", )
-    ordering = ('clean_forklift',) 
+    list_display = ["created", "updated"]
+    search_fields = ("created", "updated" )
+    list_filter = ("created", "updated" )
+    ordering = ("created", "updated") 
 
 class ForkliftAdmin(admin.ModelAdmin):
     list_display = ["internal_car_number", "internal_plate_number",'sn']

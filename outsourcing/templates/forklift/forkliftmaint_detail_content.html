@@ -4,11 +4,11 @@
     data-target="#collapse{{object.id}}">
     {{ object.created }}
 </button> 
-<div id="collapse{{object.id}}" class="collapse">
+<div id="collapse{{object.id}}" class="collapse"> <!--  collapse in if display at the begining-->
 	<table class="forkliftmaint-detail transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
 		<tbody>
 		{% for field, value in object.fields.iteritems %}
-			<tr><th>{{field}}</th><td>{{value}}</td></tr>
+			<tr><th style="width:80%;">{{field}}</th><td>{{value}}</td></tr>
 		{% endfor %}
 		</tbody>
 	</table>	
