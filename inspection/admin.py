@@ -16,8 +16,20 @@ from django.contrib.admin import AdminSite
 
 class MyAdminSite(AdminSite):
     site_header = 'SINOTRANS'
+    site_title = "SINOTRANS"
+    #site_url = None
+    index_title = "SINOTRANS Management"
+    """        index_template
+    app_index_template
+    empty_value_display
+    login_template
+    login_form
+    logout_template
+    password_change_template
+    password_change_done_template
+    """
 
-my_admin_site = MyAdminSite(name='SINOTRANS')
+my_admin_site = MyAdminSite(name='sinotrans')
 
 # Register your models here.
 class OfficeInspectionAdmin(admin.ModelAdmin):

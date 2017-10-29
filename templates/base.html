@@ -13,7 +13,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="{% static 'img/favicon_sinotrans.ico' %}">
 
     <title>{% block head_title %}Sinotrans{% endblock %}</title>
 
@@ -35,19 +35,13 @@
     {% include 'navbar.html' %}
 
     {% block nav-2nd %}
-    <div class="container-fluid nva-bar-2">
-        <div class='container'>    
-            <ul class="list-inline">
-                <li><a href="{% url 'dailyinspection_list' %}">{% trans 'Inspection' %}</a></li>
-                <li><a href="{% url 'shelf_inspection_list' %}">{% trans 'Shelf' %}</a></li>
-                <li><a href="{% url 'equipmentinsepction_list' %}">{% trans 'Equipment' %}</a></li>
-                <li><a href="{% url 'forklift_list' %}">{% trans 'Forklift' %}</a></li>                
-                <li><a href="{% url 'spraypumproominspection_list' %}">{% trans 'Spray Pump' %}</a></li>
-            </ul> 
-        </div>
-    </div>
+      {% include 'navbar_2nd.html' %}
     {% endblock %}
 
+    {% block scroll %}
+      {# include "scroll.html" #}
+    {% endblock %}
+    
     {% block breadcrumb  %}
     <div class="container" style="padding: 10px 0 10px 0px; ">
         <ol class="breadcrumb" style="margin-bottom:0; background-color: white">
@@ -92,10 +86,6 @@
       {% block content %}
       {% endblock %}
     </div>
-
-    {% block scroll %}
-      {% include "scroll.html" %}
-    {% endblock %}
 
     {% block footer %}
       {% include "footer.html" %}

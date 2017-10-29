@@ -7,9 +7,16 @@ from django.utils.translation import ugettext_lazy as _
 # Create your models here.
 
 RESULT_OPTION = (
-    ('yes', 'Yes'),
-    ('no', 'No'),
+    ('yes', _('Yes')),
+    ('no', _('No')),
 )
+
+def option_value_convertion(tuple_enum,key):
+    dict_enum = dict(tuple_enum)
+    if key in dict_enum.keys():
+        return dict_enum[key]
+    else:
+        return None
 
 class Forklift(models.Model):
     """docstring for Forklift"""
@@ -104,7 +111,7 @@ class ForkliftRepair(models.Model):
     damage_reason = models.CharField(_('Damage Reason'), max_length=30, blank=True)
     accessories_name = models.CharField(_('Accessories Name'), max_length=30, blank=True)
     accessories_num = models.DecimalField(_('Accessories Number'), decimal_places=0, max_digits=20, blank=True)
-    description = models.TextField(_('Breakdown Description'), max_length=30, blank=False)  
+    description = models.TextField(_('Breakdown Description'), max_length=130, blank=False)  
     repaired = models.CharField(_('Repaired'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')  
     repaire_date = models.DateField(_('Repaire Date'),auto_now_add=False, auto_now=False)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
@@ -116,6 +123,10 @@ class ForkliftRepair(models.Model):
 
     def __unicode__(self): 
         return _("forklift repair") + " %s %s" % (self.forklift.internal_car_number, self.repaire_date)
+
+    def get_repaired(self):
+        #print self._meta.fields
+        return option_value_convertion(RESULT_OPTION, self.repaired)
 
 class ForkliftAnnualInspection(models.Model):
     forklift = models.ForeignKey(Forklift, verbose_name=_("forklift"))

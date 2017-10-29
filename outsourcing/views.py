@@ -14,12 +14,7 @@ from .models import (
 	Forklift, ForkliftMaint, 
 	)
 
-def option_value_convertion(tuple_enum,key):
-	dict_enum = dict(tuple_enum)
-	if key in dict_enum.keys():
-		return dict_enum[key]
-	else:
-		return None
+from .models import option_value_convertion
 
 # Create your views here.
 class ForkliftListView(ListView): 

@@ -1,15 +1,17 @@
 {% load staticfiles %}
 
-<div style="width:100%; background:#d9d9d9; margin-top:30px;">
-	<table width="1010" border="0" cellpadding="0" cellspacing="0" align="center" style="background:#d9d9d9;">
-		<tbody>
-			<tr>
-				<td width="34" height="35"><img src="{% static 'img/stock.jpg' %}" width="33" height="35"></td>
-				<td width="80" align="left" style="font-size:18px; font-family:微软雅黑; color:#00478b;">股价信息</td>
-				<td align="left" valign="middle">
-					<iframe height="30" marginheight="0" border="0" src="http://www.aastocks.com.cn/user/sinotrans/scroll_china.aspx" frameborder="no" width="880" allowtransparency="allowtransparency" marginwidth="0" scrolling="no"></iframe>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+<div class="container-fluit" style="background:#d9d9d9;" >
+	<div style="width:100%;  " class="container">
+		<table width="1010" border="0" cellpadding="0" cellspacing="0" align="left">
+			<tbody>
+				<tr>
+					<td width="34" height="35"><img src="{% static 'img/stock.jpg' %}" width="33" height="35"></td>
+					<td width="80" align="left" style="font-size:18px; font-family:微软雅黑; color:#00478b;">股价信息</td>
+					<td align="left" valign="middle">
+						<iframe height="30" marginheight="0" border="0" src="http://www.aastocks.com.cn/user/sinotrans/scroll_china.aspx" frameborder="no" width="880" allowtransparency="allowtransparency" marginwidth="0" scrolling="no"></iframe>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

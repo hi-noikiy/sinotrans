@@ -26,7 +26,8 @@ urlpatterns = [
 
     url(r'^admin/jsi18n', i18n_javascript),  # added for AdminDateTimeWidget
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^sino/', my_admin_site.urls),
+    url(r'^sino/', include(my_admin_site.urls)),
+#    url(r'^sino/', my_admin_site.urls, namespace='sino'),
 	
 
     url(r'^personalcenter/', include('personalcenter.urls')),
