@@ -44,24 +44,28 @@
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
                 <table class="custom-style-1 table table-striped table-hover table-responsive table-condensed" cellspacing='0'>
-                    <tr class="cus-head" style="border-top-width: 2px;">
-                        <th>{% trans "Equipment" %} </th>
-                        <th>{% trans "Use Condition" %} </th>
-                        <th>{% trans "Inspector" %} </th>
-                        <th>{% trans "Date of inspection" %} </th>
-                        <th></th>
-                    </tr>
-                    {% for object in object_list %}
-                        <tr class="equipment-inspection-item">
-                            <td> {{object.equipment}}</td>
-                            <td> {{object.get_use_condition}}</td>
-                            <td> {{object.inspector}}</td>
-                            <td> {{object.date_of_inspection}}</td>
-                            <td>
-                                <a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a>
-                            </td>
+                    <thead>
+                        <tr class="table-primary" style="border-top-width: 2px;">
+                            <th>{% trans "Equipment" %} </th>
+                            <th>{% trans "Use Condition" %} </th>
+                            <th>{% trans "Inspector" %} </th>
+                            <th>{% trans "Date of inspection" %} </th>
+                            <th></th>
                         </tr>
-                    {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for object in object_list %}
+                            <tr class="equipment-inspection-item">
+                                <td> {{object.equipment}}</td>
+                                <td> {{object.get_use_condition}}</td>
+                                <td> {{object.inspector}}</td>
+                                <td> {{object.date_of_inspection}}</td>
+                                <td>
+                                    <a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
