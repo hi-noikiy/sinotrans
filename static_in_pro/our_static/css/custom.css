@@ -105,13 +105,17 @@ div.div-table-body select{
 /*******************  
 
            table 
+
+table-align-center  : text align center for both head and body
+transposition : from top to botom (label, content)
+table-primary : color css
+table-primary-hover : adapted primary color when hover, active, strip
            
 *********************/
 
 /* align */
-table.custom-style-1,
-table.custom-style-1 thead tr th{
-{
+table.table-align-center tbody tr td,
+table.table-align-center thead tr th{
     text-align: center;
 }
 
@@ -124,30 +128,30 @@ table.transposition tr th{
 }
 
 /* strip style */
+
+/*
+.table-striped > tbody > tr:nth-of-type(odd) {  
+    background-color: #f9f9f9;
+}
+*/
+
 .table-striped>tbody>tr:nth-child(odd)>td, 
-.table-striped>tbody>tr:nth-child(odd)>th ,
-.table-striped>tbody>tr:hover 
+.table-striped>tbody>tr:nth-child(odd)>th 
 {
-    background-color: rgba(188, 232, 241, 0.33);
+    background-color: #e9f8fb;
 }
 
-
-/* not take effect ? */
-.table-hover>tbody>tr:hover{
-    background-color:rgba(188, 232, 241, 0.33);
+.table-hover>tbody>tr.table-primary-hover:hover th,
+.table-hover>tbody>tr.table-primary-hover:hover td,
+.table-hover>tbody>tr.table-primary-hover.active:hover>td,
+.table-hover>tbody>tr.table-primary-hover.active:hover>th,
+.table-hover>tbody>tr.table-primary-hover:hover>.active,
+.table-hover>tbody>tr.table-primary-hover>td.active:hover,
+.table-hover>tbody>tr.table-primary-hover>th.active:hover{
+    background-color: #eee;
 }
 
-/* not take effect ? */
-.table-hover>tbody>tr.active:hover>td,
-.table-hover>tbody>tr.active:hover>th,
-.table-hover>tbody>tr:hover>.active,
-.table-hover>tbody>tr>td.active:hover,
-.table-hover>tbody>tr>th.active:hover{
-    background-color:rgba(188, 232, 241, 0.33)!important;
-}
-
-/* header style - after strip if no thead */
-table.custom-style-1 thead tr,
+/* header style */
 .table>thead>tr.table-primary, 
 .table>thead>tr>td.table-primary, 
 .table>tbody>tr>td.table-primary, 
@@ -179,7 +183,7 @@ table tr.table-primary th{
              left navigation 
              
 **************************/
-.custom-style-1 .nav-title{
+.nav-bar .nav-title{
     padding: 10px 15px 10px 15px;
     background-color: #428bca;
     border-radius: 5px;
@@ -187,14 +191,14 @@ table tr.table-primary th{
     color: #f5f5f5;
 }
 
-.custom-style-1 ul.nav-stacked{
+.nav-bar ul.nav-stacked{
     background-color: #eee;
     border-radius: 5px;
 }
 
-.custom-style-1 .nav-pills>li.active>a, 
-.custom-style-1 .nav-pills>li.active>a:hover, 
-.custom-style-1 .nav-pills>li.active>a:focus {
+.nav-bar .nav-pills>li.active>a, 
+.nav-bar .nav-pills>li.active>a:hover, 
+.nav-bar .nav-pills>li.active>a:focus {
     color: #fff;
     background-color: #ccc!important; /*overwrite bootstrap*/
 }

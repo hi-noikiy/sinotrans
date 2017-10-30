@@ -18,7 +18,7 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-3">
-        <div class="custom-style-1" style="margin-right:20%;">
+        <div class="nav-bar" style="margin-right:20%;">
             <p class="nav-title">{% trans "Insepction Categories" %}</p>
             <ul class="nav nav-pills nav-stacked">
               <li><a href="{% url 'equipmentinsepction_list' %}?category_id=0">All</a></li>
@@ -43,7 +43,7 @@
             <div class="col-sm-12">
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
-                <table class="custom-style-1 table table-striped table-hover table-responsive table-condensed" cellspacing='0'>
+                <table class="table-align-center table table-striped table-hover table-responsive table-condensed" cellspacing='0'>
                     <thead>
                         <tr class="table-primary" style="border-top-width: 2px;">
                             <th>{% trans "Equipment" %} </th>
@@ -55,7 +55,7 @@
                     </thead>
                     <tbody>
                         {% for object in object_list %}
-                            <tr class="equipment-inspection-item">
+                            <tr class="equipment-inspection-item table-primary-hover">
                                 <td> {{object.equipment}}</td>
                                 <td> {{object.get_use_condition}}</td>
                                 <td> {{object.inspector}}</td>
