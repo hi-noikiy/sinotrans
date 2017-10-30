@@ -24,9 +24,9 @@
 			{% if object_list.count == 0 %}
 				{% trans "Nothing found" %}
 			{% else %}
-				<table class="forklift-list custom-style-1 table-striped table-hover table-responsive table-condensed">
+				<table class="forklift-list table-align-center table-hover  table table-striped table-hover table-responsive table-condensed">
 					<thead>
-						<tr>
+						<tr class="table-primary">
 							<th></th>
 							<th>{% trans "Inner Car Number" %}</th>
 							<th>{% trans "Inner Plate Number" %}</th>
@@ -39,7 +39,7 @@
 					</thead>
 					<tbody>
 					{% for object in object_list %}
-						<tr>
+						<tr class="table-primary-hover">
 							<td><a href="{{ object.get_absolute_url }}">{{object}}</a>	</td>
 							<td>{{object.internal_car_number}}</td>
 							<td>{{object.internal_plate_number}}</td>

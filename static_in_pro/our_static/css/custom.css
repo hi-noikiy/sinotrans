@@ -117,6 +117,7 @@ table-primary-hover : adapted primary color when hover, active, strip
 table.table-align-center tbody tr td,
 table.table-align-center thead tr th{
     text-align: center;
+    vertical-align: middle;
 }
 
 table.transposition{
@@ -148,7 +149,7 @@ table.transposition tr th{
 .table-hover>tbody>tr.table-primary-hover:hover>.active,
 .table-hover>tbody>tr.table-primary-hover>td.active:hover,
 .table-hover>tbody>tr.table-primary-hover>th.active:hover{
-    background-color: #eee;
+    background-color: #eeeeee;
 }
 
 /* header style */
