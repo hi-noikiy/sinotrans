@@ -140,11 +140,11 @@
 	    elem_gradient.parent().prev().text(responseText.gradient);
 	    if(responseText.gradient>1.4){
 	    	//elem_gradient.parent().prev().css('background-color','#e671d9');
-	    	elem_gradient.parent().prev().addClass('highlight-div-cell');
+	    	elem_gradient.parent().prev().addClass('div-table-cell-highlight');
 	    	
 	    }else{
 	    	//elem_gradient.parent().prev().css('background-color','');
-	    	elem_gradient.parent().prev().removeClass('highlight-div-cell');
+	    	elem_gradient.parent().prev().removeClass('div-table-cell-highlight');
 	    }
 	    var is_locked = responseText.form_id + '-' + 'is_locked'	    
 	    var elem_is_locked = $("#" + is_locked);	    
@@ -193,7 +193,7 @@
     <div class="col-sm-3 ">
     	<form method="GET" action="">	
 			{{ shelfFilterForm|crispy }}
-			<input type='submit' value="{% trans 'Apply Filter' %}" class='btn btn-default'> <a class="btn btn-default" href="{{object.get_absolute_url}}"  >{% trans 'Clear Filters' %}</a>
+			<input type='submit' value="{% trans 'Apply Filter' %}" class='btn btn-primary'> <a class="btn btn-default" href="{{object.get_absolute_url}}"  >{% trans 'Clear Filters' %}</a>
 		</form>
 		  		
 	    <hr>

@@ -47,10 +47,11 @@ a:hover {text-decoration: none;}
 .div-table-header{
     padding: 10px 0 10px;
     background-color: #a5d2e8;
-    border: 1px solid #337ab7;
+    border-top: 1px solid #337ab7;
+    border-bottom: 1px solid #337ab7;
 }
 
-.div-table-body:hover{
+.div-table-body div.div-table-row:hover{
     background-color: #d9f6f7;
 }
 
@@ -62,9 +63,42 @@ a:hover {text-decoration: none;}
     background-color: #d9edf7;
 }
 
-.highlight-div-cell{
+.div-table-cell-highlight{
     background-color:#e671d9; 
     border-radius: 3px; 
+}
+
+/*
+@screen-xs-max: 767px;
+@screen-sm-min : 758px;
+@screen-sm-max : 991px;
+@screen-md-min : 992px;
+@screen-md-max : 1119px;
+@screen-lg-min : 1200px;
+
+@media (max-width: @screen-xs-max) { .div-table-row2{background-color: red;  }}
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { .div-table-row2{background-color: green;  }}
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { background-color: black;  }
+@media (min-width: @screen-lg-min) { background-color: red; }
+*/
+
+div.div-table-body input[type=''], 
+div.div-table-body input[type='number'], 
+div.div-table-body input[type='checkbox'], 
+div.div-table-body input[type='text'], 
+div.div-table-body textarea, 
+div.div-table-body select{
+    width: 100%;
+    height: 34px;
+    padding: 3px 3px;
+    margin:0;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 
@@ -76,9 +110,8 @@ a:hover {text-decoration: none;}
 
 /* align */
 table.custom-style-1,
-table.custom-style-1 tr td,
-table.custom-style-1 tr th,
-table tr.cus-head th {
+table.custom-style-1 thead tr th{
+{
     text-align: center;
 }
 
@@ -114,19 +147,20 @@ table.transposition tr th{
 }
 
 /* header style - after strip if no thead */
-table.custom-style-1 thead,
-.table>thead>tr>td.cus-head, 
-.table>tbody>tr>td.cus-head, 
-.table>tfoot>tr>td.cus-head, 
-.table>thead>tr>th.cus-head, 
-.table>tbody>tr>th.cus-head, 
-.table>tfoot>tr>th.cus-head, 
-.table>thead>tr.cus-head>td, 
-.table>tbody>tr.cus-head>td, 
-.table>tfoot>tr.cus-head>td, 
-.table>thead>tr.cus-head>th, 
-.table>tbody>tr.cus-head>th, 
-.table>tfoot>tr.cus-head>th {
+table.custom-style-1 thead tr,
+.table>thead>tr.table-primary, 
+.table>thead>tr>td.table-primary, 
+.table>tbody>tr>td.table-primary, 
+.table>tfoot>tr>td.table-primary, 
+.table>thead>tr>th.table-primary, 
+.table>tbody>tr>th.table-primary, 
+.table>tfoot>tr>th.table-primary, 
+.table>thead>tr.table-primary>td, 
+.table>tbody>tr.table-primary>td, 
+.table>tfoot>tr.table-primary>td, 
+.table>thead>tr.table-primary>th, 
+.table>tbody>tr.table-primary>th, 
+.table>tfoot>tr.table-primary>th {
     background-color: #428bca;
     border-color: #428bca;
     color: white;
@@ -134,7 +168,7 @@ table.custom-style-1 thead,
 
 
 
-table tr.cus-head th{
+table tr.table-primary th{
     border-bottom: solid 1px #f9b9c3;
 }
 
