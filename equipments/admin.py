@@ -5,6 +5,7 @@ from .models import (
     Equipment, 
     EquipmentType,
     EquipmentInspection,
+    SprayPumpRoomInspection,
     )
 
 from .forms import (
@@ -44,11 +45,20 @@ class EquipmentInspectionAdmin(admin.ModelAdmin):
         js = ("js/jquery.min.js","js/model_admin.js",)
 
 
+class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
+    list_display = ['month',"voltage_and_power_normal","indicator_and_instrument_normal"]
+    list_editable = ["voltage_and_power_normal","indicator_and_instrument_normal"]
+
+    class Meta:
+        model = SprayPumpRoomInspection
 
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentType, EquipmentTypeAdmin)
 admin.site.register(EquipmentInspection, EquipmentInspectionAdmin)
+admin.site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
+
 
 my_admin_site.register(Equipment, EquipmentAdmin)
 my_admin_site.register(EquipmentType, EquipmentTypeAdmin)
-my_admin_site.register(EquipmentInspection, EquipmentInspectionAdmin)        
+my_admin_site.register(EquipmentInspection, EquipmentInspectionAdmin)    
+my_admin_site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)    

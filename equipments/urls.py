@@ -9,6 +9,8 @@ from .views import (
     EquipmentInspectionCreateView,
     EquipmentInspectionUpdateView,
     EquipmentInspectionQuickUpdateView,
+
+    SprayPumproomInspectionListView,    
 )
 
 urlpatterns = [
@@ -18,5 +20,8 @@ urlpatterns = [
     url(r'^equipmentinspection/detail/(?P<pk>\d+)/$', EquipmentInspectionDetailView.as_view(), name='equipmentinsepction_detail'),
     url(r'^equipmentinspection/update/(?P<pk>\d+)/$', EquipmentInspectionUpdateView.as_view(), name='equipmentinsepction_update'),
     url(r'^equipmentinspection/create/(?P<cat>\d+)/$', EquipmentInspectionCreateView.as_view(), name='equipmentinsepction_create'),
+
+    url(r'^spraypumproominspection/list/$', SprayPumproomInspectionListView.as_view(),
+        name='spraypumproominspection_list'),
 
 ]

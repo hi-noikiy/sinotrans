@@ -16,10 +16,15 @@ from .models import  (
     EquipmentInspection,
     EquipmentType,
     Equipment,
+    SprayPumpRoomInspection,
     )
 
 from .forms import (
     EquipmentInspectionForm, equipment_inspection_model_formset,
+)
+
+from .forms import (
+    SprayPumpRoomInspectionForm,spray_pumproom_inspection_model_formset,
 )
 
 # Create your views here.
@@ -154,3 +159,42 @@ class EquipmentInspectionUpdateView(UpdateView):
         form.save()
         item = EquipmentInspection.objects.get(id=self.item_id)
         return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item, "is_create_view" : 0 }))        
+
+
+class SprayPumproomInspectionListView(ListView):
+    model = SprayPumpRoomInspection
+    queryset = SprayPumpRoomInspection.objects.all() #queryset_ordered()
+
+    template_name = "equipment/spray_pump_room_inspection.html"
+
+    def get_queryset(self, *args, **kwargs):  # queryset has cache
+        return SprayPumpRoomInspection.objects.all()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SprayPumproomInspectionListView, self).get_context_data(*args, **kwargs)
+
+        formset = spray_pumproom_inspection_model_formset(queryset=self.get_queryset(*args, **kwargs))
+        context["formset"] = formset
+        months_exist = [_.month for _ in self.get_queryset()]
+        from inspection.models import month_choice
+        months = [_ for _ in month_choice if _[0] in months_exist]
+        context["months"] = months
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        formset = spray_pumproom_inspection_model_formset(request.POST or None, request.FILES or None)
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.save()
+            messages.success(request, "Your list has been updated.")
+            return redirect(reverse("spraypumproominspection_list",  kwargs={}))
+
+        self.object_list = self.get_queryset() # copy from BaseListView::get
+        context = self.get_context_data()
+        context['formset'] = formset
+        return self.render_to_response(context)
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse("spraypumproominspection_list", kwargs={})        

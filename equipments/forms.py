@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .models import (
     Equipment, EquipmentType, EquipmentInspection,
+    SprayPumpRoomInspection,
 )
 
 class EquipmentInspectionForm(forms.ModelForm):
@@ -52,3 +53,16 @@ equipment_inspection_model_formset = modelformset_factory(EquipmentInspection,
                                             form=EquipmentInspectionForm,
                                             #formset=EquipmentInspectionModelFormSet,
                                             extra=1)
+
+
+class SprayPumpRoomInspectionForm(forms.ModelForm):
+    class Meta:
+        model = SprayPumpRoomInspection
+
+        exclude = {
+            'month',
+        }
+
+spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInspection,
+                                            form=SprayPumpRoomInspectionForm,
+                                            extra=0)

@@ -134,6 +134,9 @@ class DailyInspection(models.Model):
             html_text = "<span class='due_date'></span>"
         return mark_safe(html_text)
 
+    """
+    replace by get_xxx_display built-in function
+
     def get_rectification_status(self):
         return _('Completed') if self.rectification_status == 'completed' else _('Uncompleted')
 
@@ -148,6 +151,7 @@ class DailyInspection(models.Model):
             if a == self.category:
                 return b
         return None
+    """
 
     def get_impact(self):
         value = ''
@@ -289,6 +293,7 @@ class shelf_annual_inspection_image(models.Model):
         verbose_name = _("shelf annual inspection image")
 
 """ to be delete """
+"""
 class extinguisher(models.Model):
     name = models.CharField(_('Name'), max_length=30, blank=True)   
     capacity = models.CharField(_('Capacity'), max_length=30, blank=True)   
@@ -321,15 +326,18 @@ class hydrant_inspection(models.Model):
 
     class Meta:
         verbose_name = _("hydrant inspection")
+
+"""
 """ to be delete """
 
-class rehearsal(models.Model):
-    title = models.TextField(_('Title'), max_length=30, blank=True)   
+class Rehearsal(models.Model):
+    title = models.CharField(_('Title'), max_length=30, blank=True)   
     date = models.DateField(_('Date'),auto_now_add=False, auto_now=False)
     attachment = models.FileField(_('Attachment'), blank=True) 
     
     class Meta:
         verbose_name = _("rehearsal")
+        verbose_name_plural = _("rehearsal")
 
 
 month_choice = (
@@ -347,31 +355,38 @@ month_choice = (
     ('cdev', _('December')),
 )
 
-class SprayPumpRoomInspectionManager(models.Manager):
-    def get_query_set(self):
-        return models.query.QuerySet(self.model, using=self._db)
+"""
+class HSSEKPI(models.Model):
+    year = models.CharField(_("year"), max_length=30, null=False, blank=False)
+    month = models.CharField(_("month"), max_length=30, choices= month_choice, null=False, blank=False)
+"""
 
-    def queryset_ordered(self):
-        # queryset = []
-        # for month in month_choice:
-        #     queryset.append(self.get_query_set().filter(month=month[0]))
-        # return queryset
+class PI(models.Model):
 
-        return self.get_query_set().all()
-
-class SprayPumpRoomInspection(models.Model):
-    month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False,null=False)
-    voltage_and_power_normal = models.BooleanField(_('voltage and power normal'), blank=True, default=False)
-    indicator_and_instrument_normal = models.BooleanField(_('indicator and instrument normal'), blank=True, default=False)
-    inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False,default='1970-01-01')
-
-    objects = SprayPumpRoomInspectionManager()
-    def __unicode__(self):
-        return _("Spray Pump Room Inspection") + " %s" % (self.month)
+    DEPARTMENT_OPTION = (
+        ("safety","safety"),
+        ("storage","storage"),
+        ("administration","administration"),
+    )
+    date = models.DateField(_('Annual Inspection Date'), auto_now_add=False, auto_now=False)
+    reporter = models.CharField(_('reporter'), max_length=30, blank=False,null=False)
+    company_of_reporter = models.CharField(_('company of reporter'), max_length=30, blank=False,null=False)
+    department_of_reporter = models.CharField(_('department of reporter'), choices=DEPARTMENT_OPTION, max_length=30, blank=False,null=False)
+    report_content = models.CharField(_('report content'), max_length=30, blank=False,null=False)
+    PI_area = models.CharField(_('PI area'), max_length=30, blank=False,null=False)
+    category = models.CharField(_('category'), max_length=30, blank=False,null=False)
+    risk = models.CharField(_('risk'), max_length=30, blank=False,null=False)
+    direct_reason = models.CharField(_('direct reason'), max_length=30, blank=False,null=False)
+    root_cause = models.CharField(_('root cause'), max_length=30, blank=False,null=False)
+    feedback_person = models.CharField(_('feedback person'), max_length=30, blank=False,null=False)
+    rectification_measures = models.CharField(_('rectification measures'), max_length=30, blank=False,null=False)
+    planned_complete_date = models.DateField(_('planned complete date'), auto_now_add=False, auto_now=False)
+    rectification_status = models.CharField(_('rectification status'), max_length=30, blank=False,null=False)
+    close_person = models.CharField(_('close person'), max_length=30, blank=False,null=False)
+    picture_before_rectification = models.CharField(_('picture before rectification'), max_length=30, blank=False,null=False)
+    picture_after_rectification = models.CharField(_('picture after rectification'), max_length=30, blank=False,null=False)
 
     class Meta:
-        ordering = ('month',)
-        verbose_name = _("Spray Pump Room Inspection")
-        verbose_name_plural = _("Spray Pump Room Inspection")
-        #unique_together = (('month','yera',),)
+        verbose_name = _("PI")
+        verbose_name_plural = _("PI")
+

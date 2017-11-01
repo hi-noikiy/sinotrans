@@ -10,7 +10,7 @@ from .models import (
     OfficeInspection,
     DailyInspection,
     shelf_inspection_record, shelf, shelf_inspection,
-    SprayPumpRoomInspection
+    
 )
 
 RESULT_OPTION = (
@@ -44,6 +44,17 @@ class OfficeInspectionForm(forms.ModelForm):
     def clean_plug(self):
         return self.data.get('plug')
     '''
+
+"""
+from django.forms import MultipleChoiceField
+
+class SchedulerProfileChoiceField(MultipleChoiceField):
+    def label_from_instance(self, obj):
+        return "%s %s" % (obj.category, obj.inspection_content)
+"""
+
+# https://docs.djangoproject.com/en/1.3/ref/forms/fields/#django.forms.ModelChoiceField
+# https://docs.djangoproject.com/en/1.3/ref/forms/fields/#modelmultiplechoicefield
 
 class DailyInspectionForm(forms.ModelForm):
     
@@ -304,14 +315,3 @@ class shelfFilterForm(forms.Form):
         pass
 
 
-class SprayPumpRoomInspectionForm(forms.ModelForm):
-    class Meta:
-        model = SprayPumpRoomInspection
-
-        exclude = {
-            'month',
-        }
-
-spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInspection,
-                                            form=SprayPumpRoomInspectionForm,
-                                            extra=0)

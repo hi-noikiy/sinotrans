@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from datetime import datetime, timedelta
 
+from inspection.models import month_choice
+
 # Create your models here.
 class EquipmentType(models.Model):
     
@@ -55,7 +57,7 @@ class AbstractEquipmentInspection(models.Model):
     def get_use_condition(self):
         return _('Normal') if self.use_condition == 'normal' else _('Breakdown')
         
-class ElectricalEquipmentInspectionManager(models.Manager):
+class EquipmentInspectionManager(models.Manager):
     def get_query_set(self):
         return models.query.QuerySet(self.model, using=self._db)
 
@@ -67,7 +69,7 @@ class ElectricalEquipmentInspectionManager(models.Manager):
 
 
 class EquipmentInspection(AbstractEquipmentInspection):
-    objects = ElectricalEquipmentInspectionManager()
+    objects = EquipmentInspectionManager()
 
     class Meta:
         abstract = False
@@ -76,3 +78,32 @@ class EquipmentInspection(AbstractEquipmentInspection):
         
     def __unicode__(self):
         return "%s" % (self.equipment.name)    
+
+class SprayPumpRoomInspectionManager(models.Manager):
+    def get_query_set(self):
+        return models.query.QuerySet(self.model, using=self._db)
+
+    def queryset_ordered(self):
+        # queryset = []
+        # for month in month_choice:
+        #     queryset.append(self.get_query_set().filter(month=month[0]))
+        # return queryset
+
+        return self.get_query_set().all()
+
+class SprayPumpRoomInspection(models.Model):
+    month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False,null=False)
+    voltage_and_power_normal = models.BooleanField(_('voltage and power normal'), blank=True, default=False)
+    indicator_and_instrument_normal = models.BooleanField(_('indicator and instrument normal'), blank=True, default=False)
+    inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
+    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False,default='1970-01-01')
+
+    objects = SprayPumpRoomInspectionManager()
+    def __unicode__(self):
+        return _("Spray Pump Room Inspection") + " %s" % (self.month)
+
+    class Meta:
+        ordering = ('month',)
+        verbose_name = _("Spray Pump Room Inspection")
+        verbose_name_plural = _("Spray Pump Room Inspection")
+        #unique_together = (('month','yera',),)        

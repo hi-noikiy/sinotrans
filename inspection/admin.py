@@ -3,7 +3,8 @@ from .models import (
     OfficeInspection,
     DailyInspection,
     shelf, shelf_inspection, shelf_inspection_record,
-    SprayPumpRoomInspection)
+    Rehearsal, PI,
+    )
     
 from .forms import (
     DailyInspectionForm,
@@ -113,22 +114,32 @@ class shelf_inspectionAdmin(admin.ModelAdmin):
         shelf_inspection_recordInline,
     ]
 
-class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
-    list_display = ['month',"voltage_and_power_normal","indicator_and_instrument_normal"]
-    list_editable = ["voltage_and_power_normal","indicator_and_instrument_normal"]
+class RehearsalAdmin(admin.ModelAdmin):
+    list_display = ['title',"date",]
+    list_search = ['title',"date",]
 
     class Meta:
-        model = SprayPumpRoomInspection
+        model = Rehearsal
+
+class PIAdmin(admin.ModelAdmin):
+    list_display = ['date',"reporter","company_of_reporter","department_of_reporter","PI_area","category","direct_reason","root_cause","feedback_person","rectification_measures",]
+    list_search = ['date',"reporter","company_of_reporter","department_of_reporter","PI_area","category","direct_reason","root_cause","feedback_person","rectification_measures",]
+
+    class Meta:
+        model = PI
+
 
 admin.site.register(DailyInspection, DailyInspectionAdmin)
 admin.site.register(OfficeInspection, OfficeInspectionAdmin)
 admin.site.register(shelf, shelfAdmin)
 admin.site.register(shelf_inspection, shelf_inspectionAdmin)
-admin.site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
+admin.site.register(Rehearsal, RehearsalAdmin)
+admin.site.register(PI, PIAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
 my_admin_site.register(shelf, shelfAdmin)
 my_admin_site.register(shelf_inspection, shelf_inspectionAdmin)
-my_admin_site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
+my_admin_site.register(Rehearsal, RehearsalAdmin)
+my_admin_site.register(PI, PIAdmin)
 

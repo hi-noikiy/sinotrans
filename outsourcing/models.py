@@ -124,9 +124,11 @@ class ForkliftRepair(models.Model):
     def __unicode__(self): 
         return _("forklift repair") + " %s %s" % (self.forklift.internal_car_number, self.repaire_date)
 
+    """
+    replace by built-in function get_repaired_display
     def get_repaired(self):
-        #print self._meta.fields
         return option_value_convertion(RESULT_OPTION, self.repaired)
+    """
 
 class ForkliftAnnualInspection(models.Model):
     forklift = models.ForeignKey(Forklift, verbose_name=_("forklift"))
@@ -151,3 +153,124 @@ class ForkliftAnnualInspectionImage(models.Model):
 
     def __unicode__(self): 
         return _("forklift annual inspection image") + " %s %s" % (self.forklift_annual_inspection.forklift.internal_car_number, self.id)
+
+
+class Vehicle(models.Model):
+    SERVICE_CONTENT_OPTION = (
+        ('shuttle bus', _('shuttle bus')),
+        ('truck', _('truck')),
+        ('dangerous goods vehicles', _('dangerous goods vehicles')),
+        ('scattered oil vehicles', _('scattered oil vehicles')),        
+    )
+
+    service_content = models.CharField(_("service content"), choices=SERVICE_CONTENT_OPTION, max_length=130, blank=False, null=False)
+    motorcade = models.CharField(_("motorcade"), max_length=30, blank=False, null=False)
+    relevant_license_plate = models.CharField(_("relevant license plate"), max_length=30, blank=False, null=False)
+    vehicle_inspection_valid_until = models.DateField(_("vehicle inspection valid until"), blank=False, null=False,auto_now=False, auto_now_add=False)
+    vehicle_type = models.CharField(_("vehicle type"), max_length=30, blank=False, null=False)
+    relevant_trailer_number = models.CharField(_("relevant trailer number"), max_length=30, blank=False, null=False)
+    trailer_inspection_valid_until = models.DateField(_("trailer inspection valid until"),  blank=False, null=False,auto_now=False, auto_now_add=False)
+    maximum_loadable_tonnage = models.PositiveIntegerField(_("maximum loadable tonnage"), blank=False, null=False)
+    green_mark_valid_until = models.DateField(_("green mark valid until"), blank=False, null=False,auto_now=False, auto_now_add=False)
+    insurance_policy_valid_until = models.DateField(_("insurance policy valid until"), blank=False, null=False,auto_now=False, auto_now_add=False)
+    GPS = models.CharField(_("GPS"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    ABS = models.CharField(_("ABS"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    antiroll_protection = models.CharField(_("antiroll protection"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    reversing_alarm = models.CharField(_("reversing alarm"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    side_edge_and_low_location_collision_guard_bar = models.CharField(_("side edge and low location collision guard bar"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    car_seat_headrest = models.CharField(_("car seat headrest"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    three_point_belt = models.CharField(_("three-point belt"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    IVMS_or_VDR = models.CharField(_("IVMS or VDR"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    anti_drop_equipment = models.CharField(_("anti-drop equipment"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    
+    class Meta:
+        verbose_name = _("vehicle")
+        verbose_name_plural = _("vehicles")
+
+    def __unicode__(self): 
+        return _("vehicle") + " %s" % (self.relevant_license_plate)
+
+class Driver(models.Model):
+    vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle"), blank=True, null=True )
+    name = models.CharField(_("name"), max_length=30, blank=False, null=False)
+    driver_ID = models.CharField(_("Driver ID"), max_length=30, blank=False, null=False)
+    driver_license_type = models.CharField(_("driver license type"), max_length=30, blank=False, null=False)
+    DDC_certificate_number = models.CharField(_("DDC certificate number"), max_length=30, blank=False, null=False)
+    certificate_issued_time = models.DateField(_("certificate issued time"),  blank=False, null=False,auto_now=False, auto_now_add=False)
+    certificate_valid_until = models.DateField(_("certificate valid until"),  blank=False, null=False,auto_now=False, auto_now_add=False)
+    first_licensed_time = models.DateField(_("first licensed time"),  blank=False, null=False,auto_now=False, auto_now_add=False)    
+    driving_years = models.PositiveIntegerField(_("dirving years"), blank=False, null=False)
+    driver_license_valid_until = models.DateField(_("driver license valid until"),  blank=False, null=False,auto_now=False, auto_now_add=False)
+    contact_phone = models.CharField(_("contact phone"), max_length=30, blank=False, null=False)
+    training_qualified = models.CharField(_("training qualified"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
+    
+    class Meta:
+        verbose_name = _("driver")
+        verbose_name_plural = _("drivers")
+
+    def __unicode__(self): 
+        return _("driver") + " %s %s" % (self.name, self.ID)
+
+
+class VehicleInspection(models.Model):
+    vehicle = models.ForeignKey(Vehicle, verbose_name="vehicle") 
+    driver = models.ForeignKey(Driver, verbose_name="driver") 
+    date_of_inspection = models.DateField(_("Date of Inspection"), blank=False, null=False,auto_now=False, auto_now_add=False)
+    inspector = models.CharField(_("Inspector"), blank=False, null=False,max_length=30)
+    carrier = models.CharField(_("carrier"), blank=False, null=False,max_length=30)
+    disqualification_comments = models.TextField(_("disqualification comments"), blank=False, null=False,max_length=300)
+    rectification_qualified = models.CharField(_("Rectification qualified"), blank=False, null=False,max_length=30)
+    hardware_inspection_disqualification = models.CharField(_("hardware inspection disqualification"), blank=False, null=False,max_length=30)
+    no_driver_code_of_conduct = models.CharField(_("no driver code of conduct"), choices = RESULT_OPTION, blank=False, null=False,max_length=30)
+    overload_or_LSR_violation = models.CharField(_("overload or LSR violation"), choices = RESULT_OPTION, blank=False, null=False,max_length=30)
+    safety_policy_violation = models.CharField(_("safety policy violation"), choices = RESULT_OPTION, blank=False, null=False,max_length=30)
+    no_journey_plan_or_log = models.CharField(_("no journey plan or log"), choices = RESULT_OPTION, blank=False, null=False,max_length=30)
+    vehichle_not_register = models.CharField(_("vehichle not register"), choices = RESULT_OPTION, blank=False, null=False,max_length=30)
+    no_vehicle_inspection_record = models.CharField(_("no vehicle inspection record"), choices = RESULT_OPTION, blank=False, null=False,max_length=30)
+    no_DDC_certificate = models.CharField(_("no DDC certificate"), choices = RESULT_OPTION, blank=False, null=False,max_length=30)
+
+
+    class Meta:
+        verbose_name = _("vehicle inspection")
+        verbose_name_plural = _("vehicle inspection")
+
+    def __unicode__(self): 
+        return _("vehicle inspection") + " %s %s" % (self.driver.name, self.vehicle.relevant_license_plate)    
+
+class VehicleTransportationKPI(models.Model):
+    TRANSPORTATION_PROJECT_OPTION = (
+        ('shuttle bus', _('shuttle bus')),
+        ('general cargo shanghai', _('general cargo shanghai')),
+        ('general cargo zhejiang', _('general cargo zhejiang')),
+        ('scattered oil (land-and-water coordinated transport)', _('scattered oil (land-and-water coordinated transport)')),        
+        ('scattered oil (road)', _('Scattered oil (road)')),        
+        ('hazardous article', _('hazardous article')),        
+        ('water transport', _('water transport')),        
+    )
+
+    transportation_project = models.CharField(_("transportation project"), choices=TRANSPORTATION_PROJECT_OPTION, blank=False, null=False, max_length=30)
+    year = models.CharField(_("year"), blank=False, null=False,max_length=30)
+    month = models.CharField(_("month"), blank=False, null=False,max_length=30)
+    safe_mileages = models.PositiveIntegerField(_("safe mileage"), blank=False, null=False)
+    safe_labor_hours = models.PositiveIntegerField(_("safe labor hours"), blank=False, null=False)
+    LSR_violation_cases = models.PositiveIntegerField(_("LSR violation cases"), blank=False, null=False)
+    safety_accident_cases = models.PositiveIntegerField(_("safety accident cases"), blank=False, null=False)
+    yearly_plan_executing_rate = models.CharField(_("yearly plan executing rate"), blank=False, null=False,max_length=30)
+    vehicle_qualification_rate = models.CharField(_("vehicle qualification rate"), blank=False, null=False,max_length=30)
+    journey_management_rules_implemented_rate = models.CharField(_("journey management rules implemented rate"), blank=False, null=False,max_length=30)
+    safe_loading_violation_cases = models.PositiveIntegerField(_("safe loading violation cases"), blank=False, null=False)
+    departure_count = models.PositiveIntegerField(_("departure count"), blank=False, null=False)
+    departure_tones = models.PositiveIntegerField(_("departure tones"), blank=False, null=False)
+    monthly_delivery_plan_completion_rate = models.CharField(_("monthly delivery plan completion rate"), blank=False, null=False, max_length=30)
+    AOG_on_time_rate = models.CharField(_("AOG on-time rate"), blank=False, null=False,max_length=30)
+    POD_on_time_rate = models.CharField(_("POD On-Time rate"), blank=False, null=False,max_length=30)
+    POD_accuracy = models.CharField(_("POD accuracy"), blank=False, null=False,max_length=30)
+    customer_satisfaction_rate = models.CharField(_("customer satisfaction rate"), blank=False, null=False,max_length=30)
+    customer_complaint_cases = models.CharField(_("Customer complaint cases"), blank=False, null=False,max_length=30)
+
+    class Meta:
+        verbose_name = _("vehicle tranportation KPI")
+        verbose_name_plural = _("vehicle tranportation KPI")
+
+    def __unicode__(self): 
+        return _("vehicle tranportation KPI") + " %s %s" % (self.driver.name, self.vehicle.relevant_license_plate)           

@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 # Register your models here.
 from .models import (
     ForkliftMaint, Forklift,ForkliftImage, ForkliftRepair, ForkliftAnnualInspection, ForkliftAnnualInspectionImage,
+    Driver, Vehicle, VehicleInspection, VehicleTransportationKPI,
     )
 
 class ForkliftImageInline(admin.TabularInline):
@@ -99,12 +100,67 @@ class ForkliftAdmin(admin.ModelAdmin):
     class Meta:
         model = Forklift
 
+class DriverAdmin(admin.ModelAdmin):
+    list_display = ["name", "driver_ID","driver_license_type","contact_phone"]
+    search_fields = ("name", "driver_ID","driver_license_type","contact_phone" )
+    list_filter = ("driver_license_type",)
+    ordering = ("driver_ID",) 
+
+    class Meta:
+        model = Driver    
+
+class VehicleInspectionInline(admin.TabularInline):
+    model = VehicleInspection
+    extra = 0
+    #max_num = 10    
+
+class VehicleAdmin(admin.ModelAdmin):
+    list_display = ["service_content", "motorcade","relevant_license_plate","vehicle_type"]
+    search_fields = ("service_content", "motorcade","relevant_license_plate","vehicle_type" )
+    list_filter = ("motorcade","service_content", )
+    ordering = ("relevant_license_plate",) 
+
+    inlines = [
+        VehicleInspectionInline,
+    ]
+
+    class Meta:
+        model = Vehicle    
+
+
+class VehicleInspectionAdmin(admin.ModelAdmin):
+    list_display = ["vehicle", "driver","date_of_inspection","inspector","carrier","rectification_qualified",]
+    search_fields = ("vehicle", "driver","date_of_inspection","inspector","carrier","rectification_qualified","disqualification_comments" )
+    list_filter = ("vehicle","driver","inspector", "carrier",  "rectification_qualified",)
+    ordering = ("vehicle","date_of_inspection",) 
+
+    class Meta:
+        model = VehicleInspection    
+
+class VehicleTransportationKPIAdmin(admin.ModelAdmin):
+    list_display = ["transportation_project", "year","month",]
+    search_fields = ("transportation_project", "year","month", )
+    list_filter = ("transportation_project", "year","month", )
+    ordering = ("transportation_project", "year","month",) 
+
+    class Meta:
+        model = VehicleTransportationKPI    
+
 admin.site.register(Forklift, ForkliftAdmin)
 admin.site.register(ForkliftRepair, ForkliftRepairAdmin)
 admin.site.register(ForkliftMaint, ForkliftMaintAdmin)
 admin.site.register(ForkliftAnnualInspection, ForkliftAnnualInspectionAdmin)
+admin.site.register(Driver, DriverAdmin)
+admin.site.register(Vehicle, VehicleAdmin)
+admin.site.register(VehicleInspection, VehicleInspectionAdmin)
+admin.site.register(VehicleTransportationKPI, VehicleTransportationKPIAdmin)
+
 my_admin_site.register(Forklift, ForkliftAdmin)
 my_admin_site.register(ForkliftRepair, ForkliftRepairAdmin)
 my_admin_site.register(ForkliftMaint, ForkliftMaintAdmin)
 my_admin_site.register(ForkliftAnnualInspection, ForkliftAnnualInspectionAdmin)
+my_admin_site.register(Driver, DriverAdmin)
+my_admin_site.register(Vehicle, VehicleAdmin)
+my_admin_site.register(VehicleInspection, VehicleInspectionAdmin)
+my_admin_site.register(VehicleTransportationKPI, VehicleTransportationKPIAdmin)
         
