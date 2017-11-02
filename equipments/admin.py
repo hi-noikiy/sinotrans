@@ -46,7 +46,23 @@ class EquipmentInspectionAdmin(admin.ModelAdmin):
 
 
 class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
-    list_display = ['month',"voltage_and_power_normal","indicator_and_instrument_normal"]
+    list_display = ['year','month',
+        "voltage_and_power_normal",
+        "indicator_and_instrument_normal",
+        "switch_contactor_and_connection_normal",
+        "no_corrosion_inside_and_foundation_bolt_not_loose",
+        "motor_and_pump_connection_intact",
+        "motor_sample_integrated",
+        "no_corrosion_and_damage",
+        "valve_normally_open",
+        "one_way_valve_intact_and_no_leak_and_pressure_gage_normal",
+        "pressure_maintaining_valve_intact",
+        "water_level_normal_and_moisturizing_well",
+        "water_level_cover_plate_and_no_abnormal_move",
+        "pool_wall_dry_and_no_leak",
+        "no_sundries_in_pump_house",
+        "pump_house_clean_and_tidy",
+        ]
     list_editable = ["voltage_and_power_normal","indicator_and_instrument_normal"]
 
     class Meta:

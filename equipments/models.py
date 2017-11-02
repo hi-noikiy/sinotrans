@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from datetime import datetime, timedelta
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from inspection.models import month_choice
 
@@ -92,11 +93,28 @@ class SprayPumpRoomInspectionManager(models.Manager):
         return self.get_query_set().all()
 
 class SprayPumpRoomInspection(models.Model):
+    year = models.PositiveIntegerField(_("year"),
+        validators=[MinValueValidator(2017), MaxValueValidator(datetime.now().year)],
+        blank=False,null=False, help_text="Use the following format: <YYYY>")
     month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False,null=False)
     voltage_and_power_normal = models.BooleanField(_('voltage and power normal'), blank=True, default=False)
     indicator_and_instrument_normal = models.BooleanField(_('indicator and instrument normal'), blank=True, default=False)
+    switch_contactor_and_connection_normal = models.BooleanField(_('switch contactor and connection normal'), blank=True, default=False)
+    no_corrosion_inside_and_foundation_bolt_not_loose = models.BooleanField(_('no corrosion inside and foundation bolt not loose'), blank=True, default=False)
+    motor_and_pump_connection_intact = models.BooleanField(_('motor and pump connection intact'), blank=True, default=False)
+    motor_sample_integrated = models.BooleanField(_('motor sample integrated'), blank=True, default=False)
+    no_corrosion_and_damage = models.BooleanField(_('no corrosion and damage'), blank=True, default=False)
+    valve_normally_open = models.BooleanField(_('valve normally open'), blank=True, default=False)
+    one_way_valve_intact_and_no_leak_and_pressure_gage_normal = models.BooleanField(_('one-way valve intact and no leak and pressure gage normal'), blank=True, default=False)
+    pressure_maintaining_valve_intact = models.BooleanField(_('pressure maintaining valve intact'), blank=True, default=False)
+    water_level_normal_and_moisturizing_well = models.BooleanField(_('water level normal and moisturizing well'), blank=True, default=False)
+    water_level_cover_plate_and_no_abnormal_move = models.BooleanField(_('water level cover plate and no abnormal move'), blank=True, default=False)
+    pool_wall_dry_and_no_leak = models.BooleanField(_('pool wall dry and no leak'), blank=True, default=False)
+    no_sundries_in_pump_house = models.BooleanField(_('no sundries in pump house'), blank=True, default=False)
+    pump_house_clean_and_tidy = models.BooleanField(_('pump house clean and tidy'), blank=True, default=False)
+
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False,default='1970-01-01')
+    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False)
 
     objects = SprayPumpRoomInspectionManager()
     def __unicode__(self):
@@ -106,4 +124,4 @@ class SprayPumpRoomInspection(models.Model):
         ordering = ('month',)
         verbose_name = _("Spray Pump Room Inspection")
         verbose_name_plural = _("Spray Pump Room Inspection")
-        #unique_together = (('month','yera',),)        
+        unique_together = (('month','year',),)        

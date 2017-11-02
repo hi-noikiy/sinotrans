@@ -143,7 +143,7 @@ class InspectionFilterForm(forms.Form):
             widget=forms.CheckboxSelectMultiple(),
             initial = None,
             required=False
-            )    
+            )
 
     rectification_status = forms.ChoiceField(
             label=_('Rectification Status'),

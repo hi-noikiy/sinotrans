@@ -60,6 +60,7 @@ class SprayPumpRoomInspectionForm(forms.ModelForm):
         model = SprayPumpRoomInspection
 
         exclude = {
+            'year',
             'month',
         }
 

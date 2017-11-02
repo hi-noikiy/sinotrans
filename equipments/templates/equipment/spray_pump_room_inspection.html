@@ -16,57 +16,131 @@ table>thead>tr>th{
 table tbody tr{
     border-top: none!important;
 }
+
+.table-formset thead tr th{
+    text-align: center;
+}
+
+
+.table-formset tbody tr th{
+    min-width: 200px;
+}
+
+
+.table-formset tbody tr td{
+    padding:0px;
+    margin:0px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-formset tbody tr td input[type="text"]{
+    padding:0px;
+    margin:0px;
+    width:100%;
+    height: 30px;
+    border:none;
+    text-indent: 1px;
+    min-width: 85px;
+    text-align: center;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td input
+{
+    background-color: #e9f8fb;
+}
+
 {% endblock %}
 </style>
 
+
+{% block jswotag %}
+<script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}    
+
+
+<script type="text/javascript">
+{% block jquery %}
+    $('.calenda input').datepicker({ dateFormat: "yy/mm/dd" });
+{% endblock %}
+</script>
+
+
+
 {% block content %}
 <div class="row">
-    <div class="col-sm-9 col-sm-offset-3" style="overflow-x:scroll;overflow-y:hidden;">
-        <!--{% for object in object_list %}-->
-            <!--<a href="{{object.get_absolute_url }}"> {{object }} </a></p>-->
-        <!--{% endfor %}-->
+    <div class="col-sm-3" >
+        placehold
+    </div>
+    <div class="col-sm-9" >
 
-        <form method="post" action="">{% csrf_token %}
-            {{ formset.management_form }}
+        <div style="padding-bottom: 10px;">
+            <form class="form-inline" role="form">
 
-            <table class="spray-pump table table-hover table-striped table-container table-condensed" >
-                <thead>
-                <tr>
-                    <th>{% trans "Spray Pump Room" %}</th>
-                    {% for month in months %}
-                    <th>{{month.1}}</th>
-                    {% endfor %}
-                </tr>
-                </thead>
-                <tbody>
-                {% for field in formset.0 %}
-                <tr style="{% if field.name == 'id' %}display:none; {% endif %}">
-                    <th>{{field.label_tag}}</th>
-                    {% for form in formset %}
-                        <td>
-                            {% for field0 in form %}
-                                {% if field0.name == field.name %}
-                                    <span style="display: none">{{field0.label_tag}}</span>
-                                    {{field0}}
-                                {% endif %}
+                <div class="form-group">
+                    <label class="sr-only" for="name">Year</label>
+                    <input type="text" class="form-control" id="name" placeholder="please input year">
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                    <input type="checkbox">请打勾
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="text" name="year" placeholder="search" value="{{request.GET.year }}" />
+                </div>
+
+                <button type="submit" class="pull-right btn btn-primary">提交</button>
+            </form>
+
+        </div>
+
+        <div style="overflow-x:auto;overflow-y:hidden;">
+            <form method="post" action="">{% csrf_token %}
+                {{ formset.management_form }}
+
+                <table class="spray-pump table-formset table table-hover table-striped table-container table-condensed" >
+                    <thead>
+                        <tr>
+                            <th>{% trans "Spray Pump Room" %}</th>
+                            {% for month in months %}
+                            <th>{{month.1}}</th>
                             {% endfor %}
-                        </td>
-                    {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for field_0 in formset.0 %}
+                        <tr style="{% if field_0.name == 'id' %}display:none; {% endif %}">
+                            <th>{{field_0.label_tag}}</th>
+                            {% for form in formset %} 
+                                {% for field in form %} 
+                                    {% if field.name == field_0.name %}
+                                    <td class="{% if field.name == 'date_of_inspection' %}calenda{% endif %}">
+                                        <span style="display: none">{{field.label_tag}}</span>
+                                        {{field}}
+                                    </td>
+                                    {% endif %}
+                                {% endfor %}                            
+                            {% endfor %}
 
-                    {% comment %}
-                    <td><span style="display: none">{{formset.0.voltage_and_power_normal.label_tag}}</span>{{formset.0.voltage_and_power_normal}}
-                    <input id="id_form-0-id" name="form-0-id" type="hidden" value="1"></td>
-                    <td><span style="display: none">{{formset.1.voltage_and_power_normal.label_tag}}</span>{{formset.1.voltage_and_power_normal}}
-                    <input id="id_form-1-id" name="form-1-id" type="hidden" value="2"></td>
-                    {% endcomment %}
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                            {% comment %}
+                            <td><span style="display: none">{{formset.0.voltage_and_power_normal.label_tag}}</span>{{formset.0.voltage_and_power_normal}}
+                            <input id="id_form-0-id" name="form-0-id" type="hidden" value="1"></td>
+                            <td><span style="display: none">{{formset.1.voltage_and_power_normal.label_tag}}</span>{{formset.1.voltage_and_power_normal}}
+                            <input id="id_form-1-id" name="form-1-id" type="hidden" value="2"></td>
+                            {% endcomment %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
-            <input type="submit" class="btn btn-primary" value="Submit">
-            <hr>
-        </form>
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <hr>
+            </form>
+
+        </div>
     </div>
 </div>
 {% endblock %}

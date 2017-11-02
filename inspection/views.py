@@ -651,17 +651,17 @@ class shelf_inspection_CreateView(CreateView):
         return postresult
 
 
-class shelf_DetailView(DetailView):
+class ShelfDetailView(DetailView):
     model = shelf
     template_name = "shelf/shelf_detail.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(shelf_DetailView, self).get_context_data(*args, **kwargs)
+        context = super(ShelfDetailView, self).get_context_data(*args, **kwargs)
         context["related_inspection"] = shelf_inspection_record.objects.filter(shelf=self.get_object())
 
         return context    
 
-class shelf_ListView(ListView):
+class ShelfListView(ListView):
     model = shelf
     template_name = "shelf/shelf_list.html"
 
@@ -676,7 +676,7 @@ class shelf_ListView(ListView):
             ).distinct()
         return qs
 
-class shelf_inspection_record_DetailView(DetailView):
+class ShelfInspectionRecordDetailView(DetailView):
     model = shelf_inspection_record
     template_name = "shelf/shelf_inspection_record_detail.html"    
 

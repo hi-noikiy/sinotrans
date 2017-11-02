@@ -7,7 +7,7 @@ from .views import (
     OfficeInspectionListView,
     OfficeInspectionDetailView,
     OfficeInspectionCreateView,
-	DailyInspectionListView,
+    DailyInspectionListView,
     DailyInspectionUpdateView,
     DailyInspectionDetailView,
     DailyInspectionCreateView,
@@ -16,9 +16,9 @@ from .views import (
     shelf_inspection_ListView,
     shelf_inspection_DetailView,
     shelf_inspection_CreateView,
-    shelf_DetailView,
-    shelf_ListView,
-    shelf_inspection_record_DetailView,
+    ShelfDetailView,
+    ShelfListView,
+    ShelfInspectionRecordDetailView,
 
 )
 
@@ -38,10 +38,10 @@ urlpatterns = [
     url(r'^shelfinspectioncreate$', shelf_inspection_CreateView.as_view(), name='shelf_inspection_create'),  
     url(r'^shelfinspectionstat$', shelf_inspection_StatView.as_view(), name='shelf_inspection_stat'),   
 
-    url(r'^shelfinspectionrecorddetail/(?P<pk>\d+)/$', shelf_inspection_record_DetailView.as_view(), name='shelf_inspection_record_detail'),  
+    url(r'^shelfinspectionrecorddetail/(?P<pk>\d+)/$', ShelfInspectionRecordDetailView.as_view(), name='shelf_inspection_record_detail'),  
 
-    url(r'^shelfdetail/(?P<pk>\d+)/$', shelf_DetailView.as_view(), name='shelf_detail'),  
-    url(r'^shelflist$', shelf_ListView.as_view(), name='shelf_list'),
+    url(r'^shelfdetail/(?P<pk>\d+)/$', ShelfDetailView.as_view(), name='shelf_detail'),  
+    url(r'^shelflist$', ShelfListView.as_view(), name='shelf_list'),
 
 
 
