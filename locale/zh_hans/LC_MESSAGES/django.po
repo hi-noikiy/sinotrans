@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-02 22:34+0800\n"
+"POT-Creation-Date: 2017-11-04 10:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,13 +126,34 @@ msgid ""
 "and ./-/_ characters."
 msgstr ""
 
-#: .\equipments\forms.py:12 .\equipments\models.py:43
-#: .\equipments\templates\equipment\equipment_inspection_list.html:50
+#: .\equipments\forms.py:16 .\equipments\forms.py:83 .\equipments\models.py:43
+#: .\equipments\templates\equipment\equipment_inspection_list.html:61
 #: .\inspection\models.py:247
 #: .\inspection\templates\shelf\shelf_inspection_list.html:23
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:8
 msgid "Use Condition"
 msgstr "使用状况"
+
+#: .\equipments\forms.py:77 .\inspection\forms.py:140
+#: .\inspection\models.py:86
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:65
+msgid "Category"
+msgstr "分类"
+
+#: .\equipments\forms.py:91 .\equipments\models.py:44
+#: .\equipments\models.py:116
+#: .\equipments\templates\equipment\equipment_inspection_list.html:62
+#: .\outsourcing\models.py:219
+msgid "Inspector"
+msgstr "检查人"
+
+#: .\equipments\forms.py:100
+msgid "Date of Inspection Start"
+msgstr "起始检查日期"
+
+#: .\equipments\forms.py:101
+msgid "Date of Inspection End"
+msgstr "结束检查日期"
 
 #: .\equipments\models.py:15 .\equipments\models.py:26
 msgid "Name"
@@ -148,15 +169,15 @@ msgstr "类型"
 
 #: .\equipments\models.py:30 .\equipments\models.py:31
 #: .\equipments\models.py:42
-#: .\equipments\templates\equipment\equipment_inspection_list.html:49
+#: .\equipments\templates\equipment\equipment_inspection_list.html:60
 #: .\templates\navbar.html:45 .\templates\navbar_2nd.html.py:10
 #: .\templates\navbar_2nd.html:16 .\templates\navbar_2nd.html.py:21
 msgid "Equipment"
 msgstr "设备"
 
 #: .\equipments\models.py:38 .\equipments\models.py:59
-#: .\equipments\views.py:111 .\inspection\models.py:241
-#: .\inspection\views.py:557
+#: .\equipments\views.py:168 .\inspection\models.py:241
+#: .\inspection\views.py:560
 msgid "Normal"
 msgstr "正常"
 
@@ -164,12 +185,6 @@ msgstr "正常"
 #: .\inspection\models.py:242
 msgid "Breakdown"
 msgstr "损坏"
-
-#: .\equipments\models.py:44 .\equipments\models.py:116
-#: .\equipments\templates\equipment\equipment_inspection_list.html:51
-#: .\outsourcing\models.py:219
-msgid "Inspector"
-msgstr "检查人"
 
 #: .\equipments\models.py:45 .\inspection\models.py:227
 #: .\inspection\models.py:252
@@ -260,19 +275,31 @@ msgstr "泵房地面干净、整洁"
 msgid "Spray Pump Room Inspection"
 msgstr "喷淋泵房检查"
 
-#: .\equipments\templates\equipment\equipment_inspection_list.html:22
+#: .\equipments\templates\equipment\equipment_inspection_list.html:25
 msgid "Insepction Categories"
 msgstr "检查种类"
 
-#: .\equipments\templates\equipment\equipment_inspection_list.html:52
+#: .\equipments\templates\equipment\equipment_inspection_list.html:41
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:64
+#: .\inspection\templates\shelf\shelf_inspection_detail.html:196
+msgid "Apply Filter"
+msgstr "过滤"
+
+#: .\equipments\templates\equipment\equipment_inspection_list.html:42
+#: .\inspection\templates\dailyinspection\dailyinspection_list.html:65
+#: .\inspection\templates\shelf\shelf_inspection_detail.html:196
+msgid "Clear Filters"
+msgstr "清除过滤"
+
+#: .\equipments\templates\equipment\equipment_inspection_list.html:63
 msgid "Date of inspection"
 msgstr "检查日期"
 
-#: .\equipments\templates\equipment\spray_pump_room_inspection.html:68
+#: .\equipments\templates\equipment\spray_pump_room_inspection.html:107
 msgid "Spray Pump Room"
 msgstr "喷淋泵房"
 
-#: .\inspection\apps.py:6 .\inspection\views.py:100 .\inspection\views.py:133
+#: .\inspection\apps.py:6 .\inspection\views.py:103 .\inspection\views.py:136
 #: .\templates\navbar.html:43 .\templates\navbar_2nd.html.py:8
 #: .\templates\navbar_2nd.html:14 .\templates\navbar_2nd.html.py:19
 msgid "Inspection"
@@ -282,11 +309,6 @@ msgstr "巡检"
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:67
 msgid "Impact"
 msgstr "影响"
-
-#: .\inspection\forms.py:140 .\inspection\models.py:86
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:65
-msgid "Category"
-msgstr "分类"
 
 #: .\inspection\forms.py:149 .\inspection\models.py:90
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:69
@@ -410,9 +432,9 @@ msgid "Location"
 msgstr "位置"
 
 #: .\inspection\models.py:103 .\inspection\models.py:178
-#: .\inspection\models.py:179 .\inspection\views.py:220
-#: .\inspection\views.py:235 .\inspection\views.py:287
-#: .\inspection\views.py:399
+#: .\inspection\models.py:179 .\inspection\views.py:223
+#: .\inspection\views.py:238 .\inspection\views.py:290
+#: .\inspection\views.py:402
 msgid "Daily Inspection"
 msgstr "日常巡检"
 
@@ -690,7 +712,7 @@ msgid "Create New Item"
 msgstr "创建新项目"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:58
-#: .\inspection\views.py:221
+#: .\inspection\views.py:224
 msgid "Create"
 msgstr "创建"
 
@@ -714,16 +736,6 @@ msgstr "后退"
 #: .\site-packages-djangos\1.9\django\forms\formsets.py:384
 msgid "Delete"
 msgstr "删除"
-
-#: .\inspection\templates\dailyinspection\dailyinspection_list.html:64
-#: .\inspection\templates\shelf\shelf_inspection_detail.html:196
-msgid "Apply Filter"
-msgstr "过滤"
-
-#: .\inspection\templates\dailyinspection\dailyinspection_list.html:65
-#: .\inspection\templates\shelf\shelf_inspection_detail.html:196
-msgid "Clear Filters"
-msgstr "清除过滤"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:74
 msgid "All Categories"
@@ -774,36 +786,36 @@ msgstr "货架列表"
 msgid "Create Shelf Inspection"
 msgstr "创建货架检查"
 
-#: .\inspection\views.py:99 .\inspection\views.py:132
-#: .\inspection\views.py:219 .\inspection\views.py:234
-#: .\inspection\views.py:286 .\inspection\views.py:398
-#: .\inspection\views.py:496 .\inspection\views.py:565
+#: .\inspection\views.py:102 .\inspection\views.py:135
+#: .\inspection\views.py:222 .\inspection\views.py:237
+#: .\inspection\views.py:289 .\inspection\views.py:401
+#: .\inspection\views.py:499 .\inspection\views.py:568
 #: .\outsourcing\views.py:32 .\outsourcing\views.py:58
 #: .\site-packages\breadcrumbs\breadcrumbs.py:81 .\templates\navbar.html.py:20
 msgid "Home"
 msgstr "主页"
 
-#: .\inspection\views.py:210
+#: .\inspection\views.py:213
 msgid "daily inspection create successfully"
 msgstr "日常巡检创建成功"
 
-#: .\inspection\views.py:274
+#: .\inspection\views.py:277
 msgid "daily inspection updated successfully"
 msgstr "日常巡检更新成功"
 
-#: .\inspection\views.py:275
+#: .\inspection\views.py:278
 msgid "check content please"
 msgstr "请检查内容"
 
-#: .\inspection\views.py:278
+#: .\inspection\views.py:281
 msgid "daily inspection updated fail"
 msgstr "日常巡检更新失败"
 
-#: .\inspection\views.py:497
+#: .\inspection\views.py:500
 msgid "Shelf Inspection List"
 msgstr "货架检查列表"
 
-#: .\inspection\views.py:566
+#: .\inspection\views.py:569
 msgid "Shelf Inspection Detail"
 msgstr "货架检查详情"
 

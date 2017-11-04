@@ -78,8 +78,7 @@ class FilterMixin(object):
 
 class EquipmentInspectionListView(FilterMixin, ListView):
     model = EquipmentInspection
-    #queryset = EquipmentInspection.objects.get_this_day()
-    queryset = EquipmentInspection.objects.all()
+    queryset = EquipmentInspection.objects.get_this_day()
     #object_list = queryset
     template_name = "equipment/equipment_inspection_list.html"
     filter_class = EquipmentInsepctionFilter
@@ -90,6 +89,7 @@ class EquipmentInspectionListView(FilterMixin, ListView):
         return qs
 
     def get_context_data(self, *args, **kwargs):
+
         context = super(EquipmentInspectionListView, self).get_context_data(*args, **kwargs)
 
         queryset = context["object_list"].qs # filtered qs
@@ -98,7 +98,7 @@ class EquipmentInspectionListView(FilterMixin, ListView):
         if category_id and int(category_id) > 0:
             queryset = queryset.filter(equipment__type__id=category_id)
         else:
-            category_id = 0
+            category_id = ""
 
         paginator = Paginator(queryset, 10)
 
@@ -115,6 +115,15 @@ class EquipmentInspectionListView(FilterMixin, ListView):
         context["current_category"] = category_id
         context["object_list"] = qs
         context["filter_form"] = EquipmentInspectiontFilterForm(data=self.request.GET or None) 
+
+        filter_use_condition = self.request.GET.get("use_condition", "")
+        filter_inspector = self.request.GET.get("inspector", "")
+        filter_date_of_inspection_start = self.request.GET.get("date_of_inspection_start", "")
+        filter_date_of_inspection_end = self.request.GET.get("date_of_inspection_end", "")
+
+        filter_str = "use_condition=%s&inspector=%s&date_of_inspection_start=%s&date_of_inspection_end=%s" % (filter_use_condition, filter_inspector, filter_date_of_inspection_start, filter_date_of_inspection_end)
+        context["filter_str"] = filter_str
+
         return context
 
     def get_success_url(self, *args, **kwargs):

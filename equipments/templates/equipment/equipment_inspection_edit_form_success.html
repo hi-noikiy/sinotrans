@@ -14,7 +14,7 @@
           });
 
           if({{is_create_view}}) {
-            $('tr:first').after('<tr class="equipment-inspection-item"><td>{{ object.equipment }}</td><td>{{ object.get_use_condition }}</td><td>{{ object.inspector }}</td><td>{{ object.date_of_inspection }}</td><td><a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a></td></tr>');
+            $('tbody tr:first').before('<tr class="equipment-inspection-item table-primary-hover"><td>{{ object.equipment }}</td><td>{{ object.get_use_condition }}</td><td>{{ object.inspector }}</td><td>{{ object.date_of_inspection }}</td><td><a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a></td></tr>');
             $('tr.equipment-inspection-item a').click(function() {
                 $(this).parent().parent().siblings().removeClass('edit-item');
                 $(this).parent().parent().addClass('edit-item');

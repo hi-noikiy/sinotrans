@@ -74,7 +74,7 @@ spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInsp
 
 class EquipmentInspectiontFilterForm(forms.Form):
     category_id = forms.ModelChoiceField(
-        label='Category',
+        label=_('Category'),
         queryset=EquipmentType.objects.all(), 
         widget=forms.Select(), 
         required=False)
@@ -97,13 +97,13 @@ class EquipmentInspectiontFilterForm(forms.Form):
     except:
         pass
 
-    date_of_inspection_start = forms.DateField(required=False)
-    date_of_inspection_end = forms.DateField(required=False)
+    date_of_inspection_start = forms.DateField(label=_("Date of Inspection Start"), required=False)
+    date_of_inspection_end = forms.DateField(label=_("Date of Inspection End"), required=False)
 
     def __init__(self, *args, **kwargs):
         super(EquipmentInspectiontFilterForm, self).__init__(*args, **kwargs)
-        self.fields['date_of_inspection_start'].widget = widgets.AdminDateWidget()    
-        self.fields['date_of_inspection_end'].widget = widgets.AdminDateWidget()    
+        self.fields['date_of_inspection_start'].widget = widgets.AdminDateWidget()
+        self.fields['date_of_inspection_end'].widget = widgets.AdminDateWidget() 
 
     class Media:
         css = {
