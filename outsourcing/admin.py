@@ -122,14 +122,65 @@ class VehicleInspectionInline(admin.TabularInline):
     #max_num = 10    
 
 class VehicleAdmin(admin.ModelAdmin):
-    list_display = ["service_content", "motorcade","relevant_license_plate","vehicle_type"]
-    search_fields = ("service_content", "motorcade","relevant_license_plate","vehicle_type" )
+    list_display = [
+                        "service_content", 
+                        "motorcade",
+                        "relevant_license_plate",
+                        'vehicle_inspection_valid_until',
+                        "vehicle_type",
+                        'relevant_trailer_number',
+                        'trailer_inspection_valid_until',
+                        'maximum_loadable_tonnage',
+                        'green_mark_valid_until',
+                        'insurance_policy_valid_until',
+                        ]
+    search_fields = (
+                        "service_content", 
+                        "motorcade",
+                        "relevant_license_plate",
+                        'vehicle_inspection_valid_until',
+                        "vehicle_type",
+                        'relevant_trailer_number',
+                        'trailer_inspection_valid_until',
+                        'maximum_loadable_tonnage',
+                        'green_mark_valid_until',
+                        'insurance_policy_valid_until',
+                        )
     list_filter = ("motorcade","service_content", )
     ordering = ("relevant_license_plate",) 
 
     inlines = [
         VehicleInspectionInline,
     ]
+
+    fieldsets= [
+        (None,{
+             'fields':
+                (
+                 'service_content',
+                 'motorcade',
+                 'relevant_license_plate',
+                 'vehicle_inspection_valid_until',
+                 'vehicle_type',
+                 'relevant_trailer_number',
+                 'trailer_inspection_valid_until',
+                 'maximum_loadable_tonnage',
+                 'green_mark_valid_until',
+                 'insurance_policy_valid_until',
+                 )}),
+        (None,{
+             'fields':
+                 (
+                 'GPS',                 
+                 'ABS',                                  
+                 'antiroll_protection',
+                 'reversing_alarm',
+                 'side_edge_and_low_location_collision_guard_bar',
+                 'car_seat_headrest',
+                 'three_point_belt',   
+                 'IVMS_or_VDR',
+                 'anti_drop_equipment',
+                 )}),]   
 
     class Meta:
         model = Vehicle    

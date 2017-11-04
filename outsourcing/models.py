@@ -213,8 +213,8 @@ class Driver(models.Model):
 
 
 class VehicleInspection(models.Model):
-    vehicle = models.ForeignKey(Vehicle, verbose_name="vehicle") 
-    driver = models.ForeignKey(Driver, verbose_name="driver") 
+    vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle") )
+    driver = models.ForeignKey(Driver, verbose_name=_("driver")) 
     date_of_inspection = models.DateField(_("Date of Inspection"), blank=False, null=False,auto_now=False, auto_now_add=False)
     inspector = models.CharField(_("Inspector"), blank=False, null=False,max_length=30)
     carrier = models.CharField(_("carrier"), blank=False, null=False,max_length=30)

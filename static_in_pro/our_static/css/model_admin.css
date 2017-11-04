@@ -91,8 +91,21 @@ if th also set to padding 0, the height will be too tight
   change_form.css
 
 ******************************************/
+body.change-form  fieldset.module:nth-child(1){
+    width: 50%;
+    float: left;
+}
+
 
 body.change-form table textarea.vLargeTextField{
     max-height: 50px;
     max-width: 200px;
+}
+
+body.change-form table input.vTextField{
+    max-width: 100px;
+}
+
+body.change-form table select{
+    min-width: 50px;
 }
