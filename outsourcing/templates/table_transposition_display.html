@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load myform %}
 
 <div style="overflow-x:auto;">
     <table class="table table-hover table-striped table-container table-condensed" >
@@ -14,16 +15,10 @@
             {% for row_head in rows %}
             <tr>
                 <th>{{row_head.1}}</th>
-                {% for form in formset %} 
-                    {% for field in form %} 
-                        {% if field.name == field_0.name %}
-                        <td class="{% if field.name in date_field_list %}calenda{% endif %}">
-                            <span style="display: none">{{field.label_tag}}</span>
-                            {% if field.errors %}<div class="error" style="color:#b75f33">{{ field.errors }}</div>{% endif %}
-                            {{field}}
-                        </td>
-                        {% endif %}
-                    {% endfor %}                            
+                {% for object in object_list %} 
+                    <td>
+                        {{object|get_field_value:row_head.0 }}
+                    </td>                         
                 {% endfor %}
 
                 {% comment %}

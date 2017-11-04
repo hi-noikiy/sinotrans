@@ -284,4 +284,13 @@ class VehicleTransportationKPI(models.Model):
         unique_together = ('year','month', 'transportation_project')
 
     def __unicode__(self): 
-        return _("vehicle tranportation KPI") + " %s %s %s" % (self.get_transportation_project_display(), self.year, self.get_month_display())           
+        return _("vehicle tranportation KPI") + " %s %s %s" % (self.get_transportation_project_display(), self.year, self.get_month_display())     
+
+    # can be replaced by field.value_to_string(object)
+    def get_field_value(self,fieldname):
+
+        if not hasattr(self, fieldname):
+            return None
+        
+        field = self._meta.get_field(fieldname)
+        return "%s" % self._get_FIELD_display(field)                 
