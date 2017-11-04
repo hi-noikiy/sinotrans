@@ -163,17 +163,17 @@ class InspectionFilterForm(forms.Form):
     except:
         pass
 
-class shelf_inspection_Form(forms.ModelForm):
+class ShelfInspectionForm(forms.ModelForm):
     class Meta:
         model = shelf_inspection
 
         exclude = [
         ]
 
-class shelf_inspection_recordForm(forms.ModelForm):
+class ShelfInspectionRecordForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
-        super(shelf_inspection_recordForm, self).__init__(*args, **kwargs)
+        super(ShelfInspectionRecordForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.instance1 = instance
@@ -246,11 +246,11 @@ class shelf_inspection_recordModelFormSet(BaseModelFormSet):
         return super(shelf_inspection_recordModelFormSet, self).is_valid()
 
 shelf_inspection_record_Formset = modelformset_factory(shelf_inspection_record, 
-                                            form=shelf_inspection_recordForm, 
+                                            form=ShelfInspectionRecordForm, 
                                             formset=shelf_inspection_recordModelFormSet, 
                                             extra=0)
 
-class shelfFilterForm(forms.Form):
+class ShelfFilterForm(forms.Form):
 
     is_gradient_measurement_mandatory = forms.BooleanField(
             label=_('Gradient Check Only'),

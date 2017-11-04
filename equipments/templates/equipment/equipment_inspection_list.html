@@ -3,13 +3,16 @@
 {% load staticfiles %}
 {% load i18n %}
 
-<style type="text/css">
-{% block style %}
-
-
-
+<style>
+{% block head_css_extend %}
+{{ filter_form.media.css }}
 {% endblock %}
 </style>
+
+{% block javascript_extended %}
+{{filter_form.media.js}}
+<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static 'admin/' %}{% endfilter %}";</script>    
+{% endblock %}
 
 {% block jswotag %}
 <script src="http://malsup.github.com/jquery.form.js"></script>

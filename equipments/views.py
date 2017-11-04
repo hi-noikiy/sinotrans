@@ -36,7 +36,7 @@ from .forms import (
 
 
 class EquipmentInsepctionFilter(FilterSet):
-    category = CharFilter(name='equipment__type', lookup_type='icontains', distinct=True)
+    category_id = CharFilter(name='equipment__type__id', lookup_type='exact', distinct=True)
     use_condition = CharFilter(name='use_condition', lookup_type='exact', distinct=True)
     inspector = CharFilter(name='inspector', lookup_type='exact', distinct=True)
     date_of_inspection_start = DateFilter(name='date_of_inspection', lookup_type='gte', distinct=True)
@@ -45,7 +45,7 @@ class EquipmentInsepctionFilter(FilterSet):
     class Meta:
         model = EquipmentInspection
         fields = [
-            'category',
+            'category_id',
             'use_condition',
             'inspector',
             'date_of_inspection_start',
@@ -92,14 +92,11 @@ class EquipmentInspectionListView(FilterMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(EquipmentInspectionListView, self).get_context_data(*args, **kwargs)
 
-        print context["object_list"]
-
-        #queryset = EquipmentInspection.objects.all()
-        queryset = self.get_queryset()
+        queryset = context["object_list"].qs # filtered qs
         category_id = self.request.GET.get("category_id", None)
 
         if category_id and int(category_id) > 0:
-            queryset = EquipmentInspection.objects.all().filter(equipment__type__id=category_id)
+            queryset = queryset.filter(equipment__type__id=category_id)
         else:
             category_id = 0
 

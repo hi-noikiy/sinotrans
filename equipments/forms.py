@@ -1,6 +1,10 @@
 from django import forms
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.admin import widgets                                       
+from django.forms.widgets import Media
+from django.contrib.admin.templatetags.admin_static import static
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 from .models import (
     AbstractEquipmentInspection, Equipment, EquipmentType, EquipmentInspection,
@@ -69,7 +73,7 @@ spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInsp
                                             extra=0)
 
 class EquipmentInspectiontFilterForm(forms.Form):
-    category = forms.ModelChoiceField(
+    category_id = forms.ModelChoiceField(
         label='Category',
         queryset=EquipmentType.objects.all(), 
         widget=forms.Select(), 
@@ -77,7 +81,7 @@ class EquipmentInspectiontFilterForm(forms.Form):
 
     use_condition = forms.ChoiceField(
             label=_('Use Condition'),
-            choices = AbstractEquipmentInspection.equipment_use_condition,
+            choices = BLANK_CHOICE_DASH + AbstractEquipmentInspection.equipment_use_condition,
             widget=forms.Select(),
             required=False
             ) 
@@ -85,7 +89,7 @@ class EquipmentInspectiontFilterForm(forms.Form):
     try:
         inspector = forms.ChoiceField(
                 label=_('Inspector'),
-                choices = set((equipment_inspection.inspector, equipment_inspection.inspector) for equipment_inspection in EquipmentInspection.objects.all()),
+                choices = BLANK_CHOICE_DASH + dict(set((equipment_inspection.inspector, equipment_inspection.inspector) for equipment_inspection in EquipmentInspection.objects.all())),
                 widget=forms.Select(),
                 initial = None,
                 required=False
@@ -95,3 +99,29 @@ class EquipmentInspectiontFilterForm(forms.Form):
 
     date_of_inspection_start = forms.DateField(required=False)
     date_of_inspection_end = forms.DateField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(EquipmentInspectiontFilterForm, self).__init__(*args, **kwargs)
+        self.fields['date_of_inspection_start'].widget = widgets.AdminDateWidget()    
+        self.fields['date_of_inspection_end'].widget = widgets.AdminDateWidget()    
+
+    class Media:
+        css = {
+            'all': ('admin/css/base.css','admin/css/forms.css',),
+        }
+
+    #inherit from BaseForm
+    @property
+    def media(self):
+        """
+        Provide a description of all media required to render the widgets on this form
+        """        
+        media = Media(js=[static('js/jquery.init.both.js'), '/admin/jsi18n/', static('admin/js/core.js')])
+        for field in self.fields.values():
+            for item in field.widget.media._js:
+                if not item.split('/')[-1] in ''.join(media._js):
+                    media = media + Media(js=[item])
+
+        media = media + Media(self.Media)
+
+        return media        

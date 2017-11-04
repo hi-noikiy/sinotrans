@@ -20,7 +20,10 @@ from .mixins import StaffRequiredMixin
 
 # Create your views here.
 from .models import OfficeInspection, DailyInspection, shelf_inspection_record, shelf_inspection, shelf
-from .forms import OfficeInspectionForm, DailyInspectionForm, InspectionFilterForm, shelf_inspection_recordForm, shelfFilterForm, shelf_inspection_Form
+from .forms import (
+    OfficeInspectionForm, 
+    DailyInspectionForm, InspectionFilterForm, 
+    ShelfInspectionRecordForm, ShelfFilterForm, ShelfInspectionForm)
 from .forms import shelf_inspection_record_Formset
 
 
@@ -552,7 +555,7 @@ class shelf_inspection_DetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(shelf_inspection_DetailView, self).get_context_data(*args, **kwargs)
         context["object_list"] = self.get_record_queryset(filter=True)
-        context["shelfFilterForm"] = shelfFilterForm(data=self.request.GET or None) 
+        context["shelfFilterForm"] = ShelfFilterForm(data=self.request.GET or None) 
         formset = shelf_inspection_record_Formset(queryset=self.get_record_queryset(filter=True).qs,
             initial=[{'use_condition': _('Normal'),}])    
         context["formset"] = formset
@@ -576,7 +579,7 @@ class shelf_inspection_DetailView(DetailView):
         if request.is_ajax():
             form_id = request.POST.get('form_id')
             prefix = form_id.replace('id_', '')
-            form = shelf_inspection_recordForm(request.POST, prefix=prefix)
+            form = ShelfInspectionRecordForm(request.POST, prefix=prefix)
             #print form.errors
             if form.is_valid():
                 instance_id = form.clean_id()
@@ -590,7 +593,7 @@ class shelf_inspection_DetailView(DetailView):
                         'form_id': form_id,
                     }                    
                     for fieldname in shelf_inspection_record._meta.get_all_field_names():
-                        if not ( fieldname in shelf_inspection_recordForm.Meta.exclude or fieldname in shelf_inspection_recordForm.Meta.hidden_form):
+                        if not ( fieldname in ShelfInspectionRecordForm.Meta.exclude or fieldname in ShelfInspectionRecordForm.Meta.hidden_form):
                             if form.cleaned_data.get(fieldname, None) is not None: # be careful for False
                                 setattr(instance, fieldname, form.cleaned_data.get(fieldname))
                                 json_data.update({fieldname: instance.get_field_value(fieldname)})
@@ -614,12 +617,12 @@ class shelf_inspection_DetailView(DetailView):
 class shelf_inspection_CreateView(CreateView):
     #model = shelf
     template_name = "shelf/shelf_inspection_create.html"
-    form_class = shelf_inspection_Form
+    form_class = ShelfInspectionForm
     success_url = "inspection/shelfinspectionlist" #reverse("shelf_inspection_list")
 
     def get_context_data(self, *args, **kwargs):
         context = super(shelf_inspection_CreateView, self).get_context_data(*args, **kwargs)
-        context["form"] = shelf_inspection_Form()
+        context["form"] = ShelfInspectionForm()
         return context
 
     def get_form(self, *args, **kwargs):
@@ -633,7 +636,7 @@ class shelf_inspection_CreateView(CreateView):
     def post(self, request, *args, **kwargs):
         postresult = super(shelf_inspection_CreateView, self).post(request, *args, **kwargs)
 
-        form = shelf_inspection_Form(request.POST, request.FILES)
+        form = ShelfInspectionForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.save()

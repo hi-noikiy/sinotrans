@@ -34,10 +34,10 @@ class Equipment(models.Model):
         return "%s" % (self.name) 
 
 class AbstractEquipmentInspection(models.Model):
-    equipment_use_condition = (
+    equipment_use_condition = [
         ('normal', _('Normal')),
         ('breakdown', _('Breakdown')),
-    )
+    ]
 
     equipment = models.ForeignKey(Equipment, verbose_name=_('Equipment'))
     use_condition = models.CharField(_('Use Condition'), choices=equipment_use_condition, max_length=30, blank=False,null=False,default='normal')
