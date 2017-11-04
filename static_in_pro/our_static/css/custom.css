@@ -171,10 +171,13 @@ table.transposition tr th{
     color: white;
 }
 
-
+.table>thead>tr.table-primary{
+    height:40px;
+}
 
 table tr.table-primary th{
     border-bottom: solid 1px #f9b9c3;
+    background: linear-gradient(rgba(124, 152, 177, 0.88), #428bca);
 }
 
 

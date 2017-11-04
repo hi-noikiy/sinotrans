@@ -498,7 +498,7 @@ class shelf_inspection_ListView(ListView):
         ])
         return super(shelf_inspection_ListView, self).dispatch(request,args,kwargs)       
 
-class shelf_inspection_recordFilter(FilterSet):
+class ShelfInspectionRecordFilter(FilterSet):
     #is_gradient_measurement_mandatory = BooleanFilter(name='shelf__is_gradient_measurement_mandatory', method='gradient_custom_filter', distinct=True) # this is for latest version
     is_gradient_measurement_mandatory = MethodFilter(name='shelf__is_gradient_measurement_mandatory', action='gradient_custom_filter', distinct=True)
     type = CharFilter(name='shelf__type', lookup_expr='iexact', distinct=True)  #shelf is elem name of shelf_inspection_record
@@ -536,7 +536,7 @@ class shelf_inspection_recordFilter(FilterSet):
 class shelf_inspection_DetailView(DetailView): 
     model = shelf_inspection
     template_name = "shelf/shelf_inspection_detail.html"
-    filter_class = shelf_inspection_recordFilter
+    filter_class = ShelfInspectionRecordFilter
 
     def get_record_queryset(self, *args, **kwargs):
         pk = self.kwargs.get('pk', None)

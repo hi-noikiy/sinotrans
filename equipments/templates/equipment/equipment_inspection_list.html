@@ -32,6 +32,14 @@
 
         <div class="row">
             <div class="col-sm-12">
+                <div class="form-filter">
+                    <form method="GET" action="{% url 'equipmentinsepction_list' %}">
+                        {{ filter_form|crispy }}
+                        <input type='submit' class='btn btn-primary' style="margin-bottom: 5px;" value="{% trans 'Apply Filter' %}">
+                        <a class="btn btn-default"  style="margin-bottom: 5px;" href="{% url 'equipmentinsepction_list' %}"  >{% trans 'Clear Filters' %}</a>
+                    </form>                
+                    
+                </div>
                 <div class="pull-right">
                     <i class="fa fa-download fa-2x" aria-hidden="true"></i>
                     <a class="fa fa-plus-square fa-2x" style="padding-right: 5px;" data-toggle="modal" href="{% url 'equipmentinsepction_create' cat=current_category|add:"0" %}" data-target="#modal" title="create item" data-tooltip></a>

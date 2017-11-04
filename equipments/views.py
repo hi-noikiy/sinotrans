@@ -11,6 +11,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormMixin, ModelFormMixin
 from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
+from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 
 from .models import  (
     EquipmentInspection,
@@ -21,6 +22,7 @@ from .models import  (
 
 from .forms import (
     EquipmentInspectionForm, equipment_inspection_model_formset,
+    EquipmentInspectiontFilterForm,
 )
 
 from .forms import (
@@ -33,19 +35,67 @@ from .forms import (
 # http://caibaojian.com/simple-responsive-table.html
 
 
-class EquipmentInspectionListView(ListView):
+class EquipmentInsepctionFilter(FilterSet):
+    category = CharFilter(name='equipment__type', lookup_type='icontains', distinct=True)
+    use_condition = CharFilter(name='use_condition', lookup_type='exact', distinct=True)
+    inspector = CharFilter(name='inspector', lookup_type='exact', distinct=True)
+    date_of_inspection_start = DateFilter(name='date_of_inspection', lookup_type='gte', distinct=True)
+    date_of_inspection_end = DateFilter(name='date_of_inspection', lookup_type='lte', distinct=True)
+
+    class Meta:
+        model = EquipmentInspection
+        fields = [
+            'category',
+            'use_condition',
+            'inspector',
+            'date_of_inspection_start',
+            'date_of_inspection_end',
+        ]
+
+class FilterMixin(object):
+    filter_class = None
+    search_ordering_param = "ordering"
+
+    def get_queryset(self, *args, **kwargs):
+        try:
+            qs = super(FilterMixin, self).get_queryset(*args, **kwargs)
+            return qs
+        except:
+            raise ImproperlyConfigured("You must have a queryset in order to use the FilterMixin")
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(FilterMixin, self).get_context_data(*args, **kwargs)
+        qs = self.get_queryset()
+        ordering = self.request.GET.get(self.search_ordering_param, '-updated')
+        if ordering:
+            qs = qs.order_by(ordering)
+        filter_class = self.filter_class
+        if filter_class:
+            f = filter_class(self.request.GET, queryset=qs)
+            context["object_list"] = f
+        return context
+
+
+class EquipmentInspectionListView(FilterMixin, ListView):
     model = EquipmentInspection
-    queryset = EquipmentInspection.objects.get_this_day()
+    #queryset = EquipmentInspection.objects.get_this_day()
+    queryset = EquipmentInspection.objects.all()
     #object_list = queryset
     template_name = "equipment/equipment_inspection_list.html"
+    filter_class = EquipmentInsepctionFilter
 
-    # def get_queryset(self, *args, **kwargs):
-    #     return self.queryset
+    def get_queryset(self, *args, **kwargs):
+        #qs = super(EquipmentInspectionListView, self).get_queryset(*args, **kwargs)
+        qs  = self.model.objects.all()
+        return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super(EquipmentInspectionListView, self).get_context_data(*args, **kwargs)
 
-        queryset = EquipmentInspection.objects.all()
+        print context["object_list"]
+
+        #queryset = EquipmentInspection.objects.all()
+        queryset = self.get_queryset()
         category_id = self.request.GET.get("category_id", None)
 
         if category_id and int(category_id) > 0:
@@ -67,6 +117,7 @@ class EquipmentInspectionListView(ListView):
         context["categories"] = EquipmentType.objects.all()
         context["current_category"] = category_id
         context["object_list"] = qs
+        context["filter_form"] = EquipmentInspectiontFilterForm(data=self.request.GET or None) 
         return context
 
     def get_success_url(self, *args, **kwargs):
@@ -161,41 +212,6 @@ class EquipmentInspectionUpdateView(UpdateView):
         return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item, "is_create_view" : 0 }))        
 
 
-# class SprayPumproomInsepctionFilter(FilterSet):
-#     cateory = CharFilter(name='category', lookup_type='icontains', distinct=True)
-#     rectification_status = CharFilter(name='rectification_status', lookup_type='exact', distinct=True)
-#     owner = CharFilter(name='owner', lookup_type='icontains', distinct=True)
-
-#     class Meta:
-#         model = DailyInspection
-#         fields = [
-#             'owner',
-#             'rectification_status',
-#             'category',
-#         ]
-
-# class FilterMixin(object):
-#     filter_class = None
-#     search_ordering_param = "ordering"
-
-#     def get_queryset(self, *args, **kwargs):
-#         try:
-#             qs = super(FilterMixin, self).get_queryset(*args, **kwargs)
-#             return qs
-#         except:
-#             raise ImproperlyConfigured("You must have a queryset in order to use the FilterMixin")
-
-#     def get_context_data(self, *args, **kwargs):
-#         context = super(FilterMixin, self).get_context_data(*args, **kwargs)
-#         qs = self.get_queryset()
-#         ordering = self.request.GET.get(self.search_ordering_param, '-created')
-#         if ordering:
-#             qs = qs.order_by(ordering)
-#         filter_class = self.filter_class
-#         if filter_class:
-#             f = filter_class(self.request.GET, queryset=qs)
-#             context["object_list"] = f
-#         return context
 
 
 class SprayPumproomInspectionListView(ListView):

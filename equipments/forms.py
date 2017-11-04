@@ -3,7 +3,7 @@ from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from .models import (
-    Equipment, EquipmentType, EquipmentInspection,
+    AbstractEquipmentInspection, Equipment, EquipmentType, EquipmentInspection,
     SprayPumpRoomInspection,
 )
 
@@ -67,3 +67,31 @@ class SprayPumpRoomInspectionForm(forms.ModelForm):
 spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInspection,
                                             form=SprayPumpRoomInspectionForm,
                                             extra=0)
+
+class EquipmentInspectiontFilterForm(forms.Form):
+    category = forms.ModelChoiceField(
+        label='Category',
+        queryset=EquipmentType.objects.all(), 
+        widget=forms.Select(), 
+        required=False)
+
+    use_condition = forms.ChoiceField(
+            label=_('Use Condition'),
+            choices = AbstractEquipmentInspection.equipment_use_condition,
+            widget=forms.Select(),
+            required=False
+            ) 
+
+    try:
+        inspector = forms.ChoiceField(
+                label=_('Inspector'),
+                choices = set((equipment_inspection.inspector, equipment_inspection.inspector) for equipment_inspection in EquipmentInspection.objects.all()),
+                widget=forms.Select(),
+                initial = None,
+                required=False
+                )    
+    except:
+        pass
+
+    date_of_inspection_start = forms.DateField(required=False)
+    date_of_inspection_end = forms.DateField(required=False)
