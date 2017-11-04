@@ -10,6 +10,9 @@
     display:none;
 }
 
+div.form-filter{
+    padding-top: 5px;
+}
 .form-filter .form-group{
     max-width: 200px;
 }
@@ -23,15 +26,26 @@
 }
 
 .form-filter div.apply-filter input{
-    height: 35px;
+    height: 32px;
+    padding-top: 5px;
 }
 
 .form-filter div.apply-filter a{
-    height: 35px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    vertical-align: middle;
+    height: 32px;
 }
+
+.form-filter label{
+    display: block;
+    background-color: #79aec8;
+    border-radius: 3px;
+    padding: 2px;
+    text-align: center;
+    vertical-align: middle;
+    color: #ffffff;
+    border: #448caf solid 1px;
+    height: 25px;
+}
+
 {% endblock %}
 
 {% block head_css_extend %}
@@ -69,13 +83,13 @@
                     <form class="form-inline" method="GET" action="{% url 'equipmentinsepction_list' %}">
                         {% for field in filter_form %}
                         <div class="form-group">
-                            <label class="control-label" for="{{field.name}}">{{field.label_tag}}</label><br>
+                            {{field.label_tag}}
                             {{ field }}
                         </div>                           
                         {% endfor %}
                         <div class="form-group apply-filter">                                                                                            
-                            <input type='submit' class='btn btn-primary' style="margin-bottom: 5px;" value="{% trans 'Apply Filter' %}">
-                            <a class="btn btn-default"  style="margin-bottom: 5px;" href="{% url 'equipmentinsepction_list' %}"  >{% trans 'Clear Filters' %}</a>
+                            <input type='submit' class='btn btn-primary' value="{% trans 'Apply Filter' %}">
+                            <a class="btn btn-default" href="{% url 'equipmentinsepction_list' %}"  >{% trans 'Clear Filters' %}</a>
                         </div>   
                     </form>                    
                 </div>
