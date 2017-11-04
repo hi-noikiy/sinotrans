@@ -55,7 +55,7 @@ class DailyInspectionAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            "all": ("css/inspection.css", "css/model_admin.css")
+            "all": ("css/model_admin.css", "css/inspection.css", )
         }
         js = ("js/jquery.min.js","js/model_admin.js",)
         

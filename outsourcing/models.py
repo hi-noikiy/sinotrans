@@ -209,7 +209,7 @@ class Driver(models.Model):
         verbose_name_plural = _("drivers")
 
     def __unicode__(self): 
-        return _("driver") + " %s %s" % (self.name, self.ID)
+        return _("driver") + " %s %s" % (self.name, self.driver_ID)
 
 
 class VehicleInspection(models.Model):

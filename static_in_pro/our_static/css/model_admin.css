@@ -1,24 +1,32 @@
 
+
+/* wrap set */
 #changelist table thead th {
-	word-wrap: break-word;
-	word-break: break-all;
-	white-space: normal;
-	/*overflow: auto;*/ /*hidden*/
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    /*overflow: auto;*/ /*hidden*/
     text-align: center;
 }
 
 #changelist table tbody td, #changelist table tbody th {
-	word-wrap: break-word;
-	word-break: break-all;
-	white-space: normal;
-	/*overflow: auto;*/ /*hidden*/
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    /*overflow: auto;*/ /*hidden*/
 }
 
 #changelist table tbody th {
     white-space: normal;
 }
 
-td, th {
+
+/* inline widget set */
+
+/*
+if th also set to padding 0, the height will be too tight
+*/
+#changelist table tbody td {
     /*border-bottom: 1px solid #CCCCCC;*/
     border-bottom: none;
     padding:0px;
@@ -26,11 +34,11 @@ td, th {
     text-align: center;
 }
 
-tbody th{
+#changelist table tbody th{
     text-align: left;
     text-indent:10px;
 }
-#changelist .row1 td input, .row1 td select{
+#changelist table tbody .row1 td input, .row1 td select{
     /*background-color: #EDF3FE;*/
 }
 
@@ -38,22 +46,24 @@ tbody th{
     background-color: #FFFFCC!important;
 }
 
-td input, td select{
+#changelist  table tbody td input, td select{
     padding:0px!important;
     margin:0px!important;
 }
-td input[type=text],td select{
+#changelist  table tbody td input[type=text],td select{
     border-radius: 3px;
     width:100%;
     height: 30px;
     /*border: 2px solid #ccc;*/
     border: none;
-    text-indent:10px;
+    text-indent:2px;
+    text-align: center;    
 }
 
-input[type=checkbox]{
+#changelist  input[type=checkbox]{
     /*padding:5px 0px 0px 0px!important;*/
 }
+
 
 
 /*offset propeties*/
@@ -70,3 +80,19 @@ input[type=checkbox]{
 /*position: relative;
 /*!*text-alight*!*/
 /*vertical-align*/
+
+
+
+
+
+
+/**************************************
+
+  change_form.css
+
+******************************************/
+
+body.change-form table textarea.vLargeTextField{
+    max-height: 50px;
+    max-width: 200px;
+}

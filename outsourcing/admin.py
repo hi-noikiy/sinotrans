@@ -58,6 +58,7 @@ class ForkliftMaintAdmin(admin.ModelAdmin):
 
 class ForkliftAdmin(admin.ModelAdmin):
     list_display = ["internal_car_number", "internal_plate_number",'sn']
+    list_editable = ["internal_car_number","internal_plate_number",'sn',]
     search_fields = ('internal_car_number',)
     list_filter = ('category',)
     ordering = ('sn',)
@@ -100,6 +101,12 @@ class ForkliftAdmin(admin.ModelAdmin):
     class Meta:
         model = Forklift
 
+    class Media:
+        css = {
+            "all": ("css/model_admin.css", )
+        }
+        js = ("js/jquery.min.js","js/model_admin.js",)
+
 class DriverAdmin(admin.ModelAdmin):
     list_display = ["name", "driver_ID","driver_license_type","contact_phone"]
     search_fields = ("name", "driver_ID","driver_license_type","contact_phone" )
@@ -126,6 +133,12 @@ class VehicleAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Vehicle    
+
+    class Media:
+        css = {
+            "all": ("css/model_admin.css", )
+        }
+        js = ("js/jquery.min.js","js/model_admin.js",)
 
 
 class VehicleInspectionAdmin(admin.ModelAdmin):

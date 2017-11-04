@@ -1120,19 +1120,19 @@ msgstr "叉车年检图片"
 
 #: .\outsourcing\models.py:160 .\outsourcing\models.py:242
 msgid "shuttle bus"
-msgstr ""
+msgstr "短驳车"
 
 #: .\outsourcing\models.py:161
 msgid "truck"
-msgstr ""
+msgstr "普货车"
 
 #: .\outsourcing\models.py:162
 msgid "dangerous goods vehicles"
-msgstr ""
+msgstr "危险品车"
 
 #: .\outsourcing\models.py:163
 msgid "scattered oil vehicles"
-msgstr ""
+msgstr "散油车"
 
 #: .\outsourcing\models.py:166
 msgid "service content"
