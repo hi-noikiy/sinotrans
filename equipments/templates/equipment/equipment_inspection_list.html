@@ -3,7 +3,37 @@
 {% load staticfiles %}
 {% load i18n %}
 
+
 <style>
+{% block style %}
+.timezonewarning{
+    display:none;
+}
+
+.form-filter .form-group{
+    max-width: 200px;
+}
+
+.form-filter .form-group select{
+    width:100%;
+}
+
+.form-filter div.apply-filter{
+    vertical-align: bottom;
+}
+
+.form-filter div.apply-filter input{
+    height: 35px;
+}
+
+.form-filter div.apply-filter a{
+    height: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    vertical-align: middle;
+}
+{% endblock %}
+
 {% block head_css_extend %}
 {{ filter_form.media.css }}
 {% endblock %}
@@ -14,7 +44,7 @@
 <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static 'admin/' %}{% endfilter %}";</script>    
 {% endblock %}
 
-{% block jswotag %}
+{% block jswotag/// %}
 <script src="http://malsup.github.com/jquery.form.js"></script>
 {% endblock %}    
 
@@ -36,12 +66,18 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-filter">
-                    <form method="GET" action="{% url 'equipmentinsepction_list' %}">
-                        {{ filter_form|crispy }}
-                        <input type='submit' class='btn btn-primary' style="margin-bottom: 5px;" value="{% trans 'Apply Filter' %}">
-                        <a class="btn btn-default"  style="margin-bottom: 5px;" href="{% url 'equipmentinsepction_list' %}"  >{% trans 'Clear Filters' %}</a>
-                    </form>                
-                    
+                    <form class="form-inline" method="GET" action="{% url 'equipmentinsepction_list' %}">
+                        {% for field in filter_form %}
+                        <div class="form-group">
+                            <label class="control-label" for="{{field.name}}">{{field.label_tag}}</label><br>
+                            {{ field }}
+                        </div>                           
+                        {% endfor %}
+                        <div class="form-group apply-filter">                                                                                            
+                            <input type='submit' class='btn btn-primary' style="margin-bottom: 5px;" value="{% trans 'Apply Filter' %}">
+                            <a class="btn btn-default"  style="margin-bottom: 5px;" href="{% url 'equipmentinsepction_list' %}"  >{% trans 'Clear Filters' %}</a>
+                        </div>   
+                    </form>                    
                 </div>
                 <div class="pull-right">
                     <i class="fa fa-download fa-2x" aria-hidden="true"></i>

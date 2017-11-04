@@ -68,6 +68,12 @@ class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
     class Meta:
         model = SprayPumpRoomInspection
 
+    class Media:
+        css = {
+            "all": ("css/model_admin.css",)
+        }
+        js = ("js/jquery.min.js","js/model_admin.js",)
+
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentType, EquipmentTypeAdmin)
 admin.site.register(EquipmentInspection, EquipmentInspectionAdmin)
