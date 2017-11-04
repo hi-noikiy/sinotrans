@@ -84,7 +84,9 @@ class shelfAdmin(admin.ModelAdmin):
 
     def view_on_site(self, obj):
         url = reverse('shelf_detail', kwargs={'pk': obj.pk})
-        return 'https://sinotran.applinzi.com' + url
+        #print get_current_site(self.request)
+        #return 'http://127.0.0.1:8000' + url
+        return url
 
 class shelf_inspection_recordInline(admin.TabularInline):
     model = shelf_inspection_record
@@ -92,7 +94,7 @@ class shelf_inspection_recordInline(admin.TabularInline):
     #max_num = 10
 
     def view_on_site(self, obj):
-        url = reverse('shelf_inspection_detail', kwargs={'pk': obj.pk})
+        url = reverse('shelf_inspection_detail', kwargs={'pk': obj.pk})        
         #return get_current_site(self.request) + url
         return 'https://sinotran.applinzi.com' + url
 

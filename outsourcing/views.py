@@ -9,10 +9,15 @@ from django.views.generic.edit import FormMixin, ModelFormMixin
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.utils.translation import ugettext as _
+from django.contrib import messages
 
 from .models import (
 	Forklift, ForkliftMaint, 
+    VehicleTransportationKPI,
 	)
+from .forms import (
+    vehicle_transportation_kpi_model_formset
+    )
 
 from .models import option_value_convertion
 
@@ -61,3 +66,43 @@ class ForklifDetailView(DetailView):
         ])
         return super(ForklifDetailView, self).dispatch(request,args,kwargs)           
 
+class TransportationKPIListDisplayView(ListView):
+    model = VehicleTransportationKPI
+    template_name = "kpi/transportionkpi_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TransportationKPIListDisplayView, self).get_context_data(*args, **kwargs)
+        context["object_list"] = self.model.objects.all()
+        formset = vehicle_transportation_kpi_model_formset(queryset=self.get_queryset(*args, **kwargs))
+        context["formset"] = formset
+
+        transportation_project_exist = [_.transportation_project for _ in self.get_queryset()]        
+        transportation_projects = [_ for _ in VehicleTransportationKPI.TRANSPORTATION_PROJECT_OPTION if _[0] in transportation_project_exist]
+        context["columns"] = transportation_projects
+        context["project_name"] = "vehicle tranportation KPI"
+        context["hidden_fields"] = ["id"]
+        context["date_field_list"] = [""]
+        
+        return context       
+
+    def post(self, request, *args, **kwargs):
+        formset = vehicle_transportation_kpi_model_formset(request.POST or None, request.FILES or None)
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.save()
+            messages.success(request, "Your list has been updated.")
+            return redirect(reverse("transportationkpi_list_display",  kwargs={}))
+
+        self.object_list = self.get_queryset() # copy from BaseListView::get
+        context = self.get_context_data()
+        context['formset'] = formset
+        return self.render_to_response(context)
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('vehicle tranportation KPI'),request.path_info),
+        ])
+        return super(TransportationKPIListDisplayView, self).dispatch(request,args,kwargs)   
+        

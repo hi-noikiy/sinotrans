@@ -3,6 +3,7 @@ from django.core.files.storage import default_storage
 from django.db.models import FileField
 from django.core.cache import cache
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 def file_cleanup(sender, **kwargs):
     """
@@ -94,3 +95,68 @@ def save_raw_instance(sender, instance, *args, **kwargs):
         cache.set(cache_key, inst)                           
     except:
         pass
+
+from django.db.models import fields
+
+from django import forms
+class PercentageDigitField(fields.FloatField):
+    widget = forms.TextInput(attrs={"class": "percentInput"})
+
+    def to_python(self, value):
+        val = super(PercentageField, self).to_python(value)
+        if is_number(val):
+            return val/100
+        return val
+
+    def prepare_value(self, value):
+        val = super(PercentageField, self).prepare_value(value)
+        if is_number(val) and not isinstance(val, str):
+            return str((float(val)*100))
+        return val
+
+def is_number(s):
+    if s is None:
+        return False
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+from django.core.exceptions import ValidationError
+# accepted 50%, 50 = 50%
+
+def valid_percentage(val):
+    val2 = val
+    if val.endswith("%"):
+        val2 = val[:-1] #remove last "$"
+    try:
+        return float(val2)
+    except ValueError:
+        raise ValidationError(
+            _('%(value)s is not a valid percentage'),
+              params={'value': val},
+       )     
+
+class PercentageField(fields.CharField):
+    def validate(self, value, model_instance):
+        #return super(PercentageField, self).validators + valid_percentage
+        return valid_percentage(value)
+
+    # cover before handled by backend
+    def to_python(self, value):
+        val = super(PercentageField, self).to_python(value)
+        if not val.endswith("%"):
+            return val + "%"        
+        return val
+
+    def prepare_value(self, value):
+        val = super(PercentageField, self).prepare_value(value)
+        if not val.endswith("%"):
+            return val + "%"
+        return val
+
+def get_exist_option_items(options, queryset, fieldname):
+    exist_in_qs = [getattr(_,fieldname) for _ in queryset]
+    exist_matched = [_ for _ in options if _[0] in exist_in_qs]
+    return exist_matched

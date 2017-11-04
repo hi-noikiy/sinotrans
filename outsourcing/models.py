@@ -4,6 +4,14 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from datetime import datetime, timedelta
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+from inspection.models import month_choice
+from inspection.utils import valid_percentage
+from inspection.utils import PercentageField
+
+
 # Create your models here.
 
 RESULT_OPTION = (
@@ -248,29 +256,32 @@ class VehicleTransportationKPI(models.Model):
         ('water transport', _('water transport')),        
     )
 
-    transportation_project = models.CharField(_("transportation project"), choices=TRANSPORTATION_PROJECT_OPTION, blank=False, null=False, max_length=30)
-    year = models.CharField(_("year"), blank=False, null=False,max_length=30)
-    month = models.CharField(_("month"), blank=False, null=False,max_length=30)
+    transportation_project = models.CharField(_("transportation project"), choices=TRANSPORTATION_PROJECT_OPTION, blank=False, null=False, max_length=130)
+    year = models.PositiveIntegerField(_("year"),
+        validators=[MinValueValidator(2017), MaxValueValidator(datetime.now().year)],
+        blank=False,null=False, help_text="Use the following format: < YYYY >")
+    month = models.CharField(_("month"),  choices=month_choice, blank=False, null=False,max_length=30)
     safe_mileages = models.PositiveIntegerField(_("safe mileage"), blank=False, null=False)
     safe_labor_hours = models.PositiveIntegerField(_("safe labor hours"), blank=False, null=False)
     LSR_violation_cases = models.PositiveIntegerField(_("LSR violation cases"), blank=False, null=False)
     safety_accident_cases = models.PositiveIntegerField(_("safety accident cases"), blank=False, null=False)
-    yearly_plan_executing_rate = models.CharField(_("yearly plan executing rate"), blank=False, null=False,max_length=30)
-    vehicle_qualification_rate = models.CharField(_("vehicle qualification rate"), blank=False, null=False,max_length=30)
-    journey_management_rules_implemented_rate = models.CharField(_("journey management rules implemented rate"), blank=False, null=False,max_length=30)
+    yearly_plan_executing_rate = PercentageField(_("yearly plan executing rate"), blank=False, null=False,max_length=30)
+    vehicle_qualification_rate = PercentageField(_("vehicle qualification rate"), blank=False, null=False,max_length=30)
+    journey_management_rules_implemented_rate = PercentageField(_("journey management rules implemented rate"), blank=False, null=False,max_length=30)
     safe_loading_violation_cases = models.PositiveIntegerField(_("safe loading violation cases"), blank=False, null=False)
     departure_count = models.PositiveIntegerField(_("departure count"), blank=False, null=False)
     departure_tones = models.PositiveIntegerField(_("departure tones"), blank=False, null=False)
-    monthly_delivery_plan_completion_rate = models.CharField(_("monthly delivery plan completion rate"), blank=False, null=False, max_length=30)
-    AOG_on_time_rate = models.CharField(_("AOG on-time rate"), blank=False, null=False,max_length=30)
-    POD_on_time_rate = models.CharField(_("POD On-Time rate"), blank=False, null=False,max_length=30)
-    POD_accuracy = models.CharField(_("POD accuracy"), blank=False, null=False,max_length=30)
-    customer_satisfaction_rate = models.CharField(_("customer satisfaction rate"), blank=False, null=False,max_length=30)
-    customer_complaint_cases = models.CharField(_("Customer complaint cases"), blank=False, null=False,max_length=30)
+    monthly_delivery_plan_completion_rate = PercentageField(_("monthly delivery plan completion rate"), blank=False, null=False, max_length=30)
+    AOG_on_time_rate = PercentageField(_("AOG on-time rate"), blank=False, null=False,max_length=30)
+    POD_on_time_rate = PercentageField(_("POD On-Time rate"), blank=False, null=False,max_length=30)
+    POD_accuracy = PercentageField(_("POD accuracy"), blank=False, null=False,max_length=30)
+    customer_satisfaction_rate = PercentageField(_("customer satisfaction rate"), blank=False, null=False,max_length=30)
+    customer_complaint_cases = models.PositiveIntegerField(_("Customer complaint cases"), blank=False, null=False)
 
     class Meta:
         verbose_name = _("vehicle tranportation KPI")
         verbose_name_plural = _("vehicle tranportation KPI")
+        unique_together = ('year','month', 'transportation_project')
 
     def __unicode__(self): 
-        return _("vehicle tranportation KPI") + " %s %s" % (self.driver.name, self.vehicle.relevant_license_plate)           
+        return _("vehicle tranportation KPI") + " %s %s %s" % (self.get_transportation_project_display(), self.year, self.get_month_display())           

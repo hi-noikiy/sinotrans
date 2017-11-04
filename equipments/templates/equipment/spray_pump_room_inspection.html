@@ -3,58 +3,13 @@
 
 <style type="text/css">
 {%block style %}
-thead{
-    background-color: #428bca;    
-    border-color: #428bca;
-    color: white;
-}
 
-table>thead>tr>th{
-    vertical-align: middle!important;
-}
-
-table tbody tr{
-    border-top: none!important;
-}
-
-.table-formset thead tr th{
-    text-align: center;
-}
-
-
-.table-formset tbody tr th{
-    min-width: 200px;
-}
-
-
-.table-formset tbody tr td{
-    padding:0px;
-    margin:0px;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.table-formset tbody tr td input[type="text"]{
-    padding:0px;
-    margin:0px;
-    width:100%;
-    height: 30px;
-    border:none;
-    text-indent: 1px;
-    min-width: 85px;
-    text-align: center;
-}
-
-.table-striped>tbody>tr:nth-child(odd)>td input
-{
-    background-color: #e9f8fb;
-}
 
 {% endblock %}
 </style>
 
 
-{% block jswotag %}
+{% block jswotag//// %}
 <script src="http://malsup.github.com/jquery.form.js"></script>
 {% endblock %}    
 
@@ -101,7 +56,7 @@ table tbody tr{
             <form method="post" action="">{% csrf_token %}
                 {{ formset.management_form }}
 
-                <table class="spray-pump table-formset table table-hover table-striped table-container table-condensed" >
+                <table class="spray-pump table-formset table table-hover table-formset-striped table-striped table-container table-condensed" >
                     <thead>
                         <tr>
                             <th>{% trans "Spray Pump Room" %}</th>
@@ -135,7 +90,6 @@ table tbody tr{
                         {% endfor %}
                     </tbody>
                 </table>
-
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <hr>
             </form>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+
+
+<style type="text/css">
+{% block style %}
+
+table.table-formset tbody tr th label
+{
+	padding-left: 4px;
+}
+
+table.table-formset thead tr th,
+table.table-formset tbody tr td
+{
+	max-width: 200px;
+}
+
+table.table-formset tbody tr td select
+{
+	width: 100%;
+}
+
+
+{% endblock %}
+</style>
+
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12" >
+        {% include "table_transposition_formset.html" %}
+    </div>
+</div>
+{% endblock %}

@@ -218,8 +218,6 @@ class EquipmentInspectionUpdateView(UpdateView):
         return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item, "is_create_view" : 0 }))        
 
 
-
-
 class SprayPumproomInspectionListView(ListView):
     model = SprayPumpRoomInspection
     queryset = SprayPumpRoomInspection.objects.all() #queryset_ordered()
@@ -235,10 +233,11 @@ class SprayPumproomInspectionListView(ListView):
 
         formset = spray_pumproom_inspection_model_formset(queryset=self.get_queryset(*args, **kwargs))
         context["formset"] = formset
-        months_exist = [_.month for _ in self.get_queryset()]
+
         from inspection.models import month_choice
-        months = [_ for _ in month_choice if _[0] in months_exist]
-        context["months"] = months
+        from inspection.utils import get_exist_option_items
+        context["months"] = get_exist_option_items(month_choice, self.get_queryset(), 'month')
+
 
         return context
 
@@ -258,3 +257,10 @@ class SprayPumproomInspectionListView(ListView):
 
     def get_success_url(self, *args, **kwargs):
         return reverse("spraypumproominspection_list", kwargs={})        
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Spray Pump Room Inspection'),request.path_info),
+        ])
+        return super(SprayPumproomInspectionListView, self).dispatch(request,args,kwargs)           

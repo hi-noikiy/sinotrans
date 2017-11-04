@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.admin import AdminSite
 from inspection.admin import my_admin_site
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 # Register your models here.
 from .models import (
@@ -202,14 +203,44 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
         model = VehicleInspection    
 
 class VehicleTransportationKPIAdmin(admin.ModelAdmin):
-    list_display = ["transportation_project", "year","month",]
+    list_display = [
+                "transportation_project", 
+                "year",
+                "month",
+                'safe_mileages',
+                'safe_labor_hours',
+                'LSR_violation_cases',
+                'safety_accident_cases',
+                'yearly_plan_executing_rate',
+                'vehicle_qualification_rate',
+                'journey_management_rules_implemented_rate',
+                'safe_loading_violation_cases',
+                'departure_count',
+                'departure_tones',
+                'monthly_delivery_plan_completion_rate',
+                'AOG_on_time_rate',
+                'POD_on_time_rate',
+                'POD_accuracy',
+                'customer_satisfaction_rate',
+                'customer_complaint_cases',
+                ]
     search_fields = ("transportation_project", "year","month", )
     list_filter = ("transportation_project", "year","month", )
-    ordering = ("transportation_project", "year","month",) 
+    ordering = ( "year","month", "transportation_project",) 
 
     class Meta:
         model = VehicleTransportationKPI    
 
+    class Media:
+        css = {
+            "all": ("css/model_admin.css", )
+        }
+        js = ("js/jquery.min.js","js/model_admin.js",)
+
+    # def view_on_site(self, obj):
+    #     url = reverse('person-detail', kwargs={'slug': obj.slug})
+    #     return 'https://example.com' + url        
+        
 admin.site.register(Forklift, ForkliftAdmin)
 admin.site.register(ForkliftRepair, ForkliftRepairAdmin)
 admin.site.register(ForkliftMaint, ForkliftMaintAdmin)

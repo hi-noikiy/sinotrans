@@ -96,6 +96,9 @@ body.change-form  fieldset.module:nth-child(1){
     float: left;
 }
 
+body.change-form  .submit-row{
+    clear:both; /* incase only one fieldset and no tables */
+}
 
 body.change-form table textarea.vLargeTextField{
     max-height: 50px;

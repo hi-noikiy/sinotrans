@@ -1380,7 +1380,7 @@ msgstr "车辆合格率"
 
 #: .\outsourcing\models.py:260
 msgid "journey management rules implemented rate"
-msgstr "行程管理规定执行"
+msgstr "行程管理规定执行率"
 
 #: .\outsourcing\models.py:261
 msgid "safe loading violation cases"

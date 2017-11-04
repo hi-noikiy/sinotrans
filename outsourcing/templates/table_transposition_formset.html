@@ -1,0 +1,45 @@
+{% load i18n %}
+
+<div style="overflow-x:auto;">
+    <form method="post" action="">{% csrf_token %}
+        {{ formset.management_form }}
+
+        <table class="spray-pump table-formset table table-hover table-striped table-container table-condensed" >
+            <thead>
+                <tr>
+                    <th>{% trans project_name %}</th>
+                    {% for column in columns %}
+                    <th>{{column.1}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for field_0 in formset.0 %}
+                <tr style="{% if field_0.name in hidden_fields %}display:none; {% endif %}">
+                    <th>{{field_0.label_tag}}</th>
+                    {% for form in formset %} 
+                        {% for field in form %} 
+                            {% if field.name == field_0.name %}
+                            <td class="{% if field.name in date_field_list %}calenda{% endif %}">
+                                <span style="display: none">{{field.label_tag}}</span>
+                                {{field}}
+                            </td>
+                            {% endif %}
+                        {% endfor %}                            
+                    {% endfor %}
+
+                    {% comment %}
+                    <td><span style="display: none">{{formset.0.voltage_and_power_normal.label_tag}}</span>{{formset.0.voltage_and_power_normal}}
+                    <input id="id_form-0-id" name="form-0-id" type="hidden" value="1"></td>
+                    <td><span style="display: none">{{formset.1.voltage_and_power_normal.label_tag}}</span>{{formset.1.voltage_and_power_normal}}
+                    <input id="id_form-1-id" name="form-1-id" type="hidden" value="2"></td>
+                    {% endcomment %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>    
+</div>
+
+<!-- param : project_name,  columns, date_field_list -- >
