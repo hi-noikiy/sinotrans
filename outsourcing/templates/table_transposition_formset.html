@@ -22,6 +22,7 @@
                             {% if field.name == field_0.name %}
                             <td class="{% if field.name in date_field_list %}calenda{% endif %}">
                                 <span style="display: none">{{field.label_tag}}</span>
+                                {% if field.errors %}<div class="error" style="color:#b75f33">{{ field.errors }}</div>{% endif %}
                                 {{field}}
                             </td>
                             {% endif %}
@@ -42,4 +43,4 @@
     </form>    
 </div>
 
-<!-- param : project_name,  columns, date_field_list -- >
+<!-- param : project_name,  columns, date_field_list -->

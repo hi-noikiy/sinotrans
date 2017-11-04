@@ -7,10 +7,12 @@ from .views import (
     ForkliftListView,
     ForklifDetailView,
     TransportationKPIListDisplayView,
+    TransportationKPIListEditView,
 )
 
 urlpatterns = [
     url(r'^forkliftlist$', ForkliftListView.as_view(), name='forklift_list'),  
     url(r'^forkliftdetail/(?P<pk>\d+)/$', ForklifDetailView.as_view(), name='forklift_detail'),
     url(r'^transportaionkpilistdisplay$', TransportationKPIListDisplayView.as_view(), name='transportationkpi_list_display'),  
+    url(r'^transportaionkpilistedit$', TransportationKPIListEditView.as_view(), name='transportationkpi_list_edit'),      
 ]

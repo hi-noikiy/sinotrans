@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class="page-header">
+    <h3>{{project_name}} {{year}} {% trans "year" %} {{month}} 
+        <small>{% trans "Project Review" %}</small>
+    </h3>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+
+	{% include "table_transposition_display.html" %}
+	</div>
+</div>
+
+<a href="{% url 'transportationkpi_list_edit' %}" class="btn btn-primary">Edit</a>
+
+{% endblock %}

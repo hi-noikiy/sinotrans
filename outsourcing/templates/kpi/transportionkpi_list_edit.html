@@ -29,9 +29,16 @@ table.table-formset tbody tr td select
 
 
 {% block content %}
+
+
 <div class="row">
     <div class="col-sm-12" >
         {% include "table_transposition_formset.html" %}
     </div>
 </div>
+
+<br>
+
+<a href="{% url 'transportationkpi_list_display' %}" class="btn btn-default" >Display</a>
+
 {% endblock %}
