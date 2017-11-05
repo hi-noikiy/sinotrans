@@ -174,13 +174,14 @@ class TransportationKPIListEditView(ListView):
         return context       
 
     def post(self, request, *args, **kwargs):
+        print request.GET
         formset = vehicle_transportation_kpi_model_formset(request.POST or None, request.FILES or None)
         if formset.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.save()
             messages.success(request, "Your list has been updated.")
-            return redirect(reverse("transportationkpi_list_edit",  kwargs={}))
+            return redirect(reverse("transportationkpi_list_edit",  kwargs={}) + "?" + request.META['QUERY_STRING'])
 
         self.object_list = self.get_queryset() # copy from BaseListView::get
         context = self.get_context_data()
