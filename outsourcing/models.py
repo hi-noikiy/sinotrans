@@ -245,6 +245,15 @@ class VehicleInspection(models.Model):
     def __unicode__(self): 
         return _("vehicle inspection") + " %s %s" % (self.driver.name, self.vehicle.relevant_license_plate)    
 
+    # can be replaced by field.value_to_string(object)
+    def my_get_field_display(self,fieldname):
+
+        if not hasattr(self, fieldname):
+            return None
+        
+        field = self._meta.get_field(fieldname)
+        return "%s" % self._get_FIELD_display(field)  
+        
 class VehicleTransportationKPI(models.Model):
     TRANSPORTATION_PROJECT_OPTION = (
         ('shuttle bus', _('shuttle bus')),
@@ -294,13 +303,7 @@ class VehicleTransportationKPI(models.Model):
         
         field = self._meta.get_field(fieldname)
         return "%s" % self._get_FIELD_display(field)       
-
-    def my_get_field_value(self,fieldname):
-
-        if not hasattr(self, fieldname):
-            return None
-        
-        return getattr(self,fieldname)      
+ 
 
     def get_absolute_url(self):
         return reverse("transportationkpi_detail", kwargs={"pk": self.pk })  

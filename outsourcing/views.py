@@ -14,6 +14,7 @@ from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, D
 
 from .models import (
 	Forklift, ForkliftMaint, 
+    Vehicle, Driver, VehicleInspection,
     VehicleTransportationKPI,
 	)
 from .forms import (
@@ -68,6 +69,59 @@ class ForklifDetailView(DetailView):
         ])
         return super(ForklifDetailView, self).dispatch(request,args,kwargs)           
 
+
+class VehicleInpspectionListView(ListView): 
+    model = VehicleInspection
+    template_name = "transportation/vehicle_inspection_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VehicleInpspectionListView, self).get_context_data(*args, **kwargs)
+
+        fields = [
+            'vehicle',
+            'driver',
+            'date_of_inspection',
+            'inspector',
+            'carrier',
+        ]
+        context["object_list"] = VehicleInspection.objects.all()
+        context["fields"] = [field for field in self.model._meta.get_fields() if field.name in fields]
+        
+        return context       
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('vehicle inspection'),request.path_info),
+        ])
+        return super(VehicleInpspectionListView, self).dispatch(request,args,kwargs)   
+
+class VehicleInpspectionDetailView(DetailView): 
+    model = VehicleInspection
+    template_name = "transpotation/vehicle_inspection_detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VehicleInpspectionDetailView, self).get_context_data(*args, **kwargs)
+        context["object"] = self.get_object()
+
+        exclude = {
+        'id','updated','created','forklift'
+        }
+        forklift_maint_objects = ForkliftMaint.objects.filter(forklift=self.get_object())
+        for forklift_maint_object in forklift_maint_objects:
+            from .models import RESULT_OPTION
+            forklift_maint_object.fields = dict((field.verbose_name, option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))) for field in forklift_maint_object._meta.fields if not field.name in exclude)
+        context["forklift_maint_objects"] = forklift_maint_objects
+        
+        return context       
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("vehicle inspection"),reverse("vehicle_inspection_list", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
+        return super(VehicleInpspectionDetailView, self).dispatch(request,args,kwargs)    
 
 class VehicleTransportationKPIFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)
