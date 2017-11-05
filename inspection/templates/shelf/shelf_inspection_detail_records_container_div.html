@@ -65,9 +65,9 @@ a:hover {text-decoration: none;}
                                 {{form.instance.shelf}}
                             {% if 'shelf' == field.name %}</a>{% endif %}
                         {% elif field.name in form.Meta.disabled %}
-                            <p>{{form.instance|get_field_value:field.name}}</p>
+                            <p>{{form.instance|my_get_field_display:field.name}}</p>
                         {% else %}
-                            <p class="displayonly {% if field.name == 'gradient' and form.instance.gradient > 1.4 %} div-table-cell-highlight {% endif %}" style="display: block; ">{{form.instance|get_field_value:field.name}}</p>
+                            <p class="displayonly {% if field.name == 'gradient' and form.instance.gradient > 1.4 %} div-table-cell-highlight {% endif %}" style="display: block; ">{{form.instance|my_get_field_display:field.name}}</p>
                             <p class="edit" style="display: none">{{field}}</p>
                         {% endif%}  
                     </div>

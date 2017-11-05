@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-04 10:46+0800\n"
+"POT-Creation-Date: 2017-11-05 10:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,7 +127,7 @@ msgid ""
 msgstr ""
 
 #: .\equipments\forms.py:16 .\equipments\forms.py:83 .\equipments\models.py:43
-#: .\equipments\templates\equipment\equipment_inspection_list.html:61
+#: .\equipments\templates\equipment\equipment_inspection_list.html:74
 #: .\inspection\models.py:247
 #: .\inspection\templates\shelf\shelf_inspection_list.html:23
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:8
@@ -142,8 +142,8 @@ msgstr "分类"
 
 #: .\equipments\forms.py:91 .\equipments\models.py:44
 #: .\equipments\models.py:116
-#: .\equipments\templates\equipment\equipment_inspection_list.html:62
-#: .\outsourcing\models.py:219
+#: .\equipments\templates\equipment\equipment_inspection_list.html:75
+#: .\outsourcing\models.py:227
 msgid "Inspector"
 msgstr "检查人"
 
@@ -169,9 +169,8 @@ msgstr "类型"
 
 #: .\equipments\models.py:30 .\equipments\models.py:31
 #: .\equipments\models.py:42
-#: .\equipments\templates\equipment\equipment_inspection_list.html:60
+#: .\equipments\templates\equipment\equipment_inspection_list.html:73
 #: .\templates\navbar.html:45 .\templates\navbar_2nd.html.py:10
-#: .\templates\navbar_2nd.html:16 .\templates\navbar_2nd.html.py:21
 msgid "Equipment"
 msgstr "设备"
 
@@ -193,7 +192,7 @@ msgid "Comments"
 msgstr "备注"
 
 #: .\equipments\models.py:46 .\equipments\models.py:117
-#: .\outsourcing\models.py:218
+#: .\outsourcing\models.py:226
 msgid "Date of Inspection"
 msgstr "检查日期"
 
@@ -202,7 +201,9 @@ msgstr "检查日期"
 msgid "Equipment Inspection"
 msgstr "设备检查"
 
-#: .\equipments\models.py:96 .\outsourcing\models.py:252
+#: .\equipments\models.py:96 .\outsourcing\forms.py:24
+#: .\outsourcing\models.py:260
+#: .\outsourcing\templates\kpi\transportionkpi_list_display.html:26
 msgid "year"
 msgstr "年"
 
@@ -271,37 +272,49 @@ msgid "pump house clean and tidy"
 msgstr "泵房地面干净、整洁"
 
 #: .\equipments\models.py:121 .\equipments\models.py:125
-#: .\equipments\models.py:126
+#: .\equipments\models.py:126 .\equipments\views.py:264
 msgid "Spray Pump Room Inspection"
 msgstr "喷淋泵房检查"
 
-#: .\equipments\templates\equipment\equipment_inspection_list.html:25
+#: .\equipments\templates\equipment\equipment_inspection_list.html:33
 msgid "Insepction Categories"
 msgstr "检查种类"
 
-#: .\equipments\templates\equipment\equipment_inspection_list.html:41
+#: .\equipments\templates\equipment\equipment_inspection_list.html:54
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:64
 #: .\inspection\templates\shelf\shelf_inspection_detail.html:196
+#: .\outsourcing\templates\kpi\transportionkpi_list_display.html:36
 msgid "Apply Filter"
 msgstr "过滤"
 
-#: .\equipments\templates\equipment\equipment_inspection_list.html:42
+#: .\equipments\templates\equipment\equipment_inspection_list.html:55
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:65
 #: .\inspection\templates\shelf\shelf_inspection_detail.html:196
+#: .\outsourcing\templates\kpi\transportionkpi_list_display.html:37
 msgid "Clear Filters"
 msgstr "清除过滤"
 
-#: .\equipments\templates\equipment\equipment_inspection_list.html:63
+#: .\equipments\templates\equipment\equipment_inspection_list.html:76
 msgid "Date of inspection"
 msgstr "检查日期"
 
-#: .\equipments\templates\equipment\spray_pump_room_inspection.html:107
+#: .\equipments\templates\equipment\spray_pump_room_inspection.html:62
 msgid "Spray Pump Room"
 msgstr "喷淋泵房"
 
+#: .\equipments\views.py:263 .\inspection\views.py:102
+#: .\inspection\views.py:135 .\inspection\views.py:222
+#: .\inspection\views.py:237 .\inspection\views.py:289
+#: .\inspection\views.py:401 .\inspection\views.py:499
+#: .\inspection\views.py:568 .\outsourcing\views.py:39
+#: .\outsourcing\views.py:65 .\outsourcing\views.py:143
+#: .\outsourcing\views.py:183 .\site-packages\breadcrumbs\breadcrumbs.py:81
+#: .\templates\navbar.html:20
+msgid "Home"
+msgstr "主页"
+
 #: .\inspection\apps.py:6 .\inspection\views.py:103 .\inspection\views.py:136
 #: .\templates\navbar.html:43 .\templates\navbar_2nd.html.py:8
-#: .\templates\navbar_2nd.html:14 .\templates\navbar_2nd.html.py:19
 msgid "Inspection"
 msgstr "巡检"
 
@@ -468,7 +481,6 @@ msgstr "立柱货架"
 #: .\inspection\models.py:222 .\inspection\models.py:245
 #: .\inspection\templates\shelf\shelf_inspection_record_detail.html:7
 #: .\templates\navbar.html:44 .\templates\navbar_2nd.html.py:9
-#: .\templates\navbar_2nd.html:15 .\templates\navbar_2nd.html.py:20
 msgid "Shelf"
 msgstr "货架"
 
@@ -509,12 +521,12 @@ msgid "shelf inspection record"
 msgstr "货架巡检记录"
 
 #: .\inspection\models.py:282 .\inspection\models.py:371
-#: .\outsourcing\models.py:135 .\outsourcing\models.py:144
+#: .\outsourcing\models.py:143 .\outsourcing\models.py:152
 #: .\outsourcing\templates\forklift\forklift_detail.html:147
 msgid "Annual Inspection Date"
 msgstr "年检日期"
 
-#: .\inspection\models.py:283 .\outsourcing\models.py:136
+#: .\inspection\models.py:283 .\outsourcing\models.py:144
 #: .\outsourcing\templates\forklift\forklift_detail.html:147
 msgid "Next Inspection Date"
 msgstr "下次年检日期"
@@ -523,8 +535,8 @@ msgstr "下次年检日期"
 msgid "shelf annual inspection"
 msgstr "货架年度检查"
 
-#: .\inspection\models.py:290 .\outsourcing\models.py:53
-#: .\outsourcing\models.py:148
+#: .\inspection\models.py:290 .\outsourcing\models.py:61
+#: .\outsourcing\models.py:156
 msgid "image"
 msgstr "图片"
 
@@ -786,14 +798,10 @@ msgstr "货架列表"
 msgid "Create Shelf Inspection"
 msgstr "创建货架检查"
 
-#: .\inspection\views.py:102 .\inspection\views.py:135
-#: .\inspection\views.py:222 .\inspection\views.py:237
-#: .\inspection\views.py:289 .\inspection\views.py:401
-#: .\inspection\views.py:499 .\inspection\views.py:568
-#: .\outsourcing\views.py:32 .\outsourcing\views.py:58
-#: .\site-packages\breadcrumbs\breadcrumbs.py:81 .\templates\navbar.html.py:20
-msgid "Home"
-msgstr "主页"
+#: .\inspection\utils.py:137
+#, python-format
+msgid "%(value)s is not a valid percentage"
+msgstr ""
 
 #: .\inspection\views.py:213
 msgid "daily inspection create successfully"
@@ -829,12 +837,12 @@ msgstr ""
 msgid "Scroll Messages"
 msgstr "消息"
 
-#: .\outsourcing\admin.py:66
+#: .\outsourcing\admin.py:68
 #: .\outsourcing\templates\forklift\forklift_detail.html:17
 msgid "Base Information"
 msgstr "基本信息"
 
-#: .\outsourcing\admin.py:77
+#: .\outsourcing\admin.py:79
 msgid "Record"
 msgstr "记录"
 
@@ -842,590 +850,599 @@ msgstr "记录"
 msgid "outsourcing"
 msgstr ""
 
-#: .\outsourcing\models.py:10
+#: .\outsourcing\forms.py:29 .\outsourcing\models.py:263
+msgid "month"
+msgstr "月"
+
+#: .\outsourcing\models.py:18
 #: .\site-packages-djangos\1.8.4\django\forms\widgets.py:556
 #: .\site-packages-djangos\1.9\django\forms\widgets.py:571
 msgid "Yes"
 msgstr "是"
 
-#: .\outsourcing\models.py:11
+#: .\outsourcing\models.py:19
 #: .\site-packages-djangos\1.8.4\django\forms\widgets.py:557
 #: .\site-packages-djangos\1.9\django\forms\widgets.py:572
 msgid "No"
 msgstr "否"
 
-#: .\outsourcing\models.py:24
+#: .\outsourcing\models.py:32
 #: .\outsourcing\templates\forklift\forklift_detail.html:25
 #: .\outsourcing\templates\forklift\forklift_list.html:31
 msgid "Inner Car Number"
 msgstr "厂内编号"
 
-#: .\outsourcing\models.py:25
+#: .\outsourcing\models.py:33
 #: .\outsourcing\templates\forklift\forklift_detail.html:26
 #: .\outsourcing\templates\forklift\forklift_list.html:32
 msgid "Inner Plate Number"
 msgstr "厂内车牌号"
 
-#: .\outsourcing\models.py:26
+#: .\outsourcing\models.py:34
 #: .\outsourcing\templates\forklift\forklift_detail.html:27
 #: .\outsourcing\templates\forklift\forklift_list.html:33
 msgid "Forklift Model"
 msgstr "叉车型号"
 
-#: .\outsourcing\models.py:27
+#: .\outsourcing\models.py:35
 #: .\outsourcing\templates\forklift\forklift_detail.html:28
 #: .\outsourcing\templates\forklift\forklift_list.html:34
 msgid "SN"
 msgstr "序列号"
 
-#: .\outsourcing\models.py:28
+#: .\outsourcing\models.py:36
 #: .\outsourcing\templates\forklift\forklift_detail.html:29
 #: .\outsourcing\templates\forklift\forklift_list.html:35
 msgid "Forklift Category"
 msgstr "叉车类型"
 
-#: .\outsourcing\models.py:29
+#: .\outsourcing\models.py:37
 #: .\outsourcing\templates\forklift\forklift_detail.html:30
 #: .\outsourcing\templates\forklift\forklift_list.html:36
 msgid "Manufacturer"
 msgstr "制造商"
 
-#: .\outsourcing\models.py:30
+#: .\outsourcing\models.py:38
 #: .\outsourcing\templates\forklift\forklift_detail.html:37
 msgid "Tip Height"
 msgstr "提示高度"
 
-#: .\outsourcing\models.py:31
+#: .\outsourcing\models.py:39
 #: .\outsourcing\templates\forklift\forklift_detail.html:38
 msgid "Carrying Capacity"
 msgstr "承载能力"
 
-#: .\outsourcing\models.py:32
+#: .\outsourcing\models.py:40
 #: .\outsourcing\templates\forklift\forklift_detail.html:39
 msgid "Self Weight"
 msgstr "车辆自重"
 
-#: .\outsourcing\models.py:33
+#: .\outsourcing\models.py:41
 #: .\outsourcing\templates\forklift\forklift_detail.html:40
 msgid "Turning Radius"
 msgstr "转弯半径"
 
-#: .\outsourcing\models.py:34
+#: .\outsourcing\models.py:42
 #: .\outsourcing\templates\forklift\forklift_detail.html:41
 msgid "Front Tyre Size"
 msgstr "前轮尺寸"
 
-#: .\outsourcing\models.py:35
+#: .\outsourcing\models.py:43
 #: .\outsourcing\templates\forklift\forklift_detail.html:42
 msgid "Back Tyre Size"
 msgstr "后轮尺寸"
 
-#: .\outsourcing\models.py:36
+#: .\outsourcing\models.py:44
 #: .\outsourcing\templates\forklift\forklift_detail.html:43
 msgid "Forklift Width"
 msgstr "车宽"
 
-#: .\outsourcing\models.py:37 .\outsourcing\models.py:38
+#: .\outsourcing\models.py:45 .\outsourcing\models.py:46
 #: .\outsourcing\templates\forklift\forklift_detail.html:44
 #: .\outsourcing\templates\forklift\forklift_detail.html:45
 msgid "Forklift Length"
 msgstr "车长"
 
-#: .\outsourcing\models.py:39
+#: .\outsourcing\models.py:47
 #: .\outsourcing\templates\forklift\forklift_detail.html:46
 msgid "Maximum Velocity"
 msgstr "最高行驶速度"
 
-#: .\outsourcing\models.py:42 .\outsourcing\models.py:48
-#: .\outsourcing\models.py:49 .\outsourcing\models.py:64
-#: .\outsourcing\models.py:97 .\outsourcing\models.py:110
-#: .\outsourcing\models.py:134 .\outsourcing\models.py:144
+#: .\outsourcing\models.py:50 .\outsourcing\models.py:56
+#: .\outsourcing\models.py:57 .\outsourcing\models.py:72
+#: .\outsourcing\models.py:105 .\outsourcing\models.py:118
+#: .\outsourcing\models.py:142 .\outsourcing\models.py:152
 msgid "forklift"
 msgstr "叉车"
 
-#: .\outsourcing\models.py:56 .\outsourcing\models.py:57
-#: .\outsourcing\models.py:60
+#: .\outsourcing\models.py:64 .\outsourcing\models.py:65
+#: .\outsourcing\models.py:68
 #: .\outsourcing\templates\forklift\forklift_detail.html:58
 #: .\outsourcing\templates\forklift\forklift_list.html:37
 msgid "forklift image"
 msgstr "叉车图片"
 
-#: .\outsourcing\models.py:65
+#: .\outsourcing\models.py:73
 msgid "clean forklift"
 msgstr "清洁叉车"
 
-#: .\outsourcing\models.py:66
+#: .\outsourcing\models.py:74
 msgid "clean and lubricate chain"
 msgstr "清洁并润滑链条"
 
-#: .\outsourcing\models.py:67
+#: .\outsourcing\models.py:75
 msgid "lubricate gateshelf and lean cylinder bearing"
 msgstr "润滑门架及倾斜油缸轴承"
 
-#: .\outsourcing\models.py:68
+#: .\outsourcing\models.py:76
 msgid "lubricate sideswayfork and check work status"
 msgstr "润混侧移叉并检查其工作情况"
 
-#: .\outsourcing\models.py:69
+#: .\outsourcing\models.py:77
 msgid "fastening tyre nut"
 msgstr "紧固车轮螺母"
 
-#: .\outsourcing\models.py:70
+#: .\outsourcing\models.py:78
 msgid "check tyre status"
 msgstr "检查轮胎状况"
 
-#: .\outsourcing\models.py:71
+#: .\outsourcing\models.py:79
 msgid "check gear oil level and leak"
 msgstr "检查此轮油油位及漏油情况"
 
-#: .\outsourcing\models.py:72
+#: .\outsourcing\models.py:80
 msgid "check hydraulic oil level"
 msgstr "检查液压油油位"
 
-#: .\outsourcing\models.py:73
+#: .\outsourcing\models.py:81
 msgid "clean all motor and accessories"
 msgstr "清洁所有电机及零部件"
 
-#: .\outsourcing\models.py:74
+#: .\outsourcing\models.py:82
 msgid "check and clean motor cooling fan"
 msgstr "检查并清洁电机冷却风扇"
 
-#: .\outsourcing\models.py:75
+#: .\outsourcing\models.py:83
 msgid "check all cable and connection status"
 msgstr "检查所有电缆及连接状况"
 
-#: .\outsourcing\models.py:76
+#: .\outsourcing\models.py:84
 msgid "check battery electrolyte liquidometer ratio"
 msgstr "检查电瓶电解液液化计比重"
 
-#: .\outsourcing\models.py:77
+#: .\outsourcing\models.py:85
 msgid "check charger status"
 msgstr "检查充电器工作状况"
 
-#: .\outsourcing\models.py:78
+#: .\outsourcing\models.py:86
 msgid "check pipeline fastening and leak"
 msgstr "检查有关紧固及漏油状况"
 
-#: .\outsourcing\models.py:79
+#: .\outsourcing\models.py:87
 msgid "check pallet fork and pin lock"
 msgstr "检查货叉及销锁装置"
 
-#: .\outsourcing\models.py:80
+#: .\outsourcing\models.py:88
 msgid "check lubricate pedal and control linkage"
 msgstr "检查润滑踏板及控制板连杆机构"
 
-#: .\outsourcing\models.py:81
+#: .\outsourcing\models.py:89
 msgid "check braking device"
 msgstr "检查制动系统"
 
-#: .\outsourcing\models.py:82
+#: .\outsourcing\models.py:90
 msgid "check all motor carbon brush"
 msgstr "检查所有电机碳刷"
 
-#: .\outsourcing\models.py:83
+#: .\outsourcing\models.py:91
 msgid "check overhead guard and counter weight"
 msgstr "检查护顶架及配重情况"
 
-#: .\outsourcing\models.py:84
+#: .\outsourcing\models.py:92
 msgid "check steering axle and drive axle"
 msgstr "检查转向桥及驱动桥情况"
 
-#: .\outsourcing\models.py:85
+#: .\outsourcing\models.py:93
 msgid "check gateshelf and chain"
 msgstr "检查门架及链条情况"
 
-#: .\outsourcing\models.py:86
+#: .\outsourcing\models.py:94
 msgid "check hub bearing"
 msgstr "检查轮边轴承"
 
-#: .\outsourcing\models.py:87
+#: .\outsourcing\models.py:95
 msgid "check steering axle bearing"
 msgstr "检查转向桥轴承"
 
-#: .\outsourcing\models.py:88
+#: .\outsourcing\models.py:96
 msgid "check gateshlf bearing"
 msgstr "检查门架轴承"
 
-#: .\outsourcing\models.py:89
+#: .\outsourcing\models.py:97
 msgid "change gear oil"
 msgstr "更换齿轮油"
 
-#: .\outsourcing\models.py:90
+#: .\outsourcing\models.py:98
 msgid "change oil suction filter"
 msgstr "更换吸油滤芯"
 
-#: .\outsourcing\models.py:91
+#: .\outsourcing\models.py:99
 msgid "change ventilate filter"
 msgstr "更换通气滤芯"
 
-#: .\outsourcing\models.py:92
+#: .\outsourcing\models.py:100
 msgid "change hydraulic oil"
 msgstr "更换液压油"
 
-#: .\outsourcing\models.py:97
+#: .\outsourcing\models.py:105
 msgid "Maintenance"
 msgstr "叉车保养"
 
-#: .\outsourcing\models.py:106 .\outsourcing\models.py:107
+#: .\outsourcing\models.py:114 .\outsourcing\models.py:115
 #: .\outsourcing\templates\forklift\forklift_detail.html:79
 msgid "forklift maintenance"
 msgstr "叉车保养"
 
-#: .\outsourcing\models.py:111
+#: .\outsourcing\models.py:119
 #: .\outsourcing\templates\forklift\forklift_detail.html:106
 msgid "Damage Reason"
 msgstr "损坏原因 "
 
-#: .\outsourcing\models.py:112
+#: .\outsourcing\models.py:120
 #: .\outsourcing\templates\forklift\forklift_detail.html:107
 msgid "Accessories Name"
 msgstr "配件名称"
 
-#: .\outsourcing\models.py:113
+#: .\outsourcing\models.py:121
 #: .\outsourcing\templates\forklift\forklift_detail.html:108
 msgid "Accessories Number"
 msgstr "数量"
 
-#: .\outsourcing\models.py:114
+#: .\outsourcing\models.py:122
 #: .\outsourcing\templates\forklift\forklift_detail.html:109
 msgid "Breakdown Description"
 msgstr "故障描述 "
 
-#: .\outsourcing\models.py:115
+#: .\outsourcing\models.py:123
 #: .\outsourcing\templates\forklift\forklift_detail.html:110
 msgid "Repaired"
 msgstr "是否修复"
 
-#: .\outsourcing\models.py:116
+#: .\outsourcing\models.py:124
 #: .\outsourcing\templates\forklift\forklift_detail.html:111
 msgid "Repaire Date"
 msgstr "维修日期"
 
-#: .\outsourcing\models.py:121 .\outsourcing\models.py:122
-#: .\outsourcing\models.py:125
+#: .\outsourcing\models.py:129 .\outsourcing\models.py:130
+#: .\outsourcing\models.py:133
 #: .\outsourcing\templates\forklift\forklift_detail.html:98
 msgid "forklift repair"
 msgstr "叉车维修"
 
-#: .\outsourcing\models.py:139 .\outsourcing\models.py:140
+#: .\outsourcing\models.py:147 .\outsourcing\models.py:148
 #: .\outsourcing\templates\forklift\forklift_detail.html:139
 msgid "forklift annual inspection"
 msgstr "叉车年检"
 
-#: .\outsourcing\models.py:151 .\outsourcing\models.py:152
-#: .\outsourcing\models.py:155
+#: .\outsourcing\models.py:159 .\outsourcing\models.py:160
+#: .\outsourcing\models.py:163
 #: .\outsourcing\templates\forklift\forklift_detail.html:156
 msgid "forklift annual inspection image"
 msgstr "叉车年检图片"
 
-#: .\outsourcing\models.py:160 .\outsourcing\models.py:242
+#: .\outsourcing\models.py:168 .\outsourcing\models.py:250
 msgid "shuttle bus"
 msgstr "短驳车"
 
-#: .\outsourcing\models.py:161
+#: .\outsourcing\models.py:169
 msgid "truck"
 msgstr "普货车"
 
-#: .\outsourcing\models.py:162
+#: .\outsourcing\models.py:170
 msgid "dangerous goods vehicles"
 msgstr "危险品车"
 
-#: .\outsourcing\models.py:163
+#: .\outsourcing\models.py:171
 msgid "scattered oil vehicles"
 msgstr "散油车"
 
-#: .\outsourcing\models.py:166
+#: .\outsourcing\models.py:174
 msgid "service content"
 msgstr "服务内容"
 
-#: .\outsourcing\models.py:167
+#: .\outsourcing\models.py:175
 msgid "motorcade"
 msgstr "所属车队"
 
-#: .\outsourcing\models.py:168
+#: .\outsourcing\models.py:176
 msgid "relevant license plate"
 msgstr "对应车牌照"
 
-#: .\outsourcing\models.py:169
+#: .\outsourcing\models.py:177
 msgid "vehicle inspection valid until"
 msgstr "车辆检验有效期至"
 
-#: .\outsourcing\models.py:170
+#: .\outsourcing\models.py:178
 msgid "vehicle type"
 msgstr "车辆类型"
 
-#: .\outsourcing\models.py:171
+#: .\outsourcing\models.py:179
 msgid "relevant trailer number"
 msgstr "对应挂车号"
 
-#: .\outsourcing\models.py:172
+#: .\outsourcing\models.py:180
 msgid "trailer inspection valid until"
 msgstr "挂车检验有效期至"
 
-#: .\outsourcing\models.py:173
+#: .\outsourcing\models.py:181
 msgid "maximum loadable tonnage"
 msgstr "最大可装载吨位"
 
-#: .\outsourcing\models.py:174
+#: .\outsourcing\models.py:182
 msgid "green mark valid until"
 msgstr "环保标识有效期至"
 
-#: .\outsourcing\models.py:175
+#: .\outsourcing\models.py:183
 msgid "insurance policy valid until"
 msgstr "保险单有效期至"
 
-#: .\outsourcing\models.py:176
+#: .\outsourcing\models.py:184
 msgid "GPS"
 msgstr "GPS"
 
-#: .\outsourcing\models.py:177
+#: .\outsourcing\models.py:185
 msgid "ABS"
 msgstr "ABS"
 
-#: .\outsourcing\models.py:178
+#: .\outsourcing\models.py:186
 msgid "antiroll protection"
 msgstr "防侧翻保护"
 
-#: .\outsourcing\models.py:179
+#: .\outsourcing\models.py:187
 msgid "reversing alarm"
 msgstr "倒车警报"
 
-#: .\outsourcing\models.py:180
+#: .\outsourcing\models.py:188
 msgid "side edge and low location collision guard bar"
 msgstr "防侧边低位碰撞保护栏"
 
-#: .\outsourcing\models.py:181
+#: .\outsourcing\models.py:189
 msgid "car seat headrest"
 msgstr "车座头枕"
 
-#: .\outsourcing\models.py:182
+#: .\outsourcing\models.py:190
 msgid "three-point belt"
 msgstr "三点式安全带"
 
-#: .\outsourcing\models.py:183
+#: .\outsourcing\models.py:191
 msgid "IVMS or VDR"
 msgstr "车内监控系统（IVMS）或车载记录仪（VDR）"
 
-#: .\outsourcing\models.py:184
+#: .\outsourcing\models.py:192
 msgid "anti-drop equipment"
 msgstr "防止跌落设备"
 
-#: .\outsourcing\models.py:187 .\outsourcing\models.py:191
-#: .\outsourcing\models.py:194
+#: .\outsourcing\models.py:195 .\outsourcing\models.py:199
+#: .\outsourcing\models.py:202 .\outsourcing\models.py:224
 msgid "vehicle"
 msgstr "车辆"
 
-#: .\outsourcing\models.py:188
+#: .\outsourcing\models.py:196
 msgid "vehicles"
 msgstr "车辆"
 
-#: .\outsourcing\models.py:195
+#: .\outsourcing\models.py:203
 #: .\site-packages-djangos\1.9\django\utils\translation\__init__.py:234
 msgid "name"
 msgstr "姓名"
 
-#: .\outsourcing\models.py:196
+#: .\outsourcing\models.py:204
 msgid "Driver ID"
 msgstr "司机身份证"
 
-#: .\outsourcing\models.py:197
+#: .\outsourcing\models.py:205
 msgid "driver license type"
 msgstr "驾照类型"
 
-#: .\outsourcing\models.py:198
+#: .\outsourcing\models.py:206
 msgid "DDC certificate number"
 msgstr "DDC证号"
 
-#: .\outsourcing\models.py:199
+#: .\outsourcing\models.py:207
 msgid "certificate issued time"
 msgstr "证书发放时间"
 
-#: .\outsourcing\models.py:200
+#: .\outsourcing\models.py:208
 msgid "certificate valid until"
 msgstr "证书有效期"
 
-#: .\outsourcing\models.py:201
+#: .\outsourcing\models.py:209
 msgid "first licensed time"
 msgstr "初次领证日期"
 
-#: .\outsourcing\models.py:202
+#: .\outsourcing\models.py:210
 msgid "dirving years"
 msgstr "驾龄"
 
-#: .\outsourcing\models.py:203
+#: .\outsourcing\models.py:211
 msgid "driver license valid until"
 msgstr "驾照有效期至"
 
-#: .\outsourcing\models.py:204
+#: .\outsourcing\models.py:212
 msgid "contact phone"
 msgstr "联系电话"
 
-#: .\outsourcing\models.py:205
+#: .\outsourcing\models.py:213
 msgid "training qualified"
 msgstr "培训合格"
 
-#: .\outsourcing\models.py:208 .\outsourcing\models.py:212
-#: .\trainings\models.py:41
+#: .\outsourcing\models.py:216 .\outsourcing\models.py:220
+#: .\outsourcing\models.py:225 .\trainings\models.py:41
 msgid "driver"
 msgstr "司机"
 
-#: .\outsourcing\models.py:209
+#: .\outsourcing\models.py:217
 msgid "drivers"
 msgstr "司机"
 
-#: .\outsourcing\models.py:220
+#: .\outsourcing\models.py:228
 msgid "carrier"
 msgstr "所属承运商"
 
-#: .\outsourcing\models.py:221
+#: .\outsourcing\models.py:229
 msgid "disqualification comments"
 msgstr "不合格项目/备注"
 
-#: .\outsourcing\models.py:222
+#: .\outsourcing\models.py:230
 msgid "Rectification qualified"
 msgstr "整改是否合格"
 
-#: .\outsourcing\models.py:223
+#: .\outsourcing\models.py:231
 msgid "hardware inspection disqualification"
 msgstr "车检不合格（硬件）"
 
-#: .\outsourcing\models.py:224
+#: .\outsourcing\models.py:232
 msgid "no driver code of conduct"
 msgstr "未携带司机行为规范"
 
-#: .\outsourcing\models.py:225
+#: .\outsourcing\models.py:233
 msgid "overload or LSR violation"
 msgstr "超载/违反LSR"
 
-#: .\outsourcing\models.py:226
+#: .\outsourcing\models.py:234
 msgid "safety policy violation"
 msgstr "违反安全政策"
 
-#: .\outsourcing\models.py:227
+#: .\outsourcing\models.py:235
 msgid "no journey plan or log"
 msgstr "无行程计划/日志"
 
-#: .\outsourcing\models.py:228
+#: .\outsourcing\models.py:236
 msgid "vehichle not register"
 msgstr "车辆未注册"
 
-#: .\outsourcing\models.py:229
+#: .\outsourcing\models.py:237
 msgid "no vehicle inspection record"
 msgstr "无车辆检修记录"
 
-#: .\outsourcing\models.py:230
+#: .\outsourcing\models.py:238
 msgid "no DDC certificate"
 msgstr "无DDC证书"
 
-#: .\outsourcing\models.py:234 .\outsourcing\models.py:235
-#: .\outsourcing\models.py:238
+#: .\outsourcing\models.py:242 .\outsourcing\models.py:243
+#: .\outsourcing\models.py:246
 msgid "vehicle inspection"
 msgstr "车辆检查"
 
-#: .\outsourcing\models.py:243
+#: .\outsourcing\models.py:251
 msgid "general cargo shanghai"
 msgstr "普货（上海）"
 
-#: .\outsourcing\models.py:244
+#: .\outsourcing\models.py:252
 msgid "general cargo zhejiang"
 msgstr "普货（浙江）"
 
-#: .\outsourcing\models.py:245
+#: .\outsourcing\models.py:253
 msgid "scattered oil (land-and-water coordinated transport)"
 msgstr "散油（水陆联运）"
 
-#: .\outsourcing\models.py:246
+#: .\outsourcing\models.py:254
 msgid "Scattered oil (road)"
 msgstr "散油（公路）"
 
-#: .\outsourcing\models.py:247
+#: .\outsourcing\models.py:255
 msgid "hazardous article"
 msgstr "危险品"
 
-#: .\outsourcing\models.py:248
+#: .\outsourcing\models.py:256
 msgid "water transport"
 msgstr "水运"
 
-#: .\outsourcing\models.py:251
+#: .\outsourcing\models.py:259
 msgid "transportation project"
 msgstr "项目"
 
-#: .\outsourcing\models.py:253
-msgid "month"
-msgstr "月"
-
-#: .\outsourcing\models.py:254
+#: .\outsourcing\models.py:264
 msgid "safe mileage"
 msgstr "安全里程（公里）"
 
-#: .\outsourcing\models.py:255
+#: .\outsourcing\models.py:265
 msgid "safe labor hours"
 msgstr "安全工时（小时）"
 
-#: .\outsourcing\models.py:256
+#: .\outsourcing\models.py:266
 msgid "LSR violation cases"
 msgstr "违反LSR案例数"
 
-#: .\outsourcing\models.py:257
+#: .\outsourcing\models.py:267
 msgid "safety accident cases"
 msgstr "安全事故案例数"
 
-#: .\outsourcing\models.py:258
+#: .\outsourcing\models.py:268
 msgid "yearly plan executing rate"
 msgstr "安全年度计划执行率"
 
-#: .\outsourcing\models.py:259
+#: .\outsourcing\models.py:269
 msgid "vehicle qualification rate"
 msgstr "车辆合格率"
 
-#: .\outsourcing\models.py:260
+#: .\outsourcing\models.py:270
 msgid "journey management rules implemented rate"
 msgstr "行程管理规定执行率"
 
-#: .\outsourcing\models.py:261
+#: .\outsourcing\models.py:271
 msgid "safe loading violation cases"
 msgstr "违反安全装载案例数"
 
-#: .\outsourcing\models.py:262
+#: .\outsourcing\models.py:272
 msgid "departure count"
 msgstr "发车量（次）"
 
-#: .\outsourcing\models.py:263
+#: .\outsourcing\models.py:273
 msgid "departure tones"
 msgstr "发车量（吨）"
 
-#: .\outsourcing\models.py:264
+#: .\outsourcing\models.py:274
 msgid "monthly delivery plan completion rate"
 msgstr "当月发货计划完成率"
 
-#: .\outsourcing\models.py:265
+#: .\outsourcing\models.py:275
 msgid "AOG on-time rate"
 msgstr "到货准点完成率（水运>95%）"
 
-#: .\outsourcing\models.py:266
+#: .\outsourcing\models.py:276
 msgid "POD On-Time rate"
 msgstr "POD回单准时率"
 
-#: .\outsourcing\models.py:267
+#: .\outsourcing\models.py:277
 msgid "POD accuracy"
 msgstr "POD正确率"
 
-#: .\outsourcing\models.py:268
+#: .\outsourcing\models.py:278
 msgid "customer satisfaction rate"
 msgstr "客户满意率"
 
-#: .\outsourcing\models.py:269
+#: .\outsourcing\models.py:279
 msgid "Customer complaint cases"
 msgstr "客户投诉案例数"
 
-#: .\outsourcing\models.py:272 .\outsourcing\models.py:273
-#: .\outsourcing\models.py:276
+#: .\outsourcing\models.py:282 .\outsourcing\models.py:283
+#: .\outsourcing\models.py:287 .\outsourcing\views.py:129
+#: .\outsourcing\views.py:144 .\outsourcing\views.py:184
+#: .\templates\navbar_2nd.html:13
 msgid "vehicle tranportation KPI"
 msgstr "车辆运输KPI"
 
-#: .\outsourcing\views.py:33 .\outsourcing\views.py:59
+#: .\outsourcing\templates\kpi\transportionkpi_list_display.html:27
+msgid "Project Review"
+msgstr "项目回顾"
+
+#: .\outsourcing\templates\table_transposition_display.html:9
+msgid "indicator"
+msgstr "指标"
+
+#: .\outsourcing\views.py:40 .\outsourcing\views.py:66
 #: .\templates\navbar.html:46 .\templates\navbar_2nd.html.py:11
-#: .\templates\navbar_2nd.html:17 .\templates\navbar_2nd.html.py:22
 msgid "Forklift"
 msgstr "叉车"
 
@@ -2897,7 +2914,6 @@ msgid "Projects"
 msgstr "项目"
 
 #: .\templates\navbar.html:47 .\templates\navbar_2nd.html.py:12
-#: .\templates\navbar_2nd.html:18 .\templates\navbar_2nd.html.py:23
 msgid "Spray Pump"
 msgstr "喷淋泵"
 

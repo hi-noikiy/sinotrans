@@ -433,7 +433,7 @@ class StatMixin(object):
         #llcounterperdaypercategory = {}
         for inspect in DailyInspection.objects.all():
             created = inspect.get_created_date()
-            category = inspect.get_field_value('category')
+            category = inspect.my_get_field_display('category')
             if llcounterperdaypercategory.get(category, None) is None:
                 llcounterperdaypercategory.update({category: {created : 1}})
             else:                
@@ -596,7 +596,7 @@ class shelf_inspection_DetailView(DetailView):
                         if not ( fieldname in ShelfInspectionRecordForm.Meta.exclude or fieldname in ShelfInspectionRecordForm.Meta.hidden_form):
                             if form.cleaned_data.get(fieldname, None) is not None: # be careful for False
                                 setattr(instance, fieldname, form.cleaned_data.get(fieldname))
-                                json_data.update({fieldname: instance.get_field_value(fieldname)})
+                                json_data.update({fieldname: instance.my_get_field_display(fieldname)})
                     instance.save()
                     return HttpResponse(json.dumps(json_data))
                     '''

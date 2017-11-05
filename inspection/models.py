@@ -166,7 +166,7 @@ class DailyInspection(models.Model):
         return self.created.strftime("%Y-%m-%d")
 
     # can be replaced by field.value_to_string(object)
-    def get_field_value(self,fieldname):
+    def my_get_field_display(self,fieldname):
 
         if not hasattr(self, fieldname):
             return None
@@ -209,7 +209,7 @@ class shelf(models.Model):
         return shelf._meta.get_fields()
 
     # can be replaced by field.value_to_string(object)
-    def get_field_value(self,fieldname):
+    def my_get_field_display(self,fieldname):
 
         if not hasattr(self, fieldname):
             return None
@@ -258,7 +258,7 @@ class shelf_inspection_record(models.Model):
         return reverse("shelf_inspection_record_detail", kwargs={"pk": self.id })
 
     # can be replaced by field.value_to_string(object)
-    def get_field_value(self,fieldname):
+    def my_get_field_display(self,fieldname):
 
         if not hasattr(self, fieldname):
             return None

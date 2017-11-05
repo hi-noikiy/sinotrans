@@ -10,13 +10,15 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.contrib import messages
+from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 
 from .models import (
 	Forklift, ForkliftMaint, 
     VehicleTransportationKPI,
 	)
 from .forms import (
-    vehicle_transportation_kpi_model_formset
+    vehicle_transportation_kpi_model_formset,
+    VehicleTransportationKPIFilterForm,
     )
 
 from .models import option_value_convertion
@@ -66,55 +68,74 @@ class ForklifDetailView(DetailView):
         ])
         return super(ForklifDetailView, self).dispatch(request,args,kwargs)           
 
+
+class VehicleTransportationKPIFilter(FilterSet):
+    year = CharFilter(name='year', lookup_type='exact', distinct=True)
+    month = CharFilter(name='month', lookup_type='exact', distinct=True)
+
+    class Meta:
+        model = VehicleTransportationKPI
+        fields = [
+            'year',
+            'month',
+        ]
+
 class TransportationKPIListDisplayView(ListView):
     model = VehicleTransportationKPI
     template_name = "kpi/transportionkpi_list_display.html"
+    filter_class = VehicleTransportationKPIFilter
 
     def get_context_data(self, *args, **kwargs):
         context = super(TransportationKPIListDisplayView, self).get_context_data(*args, **kwargs)
-        context["object_list"] = self.model.objects.all()
+        #context["object_list"] = self.model.objects.all()
 
-        fields = [
-            'safe_mileages',
-            'safe_labor_hours',
-            'LSR_violation_cases',
-            'safety_accident_cases',
-            'yearly_plan_executing_rate',
-            'vehicle_qualification_rate',
-            'journey_management_rules_implemented_rate',
-            'safe_loading_violation_cases',
-            'departure_count',
-            'departure_tones',
-            'monthly_delivery_plan_completion_rate',
-            'AOG_on_time_rate',
-            'POD_on_time_rate',
-            'POD_accuracy',
-            'customer_satisfaction_rate',
-            'customer_complaint_cases',
+        qs = self.get_queryset()
+        queryset = self.filter_class(self.request.GET, queryset=qs)
+        context["object_list"] = queryset if self.request.GET else None
+
+        excludes = [
+            'id',
+            'year',
+            'month',
         ]
 
-        rows = [(field, self.model._meta.get_field(field).verbose_name) for field in fields ]
+        indicator = [
+            "NA",
+            "NA",
+            "0",
+            "0",
+            "100%",
+            "95%",
+            "100%",
+            "0",
+            "NA",
+            "NA",
+            "100%",
+            "99%",
+            "100%",
+            "100%",
+            "8.5",
+            "0",
+        ]
+
+        rows = [field for field in self.model._meta.get_fields() if field.name not in excludes]
+        rows = zip(rows,indicator)
 
         from inspection.utils import get_exist_option_items
-        context["columns"] = get_exist_option_items(VehicleTransportationKPI.TRANSPORTATION_PROJECT_OPTION, self.get_queryset(), 'transportation_project')        
+        context["columns"] = get_exist_option_items(VehicleTransportationKPI.TRANSPORTATION_PROJECT_OPTION, self.get_queryset(), 'transportation_project')   
+        context["column_key"] = "transportation_project"
+        context["indicator"] = indicator
         context["rows"] = rows
         context["project_name"] = _("vehicle tranportation KPI")
         context["hidden_fields"] = ["id",]
+
+        context["vehicle_transportationKPI_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
         
         return context       
 
     def post(self, request, *args, **kwargs):
-        formset = vehicle_transportation_kpi_model_formset(request.POST or None, request.FILES or None)
-        if formset.is_valid():
-            instances = formset.save(commit=False)
-            for instance in instances:
-                instance.save()
-            messages.success(request, "Your list has been updated.")
-            return redirect(reverse("transportationkpi_list_edit",  kwargs={}))
-
         self.object_list = self.get_queryset() # copy from BaseListView::get
         context = self.get_context_data()
-        context['formset'] = formset
         return self.render_to_response(context)
 
     def dispatch(self, request, *args, **kwargs):
@@ -136,6 +157,7 @@ class TransportationKPIListEditView(ListView):
 
         from inspection.utils import get_exist_option_items
         context["columns"] = get_exist_option_items(VehicleTransportationKPI.TRANSPORTATION_PROJECT_OPTION, self.get_queryset(), 'transportation_project')
+        context["column_key"] = "transportation_project"
         context["project_name"] = "vehicle tranportation KPI"
         context["hidden_fields"] = ["id",]
         context["date_field_list"] = [""]

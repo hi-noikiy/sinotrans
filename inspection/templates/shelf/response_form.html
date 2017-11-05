@@ -14,13 +14,13 @@
                 {% if field.name in form.Meta.hidden_form %}
                     <td style="display:none" type='hidden'>{{field}}</td>                    
                     {% if not field.name in form.Meta.hidden %}
-                    <td class="text-center">{{form.instance|get_field_value:field.name}}</td>
+                    <td class="text-center">{{form.instance|my_get_field_display:field.name}}</td>
                     {% endif %}
                 {% elif field.name in form.Meta.disabled %}
-                    <td class="text-center">{{form.instance|get_field_value:field.name}}</td>
+                    <td class="text-center">{{form.instance|my_get_field_display:field.name}}</td>
                 {% else %}
                     <td>
-                        <div class="displayonly text-center" style="display: block">{{form.instance|get_field_value:field.name}}</div>
+                        <div class="displayonly text-center" style="display: block">{{form.instance|my_get_field_display:field.name}}</div>
                         <div class="edit" style="display: none">{{field}}</div>
                     </td>
                 {% endif%}            

@@ -35,7 +35,7 @@
 					<td><a href="{{object.get_absolute_url}}">{{object.id}}</a></td>					
 				{% elif field.name == 'shelf_inspection_record' %}
 				{% else %}
-					<td>{{ object|get_field_value:field.name}}</td>
+					<td>{{ object|my_get_field_display:field.name}}</td>
 				{% endif %}			
 			{% endfor %}
 		</tr>

@@ -2,23 +2,29 @@
 {% load myform %}
 
 <div style="overflow-x:auto;">
-    <table class="table-align-center table table-hover table-striped table-container table-condensed" >
+    <table class="table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
         <thead>
             <tr class="table-primary">
                 <th>{% trans project_name %}</th>
+                <th>{% trans "indicator" %}</th>
                 {% for column in columns %}
                 <th>{{column.1}}</th>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
-            {% for row_head in rows %}
+            {% for row in rows %}
             <tr>
-                <th>{{row_head.1}}</th>
-                {% for object in object_list %} 
+                <th>{{row.0.verbose_name}}</th>
+                <th class="table-indicator">{{row.1}}</th>
+                {% for column in columns %}
                     <td>
-                        {{object|get_field_value:row_head.0 }}
-                    </td>                         
+                    {% for object in object_list %}                    
+                        {% if object|my_get_field_value:column_key == column.0 %}                        
+                            {{object|my_get_field_display:row.0.name }}                        
+                        {% endif %}                    
+                    {% endfor %}
+                    </td>
                 {% endfor %}
 
                 {% comment %}

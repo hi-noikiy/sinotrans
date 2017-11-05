@@ -180,7 +180,12 @@ table tr.table-primary th{
     background: linear-gradient(rgba(124, 152, 177, 0.88), #428bca);
 }
 
-
+table tr th.table-indicator{
+    text-align:center;
+    vertical-align:middle;
+    background-color:#bce8f1!important;
+    color:#468847;
+}
 
 /************************* 
 
@@ -211,14 +216,14 @@ table tr.table-primary th{
 
              inline filter form
 
-form-filter
+form-filter-inline
 
 **************************/
-div.form-filter{
+div.form-filter-inline{
     padding-top: 5px;
 }
 
-.form-filter label{
+.form-filter-inline label{
     display: block;
     background-color: #79aec8;
     border-radius: 3px;
@@ -230,26 +235,47 @@ div.form-filter{
     height: 25px;
 }
 
-.form-filter .form-group{
+.form-filter-inline .form-group{
     max-width: 200px;
 }
 
-.form-filter .form-group select{
+.form-filter-inline .form-group select{
     width:100%;
 }
 
-.form-filter div.apply-filter{
+.form-filter-inline div.apply-filter{
     vertical-align: bottom;
 }
 
-.form-filter div.apply-filter input{
+.form-filter-inline div.apply-filter input{
     height: 32px;
     padding-top: 5px;
 }
 
-.form-filter div.apply-filter a{
+.form-filter-inline div.apply-filter a{
     height: 32px;
 }
+
+/************************* 
+
+             flat filter form
+
+form-filter-flat
+
+**************************/
+.form-filter-flat{
+	padding-bottom: 5px;
+}
+
+.form-filter-flat input,
+.form-filter-flat select {
+    height: 30px;
+    border-radius: 3px;
+    text-indent: 5px;
+    margin-left: 5px;
+    border-style: groove;
+}
+
 
 /************************* 
 

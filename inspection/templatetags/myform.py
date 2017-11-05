@@ -10,8 +10,14 @@ def render_field(value):
     else:
         return value
 
-@register.filter(name='get_field_value')
-def get_field_value(inst, fieldname):
+@register.filter(name='my_get_field_value')
+def my_get_field_value(inst, fieldname):
     if hasattr(inst, fieldname):
-        return inst.get_field_value(fieldname)
+        return inst.my_get_field_value(fieldname)
+    return None
+    
+@register.filter(name='my_get_field_display')
+def my_get_field_display(inst, fieldname):
+    if hasattr(inst, fieldname):
+        return inst.my_get_field_display(fieldname)
     return None

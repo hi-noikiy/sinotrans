@@ -4,7 +4,7 @@
     <form method="post" action="">{% csrf_token %}
         {{ formset.management_form }}
 
-        <table class="spray-pump table-formset table table-hover table-striped table-container table-condensed" >
+        <table class="spray-pump table-formset table table-bordered table-hover table-striped table-container table-condensed" >
             <thead>
                 <tr  class="table-primary">
                     <th>{% trans project_name %}</th>
