@@ -17,10 +17,10 @@
 
     <title>{% block head_title %}Sinotrans{% endblock %}</title>
 
+    {% block head_css_extend_before_main_css %}{% endblock %} <!-- avoid overwrite main css-->
+
     {% include 'head_css.html' %}
-
-    {% block head_css_extend %}{% endblock %}
-
+    
     <style>
     {% block style %}{% endblock %}
       body {
@@ -90,8 +90,6 @@
     {% block footer %}
       {% include "footer.html" %}
     {% endblock %}
-
-
 
     {% include "javascript.html" %}   
 
