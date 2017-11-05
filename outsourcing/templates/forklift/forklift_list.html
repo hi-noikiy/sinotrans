@@ -11,3 +11,52 @@
 </style>
 
 
+{% block content %}
+
+<div class='row'>
+
+    <div class='col-sm-9 '>
+        <div class="object_lists" style="clear: both;">
+            {% autopaginate object_list 8 %}
+            
+            {% if object_list.count == 0 %}
+                {% trans "Nothing found" %}
+            {% else %}
+                <table class="forklift-list table-align-center table-hover  table table-striped table-hover table-responsive table-condensed">
+                    <thead>
+                        <tr class="table-primary">
+                            <th></th>
+                            <th>{% trans "Inner Car Number" %}</th>
+                            <th>{% trans "Inner Plate Number" %}</th>
+                            <th>{% trans "Forklift Model" %}</th>
+                            <th>{% trans "SN" %}</th>
+                            <th>{% trans "Forklift Category" %}</th>
+                            <th>{% trans "Manufacturer" %}</th>
+                            <th>{% trans "forklift image" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for object in object_list %}
+                        <tr class="table-primary-hover">
+                            <td><a href="{{ object.get_absolute_url }}">{{object}}</a>    </td>
+                            <td>{{object.internal_car_number}}</td>
+                            <td>{{object.internal_plate_number}}</td>
+                            <td>{{object.model}}</td>
+                            <td>{{object.sn}}</td>
+                            <td>{{object.category}}</td>
+                            <td>{{object.manufacturer}}</td>
+                            <td><img src="{{object.forkliftimage_set.first.image.url}}" class="img-responsive" style="width:100px;"> </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>                
+            {% endif %}
+            
+            <div class="text-center">
+            {% paginate %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
