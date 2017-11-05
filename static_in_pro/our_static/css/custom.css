@@ -38,6 +38,14 @@ a:visited {text-decoration: none;}
 a:active {text-decoration: none;}
 a:hover {text-decoration: none;}
 
+
+.beta {
+    background: linear-gradient(#f2dede, #c09853);
+    padding: 10px 10px;
+    border-radius: 5px;
+    color:white;
+}
+
 /*******************  
 
            table style div

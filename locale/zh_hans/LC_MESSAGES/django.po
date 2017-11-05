@@ -1871,7 +1871,7 @@ msgstr ""
 #: .\site-packages\crispy_forms\tests\test_form_helper.py:131
 #: .\site-packages\crispy_forms\tests\test_form_helper.py:141
 msgid "This field is required."
-msgstr ""
+msgstr "这是必填项"
 
 #: .\site-packages-djangos\1.8.4\django\forms\fields.py:237
 #: .\site-packages-djangos\1.9\django\forms\fields.py:254

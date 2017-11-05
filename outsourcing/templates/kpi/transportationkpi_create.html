@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3">
+		{{year }} {% trans "year" %}
+		{{month }} {% trans "month" %}
+		<hr>
+		<form method="POST" action="">{% csrf_token %}
+			{{form|crispy}}
+			<input type="submit" class="btn btn-primary"  name="submit" value = "{% trans 'Submit' %}">
+		</form>
+	</div>
+</div>	
+{% endblock %}

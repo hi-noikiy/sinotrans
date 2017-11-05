@@ -11,9 +11,16 @@ class VehicleTransportationKPIForm(forms.ModelForm):
         model = VehicleTransportationKPI
 
         exclude = {
-            'year',
-            'month',
+            #'year',
+            #'month',
         }
+
+    def __init__(self, *args, **kwargs):
+        super(VehicleTransportationKPIForm, self).__init__(*args, **kwargs)
+        #instance = getattr(self, 'instance', None)
+        #if instance and instance.pk:
+        self.fields['year'].widget.attrs['readonly'] = True
+        self.fields['month'].widget.attrs['readonly'] = True
 
 vehicle_transportation_kpi_model_formset = modelformset_factory(VehicleTransportationKPI,
                                             form=VehicleTransportationKPIForm,

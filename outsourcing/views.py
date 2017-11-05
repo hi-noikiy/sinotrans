@@ -80,9 +80,65 @@ class VehicleTransportationKPIFilter(FilterSet):
             'month',
         ]
 
+class TransportationKPIDetailView(DetailView):
+    model = VehicleTransportationKPI
+    template_name = "kpi/transportationkpi_detail.html"
+    #success_url = reverse("transportationkpi_list_display", kwargs={})
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TransportationKPIDetailView, self).get_context_data(*args, **kwargs)
+
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name=="id"]
+
+        return context
+
+
+    def get_success_url(self):
+        return reverse("transportationkpi_list_display", kwargs={})
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("vehicle tranportation KPI"), reverse("transportationkpi_list_display", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
+        return super(TransportationKPIDetailView, self).dispatch(request,args,kwargs)      
+
+class TransportationKPIUpdateView(UpdateView):
+    model = VehicleTransportationKPI
+    template_name = "kpi/transportationkpi_update.html"
+    form_class = VehicleTransportationKPIForm
+
+    def get_success_url(self):
+        return reverse("transportationkpi_detail", kwargs={"pk":self.get_object().pk})
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("vehicle tranportation KPI"), reverse("transportationkpi_list_display", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
+        return super(TransportationKPIUpdateView, self).dispatch(request,args,kwargs)      
+
+class TransportationKPICreateView(CreateView):
+    model = VehicleTransportationKPI
+    template_name = "kpi/transportationkpi_create.html"
+    form_class = VehicleTransportationKPIForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TransportationKPICreateView, self).get_context_data(*args, **kwargs)
+        context["year"] = self.kwargs.get('year')
+        context["month"] = self.kwargs.get('month')
+        context["form"] = self.form_class(self.request.POST or None, self.request.GET or None, initial={'year':self.kwargs.get('year'),'month': self.kwargs.get('month')})
+
+        return context
+
+    def get_success_url(self):
+        return reverse("transportationkpi_list_display", kwargs={})
+
 class TransportationKPIListDisplayView(ListView):
     model = VehicleTransportationKPI
-    template_name = "kpi/transportionkpi_list_display.html"
+    template_name = "kpi/transportationkpi_list_display.html"
     filter_class = VehicleTransportationKPIFilter
 
     def get_context_data(self, *args, **kwargs):
@@ -100,6 +156,7 @@ class TransportationKPIListDisplayView(ListView):
         ]
 
         indicator = [
+            "-",
             "NA",
             "NA",
             "0",
@@ -120,16 +177,18 @@ class TransportationKPIListDisplayView(ListView):
 
         rows = [field for field in self.model._meta.get_fields() if field.name not in excludes]
         rows = zip(rows,indicator)
-
+        
         from inspection.utils import get_exist_option_items
         context["columns"] = get_exist_option_items(VehicleTransportationKPI.TRANSPORTATION_PROJECT_OPTION, self.get_queryset(), 'transportation_project')   
-        context["column_key"] = "transportation_project"
+        context["column_key"] = "transportation_project"  # for cell matching
+        context["columns_exist"] = [ _.transportation_project for _ in queryset.qs ]
         context["indicator"] = indicator
-        context["rows"] = rows
-        context["project_name"] = _("vehicle tranportation KPI")
-        context["hidden_fields"] = ["id",]
+        context["rows"] = rows # row th display
+        context["hidden_fields"] = excludes
 
         context["vehicle_transportationKPI_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
+
+        context["project_name"] = "vehicle tranportation KPI"
         
         return context       
 
@@ -147,10 +206,16 @@ class TransportationKPIListDisplayView(ListView):
 
 class TransportationKPIListEditView(ListView):
     model = VehicleTransportationKPI
-    template_name = "kpi/transportionkpi_list_edit.html"
+    template_name = "kpi/transportationkpi_list_edit.html"
     filter_class = VehicleTransportationKPIFilter
 
     def get_context_data(self, *args, **kwargs):
+
+        excludes = [
+            'id',
+            'year',
+            'month',
+        ]
 
         context = super(TransportationKPIListEditView, self).get_context_data(*args, **kwargs)
         #context["object_list"] = self.model.objects.all()
@@ -166,7 +231,7 @@ class TransportationKPIListEditView(ListView):
         context["columns"] = get_exist_option_items(VehicleTransportationKPI.TRANSPORTATION_PROJECT_OPTION, self.get_queryset(), 'transportation_project')
         context["column_key"] = "transportation_project"
         context["project_name"] = "vehicle tranportation KPI"
-        context["hidden_fields"] = ["id"]
+        context["hidden_fields"] = excludes
         context["date_field_list"] = [""]
 
         context["vehicle_transportationKPI_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 

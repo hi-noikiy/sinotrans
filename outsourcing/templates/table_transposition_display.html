@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load myform %}
+{% load staticfiles %}
 
 <div style="overflow-x:auto;">
     <table class="table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
@@ -19,11 +20,17 @@
                 <th class="table-indicator">{{row.1}}</th>
                 {% for column in columns %}
                     <td>
-                    {% for object in object_list %}                    
+                    {% for object in object_list %}
                         {% if object|my_get_field_value:column_key == column.0 %}                        
-                            {{object|my_get_field_display:row.0.name }}                        
-                        {% endif %}                    
+                            {{object|my_get_field_display:row.0.name }}
+                            {% if column_key == row.0.name %}
+                            <a href="{{object.get_absolute_url }}"><i class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i></a>
+                            {% endif %}
+                        {% endif %}             
                     {% endfor %}
+                    {% if column_key == row.0.name and not column.0 in columns_exist %}
+                    <a href="{% url 'transportationkpi_create' request.GET.year request.GET.month %}"><i class="fa fa-1x fa-plus-square-o" aria-hidden="true"></i></a>
+                    {% endif %}                       
                     </td>
                 {% endfor %}
 

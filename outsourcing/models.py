@@ -300,4 +300,10 @@ class VehicleTransportationKPI(models.Model):
         if not hasattr(self, fieldname):
             return None
         
-        return getattr(self,fieldname)       
+        return getattr(self,fieldname)      
+
+    def get_absolute_url(self):
+        return reverse("transportationkpi_detail", kwargs={"pk": self.pk })  
+
+    def get_absolute_url_update(self): 
+        return reverse("transportationkpi_update", kwargs={"pk": self.pk })          
