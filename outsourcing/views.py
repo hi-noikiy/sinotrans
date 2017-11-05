@@ -17,7 +17,7 @@ from .models import (
     VehicleTransportationKPI,
 	)
 from .forms import (
-    vehicle_transportation_kpi_model_formset,
+    vehicle_transportation_kpi_model_formset, VehicleTransportationKPIForm,
     VehicleTransportationKPIFilterForm,
     )
 
@@ -148,20 +148,29 @@ class TransportationKPIListDisplayView(ListView):
 class TransportationKPIListEditView(ListView):
     model = VehicleTransportationKPI
     template_name = "kpi/transportionkpi_list_edit.html"
+    filter_class = VehicleTransportationKPIFilter
 
     def get_context_data(self, *args, **kwargs):
+
         context = super(TransportationKPIListEditView, self).get_context_data(*args, **kwargs)
-        context["object_list"] = self.model.objects.all()
-        formset = vehicle_transportation_kpi_model_formset(queryset=self.get_queryset(*args, **kwargs))
+        #context["object_list"] = self.model.objects.all()
+        qs = self.get_queryset(*args, **kwargs)
+        queryset = self.filter_class(self.request.GET, queryset=qs).qs 
+        context["object_list"] = queryset if self.request.GET else None
+        formset = vehicle_transportation_kpi_model_formset(queryset=queryset) if self.request.GET else None
         context["formset"] = formset
 
+        context["rows_fields"] = formset[0] if formset and len(formset) else VehicleTransportationKPIForm(instance=VehicleTransportationKPI.objects.all().first())
+        #print [field for name, field in VehicleTransportationKPIForm().fields.items() if not name in excludes ]
         from inspection.utils import get_exist_option_items
         context["columns"] = get_exist_option_items(VehicleTransportationKPI.TRANSPORTATION_PROJECT_OPTION, self.get_queryset(), 'transportation_project')
         context["column_key"] = "transportation_project"
         context["project_name"] = "vehicle tranportation KPI"
-        context["hidden_fields"] = ["id",]
+        context["hidden_fields"] = ["id"]
         context["date_field_list"] = [""]
-        
+
+        context["vehicle_transportationKPI_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
+
         return context       
 
     def post(self, request, *args, **kwargs):

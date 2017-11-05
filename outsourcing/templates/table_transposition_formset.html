@@ -1,10 +1,11 @@
 {% load i18n %}
+{% load myform %}
 
-<div style="overflow-x:auto;">
+<div style="overflow-x:auto; ">
     <form method="post" action="">{% csrf_token %}
         {{ formset.management_form }}
 
-        <table class="spray-pump table-formset table table-bordered table-hover table-striped table-container table-condensed" >
+        <table class="table-formset table table-bordered table-hover table-striped table-container table-condensed" >
             <thead>
                 <tr  class="table-primary">
                     <th>{% trans project_name %}</th>
@@ -14,19 +15,23 @@
                 </tr>
             </thead>
             <tbody>
-                {% for field_0 in formset.0 %}
+                {% for field_0 in rows_fields %}
                 <tr style="{% if field_0.name in hidden_fields %}display:none; {% endif %}">
                     <th>{{field_0.label_tag}}</th>
-                    {% for form in formset %} 
-                        {% for field in form %} 
-                            {% if field.name == field_0.name %}
-                            <td class="{% if field.name in date_field_list %}calenda{% endif %}">
-                                <span style="display: none">{{field.label_tag}}</span>
-                                {% if field.errors %}<div class="error" style="color:#b75f33">{{ field.errors }}</div>{% endif %}
-                                {{field}}
-                            </td>
-                            {% endif %}
-                        {% endfor %}                            
+                    {% for column in columns %}
+                        <td class="{% if field.name in date_field_list %}calenda{% endif %}" >
+                            <span style="display: none">{{field.label_tag}}</span>
+                            {% if field.errors %}<div class="error" style="color:#b75f33">{{ field.errors }}</div>{% endif %}
+                            {% for form in formset %} 
+                                {% if form.instance|my_get_field_value:column_key == column.0 %} 
+                                    {% for field in form %} 
+                                        {% if field.name == field_0.name %}                                        
+                                            {{field}}                                    
+                                        {% endif %}
+                                    {% endfor %} 
+                                {% endif %}                           
+                            {% endfor %}
+                        </td>
                     {% endfor %}
 
                     {% comment %}
@@ -39,7 +44,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        <input type="submit" class="btn btn-primary" value="Submit">
+        <input type="submit" class="btn btn-primary" value="Submit" style="{% if not formset or not formset|length %}display: none;{% endif %}">
     </form>    
 </div>
 

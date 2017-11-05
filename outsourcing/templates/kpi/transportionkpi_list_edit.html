@@ -23,6 +23,14 @@ table.table-formset tbody tr td select
 	width: 100%;
 }
 
+table.table-formset thead tr th{
+	width:11%;
+}
+
+
+table.table-formset thead tr th:nth-child(1){
+	width:23%;
+}
 
 {% endblock %}
 </style>
@@ -33,6 +41,13 @@ table.table-formset tbody tr td select
 
 <div class="row">
     <div class="col-sm-12" >
+        <div class="form-filter-flat">
+            <form  method="GET" action="{% url 'transportationkpi_list_edit' %}">
+                {{ vehicle_transportationKPI_filter_form }}
+                <input type='submit' class='btn btn-primary' value="{% trans 'Apply Filter' %}">
+                <a class="btn btn-default" href="{% url 'transportationkpi_list_edit' %}"  >{% trans 'Clear Filters' %}</a>   
+            </form>                    
+        </div>    
         {% include "table_transposition_formset.html" %}
     </div>
 </div>
