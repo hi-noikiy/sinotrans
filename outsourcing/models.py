@@ -197,6 +197,9 @@ class Vehicle(models.Model):
 
     def __unicode__(self): 
         return _("vehicle") + " %s" % (self.relevant_license_plate)
+        
+    def get_absolute_url(self):
+        return reverse("vehicle_detail", kwargs={"pk": self.pk })
 
 class Driver(models.Model):
     vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle"), blank=True, null=True )
@@ -253,7 +256,7 @@ class VehicleInspection(models.Model):
         
         field = self._meta.get_field(fieldname)
         return "%s" % self._get_FIELD_display(field)  
-        
+
 class VehicleTransportationKPI(models.Model):
     TRANSPORTATION_PROJECT_OPTION = (
         ('shuttle bus', _('shuttle bus')),

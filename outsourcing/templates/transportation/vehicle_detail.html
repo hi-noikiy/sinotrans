@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+{% load myform %}
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-9 '>
+
+		<div class="panel panel-primary">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            {% if fieldsets.0.0 %}{{fieldsets.0.0}}{% else %}{% trans "Base Information" %}{% endif %}
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+		    	<div class="row">
+		    		<div class="col-sm-6">
+						<table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
+							<tbody>							
+							{% for fieldname in fieldsets.0.1.fields %}
+								<tr><th>{{ object|my_get_field_verbose_name:fieldname }}</th><td>{{ object|my_get_field_display:fieldname }}</td></tr>
+							{% endfor %}							
+							</tbody>
+						</table>			    		
+		    		</div>
+		    		<div class="col-sm-6">
+						<table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
+							<tbody>							
+							{% for fieldname in fieldsets.1.1.fields %}
+								<tr><th>{{ object|my_get_field_verbose_name:fieldname }}</th><td>{{ object|my_get_field_display:fieldname }}</td></tr>
+							{% endfor %}							
+							</tbody>
+						</table>			    		
+		    		</div>
+		    	</div>
+
+		    </div>
+		</div>
+
+		<div class="panel panel-primary">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            {% trans "driver" %}
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+				{% if object.driver_set.count > 0 %}
+					<table class="table table-striped table-hover table-responsive table-condensed"  style="width: 100%">
+						<thead>
+							<tr>
+								{% for fieldname in fields_dirver %}
+								<th>{{ object.driver_set.first|my_get_field_verbose_name:fieldname }}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+						{% for object_driver in object.driver_set.all %}
+						    <tr>
+						    	{% for fieldname in fields_dirver %}
+								<td>{{ object_driver|my_get_field_display:fieldname }}</td>
+								{% endfor %}
+							</tr>
+						{% endfor %}
+						</tbody>							
+					</table>
+				{% else %}
+				   {% trans "Nothing found" %}
+				{% endif %}
+		    </div>
+		</div>
+
+		<div class="panel panel-primary">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            {% trans "vehicle inspection" %}
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+				{% if object.vehicleinspection_set.count > 0 %}
+					<table class="table table-striped table-hover table-responsive table-condensed"  style="width: 100%">
+						<thead>
+							<tr>
+								{% for fieldname in fields_vehicle_inspection %}
+								<th>{{ object.vehicleinspection_set.first|my_get_field_verbose_name:fieldname }}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+						{% for object_driver in object.vehicleinspection_set.all %}
+						    <tr>
+						    	{% for fieldname in fields_vehicle_inspection %}
+								<td>{{ object_driver|my_get_field_display:fieldname }}</td>
+								{% endfor %}
+							</tr>
+						{% endfor %}
+						</tbody>							
+					</table>
+				{% else %}
+				   {% trans "Nothing found" %}
+				{% endif %}
+		    </div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}					

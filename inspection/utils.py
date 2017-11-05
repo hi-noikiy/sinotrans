@@ -146,7 +146,7 @@ class PercentageField(fields.CharField):
     # cover before handled by backend
     def to_python(self, value):
         val = super(PercentageField, self).to_python(value)
-        if not val.endswith("%"):
+        if val and not val.endswith("%"):
             return val + "%"        
         return val
 

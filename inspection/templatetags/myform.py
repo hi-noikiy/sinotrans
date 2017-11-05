@@ -10,15 +10,26 @@ def render_field(value):
     else:
         return value
 
+# field value in db
 @register.filter(name='my_get_field_value')
 def my_get_field_value(inst, fieldname):
     if hasattr(inst, fieldname):
-        #return inst.my_get_field_value(fieldname)
         return getattr(inst, fieldname)
     return None
-    
+
+# field value for display ( options, i18n)
 @register.filter(name='my_get_field_display')
 def my_get_field_display(inst, fieldname):
     if hasattr(inst, fieldname):
-        return inst.my_get_field_display(fieldname)
+        field = inst._meta.get_field(fieldname)
+        return "%s" % inst._get_FIELD_display(field)  
+        #return inst.my_get_field_display(fieldname)
+    return None
+    
+# field lable / verbose name
+@register.filter(name='my_get_field_verbose_name')
+def my_get_field_verbose_name(inst, fieldname):
+    if hasattr(inst, fieldname):
+        field = inst._meta.get_field(fieldname)
+        return field.verbose_name
     return None
