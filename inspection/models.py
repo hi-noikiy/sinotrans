@@ -341,18 +341,18 @@ class Rehearsal(models.Model):
 
 
 month_choice = (
-    ('1jan', _('January')),
-    ('2feb', _('February')),
-    ('3mar', _('March')),
-    ('4apr', _('April')),
-    ('5may', _('May')),
-    ('6jun', _('June')),
-    ('7jul', _('July')),
-    ('8aug', _('August')),
-    ('9sep', _('September')),
-    ('aoct', _('October')),
-    ('bnov', _('November')),
-    ('cdev', _('December')),
+    ('01', _('January')),
+    ('02', _('February')),
+    ('03', _('March')),
+    ('04', _('April')),
+    ('05', _('May')),
+    ('06', _('June')),
+    ('07', _('July')),
+    ('08', _('August')),
+    ('09', _('September')),
+    ('10', _('October')),
+    ('11', _('November')),
+    ('12', _('December')),
 )
 
 """

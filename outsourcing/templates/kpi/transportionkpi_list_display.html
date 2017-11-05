@@ -23,7 +23,7 @@
 {% block content %}
 
 <div class="page-header">
-    <h3>{{project_name}} {{year}} {% trans "year" %} {{month}} 
+    <h3>{{project_name}} {{ request.GET.year }} {% trans "year" %} {{ request.GET.month }} {% trans "month" %} 
         <small>{% trans "Project Review" %}</small>
     </h3>
 </div>
