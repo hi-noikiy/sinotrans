@@ -1581,7 +1581,7 @@ msgstr ""
 #: .\site-packages-djangos\1.9\django\db\models\base.py:1097
 #, python-format
 msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
+msgstr "包含这些%(field_labels)s的%(model_name)s已存在"
 
 #: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:107
 #: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:110
@@ -1603,7 +1603,7 @@ msgstr ""
 #: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:113
 #, python-format
 msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
+msgstr "包含这些域 %(field_label)s的%(model_name)s已存在"
 
 #. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
 #. Eg: "Title must be unique for pub_date year"

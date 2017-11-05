@@ -7,6 +7,13 @@ from .models import VehicleTransportationKPI
 from inspection.models import month_choice
 
 class VehicleTransportationKPIForm(forms.ModelForm):
+
+    # month = forms.ChoiceField(
+    #         label=_('month'),
+    #         widget=forms.TextInput(),
+    #         required=False
+    #         ) 
+
     class Meta:
         model = VehicleTransportationKPI
 

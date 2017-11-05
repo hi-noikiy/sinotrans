@@ -5,6 +5,10 @@
     <form method="post" action="">{% csrf_token %}
         {{ formset.management_form }}
 
+        {% if formset.errors %}
+            <div class="errornote" style="color: #b75f33;">{{formset.non_form_errors}}</div>
+        {% endif %}
+
         <table class="table-formset table table-bordered table-hover table-striped table-container table-condensed" >
             <thead>
                 <tr  class="table-primary">
@@ -16,17 +20,29 @@
             </thead>
             <tbody>
                 {% for field_0 in rows_fields %}
-                <tr style="{% if field_0.name in hidden_fields %}display:none; {% endif %}">
+                <tr style="{% if field_0.name in hidden_fields %}display:none; {% endif %}"> <!-- without this, there will be field missing error, especially ID -->
                     <th>{{field_0.label_tag}}</th>
                     {% for column in columns %}
-                        <td class="{% if field.name in date_field_list %}calenda{% endif %}" >
-                            <span style="display: none">{{field.label_tag}}</span>
+                        <td class="{% if field.name in date_field_list %}calenda{% endif %}" >                            
                             {% if field.errors %}<div class="error" style="color:#b75f33">{{ field.errors }}</div>{% endif %}
                             {% for form in formset %} 
                                 {% if form.instance|my_get_field_value:column_key == column.0 %} 
                                     {% for field in form %} 
-                                        {% if field.name == field_0.name %}                                        
-                                            {{field}}                                    
+                                        {% if field.name == field_0.name %}
+                                            {% if field.is_readonly %}
+                                                {{ field.contents }}
+                                            {% else %}
+                                                {% if field_0.name == column_key %}
+                                                    {% if form.errors %}
+                                                        <div class="error" style="color: #b75f33;">{{form.non_field_errors}}</div>
+                                                    {% endif %}
+                                                    {{form.instance|my_get_field_display:field.name}}  
+                                                    <span style="display: none">{{field}}</span>  <!-- without this, there will be field missing error -->
+                                                {% else %}
+                                                    <span style="display: none">{{field.label_tag}}</span>
+                                                    {{field}}
+                                                {% endif %}                                                                                                                               
+                                            {% endif %}
                                         {% endif %}
                                     {% endfor %} 
                                 {% endif %}                           
