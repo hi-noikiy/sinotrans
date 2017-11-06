@@ -38,23 +38,38 @@ from .models import image_upload_to_dailyinspection
 # Create your views here.
 
 
-class TableMixin(object):
+class TableListMixin(object):
     field_display = []
+
     field_display_options = []
     field_files = []
-    fieldsets = []
-    model_sets = [("",None,None),]
 
     def get_context_data(self, *args, **kwargs):
-        context = super(TableMixin, self).get_context_data(*args, **kwargs)
+        context = super(TableListMixin, self).get_context_data(*args, **kwargs)
         context["fields"] = self.field_display
         context["fields_option"] = self.field_display_options
-        context["fieldsets"] = self.fieldsets
         context["field_files"] = self.field_files
         
         return context
 
-class RehearsalListView(TableMixin, ListView): 
+class TableDetailMixin(object):
+    fieldsets = [("title",{"fields":("",)}), ]
+    model_sets = [("model name", None, []),]  # model name, object_list, list_display
+
+    field_display_options = []
+    field_files = []
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TableDetailMixin, self).get_context_data(*args, **kwargs)
+        context["fieldsets"] = self.fieldsets
+        context["model_sets"] = self.model_sets
+
+        context["fields_option"] = self.field_display_options
+        context["field_files"] = self.field_files
+        
+        return context
+
+class RehearsalListView(TableListMixin, ListView): 
     model = Rehearsal
     template_name = "rehersal/rehearsal_list.html"
     from .admin import RehearsalAdmin
@@ -72,6 +87,25 @@ class RehearsalListView(TableMixin, ListView):
             (_('rehearsal'),request.path_info),
         ])
         return super(RehearsalListView, self).dispatch(request,args,kwargs)   
+
+class RehearsalDetailView(TableDetailMixin, DetailView): 
+    model = Rehearsal
+    template_name = "rehersal/rehearsal_detail.html"
+    fieldsets = [(_("Base Information"),{"fields":("title","date","attachment",)}), ]
+    field_files = ["attachment"]
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RehearsalDetailView, self).get_context_data(*args, **kwargs)
+        
+        return context       
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('rehearsal'),request.path_info),
+        ])
+        return super(RehearsalDetailView, self).dispatch(request,args,kwargs)   
+
 
 
 

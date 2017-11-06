@@ -10,25 +10,25 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-6">
+            {% for fieldset in fieldsets %}
+            <div class="{% if fieldsets|length == 1 %}col-sm-12{% else %}col-sm-6{% endif %}">
                 <table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
                     <tbody>                            
-                    {% for fieldname in fieldsets.0.1.fields %}
-                        <tr><th>{{ object|my_get_field_verbose_name:fieldname }}</th><td>{% if fieldname in field_display_options %}{{ object|my_get_field_display:fieldname }}{% else %}{{ object|my_get_field_value:fieldname }}{% endif %}</td></tr>
+                    {% for fieldname in fieldset.1.fields %}
+                        <tr>
+                            <th>{{ object|my_get_field_verbose_name:fieldname }}</th>
+                            <td> {% if fieldname in field_files %}<a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a>{% elif fieldname in field_display_options %}{{ object|my_get_field_display:fieldname }}{% else %}{{ object|my_get_field_value:fieldname }}{% endif %}
+                            </td>
+                        </tr>
                     {% endfor %}                            
                     </tbody>
                 </table>                        
             </div>
-            <div class="col-sm-6">
-                <table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
-                    <tbody>                            
-                    {% for fieldname in fieldsets.1.1.fields %}
-                        <tr><th>{{ object|my_get_field_verbose_name:fieldname }}</th><td>{% if fieldname in field_display_options %}{{ object|my_get_field_display:fieldname }}{% else %}{{ object|my_get_field_value:fieldname }}{% endif %}</td></tr>
-                    {% endfor %}                            
-                    </tbody>
-                </table>                        
-            </div>
+            {% endfor %}
         </div>
 
     </div>
 </div>
+
+
+                                

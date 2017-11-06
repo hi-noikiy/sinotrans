@@ -339,6 +339,8 @@ class Rehearsal(models.Model):
         verbose_name = _("rehearsal")
         verbose_name_plural = _("rehearsal")
 
+    def get_absolute_url(self):
+        return reverse("rehearsal_detail", kwargs={"pk": self.id })
 
 month_choice = (
     ('01', _('January')),

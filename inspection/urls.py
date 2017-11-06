@@ -20,6 +20,7 @@ from .views import (
     ShelfListView,
     ShelfInspectionRecordDetailView,
     RehearsalListView,
+    RehearsalDetailView,
 
 )
 
@@ -45,5 +46,6 @@ urlpatterns = [
     url(r'^shelflist$', ShelfListView.as_view(), name='shelf_list'),
 
     url(r'^rehearsallist$', RehearsalListView.as_view(), name='rehearsal_list'),
+    url(r'^rehearsaldetail/(?P<pk>\d+)/$', RehearsalDetailView.as_view(), name='rehearsal_detail'),  
 
 ]

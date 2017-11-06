@@ -4,7 +4,7 @@
 {% load pagination_tags %}
 
 <div class="object_list" style="clear: both;">
-    {% autopaginate object_list 8 %}
+    {% autopaginate object_list line_per_page %}
     
     {% if object_list.count == 0 %}
         {% trans "Nothing found" %}
