@@ -342,6 +342,9 @@ class Rehearsal(models.Model):
     def get_absolute_url(self):
         return reverse("rehearsal_detail", kwargs={"pk": self.id })
 
+    def __unicode__(self): 
+        return _("rehearsal") + " %s" % (self.title)
+
 month_choice = (
     ('01', _('January')),
     ('02', _('February')),

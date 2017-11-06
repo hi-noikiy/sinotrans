@@ -102,7 +102,8 @@ class RehearsalDetailView(TableDetailMixin, DetailView):
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
-            (_('rehearsal'),request.path_info),
+            (_('rehearsal'),reverse("rehearsal_list", kwargs={})),            
+            (self.get_object(),request.path_info),
         ])
         return super(RehearsalDetailView, self).dispatch(request,args,kwargs)   
 
