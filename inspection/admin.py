@@ -117,7 +117,7 @@ class shelf_inspectionAdmin(admin.ModelAdmin):
     ]
 
 class RehearsalAdmin(admin.ModelAdmin):
-    list_display = ['title',"date",]
+    list_display = ['title',"date","attachment"]
     list_search = ['title',"date",]
 
     class Meta:

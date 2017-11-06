@@ -89,10 +89,10 @@
 							</tr>
 						</thead>
 						<tbody>
-						{% for object_driver in object.vehicleinspection_set.all %}
+						{% for object_vehicleinspection in object.vehicleinspection_set.all %}
 						    <tr>
 						    	{% for fieldname in fields_vehicle_inspection %}
-								<td>{{ object_driver|my_get_field_display:fieldname }}</td>
+								<td>{{ object_vehicleinspection|my_get_field_value:fieldname }}</td>
 								{% endfor %}
 							</tr>
 						{% endfor %}

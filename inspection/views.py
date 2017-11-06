@@ -19,17 +19,61 @@ from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
 from .mixins import StaffRequiredMixin
 
 # Create your views here.
-from .models import OfficeInspection, DailyInspection, shelf_inspection_record, shelf_inspection, shelf
+from .models import (
+    OfficeInspection, 
+    DailyInspection, 
+    shelf_inspection_record, shelf_inspection, shelf,
+    Rehearsal,
+    )
 from .forms import (
     OfficeInspectionForm, 
     DailyInspectionForm, InspectionFilterForm, 
-    ShelfInspectionRecordForm, ShelfFilterForm, ShelfInspectionForm)
+    ShelfInspectionRecordForm, ShelfFilterForm, ShelfInspectionForm
+    )
 from .forms import shelf_inspection_record_Formset
 
 
 from .models import image_upload_to_dailyinspection
 
 # Create your views here.
+
+
+class TableMixin(object):
+    field_display = []
+    field_display_options = []
+    field_files = []
+    fieldsets = []
+    model_sets = [("",None,None),]
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TableMixin, self).get_context_data(*args, **kwargs)
+        context["fields"] = self.field_display
+        context["fields_option"] = self.field_display_options
+        context["fieldsets"] = self.fieldsets
+        context["field_files"] = self.field_files
+        
+        return context
+
+class RehearsalListView(TableMixin, ListView): 
+    model = Rehearsal
+    template_name = "rehersal/rehearsal_list.html"
+    from .admin import RehearsalAdmin
+    field_display = RehearsalAdmin.list_display
+    field_files = ["attachment"]
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RehearsalListView, self).get_context_data(*args, **kwargs)
+        
+        return context       
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('rehearsal'),request.path_info),
+        ])
+        return super(RehearsalListView, self).dispatch(request,args,kwargs)   
+
+
 
 def gen_qrcode(link):
     import qrcode

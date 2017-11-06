@@ -1,0 +1,43 @@
+{% load myform %}
+{% load i18n %}
+{% load staticfiles %}
+{% load pagination_tags %}
+
+<div class="object_list" style="clear: both;">
+    {% autopaginate object_list 8 %}
+    
+    {% if object_list.count == 0 %}
+        {% trans "Nothing found" %}
+    {% else %}
+        <table class="table-align-center table-hover table table-striped table-hover table-responsive table-condensed">
+            <thead>
+                <tr class="table-primary">
+                    {% for fieldname in fields %}
+                    <th>{{ object_list.0|my_get_field_verbose_name:fieldname }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+                <tr class="table-primary-hover">
+                    {% for fieldname in fields %}
+                        {% if forloop.first %}
+                            <th style="text-align: center;"><a href="{{ object.get_absolute_url }}">{{ object|my_get_field_display:fieldname }}</a></th>
+                        {% else %}
+                            {% if fieldname in field_files %}
+                                <td><a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a></td>
+                            {% else %}
+                                <td>{{ object|my_get_field_value:fieldname }}</td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>                
+    {% endif %}
+    
+    <div class="text-center">
+    {% paginate %}
+    </div>
+</div>

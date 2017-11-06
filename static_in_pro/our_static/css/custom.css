@@ -122,12 +122,17 @@ table-primary-hover : adapted primary color when hover, active, strip
 *********************/
 
 /* align */
-table.table-align-center tbody tr th,
 table.table-align-center tbody tr td,
 table.table-align-center thead tr th{
     text-align: center;
     vertical-align: middle;
 }
+
+table.table-align-center tbody tr th{
+    /*padding-left:5px;*/
+    vertical-align: middle;    
+}
+
 
 table.transposition{
     text-align:left;
@@ -249,20 +254,25 @@ div.form-filter-inline{
     max-width: 200px;
 }
 
-.form-filter-inline .form-group select{
+.form-filter-inline .form-group select,
+.form-filter-inline .form-group input{
+    height:100%;
+}
+
+.form-filter-inline .form-group select,{
     width:100%;
 }
 
-.form-filter-inline div.apply-filter{
+.form-filter-inline div.apply-filter.form-group{
     vertical-align: bottom;
 }
 
-.form-filter-inline div.apply-filter input{
+.form-filter-inline div.apply-filter.form-group input{
     height: 32px;
     padding-top: 5px;
 }
 
-.form-filter-inline div.apply-filter a{
+.form-filter-inline div.apply-filter.form-group a{
     height: 32px;
 }
 
