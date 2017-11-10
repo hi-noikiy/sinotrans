@@ -193,7 +193,7 @@ class EquipmentInspectionQuickUpdateView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(EquipmentInspectionQuickUpdateView, self).get_context_data(*args, **kwargs)
 
-        formset = electrical_equipment_inspection_model_formset(queryset=self.model.objects.get_this_day(),
+        formset = equipment_inspection_model_formset(queryset=self.model.objects.get_this_day(),
             initial=[{'use_condition': _('Normal'),}])
         context["formset"] = formset
         # context["objects_list"] = self.model.objects.get_this_day()
@@ -202,7 +202,7 @@ class EquipmentInspectionQuickUpdateView(ListView):
     def post(self, request, *args, **kwargs):
         #postresult = super(EquipmentInspectionQuickUpdateView, self).post(request, *args, **kwargs)
 
-        formset = electrical_equipment_inspection_model_formset(request.POST or None, request.FILES or None)
+        formset = equipment_inspection_model_formset(request.POST or None, request.FILES or None)
         if formset.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
