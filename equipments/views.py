@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse, Http404
 from django.template.loader import render_to_string
-
+from django.http import HttpResponse
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin, TemplateView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -12,6 +12,8 @@ from django.views.generic.edit import FormMixin, ModelFormMixin
 from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
+import csv
+import codecs
 
 from .models import  (
     EquipmentInspection,
@@ -76,6 +78,7 @@ class FilterMixin(object):
         return context
 
 
+
 class EquipmentInspectionListView(FilterMixin, ListView):
     model = EquipmentInspection
     queryset = EquipmentInspection.objects.get_this_day()
@@ -125,6 +128,32 @@ class EquipmentInspectionListView(FilterMixin, ListView):
         context["filter_str"] = filter_str
 
         return context
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = EquipmentInsepctionFilter(self.request.GET, queryset=qs)
+
+        response = HttpResponse(content_type='text/csv')        
+        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+        response.write(codecs.BOM_UTF8) # add bom header
+        writer = csv.writer(response)
+
+        row = []
+        for field in self.model._meta.get_fields():
+            print field.verbose_name
+            row.append(field.verbose_name)
+        writer.writerow(row)
+
+        for obj in f.qs:
+            row = []
+            for field in self.model._meta.get_fields():
+                #row.append(field.value_to_string(obj).encode('utf8'))
+                value = "%s" %  (obj._get_FIELD_display(field))
+                row.append(value.encode('utf8'))
+            writer.writerow(row)    
+
+        return response
+
 
     def get_success_url(self, *args, **kwargs):
         return reverse("equipmentinsepction_list", kwargs={})

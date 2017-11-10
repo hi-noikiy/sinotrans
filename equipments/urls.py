@@ -16,6 +16,7 @@ from .views import (
 urlpatterns = [
 
     url(r'^equipmentinspection/quickupdate/$', EquipmentInspectionQuickUpdateView.as_view(), name='equipmentinsepction_quickupdate'),
+    #url(r'^equipmentinspection/export/$', EquipmentInspectionQuickUpdateView.as_view(), name='equipmentinsepction_export'),
     url(r'^equipmentinspection/list/$', EquipmentInspectionListView.as_view(), name='equipmentinsepction_list'),
     url(r'^equipmentinspection/detail/(?P<pk>\d+)/$', EquipmentInspectionDetailView.as_view(), name='equipmentinsepction_detail'),
     url(r'^equipmentinspection/update/(?P<pk>\d+)/$', EquipmentInspectionUpdateView.as_view(), name='equipmentinsepction_update'),

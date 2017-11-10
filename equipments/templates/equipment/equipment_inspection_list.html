@@ -54,10 +54,13 @@
                             <input type='submit' class='btn btn-primary' value="{% trans 'Apply Filter' %}">
                             <a class="btn btn-default" href="{% url 'equipmentinsepction_list' %}"  >{% trans 'Clear Filters' %}</a>
                         </div>   
-                    </form>                    
+                    </form>       
                 </div>
-                <div class="pull-right">
-                    <i class="fa fa-download fa-2x" aria-hidden="true"></i>
+                <div class="pull-right" style="padding-top: 5px;">
+                    <form id="export" method="POST" action="" style="float: left;padding-right: 10px;">{% csrf_token %}                        
+                        <a href="javascript:;" onclick="document.form.submit();"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a> 
+                        <input type="submit" name="" class="fa fa-download" value="export">
+                    </form>
                     <a class="fa fa-plus-square fa-2x" style="padding-right: 5px;" data-toggle="modal" href="{% url 'equipmentinsepction_create' cat=current_category|add:"0" %}" data-target="#modal" title="create item" data-tooltip></a>
                 </div>
             </div>

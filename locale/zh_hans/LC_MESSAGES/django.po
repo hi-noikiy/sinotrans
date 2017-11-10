@@ -2907,7 +2907,7 @@ msgstr "关于"
 
 #: .\templates\navbar.html:23
 msgid "Admin"
-msgstr ""
+msgstr "控制台"
 
 #: .\templates\navbar.html:39
 msgid "Projects"
