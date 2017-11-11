@@ -287,7 +287,7 @@ class VehicleTransportationKPI(models.Model):
     AOG_on_time_rate = PercentageField(_("AOG on-time rate"), blank=False, null=False,max_length=30)
     POD_on_time_rate = PercentageField(_("POD On-Time rate"), blank=False, null=False,max_length=30)
     POD_accuracy = PercentageField(_("POD accuracy"), blank=False, null=False,max_length=30)
-    customer_satisfaction_rate = PercentageField(_("customer satisfaction rate"), blank=False, null=False,max_length=30)
+    customer_satisfaction_value = models.DecimalField(_("customer satisfaction rate"), decimal_places=1, max_digits=2, blank=False, null=False)
     customer_complaint_cases = models.PositiveIntegerField(_("Customer complaint cases"), blank=False, null=False)
 
     class Meta:

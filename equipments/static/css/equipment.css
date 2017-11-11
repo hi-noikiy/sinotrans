@@ -2,3 +2,15 @@
 body.model-equipmentinspection  #changelist table tbody tr td:nth-child(4) {
     width:10%;
 }
+
+body.model-spraypumproominspection  #changelist table tbody tr td {
+    width:6%;
+}
+
+body.model-spraypumproominspection  #changelist table tbody tr th {
+    width:5%;
+}
+
+body.model-spraypumproominspection  #changelist table tbody tr td:nth-child(0) {
+    width:5%;
+}

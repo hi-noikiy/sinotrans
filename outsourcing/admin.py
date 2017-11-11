@@ -221,9 +221,29 @@ class VehicleTransportationKPIAdmin(admin.ModelAdmin):
                 'AOG_on_time_rate',
                 'POD_on_time_rate',
                 'POD_accuracy',
-                'customer_satisfaction_rate',
+                'customer_satisfaction_value',
                 'customer_complaint_cases',
                 ]
+
+    list_editable = [
+                'safe_mileages',
+                'safe_labor_hours',
+                'LSR_violation_cases',
+                'safety_accident_cases',
+                'yearly_plan_executing_rate',
+                'vehicle_qualification_rate',
+                'journey_management_rules_implemented_rate',
+                'safe_loading_violation_cases',
+                'departure_count',
+                'departure_tones',
+                'monthly_delivery_plan_completion_rate',
+                'AOG_on_time_rate',
+                'POD_on_time_rate',
+                'POD_accuracy',
+                'customer_satisfaction_value',
+                'customer_complaint_cases',
+                ]
+
     search_fields = ("transportation_project", "year","month", )
     list_filter = ("transportation_project", "year","month", )
     ordering = ( "year","month", "transportation_project",) 
@@ -233,7 +253,7 @@ class VehicleTransportationKPIAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            "all": ("css/model_admin.css", )
+            "all": ("css/model_admin.css", "css/outsourcing.css",)
         }
         js = ("js/jquery.min.js","js/model_admin.js",)
 

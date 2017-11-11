@@ -1,0 +1,11 @@
+body.model-vehicletransportationkpi  #changelist table tbody tr td{
+    width:5%;
+}
+
+body.model-vehicletransportationkpi  #changelist table tbody tr td:nth-child(1) {
+    width:1%;
+}
+
+body.model-vehicletransportationkpi  #changelist table tbody tr th {
+    width:9%;
+}

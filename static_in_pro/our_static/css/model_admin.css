@@ -50,7 +50,9 @@ if th also set to padding 0, the height will be too tight
     padding:0px!important;
     margin:0px!important;
 }
-#changelist  table tbody td input[type=text],td select{
+#changelist  table tbody td input[type=text],
+#changelist  table tbody td input[type=number],
+td select{
     border-radius: 3px;
     width:100%;
     height: 30px;
