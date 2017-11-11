@@ -3,13 +3,19 @@
 {% load staticfiles %}
 
 <div style="overflow-x:auto;">
-    <table class="table_transposition_display table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
+    <table class="table-transposition-display table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
         <thead>
             <tr class="table-primary">
+                {% if groups %}
+                <th>{% trans "category" %}</th>                
+                {% endif %}      
+
                 <th>{% trans project_name %}</th>
+
                 {% if indicator %}
                 <th>{% trans "indicator" %}</th>
                 {% endif %}
+
                 {% for column in columns %}
                 <th>{{column.1}}</th>
                 {% endfor %}
@@ -18,10 +24,20 @@
         <tbody>
             {% for row in rows %}
             <tr>
+                {% if groups %}           
+                {% for group in groups %}
+                    {% if group.0 == row.0.name %}
+                    <th class="table-group" rowspan={{group.2}}>{{group.1}}</th>
+                    {% endif %}
+                {% endfor %}
+                {% endif %}    
+
                 <th>{{row.0.verbose_name}}</th>
+
                 {% if indicator %}
                 <th class="table-indicator">{{row.1}}</th>
                 {% endif %}
+
                 {% for column in columns %}
                     <td class="cell">
                     {% for object in object_list %}

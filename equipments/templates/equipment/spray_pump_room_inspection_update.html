@@ -2,6 +2,12 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
+<script type="text/javascript">
+{% block jquery %}
+    $('input.dateinput').datepicker({ dateFormat: "yy/mm/dd" });
+{% endblock %}
+</script>
+
 {% block content %}
 
 <div class="row">

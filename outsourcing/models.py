@@ -271,7 +271,7 @@ class VehicleTransportationKPI(models.Model):
     transportation_project = models.CharField(_("transportation project"), choices=TRANSPORTATION_PROJECT_OPTION, blank=False, null=False, max_length=130)
     year = models.PositiveIntegerField(_("year"),
         validators=[MinValueValidator(2000), MaxValueValidator(datetime.now().year)],
-        blank=False,null=False, help_text="Use the following format: < YYYY >")
+        blank=False,null=False, help_text=_("Use the following format: < YYYY >"))
     month = models.CharField(_("month"),  choices=month_choice, blank=False, null=False,max_length=30)
     safe_mileages = models.PositiveIntegerField(_("safe mileage"), blank=False, null=False)
     safe_labor_hours = models.PositiveIntegerField(_("safe labor hours"), blank=False, null=False)

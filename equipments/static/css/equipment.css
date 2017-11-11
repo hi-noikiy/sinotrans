@@ -11,6 +11,6 @@ body.model-spraypumproominspection  #changelist table tbody tr th {
     width:5%;
 }
 
-body.model-spraypumproominspection  #changelist table tbody tr td:nth-child(0) {
-    width:5%;
+body.model-spraypumproominspection  #changelist table tbody tr td:nth-child(1) {
+    width:1%;
 }

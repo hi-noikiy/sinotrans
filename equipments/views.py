@@ -333,6 +333,17 @@ class SprayPumproomInspectionListDisplayView(ListView):
         indicator = [
         ]
 
+        groups =[
+            ('month', "",1),
+            ('voltage_and_power_normal', _("power distribution cabinet"),3),
+            ('no_corrosion_inside_and_foundation_bolt_not_loose', _("spray pump"),3),
+            ('no_corrosion_and_damage', _("valve"),4),
+            ('water_level_normal_and_moisturizing_well', _("pool"),3),
+            ('no_sundries_in_pump_house', _("sanitation"),2),
+            ('inspector', _("Inspector"),2),
+
+        ]
+
         rows = [field for field in self.model._meta.get_fields() if field.name not in excludes]
         if indicator:
             rows = zip(rows,indicator)
@@ -344,7 +355,8 @@ class SprayPumproomInspectionListDisplayView(ListView):
         from inspection.models import month_choice
         context["columns"] = get_exist_option_items(month_choice, self.get_queryset(), 'month')
         context["column_key"] = "month"
-        context["columns_exist"] = [ _.month for _ in queryset.qs ]
+        context["columns_exist"] = [ obj.month for obj in queryset.qs ]
+        context["groups"] = groups
         context["indicator"] = indicator
         context["rows"] = rows # row th display
         context["hidden_fields"] = excludes

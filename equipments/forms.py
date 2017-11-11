@@ -127,6 +127,10 @@ class SprayPumpRoomInspectionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SprayPumpRoomInspectionForm, self).__init__(*args, **kwargs)
         self.fields['year'].widget.attrs['readonly'] = True
+        # if 'class' in self.fields['date_of_inspection'].widget.attrs.keys():
+        #     self.fields['date_of_inspection'].widget.attrs['class'] = self.fields['date_of_inspection'].widget.attrs['class'] + "calenda"   
+        # else:
+        #     self.fields['date_of_inspection'].widget.attrs['class'] ="calenda"
 
 spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInspection,
                                             form=SprayPumpRoomInspectionForm,
