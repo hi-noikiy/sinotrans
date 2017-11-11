@@ -59,18 +59,7 @@ equipment_inspection_model_formset = modelformset_factory(EquipmentInspection,
                                             extra=1)
 
 
-class SprayPumpRoomInspectionForm(forms.ModelForm):
-    class Meta:
-        model = SprayPumpRoomInspection
 
-        exclude = {
-            'year',
-            'month',
-        }
-
-spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInspection,
-                                            form=SprayPumpRoomInspectionForm,
-                                            extra=0)
 
 class EquipmentInspectiontFilterForm(forms.Form):
     category_id = forms.ModelChoiceField(
@@ -125,3 +114,27 @@ class EquipmentInspectiontFilterForm(forms.Form):
         media = media + Media(self.Media)
 
         return media        
+
+class SprayPumpRoomInspectionForm(forms.ModelForm):
+    class Meta:
+        model = SprayPumpRoomInspection
+
+        exclude = {
+            #'year',
+            #'month',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SprayPumpRoomInspectionForm, self).__init__(*args, **kwargs)
+        self.fields['year'].widget.attrs['readonly'] = True
+
+spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInspection,
+                                            form=SprayPumpRoomInspectionForm,
+                                            extra=0)
+
+class SprayPumproomInspectionFilterForm(forms.Form):
+
+    year = forms.IntegerField(
+        label=_('year'),
+        initial=2017,
+        required=False)

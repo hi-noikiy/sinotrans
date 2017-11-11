@@ -23,8 +23,7 @@
                 <tr style="{% if field_0.name in hidden_fields %}display:none; {% endif %}"> <!-- without this, there will be field missing error, especially ID -->
                     <th>{{field_0.label_tag}}</th>
                     {% for column in columns %}
-                        <td class="{% if field.name in date_field_list %}calenda{% endif %}" >                            
-                            {% if field.errors %}<div class="error" style="color:#b75f33">{{ field.errors }}</div>{% endif %}
+                        <td class="{% if field_0.name in date_field_list %}calenda{% endif %}" >                              
                             {% for form in formset %} 
                                 {% if form.instance|my_get_field_value:column_key == column.0 %} 
                                     {% for field in form %} 
@@ -39,6 +38,7 @@
                                                     {{form.instance|my_get_field_display:field.name}}  
                                                     <span style="display: none">{{field}}</span>  <!-- without this, there will be field missing error -->
                                                 {% else %}
+                                                    {% if field.errors %}<div class="error" style="color:#b75f33">{{ field.errors }}</div>{% endif %}
                                                     <span style="display: none">{{field.label_tag}}</span>
                                                     {{field}}
                                                 {% endif %}                                                                                                                               

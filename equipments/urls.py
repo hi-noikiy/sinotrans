@@ -10,7 +10,11 @@ from .views import (
     EquipmentInspectionUpdateView,
     EquipmentInspectionQuickUpdateView,
 
-    SprayPumproomInspectionListView,    
+    SprayPumproomInspectionListEditView,
+    SprayPumproomInspectionListDisplayView,
+    SprayPumproomInspectionDetailView,
+    SprayPumproomInspectionUpdateView,
+    SprayPumproomInspectionCreateView,
 )
 
 urlpatterns = [
@@ -22,7 +26,9 @@ urlpatterns = [
     url(r'^equipmentinspection/update/(?P<pk>\d+)/$', EquipmentInspectionUpdateView.as_view(), name='equipmentinsepction_update'),
     url(r'^equipmentinspection/create/(?P<cat>\d+)/$', EquipmentInspectionCreateView.as_view(), name='equipmentinsepction_create'),
 
-    url(r'^spraypumproominspection/list/$', SprayPumproomInspectionListView.as_view(),
-        name='spraypumproominspection_list'),
-
+    url(r'^spraypumproominspection/listedit/$', SprayPumproomInspectionListEditView.as_view(), name='spraypumproominspection_list_edit'),
+    url(r'^spraypumproominspection/listdisplay/$', SprayPumproomInspectionListDisplayView.as_view(), name='spraypumproominspection_list_display'),
+    url(r'^spraypumproominspection/detail/(?P<pk>\d+)/$', SprayPumproomInspectionDetailView.as_view(), name='spraypumproominspection_detail'),
+    url(r'^spraypumproominspection/update/(?P<pk>\d+)/$', SprayPumproomInspectionUpdateView.as_view(), name='spraypumproominspection_update'),
+    url(r'^spraypumproominspection/create/(?P<year>\d+)/$', SprayPumproomInspectionCreateView.as_view(), name='spraypumproominspection_create'),    
 ]

@@ -9,7 +9,7 @@
 {% block style %}
 
 .display table thead tr th{
-	width:10%;
+	width:6%;
 }
 
 
@@ -23,7 +23,7 @@
 {% block content %}
 
 <div class="page-header">
-    <h3>{% trans project_name %} {{ request.GET.year }} {% trans "year" %} {{ request.GET.month }} {% trans "month" %} 
+    <h3>{% trans project_name %} {{ request.GET.year }} {% trans "year" %} 
         <small>{% trans "Project Review" %}</small>
     </h3>
 </div>
@@ -31,10 +31,10 @@
 <div class="row display">
 	<div class="col-sm-12">
         <div class="form-filter-flat">
-            <form  method="GET" action="{% url 'transportationkpi_list_display' %}">
+            <form  method="GET" action="{% url 'spraypumproominspection_list_display' %}">
                 {{ top_filter_form }}
                 <input type='submit' class='btn btn-primary' value="{% trans 'Apply Filter' %}">
-                <a class="btn btn-default" href="{% url 'transportationkpi_list_display' %}"  >{% trans 'Clear Filters' %}</a>   
+                <a class="btn btn-default" href="{% url 'spraypumproominspection_list_display' %}"  >{% trans 'Clear Filters' %}</a>   
             </form>                    
         </div>
 	
@@ -42,6 +42,6 @@
 	</div>
 </div>
 
-<a href="{% url 'transportationkpi_list_edit' %}" class="btn btn-primary" style="min-width: 70px;">Edit</a>
+<a href="{% url 'spraypumproominspection_list_edit' %}" class="btn btn-primary" style="min-width: 70px;">Edit</a>
 
-{% endblock %}
+{% endblock %} 

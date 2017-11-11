@@ -243,10 +243,13 @@ class TransportationKPIListDisplayView(ListView):
         context["rows"] = rows # row th display
         context["hidden_fields"] = excludes
 
-        context["vehicle_transportationKPI_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
+        context["top_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
 
         context["project_name"] = "vehicle tranportation KPI"
-        
+
+        if self.request.GET.get('year') and self.request.GET.get('month'):
+            context["create_url"] = reverse("transportationkpi_create", kwargs={'year':self.request.GET.get('year'), 'month':self.request.GET.get('month')})
+
         return context       
 
     def post(self, request, *args, **kwargs):
@@ -291,7 +294,7 @@ class TransportationKPIListEditView(ListView):
         context["hidden_fields"] = excludes
         context["date_field_list"] = [""]
 
-        context["vehicle_transportationKPI_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
+        context["top_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
 
         return context       
 

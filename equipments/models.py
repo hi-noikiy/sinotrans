@@ -125,3 +125,9 @@ class SprayPumpRoomInspection(models.Model):
         verbose_name = _("Spray Pump Room Inspection")
         verbose_name_plural = _("Spray Pump Room Inspection")
         unique_together = (('month','year',),)        
+
+    def get_absolute_url(self):
+        return reverse("spraypumproominspection_detail", kwargs={"pk": self.id })    
+
+    def get_absolute_url_update(self):
+        return reverse("spraypumproominspection_update", kwargs={"pk": self.id })           

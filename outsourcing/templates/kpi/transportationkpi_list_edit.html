@@ -44,7 +44,7 @@ table.table-formset thead tr th:nth-child(1){
     	<h3 class="beta" ">Beta Version</h3>
         <div class="form-filter-flat">
             <form  method="GET" action="{% url 'transportationkpi_list_edit' %}">
-                {{ vehicle_transportationKPI_filter_form }}
+                {{ top_filter_form }}
                 <input type='submit' class='btn btn-primary' value="{% trans 'Apply Filter' %}">
                 <a class="btn btn-default" href="{% url 'transportationkpi_list_edit' %}"  >{% trans 'Clear Filters' %}</a>   
             </form>                    

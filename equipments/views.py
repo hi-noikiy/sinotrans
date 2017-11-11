@@ -28,7 +28,8 @@ from .forms import (
 )
 
 from .forms import (
-    SprayPumpRoomInspectionForm,spray_pumproom_inspection_model_formset,
+    SprayPumpRoomInspectionForm,spray_pumproom_inspection_model_formset, SprayPumproomInspectionFilterForm,
+
 )
 
 # Create your views here.
@@ -247,26 +248,163 @@ class EquipmentInspectionUpdateView(UpdateView):
         return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item, "is_create_view" : 0 }))        
 
 
-class SprayPumproomInspectionListView(ListView):
+class SprayPumproomInspectionDetailView(DetailView):
+    model = SprayPumpRoomInspection
+    template_name = "equipment/spray_pump_room_inspection_detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SprayPumproomInspectionDetailView, self).get_context_data(*args, **kwargs)
+
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name=="id"]
+
+        return context
+
+
+    def get_success_url(self):
+        return reverse("spraypumproominspection_list_display", kwargs={})
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("Spray Pump Room Inspection"), reverse("spraypumproominspection_list_display", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
+        return super(SprayPumproomInspectionDetailView, self).dispatch(request,args,kwargs)      
+
+class SprayPumproomInspectionUpdateView(UpdateView):
+    model = SprayPumpRoomInspection
+    template_name = "equipment/spray_pump_room_inspection_update.html"
+    form_class = SprayPumpRoomInspectionForm
+
+    def get_success_url(self):
+        return reverse("spraypumproominspection_detail", kwargs={"pk":self.get_object().pk})
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("Spray Pump Room Inspection"), reverse("spraypumproominspection_list_display", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
+        return super(SprayPumproomInspectionUpdateView, self).dispatch(request,args,kwargs)      
+
+class SprayPumproomInspectionCreateView(CreateView):
+    model = SprayPumpRoomInspection
+    template_name = "equipment/spray_pump_room_inspection_create.html"
+    form_class = SprayPumpRoomInspectionForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SprayPumproomInspectionCreateView, self).get_context_data(*args, **kwargs)
+        context["year"] = self.kwargs.get('year')
+        context["form"] = self.form_class(self.request.POST or None, self.request.GET or None, initial={'year':self.kwargs.get('year')})
+
+        return context
+
+    def get_success_url(self):
+        return reverse("spraypumproominspection_list_display", kwargs={})
+
+class SprayPumproomInspectionFilter(FilterSet):
+    year = CharFilter(name='year', lookup_type='exact', distinct=True)
+
+    class Meta:
+        model = SprayPumpRoomInspection
+        fields = [
+            'year',
+        ]
+
+
+class SprayPumproomInspectionListDisplayView(ListView):
+    model = SprayPumpRoomInspection
+    template_name = "equipment/spray_pump_room_inspection_list_display.html"
+    filter_class = SprayPumproomInspectionFilter
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SprayPumproomInspectionListDisplayView, self).get_context_data(*args, **kwargs)
+        #context["object_list"] = self.model.objects.all()
+
+        qs = self.get_queryset()
+        queryset = self.filter_class(self.request.GET, queryset=qs)
+        context["object_list"] = queryset if self.request.GET else None
+
+        excludes = [
+            'id',
+            'year',
+        ]
+
+        indicator = [
+        ]
+
+        rows = [field for field in self.model._meta.get_fields() if field.name not in excludes]
+        if indicator:
+            rows = zip(rows,indicator)
+        else:
+            rows = zip(rows, list("na"*len(rows)))
+        print rows
+        
+        from inspection.utils import get_exist_option_items
+        from inspection.models import month_choice
+        context["columns"] = get_exist_option_items(month_choice, self.get_queryset(), 'month')
+        context["column_key"] = "month"
+        context["columns_exist"] = [ _.month for _ in queryset.qs ]
+        context["indicator"] = indicator
+        context["rows"] = rows # row th display
+        context["hidden_fields"] = excludes
+
+        context["top_filter_form"] = SprayPumproomInspectionFilterForm(data=self.request.GET or None) 
+
+        context["project_name"] = "Spray Pump Room Inspection"
+
+        if self.request.GET.get('year'):
+            context["create_url"] = reverse("spraypumproominspection_create", kwargs={'year':self.request.GET.get('year'), })
+        
+        return context       
+
+    def post(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset() # copy from BaseListView::get
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Spray Pump Room Inspection'),request.path_info),
+        ])
+        return super(SprayPumproomInspectionListDisplayView, self).dispatch(request,args,kwargs)   
+
+class SprayPumproomInspectionListEditView(ListView):
     model = SprayPumpRoomInspection
     queryset = SprayPumpRoomInspection.objects.all() #queryset_ordered()
-    #filter_class = SprayPumproomInsepctionFilter
+    filter_class = SprayPumproomInspectionFilter
 
-    template_name = "equipment/spray_pump_room_inspection.html"
+    template_name = "equipment/spray_pump_room_inspection_list_edit.html"
 
     def get_queryset(self, *args, **kwargs):  # queryset has cache
         return SprayPumpRoomInspection.objects.all()
 
     def get_context_data(self, *args, **kwargs):
-        context = super(SprayPumproomInspectionListView, self).get_context_data(*args, **kwargs)
+        context = super(SprayPumproomInspectionListEditView, self).get_context_data(*args, **kwargs)
 
-        formset = spray_pumproom_inspection_model_formset(queryset=self.get_queryset(*args, **kwargs))
+        excludes = [
+            'id',
+            'year',
+        ]
+
+        qs = self.get_queryset(*args, **kwargs)
+        queryset = self.filter_class(self.request.GET, queryset=qs).qs 
+        context["object_list"] = queryset if self.request.GET else None
+        formset = spray_pumproom_inspection_model_formset(queryset=queryset) if self.request.GET else None
         context["formset"] = formset
 
-        from inspection.models import month_choice
+        context["rows_fields"] = formset[0] if formset and len(formset) else SprayPumpRoomInspectionForm(instance=self.model.objects.all().first())
         from inspection.utils import get_exist_option_items
-        context["months"] = get_exist_option_items(month_choice, self.get_queryset(), 'month')
+        from inspection.models import month_choice
+        context["columns"] = get_exist_option_items(month_choice, self.get_queryset(), 'month')
+        context["column_key"] = "month"
+        context["project_name"] = "Spray Pump Room Inspection"
+        context["hidden_fields"] = excludes
+        context["date_field_list"] = ["date_of_inspection"]
 
+
+        context["top_filter_form"] = SprayPumproomInspectionFilterForm(data=self.request.GET or None) 
 
         return context
 
@@ -277,7 +415,7 @@ class SprayPumproomInspectionListView(ListView):
             for instance in instances:
                 instance.save()
             messages.success(request, "Your list has been updated.")
-            return redirect(reverse("spraypumproominspection_list",  kwargs={}))
+            return redirect(reverse("spraypumproominspection_list_edit",  kwargs={}))
 
         self.object_list = self.get_queryset() # copy from BaseListView::get
         context = self.get_context_data()
@@ -285,11 +423,11 @@ class SprayPumproomInspectionListView(ListView):
         return self.render_to_response(context)
 
     def get_success_url(self, *args, **kwargs):
-        return reverse("spraypumproominspection_list", kwargs={})        
+        return reverse("spraypumproominspection_list_edit", kwargs={})        
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_('Spray Pump Room Inspection'),request.path_info),
         ])
-        return super(SprayPumproomInspectionListView, self).dispatch(request,args,kwargs)           
+        return super(SprayPumproomInspectionListEditView, self).dispatch(request,args,kwargs)           

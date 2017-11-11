@@ -359,4 +359,22 @@ margin: 0;
 text-align: center;
 }
 
+/************************* 
+
+             table transposition display
+             
+**************************/
+.table_transposition_display tbody tr td.cell
+{
+    /*height: 100%;*/
+    padding: 0;
+    vertical-align:middle;
+}
+
+.table_transposition_display tbody tr td.cell div.No
+{
+    /*height: 100%;*/
+    color:red;
+    /*background-color:red;*/
+}
 

@@ -3,11 +3,13 @@
 {% load staticfiles %}
 
 <div style="overflow-x:auto;">
-    <table class="table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
+    <table class="table_transposition_display table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
         <thead>
             <tr class="table-primary">
                 <th>{% trans project_name %}</th>
+                {% if indicator %}
                 <th>{% trans "indicator" %}</th>
+                {% endif %}
                 {% for column in columns %}
                 <th>{{column.1}}</th>
                 {% endfor %}
@@ -17,19 +19,29 @@
             {% for row in rows %}
             <tr>
                 <th>{{row.0.verbose_name}}</th>
+                {% if indicator %}
                 <th class="table-indicator">{{row.1}}</th>
+                {% endif %}
                 {% for column in columns %}
-                    <td>
+                    <td class="cell">
                     {% for object in object_list %}
-                        {% if object|my_get_field_value:column_key == column.0 %}                        
-                            {{object|my_get_field_display:row.0.name }}
+                        {% if object|my_get_field_value:column_key == column.0 %}
+
+                            {% if object|my_get_field_display:row.0.name == "True" %}                     
+                                <div class="Yes">Y</div>
+                            {% elif object|my_get_field_display:row.0.name == "False" %}   
+                                <div class="No">N</div>
+                            {% else %}
+                                {{object|my_get_field_display:row.0.name }}
+                            {% endif %}
+                            
                             {% if column_key == row.0.name %}
                             <a href="{{object.get_absolute_url }}"><i class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i></a>
                             {% endif %}
                         {% endif %}             
                     {% endfor %}
                     {% if column_key == row.0.name and not column.0 in columns_exist %}
-                    <a href="{% url 'transportationkpi_create' request.GET.year request.GET.month %}"><i class="fa fa-1x fa-plus-square-o" aria-hidden="true"></i></a>
+                    <a href="{{create_url}}"><i class="fa fa-1x fa-plus-square-o" aria-hidden="true"></i></a>
                     {% endif %}                       
                     </td>
                 {% endfor %}

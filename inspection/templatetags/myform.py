@@ -21,7 +21,7 @@ def my_get_field_value(inst, fieldname):
 @register.filter(name='my_get_field_display')
 def my_get_field_display(inst, fieldname):
     if hasattr(inst, fieldname):
-        field = inst._meta.get_field(fieldname)
+        field = inst._meta.get_field(fieldname)   
         return "%s" % inst._get_FIELD_display(field)  
         #return inst.my_get_field_display(fieldname)
     return None

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+<style type="text/css">
+{% block style %}
+
+table.table-formset tbody tr th label
+{
+    padding-left: 4px;
+}
+
+table.table-formset thead tr th,
+table.table-formset tbody tr td
+{
+    max-width: 200px;
+}
+
+table.table-formset tbody tr td select,
+table.table-formset tbody tr td input
+{
+    width: 100%;
+}
+
+table.table-formset thead tr th{
+    width:7%;
+}
+
+
+table.table-formset thead tr th:nth-child(1){
+    width:10%;
+}
+
+{% endblock %}
+</style>
+
+
+
+{% block jswotag//// %}
+<script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}    
+
+
+<script type="text/javascript">
+{% block jquery %}
+    $('.calenda input').datepicker({ dateFormat: "yy/mm/dd" });
+{% endblock %}
+</script>
+
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-sm-12" >
+        <h3 class="beta" ">Beta Version</h3>
+        <div class="form-filter-flat">
+            <form  method="GET" action="{% url 'spraypumproominspection_list_edit' %}">
+                {{ top_filter_form }}
+                <input type='submit' class='btn btn-primary' value="{% trans 'Apply Filter' %}">
+                <a class="btn btn-default" href="{% url 'spraypumproominspection_list_edit' %}"  >{% trans 'Clear Filters' %}</a>   
+            </form>                    
+        </div>    
+        {% include "table_transposition_formset.html" %}
+    </div>
+</div>
+
+<br>
+
+<a href="{% url 'spraypumproominspection_list_display' %}" class="btn btn-default" >Display</a>
+
+{% endblock %}
