@@ -3,6 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_delete, post_save, pre_save
 from django.core.urlresolvers import reverse
 from ckeditor.fields import RichTextField
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
+from datetime import datetime, timedelta
 
 # Create your models here.
 class TrainingCourse(models.Model):
@@ -67,6 +70,9 @@ class TrainingTranscript(models.Model):
         return _("training transcript") + self.trainee    
 
 class AnnualTraningPlan(models.Model):
+    year = models.PositiveIntegerField(_("year"),
+        validators=[MinValueValidator(2000), MaxValueValidator(datetime.now().year)],
+        blank=False,null=False, help_text=_("Use the following format: < YYYY >"))    
     training_course = models.ForeignKey(TrainingCourse, verbose_name=_("training"))
     planned_date = models.DateField(_('planned date'), auto_now_add=False, auto_now=False)
     actual_date = models.DateField(_('actual date'), auto_now_add=False, auto_now=False, blank=True, null=True)

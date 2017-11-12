@@ -4,9 +4,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
+from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 
 from .models import AnnualTraningPlan, TrainingRecord, TrainingCourse
 from .forms import AnnualTrainingPlanFilterForm
+
 
 
 class TrainingRecordDetailView(DetailView):
@@ -61,14 +63,29 @@ class TrainingCourseDetailView(DetailView):
         ])
         return super(TrainingCourseDetailView, self).dispatch(request,args,kwargs)    
 
+
+class AnnualTrainingPlanFilter(FilterSet):
+    year = CharFilter(name='year', lookup_type='exact', distinct=True)
+
+    class Meta:
+        model = AnnualTraningPlan
+        fields = [
+            'year',
+        ]
+
+
 class AnnualTrainingPlanListView(ListView): 
     model = AnnualTraningPlan
     #template_name = "trainings/annualtrainingplan_list.html"
+    filter_class = AnnualTrainingPlanFilter
 
     def get_context_data(self, *args, **kwargs):
         context = super(AnnualTrainingPlanListView, self).get_context_data(*args, **kwargs)
-        qs = AnnualTraningPlan.objects.all()
-        context["object_list"] = qs
+
+        qs = self.get_queryset()
+        queryset = self.filter_class(self.request.GET, queryset=qs)
+        context["object_list"] = queryset if self.request.GET else None
+
         context["top_filter_form"] = AnnualTrainingPlanFilterForm(data=self.request.GET or None) 
 
         context["project_name"] = _("training")
@@ -96,7 +113,7 @@ class AnnualTrainingPlanListView(ListView):
 
         objects = []
         initial = ["",""]*12
-        for object in qs:
+        for object in queryset.qs:
         	row = [object.training_course] + initial
         	row[object.planned_date.month * 2 - 1] = (object.training_record,"P") #object.planned_date
         	if object.actual_date:
