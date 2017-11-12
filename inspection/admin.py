@@ -80,7 +80,7 @@ class ShelfAnnualInspectionAdmin(admin.ModelAdmin):
         model = ShelfAnnualInspection  
 
 
-class shelf_inspection_recordInline(admin.TabularInline):
+class ShelfInspectionRecordInline(admin.TabularInline):
     model = shelf_inspection_record
     extra = 0
     #max_num = 10
@@ -105,7 +105,7 @@ class ShelfInspectionAdmin(admin.ModelAdmin):
         model = shelf_inspection  
 
     inlines = [
-        shelf_inspection_recordInline,
+        ShelfInspectionRecordInline,
     ]
 
 
@@ -122,7 +122,7 @@ class ShelfAdmin(admin.ModelAdmin):
 
     inlines = [
         ShelfAnnualInspectionInline,
-        shelf_inspection_recordInline,
+        ShelfInspectionRecordInline,
     ]
 
     class Meta:

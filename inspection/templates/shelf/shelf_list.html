@@ -25,8 +25,7 @@
 <table class="table table-hover table-striped text-center">
     <thead>        
         {% for field in object_list.0.get_fields %}
-            {% if field.name == 'shelf_inspection_record' %}
-            {% else %}
+            {% if not field.name in field_exclude %}
             <th class="text-center">
                 {{ field.verbose_name }}
             </th>
@@ -39,7 +38,7 @@
             {% for field in object.get_fields %}            
                 {% if field.name == object|my_get_pk_name %}
                     <td><a href="{{object.get_absolute_url}}">{{object.id}}</a></td>                    
-                {% elif field.name == 'shelf_inspection_record' %}
+                {% elif field.name in field_exclude %}
                 {% else %}
                     <td>{{ object|my_get_field_display:field.name}}</td>
                 {% endif %}            

@@ -17,7 +17,9 @@ import os
 from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
 from .mixins import StaffRequiredMixin
-
+from django.db.models.fields.related import (
+    ForeignObjectRel, ManyToOneRel, OneToOneField, add_lazy_relation,
+)
 # Create your views here.
 from .models import (
     OfficeInspection, 
@@ -748,7 +750,8 @@ class ShelfDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfDetailView, self).get_context_data(*args, **kwargs)
         print self.model._meta.get_fields()
-        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in ["id","shelf_inspection_record"]]
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname] and not isinstance(field, ManyToOneRel)]
+        # ManyToOneRel are in field.rel or field.remote_field, can be investigated later
         context["detail_view_title"] = _("Shelf")
         context["related_inspection"] = shelf_inspection_record.objects.filter(shelf=self.get_object())
 
@@ -781,6 +784,7 @@ class ShelfListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfListView, self).get_context_data(*args, **kwargs)
         context["ShelfUploadForm"] = ShelfUploadForm  
+        context["field_exclude"] = ["shelf_inspection_record","shelfannualinspection",]  
 
         return context    
 
