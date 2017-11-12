@@ -1,4 +1,5 @@
 from django import template
+from django.utils.translation import ugettext as _
 
 register = template.Library()
 
@@ -14,7 +15,17 @@ def render_field(value):
 @register.filter(name='my_get_field_value')
 def my_get_field_value(inst, fieldname):
     if hasattr(inst, fieldname):
-        return getattr(inst, fieldname)
+        value = getattr(inst, fieldname)
+        if True == value:
+            value = _("Yes")
+        elif False == value:
+            value = _("No")
+        elif None == value:
+            value = ""
+        else:
+            pass
+        return value
+
     return None
 
 # field value for display ( options, i18n)
@@ -33,3 +44,20 @@ def my_get_field_verbose_name(inst, fieldname):
         field = inst._meta.get_field(fieldname)
         return field.verbose_name
     return None
+
+@register.filter(name='my_get_pk_name')
+def my_get_pk_name(inst):
+    meta = inst._meta
+    return meta.pk.attname
+
+"""
+def get_pk_name(model):
+    meta = model._meta.concrete_model._meta
+    return _get_pk(meta).name
+"""
+
+@register.filter(name='my_get_pk_val')
+def my_get_pk_val(inst):
+    return inst._get_pk_val()
+
+    

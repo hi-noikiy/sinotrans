@@ -1,47 +1,53 @@
 {% extends "base.html" %}
 {% load myform %}
+{% load i18n %}
 
 {% block content %}
 
-<form class="row" method="get" action="">
+<div class="row">
     <div class="col-sm-4">
-        <div class="input-group">
-            <input class="form-control" type="text" name="q" placeholder="search" value="{{request.GET.q }}" />
-            <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-            </span>
-        </div>
+        <form method="get" action="">        
+            <div class="input-group">
+                <input class="form-control" type="text" name="q" placeholder="search" value="{{request.GET.q }}" />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                </span>
+            </div>        
+        </form>
     </div>
-</form>
-
+</div>
 <br>
 
-<table class="table table-hover table-striped text-center">
-	<thead>		
-		{% for field in object_list.1.get_fields %}
-			{% if field.name == 'shelf_inspection_record' %}
-			{% else %}
-			<th class="text-center">
-				{{ field.verbose_name }}
-			</th>
-			{% endif %}		
-		{% endfor %}
-	</thead>
-	<tbody>
-		{% for object in object_list %}
-		<tr>			
-			{% for field in object.get_fields %}			
-				{% if field.name == 'id' %}
-					<td><a href="{{object.get_absolute_url}}">{{object.id}}</a></td>					
-				{% elif field.name == 'shelf_inspection_record' %}
-				{% else %}
-					<td>{{ object|my_get_field_display:field.name}}</td>
-				{% endif %}			
-			{% endfor %}
-		</tr>
-		{% endfor %}
-	</tbody>
-</table>
 
+{% if object_list|length == 0 %}
+{% trans "Nothing found" %}
+{% else %}
+<table class="table table-hover table-striped text-center">
+    <thead>        
+        {% for field in object_list.0.get_fields %}
+            {% if field.name == 'shelf_inspection_record' %}
+            {% else %}
+            <th class="text-center">
+                {{ field.verbose_name }}
+            </th>
+            {% endif %}        
+        {% endfor %}
+    </thead>
+    <tbody>
+        {% for object in object_list %}
+        <tr>            
+            {% for field in object.get_fields %}            
+                {% if field.name == object|my_get_pk_name %}
+                    <td><a href="{{object.get_absolute_url}}">{{object.id}}</a></td>                    
+                {% elif field.name == 'shelf_inspection_record' %}
+                {% else %}
+                    <td>{{ object|my_get_field_display:field.name}}</td>
+                {% endif %}            
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
 
 {% endblock %}

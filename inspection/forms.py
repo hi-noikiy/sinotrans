@@ -315,3 +315,8 @@ class ShelfFilterForm(forms.Form):
         pass
 
 
+class ShelfUploadForm(forms.Form):
+    excel = forms.FileField(
+                label=_('shelf upload'),
+                required=False
+                )   

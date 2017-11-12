@@ -28,7 +28,7 @@ from .models import (
 from .forms import (
     OfficeInspectionForm, 
     DailyInspectionForm, InspectionFilterForm, 
-    ShelfInspectionRecordForm, ShelfFilterForm, ShelfInspectionForm
+    ShelfInspectionRecordForm, ShelfFilterForm, ShelfInspectionForm, ShelfUploadForm,
     )
 from .forms import shelf_inspection_record_Formset
 
@@ -523,12 +523,12 @@ class StatMixin(object):
 
         return llcounterperdaypercategory
 
-#class shelf_inspection_StatView(TemplateView):
-class shelf_inspection_StatView(StatMixin, TemplateResponseMixin, ContextMixin, View):
+#class ShelfInspectionStatView(TemplateView):
+class ShelfInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, View):
     template_name = "dailyinspection/dailyinspection_stat.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(shelf_inspection_StatView, self).get_context_data(*args, **kwargs)
+        context = super(ShelfInspectionStatView, self).get_context_data(*args, **kwargs)
         context["objects_list"] = DailyInspection.objects.order_by('-updated')
         context["dates"] = self.get_dates()
         context["categories"] = self.get_catetory()
@@ -539,12 +539,12 @@ class shelf_inspection_StatView(StatMixin, TemplateResponseMixin, ContextMixin, 
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
 
-class shelf_inspection_ListView(ListView): 
+class ShelfInspectionListView(ListView): 
     model = shelf_inspection
     template_name = "shelf/shelf_inspection_list.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(shelf_inspection_ListView, self).get_context_data(*args, **kwargs)
+        context = super(ShelfInspectionListView, self).get_context_data(*args, **kwargs)
 
         queryset = shelf_inspection.objects.all()
 
@@ -578,7 +578,7 @@ class shelf_inspection_ListView(ListView):
             (_("Home"),reverse("home", kwargs={})),
             (_('Shelf Inspection List'),request.path_info),
         ])
-        return super(shelf_inspection_ListView, self).dispatch(request,args,kwargs)       
+        return super(ShelfInspectionListView, self).dispatch(request,args,kwargs)       
 
 class ShelfInspectionRecordFilter(FilterSet):
     #is_gradient_measurement_mandatory = BooleanFilter(name='shelf__is_gradient_measurement_mandatory', method='gradient_custom_filter', distinct=True) # this is for latest version
@@ -615,7 +615,7 @@ class ShelfInspectionRecordFilter(FilterSet):
         return queryset
 
 
-class shelf_inspection_DetailView(DetailView): 
+class ShelfInspectionDetailView(DetailView): 
     model = shelf_inspection
     template_name = "shelf/shelf_inspection_detail.html"
     filter_class = ShelfInspectionRecordFilter
@@ -632,7 +632,7 @@ class shelf_inspection_DetailView(DetailView):
         return None
 
     def get_context_data(self, *args, **kwargs):
-        context = super(shelf_inspection_DetailView, self).get_context_data(*args, **kwargs)
+        context = super(ShelfInspectionDetailView, self).get_context_data(*args, **kwargs)
         context["object_list"] = self.get_record_queryset(filter=True)
         context["shelfFilterForm"] = ShelfFilterForm(data=self.request.GET or None) 
         formset = shelf_inspection_record_Formset(queryset=self.get_record_queryset(filter=True).qs,
@@ -645,10 +645,11 @@ class shelf_inspection_DetailView(DetailView):
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
             (_('Shelf Inspection Detail'),request.path_info),
         ])
 
-        return super(shelf_inspection_DetailView, self).dispatch(request,args,kwargs)
+        return super(ShelfInspectionDetailView, self).dispatch(request,args,kwargs)
 
 
     def post(self, request, *args, **kwargs):
@@ -693,19 +694,19 @@ class shelf_inspection_DetailView(DetailView):
         else:
             raise Http404
 
-class shelf_inspection_CreateView(CreateView):
+class ShelfInspectionCreateView(CreateView):
     #model = shelf
     template_name = "shelf/shelf_inspection_create.html"
     form_class = ShelfInspectionForm
     success_url = "inspection/shelfinspectionlist" #reverse("shelf_inspection_list")
 
     def get_context_data(self, *args, **kwargs):
-        context = super(shelf_inspection_CreateView, self).get_context_data(*args, **kwargs)
+        context = super(ShelfInspectionCreateView, self).get_context_data(*args, **kwargs)
         context["form"] = ShelfInspectionForm()
         return context
 
     def get_form(self, *args, **kwargs):
-        form = super(shelf_inspection_CreateView, self).get_form(*args, **kwargs)
+        form = super(ShelfInspectionCreateView, self).get_form(*args, **kwargs)
 
         #form.fields['categories'].queryset  = Category.objects.all()
         #form.fields['default'].queryset  = Category.objects.all()
@@ -713,7 +714,7 @@ class shelf_inspection_CreateView(CreateView):
         return form
 
     def post(self, request, *args, **kwargs):
-        postresult = super(shelf_inspection_CreateView, self).post(request, *args, **kwargs)
+        postresult = super(ShelfInspectionCreateView, self).post(request, *args, **kwargs)
 
         form = ShelfInspectionForm(request.POST, request.FILES)
         if form.is_valid():
@@ -732,6 +733,13 @@ class shelf_inspection_CreateView(CreateView):
 
         return postresult
 
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
+            (_('Create'),request.path_info),
+        ])
+        return super(ShelfInspectionCreateView, self).dispatch(request,args,kwargs)    
 
 class ShelfDetailView(DetailView):
     model = shelf
@@ -739,9 +747,20 @@ class ShelfDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfDetailView, self).get_context_data(*args, **kwargs)
+        print self.model._meta.get_fields()
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in ["id","shelf_inspection_record"]]
+        context["detail_view_title"] = _("Shelf")
         context["related_inspection"] = shelf_inspection_record.objects.filter(shelf=self.get_object())
 
         return context    
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf List'),reverse("shelf_list", kwargs={})),
+            (self.get_object(),request.path_info),
+        ])
+        return super(ShelfDetailView, self).dispatch(request,args,kwargs)    
 
 class ShelfListView(ListView):
     model = shelf
@@ -758,9 +777,38 @@ class ShelfListView(ListView):
             ).distinct()
         return qs
 
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShelfListView, self).get_context_data(*args, **kwargs)
+        context["ShelfUploadForm"] = ShelfUploadForm  
+
+        return context    
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf List'),request.path_info),
+        ])
+        return super(ShelfListView, self).dispatch(request,args,kwargs)     
+
 class ShelfInspectionRecordDetailView(DetailView):
     model = shelf_inspection_record
     template_name = "shelf/shelf_inspection_record_detail.html"    
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShelfInspectionRecordDetailView, self).get_context_data(*args, **kwargs)
+        print self.model._meta.get_fields()
+        context["display_fields"] = ["use_condition",]
+        context["detail_view_title"] = _("shelf inspection record")
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]        
+
+        return context    
 
 
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
+            (self.get_object(),request.path_info),
+        ])
+        return super(ShelfInspectionRecordDetailView, self).dispatch(request,args,kwargs)     

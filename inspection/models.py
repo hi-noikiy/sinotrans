@@ -243,7 +243,7 @@ class shelf_inspection_record(models.Model):
     )
 
     shelf = models.ForeignKey(shelf, verbose_name=_('Shelf'))
-    shelf_inspection = models.ForeignKey(shelf_inspection, default=None)
+    shelf_inspection = models.ForeignKey(shelf_inspection, default=None, verbose_name=_("shelf inspection"))
     use_condition = models.CharField(_('Use Condition'), choices = shelf_inspection_record_use_condition, max_length=30, blank=True) 
     is_locked = models.BooleanField(_('Locked'), blank=True)
     check_person = models.CharField(_('Check Person'), max_length=30, blank=True)

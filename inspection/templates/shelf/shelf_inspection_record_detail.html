@@ -1,19 +1,35 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load myform %}
+{% load staticfiles %}
+
 
 {% block content %}
-<div class="row">
-	<div class="col-sm-6">
-		{% trans "Shelf" %}: {{object.shelf}} <br>
-		{% trans "Use Condition" %}: {{object.use_condition}}<br>
-		{% trans "Locked" %}: {{object.is_locked}}<br>
-		{% trans "Check Person" %}: {{object.check_person}}<br>
-		{% trans "Gradient" %}: {{object.gradient}}<br>
-		{% trans "Forecast Complete Time" %}: {{object.forecast_complete_time}}<br>
-		{% trans "Comments" %}: {{object.comments}}
-	</div>
-</div>
 
-<hr>
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-3">
+
+			<div class="panel panel-primary">
+			    <div class="panel-heading">
+			        <h3 class="panel-title">
+			            {{detail_view_title}}
+			        </h3>
+			    </div>
+			    <div class="panel-body">
+					<table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
+						<tbody>
+							{% for field in fields %}
+								{% if field.name in display_fields %}				
+								<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_display:field.name}}</td></tr>
+								{% else %}
+								<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_value:field.name}}</td></tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}

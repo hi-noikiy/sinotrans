@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-12 08:59+0800\n"
+"POT-Creation-Date: 2017-11-12 17:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,8 +129,7 @@ msgstr ""
 #: .\equipments\forms.py:16 .\equipments\forms.py:72 .\equipments\models.py:43
 #: .\equipments\templates\equipment\equipment_inspection_list.html:77
 #: .\inspection\models.py:247
-#: .\inspection\templates\shelf\shelf_inspection_list.html:23
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:8
+#: .\inspection\templates\shelf\shelf_inspection_list.html:34
 msgid "Use Condition"
 msgstr "使用状况"
 
@@ -163,8 +162,8 @@ msgstr "结束检查日期"
 #: .\outsourcing\templates\kpi\transportationkpi_create.html:9
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:26
 #: .\outsourcing\templates\kpi\transportationkpi_update.html:9
-#: .\trainings\forms.py:21
-#: .\trainings\templates\trainings\annualtraningplan_list.html:26
+#: .\trainings\forms.py:21 .\trainings\models.py:73
+#: .\trainings\templates\trainings\annualtraningplan_list.html:32
 msgid "year"
 msgstr "年"
 
@@ -200,7 +199,6 @@ msgstr "损坏"
 
 #: .\equipments\models.py:45 .\inspection\models.py:227
 #: .\inspection\models.py:252
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:13
 msgid "Comments"
 msgstr "备注"
 
@@ -215,6 +213,7 @@ msgid "Equipment Inspection"
 msgstr "设备检查"
 
 #: .\equipments\models.py:98 .\outsourcing\models.py:274
+#: .\trainings\models.py:75
 msgid "Use the following format: < YYYY >"
 msgstr "使用下面格式: YYYY"
 
@@ -300,7 +299,7 @@ msgstr "检查种类"
 #: .\inspection\templates\shelf\shelf_inspection_detail.html:196
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:36
 #: .\outsourcing\templates\kpi\transportationkpi_list_edit.html:48
-#: .\trainings\templates\trainings\annualtraningplan_list.html:36
+#: .\trainings\templates\trainings\annualtraningplan_list.html:42
 msgid "Apply Filter"
 msgstr "过滤"
 
@@ -311,7 +310,7 @@ msgstr "过滤"
 #: .\inspection\templates\shelf\shelf_inspection_detail.html:196
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:37
 #: .\outsourcing\templates\kpi\transportationkpi_list_edit.html:49
-#: .\trainings\templates\trainings\annualtraningplan_list.html:37
+#: .\trainings\templates\trainings\annualtraningplan_list.html:43
 msgid "Clear Filters"
 msgstr "清除过滤"
 
@@ -330,15 +329,17 @@ msgstr "提交"
 #: .\equipments\templates\equipment\spray_pump_room_inspection_detail.html:15
 #: .\inspection\templates\model_filelds_table_display.html:8
 #: .\inspection\views.py:94 .\outsourcing\admin.py:68
-#: .\outsourcing\templates\forklift\forklift_detail.html:17
+#: .\outsourcing\templates\forklift\forklift_detail.html:14
 #: .\outsourcing\templates\kpi\transportationkpi_detail.html:15
 #: .\outsourcing\templates\transportation\vehicle_detail.html:15
+#: .\trainings\templates\trainings\trainingcourse_detail.html:25
+#: .\trainings\templates\trainings\trainingrecord_detail.html:15
 msgid "Base Information"
 msgstr "基本信息"
 
 #: .\equipments\templates\equipment\spray_pump_room_inspection_list_display.html:31
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:27
-#: .\trainings\templates\trainings\annualtraningplan_list.html:27
+#: .\trainings\templates\trainings\annualtraningplan_list.html:33
 msgid "Project Review"
 msgstr "项目回顾"
 
@@ -359,7 +360,7 @@ msgstr "后退"
 #: .\outsourcing\views.py:158 .\outsourcing\views.py:174
 #: .\outsourcing\views.py:262 .\outsourcing\views.py:318
 #: .\site-packages\breadcrumbs\breadcrumbs.py:81 .\templates\navbar.html.py:20
-#: .\trainings\views.py:59
+#: .\trainings\views.py:35 .\trainings\views.py:60 .\trainings\views.py:129
 msgid "Home"
 msgstr "主页"
 
@@ -408,7 +409,6 @@ msgid "Gradient Check Only"
 msgstr "仅倾斜度测量"
 
 #: .\inspection\forms.py:262 .\inspection\models.py:188
-#: .\inspection\templates\shelf\shelf_detail.html:7
 msgid "Shelf Type"
 msgstr "货架类型"
 
@@ -521,16 +521,15 @@ msgstr "位置"
 msgid "Daily Inspection"
 msgstr "日常巡检"
 
-#: .\inspection\models.py:189 .\inspection\templates\shelf\shelf_detail.html:8
+#: .\inspection\models.py:189
 msgid "Warehouse Number"
 msgstr "仓库号"
 
 #: .\inspection\models.py:190
-#: .\inspection\templates\shelf\shelf_detail.html:10
 msgid "Compartment Number"
 msgstr "仓间号"
 
-#: .\inspection\models.py:191 .\inspection\templates\shelf\shelf_detail.html:9
+#: .\inspection\models.py:191
 msgid "Warehouse Channel Number"
 msgstr "仓库通道号"
 
@@ -539,7 +538,6 @@ msgid "Shelf Group"
 msgstr "货架组"
 
 #: .\inspection\models.py:193
-#: .\inspection\templates\shelf\shelf_detail.html:11
 msgid "Shelf Number"
 msgstr "货架号"
 
@@ -549,8 +547,8 @@ msgstr "立柱货架"
 
 #: .\inspection\models.py:200 .\inspection\models.py:221
 #: .\inspection\models.py:222 .\inspection\models.py:245
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:7
-#: .\templates\navbar.html:44 .\templates\navbar_2nd.html.py:9
+#: .\inspection\views.py:744 .\templates\navbar.html.py:44
+#: .\templates\navbar_2nd.html:9
 msgid "Shelf"
 msgstr "货架"
 
@@ -559,45 +557,41 @@ msgid "Check Date"
 msgstr "检查日期"
 
 #: .\inspection\models.py:230 .\inspection\models.py:236
-#: .\inspection\models.py:237
+#: .\inspection\models.py:237 .\inspection\models.py:246
 msgid "shelf inspection"
 msgstr "货架检查"
 
 #: .\inspection\models.py:248
-#: .\inspection\templates\shelf\shelf_inspection_list.html:24
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:9
+#: .\inspection\templates\shelf\shelf_inspection_list.html:35
 msgid "Locked"
 msgstr "已锁定"
 
 #: .\inspection\models.py:249
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:10
 msgid "Check Person"
 msgstr "检查人"
 
 #: .\inspection\models.py:250
-#: .\inspection\templates\shelf\shelf_inspection_list.html:25
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:11
+#: .\inspection\templates\shelf\shelf_inspection_list.html:36
 msgid "Gradient"
 msgstr "倾斜度"
 
 #: .\inspection\models.py:251
-#: .\inspection\templates\shelf\shelf_inspection_record_detail.html:12
 msgid "Forecast Complete Time"
 msgstr "预计完成日期"
 
 #: .\inspection\models.py:255 .\inspection\models.py:278
-#: .\inspection\models.py:279
+#: .\inspection\models.py:279 .\inspection\views.py:772
 msgid "shelf inspection record"
 msgstr "货架巡检记录"
 
 #: .\inspection\models.py:282 .\inspection\models.py:376
 #: .\outsourcing\models.py:143 .\outsourcing\models.py:152
-#: .\outsourcing\templates\forklift\forklift_detail.html:147
+#: .\outsourcing\templates\forklift\forklift_detail.html:144
 msgid "Annual Inspection Date"
 msgstr "年检日期"
 
 #: .\inspection\models.py:283 .\outsourcing\models.py:144
-#: .\outsourcing\templates\forklift\forklift_detail.html:147
+#: .\outsourcing\templates\forklift\forklift_detail.html:144
 msgid "Next Inspection Date"
 msgstr "下次年检日期"
 
@@ -820,11 +814,11 @@ msgstr "巡检统计"
 #: .\inspection\templates\model_list_table_display.html:10
 #: .\inspection\templates\modelset_filelds_table_display.html:33
 #: .\inspection\templates\shelf\shelf_inspection_detail.html:204
-#: .\inspection\templates\shelf\shelf_inspection_list.html:16
-#: .\outsourcing\templates\forklift\forklift_detail.html:71
-#: .\outsourcing\templates\forklift\forklift_detail.html:88
-#: .\outsourcing\templates\forklift\forklift_detail.html:129
-#: .\outsourcing\templates\forklift\forklift_detail.html:169
+#: .\inspection\templates\shelf\shelf_inspection_list.html:27
+#: .\outsourcing\templates\forklift\forklift_detail.html:68
+#: .\outsourcing\templates\forklift\forklift_detail.html:85
+#: .\outsourcing\templates\forklift\forklift_detail.html:126
+#: .\outsourcing\templates\forklift\forklift_detail.html:166
 #: .\outsourcing\templates\forklift\forklift_list.html:31
 #: .\outsourcing\templates\transportation\vehicle_detail.html:70
 #: .\outsourcing\templates\transportation\vehicle_detail.html:102
@@ -841,7 +835,7 @@ msgstr "最近更新"
 msgid "submit"
 msgstr "提交"
 
-#: .\inspection\templates\shelf\shelf_detail.html:19
+#: .\inspection\templates\shelf\shelf_detail.html:35
 msgid "Related Inspections"
 msgstr "相关巡检"
 
@@ -850,17 +844,33 @@ msgstr "相关巡检"
 msgid "Shelf Inspections Record"
 msgstr "货架检查记录"
 
-#: .\inspection\templates\shelf\shelf_inspection_list.html:22
-msgid "Create Date"
-msgstr "创建日期"
-
-#: .\inspection\templates\shelf\shelf_inspection_list.html:60
+#: .\inspection\templates\shelf\shelf_inspection_list.html:19
 msgid "Shelf List"
 msgstr "货架列表"
 
-#: .\inspection\templates\shelf\shelf_inspection_list.html:61
+#: .\inspection\templates\shelf\shelf_inspection_list.html:20
 msgid "Create Shelf Inspection"
 msgstr "创建货架检查"
+
+#: .\inspection\templates\shelf\shelf_inspection_list.html:21
+msgid "download"
+msgstr "下载"
+
+#: .\inspection\templates\shelf\shelf_inspection_list.html:33
+msgid "Create Date"
+msgstr "创建日期"
+
+#: .\inspection\templatetags\myform.py:20 .\outsourcing\models.py:18
+#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:556
+#: .\site-packages-djangos\1.9\django\forms\widgets.py:571
+msgid "Yes"
+msgstr "是"
+
+#: .\inspection\templatetags\myform.py:22 .\outsourcing\models.py:19
+#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:557
+#: .\site-packages-djangos\1.9\django\forms\widgets.py:572
+msgid "No"
+msgstr "否"
 
 #: .\inspection\utils.py:137
 #, python-format
@@ -916,97 +926,85 @@ msgstr ""
 msgid "month"
 msgstr "月"
 
-#: .\outsourcing\models.py:18
-#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:556
-#: .\site-packages-djangos\1.9\django\forms\widgets.py:571
-msgid "Yes"
-msgstr "是"
-
-#: .\outsourcing\models.py:19
-#: .\site-packages-djangos\1.8.4\django\forms\widgets.py:557
-#: .\site-packages-djangos\1.9\django\forms\widgets.py:572
-msgid "No"
-msgstr "否"
-
 #: .\outsourcing\models.py:32
-#: .\outsourcing\templates\forklift\forklift_detail.html:25
+#: .\outsourcing\templates\forklift\forklift_detail.html:22
 #: .\outsourcing\templates\forklift\forklift_list.html:37
 msgid "Inner Car Number"
 msgstr "厂内编号"
 
 #: .\outsourcing\models.py:33
-#: .\outsourcing\templates\forklift\forklift_detail.html:26
+#: .\outsourcing\templates\forklift\forklift_detail.html:23
 #: .\outsourcing\templates\forklift\forklift_list.html:38
 msgid "Inner Plate Number"
 msgstr "厂内车牌号"
 
 #: .\outsourcing\models.py:34
-#: .\outsourcing\templates\forklift\forklift_detail.html:27
+#: .\outsourcing\templates\forklift\forklift_detail.html:24
 #: .\outsourcing\templates\forklift\forklift_list.html:39
 msgid "Forklift Model"
 msgstr "叉车型号"
 
 #: .\outsourcing\models.py:35
-#: .\outsourcing\templates\forklift\forklift_detail.html:28
+#: .\outsourcing\templates\forklift\forklift_detail.html:25
 #: .\outsourcing\templates\forklift\forklift_list.html:40
 msgid "SN"
 msgstr "序列号"
 
 #: .\outsourcing\models.py:36
-#: .\outsourcing\templates\forklift\forklift_detail.html:29
+#: .\outsourcing\templates\forklift\forklift_detail.html:26
 #: .\outsourcing\templates\forklift\forklift_list.html:41
 msgid "Forklift Category"
 msgstr "叉车类型"
 
 #: .\outsourcing\models.py:37
-#: .\outsourcing\templates\forklift\forklift_detail.html:30
+#: .\outsourcing\templates\forklift\forklift_detail.html:27
 #: .\outsourcing\templates\forklift\forklift_list.html:42
 msgid "Manufacturer"
 msgstr "制造商"
 
 #: .\outsourcing\models.py:38
-#: .\outsourcing\templates\forklift\forklift_detail.html:37
+#: .\outsourcing\templates\forklift\forklift_detail.html:34
 msgid "Tip Height"
 msgstr "提示高度"
 
 #: .\outsourcing\models.py:39
-#: .\outsourcing\templates\forklift\forklift_detail.html:38
+#: .\outsourcing\templates\forklift\forklift_detail.html:35
 msgid "Carrying Capacity"
 msgstr "承载能力"
 
 #: .\outsourcing\models.py:40
-#: .\outsourcing\templates\forklift\forklift_detail.html:39
+#: .\outsourcing\templates\forklift\forklift_detail.html:36
 msgid "Self Weight"
 msgstr "车辆自重"
 
 #: .\outsourcing\models.py:41
-#: .\outsourcing\templates\forklift\forklift_detail.html:40
+#: .\outsourcing\templates\forklift\forklift_detail.html:37
 msgid "Turning Radius"
 msgstr "转弯半径"
 
 #: .\outsourcing\models.py:42
-#: .\outsourcing\templates\forklift\forklift_detail.html:41
+#: .\outsourcing\templates\forklift\forklift_detail.html:38
 msgid "Front Tyre Size"
 msgstr "前轮尺寸"
 
 #: .\outsourcing\models.py:43
-#: .\outsourcing\templates\forklift\forklift_detail.html:42
+#: .\outsourcing\templates\forklift\forklift_detail.html:39
 msgid "Back Tyre Size"
 msgstr "后轮尺寸"
 
 #: .\outsourcing\models.py:44
-#: .\outsourcing\templates\forklift\forklift_detail.html:43
+#: .\outsourcing\templates\forklift\forklift_detail.html:40
 msgid "Forklift Width"
 msgstr "车宽"
 
 #: .\outsourcing\models.py:45 .\outsourcing\models.py:46
-#: .\outsourcing\templates\forklift\forklift_detail.html:44
-#: .\outsourcing\templates\forklift\forklift_detail.html:45
+#: .\outsourcing\templates\forklift\forklift_detail.html:41
+#: .\outsourcing\templates\forklift\forklift_detail.html:42
 msgid "Forklift Length"
 msgstr "车长"
 
 #: .\outsourcing\models.py:47
-#: .\outsourcing\templates\forklift\forklift_detail.html:46
+#: .\outsourcing\templates\forklift\forklift_detail.html:43
 msgid "Maximum Velocity"
 msgstr "最高行驶速度"
 
@@ -1021,7 +1019,7 @@ msgstr "叉车"
 
 #: .\outsourcing\models.py:64 .\outsourcing\models.py:65
 #: .\outsourcing\models.py:68
-#: .\outsourcing\templates\forklift\forklift_detail.html:58
+#: .\outsourcing\templates\forklift\forklift_detail.html:55
 #: .\outsourcing\templates\forklift\forklift_list.html:43
 msgid "forklift image"
 msgstr "叉车图片"
@@ -1143,54 +1141,54 @@ msgid "Maintenance"
 msgstr "叉车保养"
 
 #: .\outsourcing\models.py:114 .\outsourcing\models.py:115
-#: .\outsourcing\templates\forklift\forklift_detail.html:79
+#: .\outsourcing\templates\forklift\forklift_detail.html:76
 msgid "forklift maintenance"
 msgstr "叉车保养"
 
 #: .\outsourcing\models.py:119
-#: .\outsourcing\templates\forklift\forklift_detail.html:106
+#: .\outsourcing\templates\forklift\forklift_detail.html:103
 msgid "Damage Reason"
 msgstr "损坏原因 "
 
 #: .\outsourcing\models.py:120
-#: .\outsourcing\templates\forklift\forklift_detail.html:107
+#: .\outsourcing\templates\forklift\forklift_detail.html:104
 msgid "Accessories Name"
 msgstr "配件名称"
 
 #: .\outsourcing\models.py:121
-#: .\outsourcing\templates\forklift\forklift_detail.html:108
+#: .\outsourcing\templates\forklift\forklift_detail.html:105
 msgid "Accessories Number"
 msgstr "数量"
 
 #: .\outsourcing\models.py:122
-#: .\outsourcing\templates\forklift\forklift_detail.html:109
+#: .\outsourcing\templates\forklift\forklift_detail.html:106
 msgid "Breakdown Description"
 msgstr "故障描述 "
 
 #: .\outsourcing\models.py:123
-#: .\outsourcing\templates\forklift\forklift_detail.html:110
+#: .\outsourcing\templates\forklift\forklift_detail.html:107
 msgid "Repaired"
 msgstr "是否修复"
 
 #: .\outsourcing\models.py:124
-#: .\outsourcing\templates\forklift\forklift_detail.html:111
+#: .\outsourcing\templates\forklift\forklift_detail.html:108
 msgid "Repaire Date"
 msgstr "维修日期"
 
 #: .\outsourcing\models.py:129 .\outsourcing\models.py:130
 #: .\outsourcing\models.py:133
-#: .\outsourcing\templates\forklift\forklift_detail.html:98
+#: .\outsourcing\templates\forklift\forklift_detail.html:95
 msgid "forklift repair"
 msgstr "叉车维修"
 
 #: .\outsourcing\models.py:147 .\outsourcing\models.py:148
-#: .\outsourcing\templates\forklift\forklift_detail.html:139
+#: .\outsourcing\templates\forklift\forklift_detail.html:136
 msgid "forklift annual inspection"
 msgstr "叉车年检"
 
 #: .\outsourcing\models.py:159 .\outsourcing\models.py:160
 #: .\outsourcing\models.py:163
-#: .\outsourcing\templates\forklift\forklift_detail.html:156
+#: .\outsourcing\templates\forklift\forklift_detail.html:153
 msgid "forklift annual inspection image"
 msgstr "叉车年检图片"
 
@@ -1347,7 +1345,7 @@ msgstr "培训合格"
 #: .\outsourcing\models.py:219 .\outsourcing\models.py:223
 #: .\outsourcing\models.py:228
 #: .\outsourcing\templates\transportation\vehicle_detail.html:46
-#: .\trainings\models.py:44
+#: .\trainings\models.py:55
 msgid "driver"
 msgstr "司机"
 
@@ -3008,6 +3006,12 @@ msgstr "登陆"
 msgid "Log in"
 msgstr "登陆"
 
+#: .\templates\navbar_2nd.html:16 .\trainings\models.py:15
+#: .\trainings\models.py:82 .\trainings\models.py:83 .\trainings\models.py:86
+#: .\trainings\views.py:36 .\trainings\views.py:61 .\trainings\views.py:130
+msgid "annual training plan"
+msgstr "年度培训计划"
+
 #: .\templates\registration\activate.html:5
 msgid "Account activation failed."
 msgstr "账户激活失败"
@@ -3223,125 +3227,117 @@ msgstr ""
 msgid "Please check your email to complete the registration process."
 msgstr ""
 
-#: .\trainings\apps.py:6 .\trainings\models.py:62 .\trainings\views.py:19
-#: .\trainings\views.py:25
+#: .\trainings\apps.py:6 .\trainings\models.py:76 .\trainings\views.py:91
+#: .\trainings\views.py:97
 msgid "training"
 msgstr "培训"
 
-#: .\trainings\models.py:9
+#: .\trainings\models.py:14
 msgid "work license"
 msgstr "上岗证"
 
-#: .\trainings\models.py:10 .\trainings\models.py:68 .\trainings\models.py:69
-#: .\trainings\models.py:72 .\trainings\views.py:60
-msgid "annual training plan"
-msgstr "年度培训计划"
-
-#: .\trainings\models.py:11
+#: .\trainings\models.py:16
 msgid "meeting before work"
 msgstr "班前会"
 
-#: .\trainings\models.py:12
+#: .\trainings\models.py:17
 msgid "other"
 msgstr "其他"
 
-#: .\trainings\models.py:15
+#: .\trainings\models.py:20
 msgid "training topic"
 msgstr "培训主题"
 
-#: .\trainings\models.py:16
+#: .\trainings\models.py:21
 msgid "training category"
 msgstr "培训类型"
 
-#: .\trainings\models.py:17
+#: .\trainings\models.py:22
 msgid "training content"
 msgstr "培训内容"
 
-#: .\trainings\models.py:20 .\trainings\models.py:24 .\trainings\models.py:28
+#: .\trainings\models.py:25 .\trainings\models.py:29 .\trainings\models.py:37
 msgid "training course"
 msgstr "培训课程"
 
-#: .\trainings\models.py:21
+#: .\trainings\models.py:26
 msgid "training courses"
 msgstr "培训课程"
 
-#: .\trainings\models.py:29
+#: .\trainings\models.py:38
 msgid "training date"
 msgstr "培训日期"
 
-#: .\trainings\models.py:30
+#: .\trainings\models.py:39
 msgid "training location"
 msgstr "培训地点"
 
-#: .\trainings\models.py:31
-#| msgid "trainee"
+#: .\trainings\models.py:40
 msgid "trainer"
 msgstr "培训人"
 
-#: .\trainings\models.py:32
-#| msgid "Maintenance"
+#: .\trainings\models.py:41
 msgid "audiences"
 msgstr "与会人员"
 
-#: .\trainings\models.py:35 .\trainings\models.py:36 .\trainings\models.py:39
-#: .\trainings\models.py:49 .\trainings\models.py:65
+#: .\trainings\models.py:44 .\trainings\models.py:45 .\trainings\models.py:48
+#: .\trainings\models.py:60 .\trainings\models.py:79
 msgid "training record"
 msgstr "培训记录"
 
-#: .\trainings\models.py:45
+#: .\trainings\models.py:56
 msgid "forklift driver"
 msgstr "叉车司机"
 
-#: .\trainings\models.py:46
+#: .\trainings\models.py:57
 msgid "project manager"
 msgstr "项目经理"
 
-#: .\trainings\models.py:50
+#: .\trainings\models.py:61
 msgid "trainee"
 msgstr "受训者"
 
-#: .\trainings\models.py:51
+#: .\trainings\models.py:62
 msgid "score"
 msgstr "分数"
 
-#: .\trainings\models.py:52
+#: .\trainings\models.py:63
 msgid "work position"
 msgstr "岗位"
 
-#: .\trainings\models.py:55 .\trainings\models.py:56 .\trainings\models.py:59
+#: .\trainings\models.py:66 .\trainings\models.py:67 .\trainings\models.py:70
 msgid "training transcript"
 msgstr "培训成绩"
 
-#: .\trainings\models.py:63
+#: .\trainings\models.py:77
 msgid "planned date"
 msgstr "计划时间"
 
-#: .\trainings\models.py:64
+#: .\trainings\models.py:78
 msgid "actual date"
 msgstr "完成时间"
 
-#: .\trainings\views.py:26
+#: .\trainings\views.py:98
 msgid "Q1"
 msgstr "第一季度"
 
-#: .\trainings\views.py:27
+#: .\trainings\views.py:99
 msgid "Q2"
 msgstr "第二季度"
 
-#: .\trainings\views.py:28
+#: .\trainings\views.py:100
 msgid "Q3"
 msgstr "第三季度"
 
-#: .\trainings\views.py:29
+#: .\trainings\views.py:101
 msgid "Q4"
 msgstr "第四季度"
 
-#: .\trainings\views.py:36
+#: .\trainings\views.py:108
 msgid "plan"
 msgstr "计划"
 
-#: .\trainings\views.py:37
-#| msgid "actual date"
+#: .\trainings\views.py:109
 msgid "actual"
 msgstr "实际"
 
