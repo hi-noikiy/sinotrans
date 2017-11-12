@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_delete, post_save, pre_save
 from django.core.urlresolvers import reverse
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class TrainingCourse(models.Model):
@@ -15,7 +16,7 @@ class TrainingCourse(models.Model):
 
     topic = models.CharField(_('training topic'), max_length=150, blank=False, null=False)
     category = models.CharField(_('training category'), choices=TRAINING_CATEGORY_OPTION, max_length=150, blank=False, null=False)
-    content = models.TextField(_('training content'),blank=True, null=True)
+    content = RichTextField(_('training content'),blank=True, null=True)
 
     class Meta:
         verbose_name = _("training course")

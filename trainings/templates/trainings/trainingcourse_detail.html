@@ -3,11 +3,21 @@
 {% load myform %}
 {% load staticfiles %}
 
+<script>
+
+{% block jquery %}
+$('tbody img').each(function(){
+	$(this).addClass("img-responsive")
+})
+
+{% endblock %}
+
+</script>
 
 {% block content %}
 
 	<div class="row">
-		<div class="col-sm-6 col-sm-offset-3">
+		<div class="col-sm-12">
 
 			<div class="panel panel-primary">
 			    <div class="panel-heading">
@@ -16,10 +26,14 @@
 			        </h3>
 			    </div>
 			    <div class="panel-body">
-					<table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
+					<table class="table-striped table-hover table-responsive table-condensed"  style="width: 100%">
 						<tbody>
-							{% for field in fields %}						
-								<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_display:field.name}}</td></tr>
+							{% for field in fields %}
+								{% if field.name == "content" %}
+									<tr><th>{{field.verbose_name}}</th><td>{{ object.content|safe }}</td></tr>
+								{% else %}
+									<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_display:field.name}}</td></tr>
+								{% endif %}
 							{% endfor %}
 						</tbody>
 					</table>
