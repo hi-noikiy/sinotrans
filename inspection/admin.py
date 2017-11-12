@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     OfficeInspection,
     DailyInspection,
-    shelf, shelf_inspection, shelf_inspection_record,
+    shelf, shelf_inspection, shelf_inspection_record, ShelfAnnualInspection, ShelfAnnualInspectionImage,
     Rehearsal, PI,
     )
     
@@ -60,33 +60,25 @@ class DailyInspectionAdmin(admin.ModelAdmin):
         js = ("js/jquery.min.js","js/model_admin.js",)
         
 
+class ShelfAnnualInspectionImageInline(admin.TabularInline):
+    model = ShelfAnnualInspectionImage  
+    extra = 0
 
+        
+class ShelfAnnualInspectionInline(admin.TabularInline):
+    model = ShelfAnnualInspection  
+    extra = 0
 
-class shelfAdmin(admin.ModelAdmin):
-    list_display = ['id',"type", "warehouse",'compartment','warehouse_channel', 'group','number','is_gradient_measurement_mandatory']
-    list_editable = ["type", "warehouse",'compartment','warehouse_channel','group','number','is_gradient_measurement_mandatory']
-    list_filter = ["type", "warehouse",'compartment','warehouse_channel','group','is_gradient_measurement_mandatory']
-    search_fields = ["type", "warehouse",'compartment','warehouse_channel','group','number']
-    list_display_links = ['id']
-    list_per_page = 10
-    list_max_show_all = 80
-    ordering = ["warehouse",'compartment','group','number']
+class ShelfAnnualInspectionAdmin(admin.ModelAdmin):
+    list_display = ["shelf","date","next_date",]
 
+    inlines = [
+        ShelfAnnualInspectionImageInline,
+    ]
     
     class Meta:
-        model = shelf
+        model = ShelfAnnualInspection  
 
-    class Media:
-        css = {
-            "all": ("css/model_admin.css",)
-        }
-        js = ("js/jquery.min.js","js/model_admin.js",)
-
-    def view_on_site(self, obj):
-        url = reverse('shelf_detail', kwargs={'pk': obj.pk})
-        #print get_current_site(self.request)
-        #return 'http://127.0.0.1:8000' + url
-        return url
 
 class shelf_inspection_recordInline(admin.TabularInline):
     model = shelf_inspection_record
@@ -106,7 +98,7 @@ class shelf_inspection_recordAdmin(admin.ModelAdmin):
         model = shelf_inspection_record
 '''
 
-class shelf_inspectionAdmin(admin.ModelAdmin):
+class ShelfInspectionAdmin(admin.ModelAdmin):
     list_display = ["check_date"]
     
     class Meta:
@@ -115,6 +107,39 @@ class shelf_inspectionAdmin(admin.ModelAdmin):
     inlines = [
         shelf_inspection_recordInline,
     ]
+
+
+
+class ShelfAdmin(admin.ModelAdmin):
+    list_display = ['id',"type", "warehouse",'compartment','warehouse_channel', 'group','number','is_gradient_measurement_mandatory']
+    list_editable = ["type", "warehouse",'compartment','warehouse_channel','group','number','is_gradient_measurement_mandatory']
+    list_filter = ["type", "warehouse",'compartment','warehouse_channel','group','is_gradient_measurement_mandatory']
+    search_fields = ["type", "warehouse",'compartment','warehouse_channel','group','number']
+    list_display_links = ['id']
+    list_per_page = 10
+    list_max_show_all = 80
+    ordering = ["warehouse",'compartment','group','number']
+
+    inlines = [
+        ShelfAnnualInspectionInline,
+        shelf_inspection_recordInline,
+    ]
+
+    class Meta:
+        model = shelf
+
+    class Media:
+        css = {
+            "all": ("css/model_admin.css",)
+        }
+        js = ("js/jquery.min.js","js/model_admin.js",)
+
+    def view_on_site(self, obj):
+        url = reverse('shelf_detail', kwargs={'pk': obj.pk})
+        #print get_current_site(self.request)
+        #return 'http://127.0.0.1:8000' + url
+        return url
+
 
 class RehearsalAdmin(admin.ModelAdmin):
     list_display = ['title',"date","attachment"]
@@ -133,15 +158,17 @@ class PIAdmin(admin.ModelAdmin):
 
 admin.site.register(DailyInspection, DailyInspectionAdmin)
 admin.site.register(OfficeInspection, OfficeInspectionAdmin)
-admin.site.register(shelf, shelfAdmin)
-admin.site.register(shelf_inspection, shelf_inspectionAdmin)
+admin.site.register(shelf, ShelfAdmin)
+admin.site.register(shelf_inspection, ShelfInspectionAdmin)
+admin.site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 admin.site.register(Rehearsal, RehearsalAdmin)
 admin.site.register(PI, PIAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
-my_admin_site.register(shelf, shelfAdmin)
-my_admin_site.register(shelf_inspection, shelf_inspectionAdmin)
+my_admin_site.register(shelf, ShelfAdmin)
+my_admin_site.register(shelf_inspection, ShelfInspectionAdmin)
+my_admin_site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 my_admin_site.register(Rehearsal, RehearsalAdmin)
 my_admin_site.register(PI, PIAdmin)
 

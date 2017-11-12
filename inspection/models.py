@@ -278,19 +278,37 @@ class shelf_inspection_record(models.Model):
         verbose_name = _("shelf inspection record")
         verbose_name_plural = _("shelf inspection record")
 
-class shelf_annual_inspection(models.Model):
+# class shelf_annual_inspection(models.Model):
+#     date = models.DateField(_('Annual Inspection Date'), auto_now_add=False, auto_now=False)
+#     next_date = models.DateField(_('Next Inspection Date'), auto_now_add=False, auto_now=False)
+
+#     class Meta:
+#         verbose_name = _("shelf annual inspection")
+
+class ShelfAnnualInspection(models.Model):
+    shelf = models.ForeignKey(shelf, verbose_name=_("Shelf"))
     date = models.DateField(_('Annual Inspection Date'), auto_now_add=False, auto_now=False)
     next_date = models.DateField(_('Next Inspection Date'), auto_now_add=False, auto_now=False)
 
     class Meta:
         verbose_name = _("shelf annual inspection")
+        verbose_name_plural = _("shelf annual inspection")
 
-class shelf_annual_inspection_image(models.Model):
-    shelf_annual_inspection = models.ForeignKey(shelf_annual_inspection)
+
+    def __unicode__(self): 
+        #return unicode(_("Shelf")) + self.shelf.__unicode__ + unicode(_("Annual Inspection Date"))
+        #return "{0}, {1}".format("shelf", self.shelf.__unicode__)
+        #return "{0}, {1}".format("shelf", self.shelf.__unicode__)
+        return _("shelf annual inspection") + " %s-%s-%s-%s-%s" % (self.shelf.warehouse,self.shelf.compartment, self.shelf.warehouse_channel,self.shelf.group,self.shelf.number)
+
+class ShelfAnnualInspectionImage(models.Model):
+    shelf_annual_inspection = models.ForeignKey(ShelfAnnualInspection, verbose_name="shelf annual inspection")
     image = models.ImageField(_('image'), upload_to='inspection/shelf_annual_inspection', blank=True, null=True)
 
     class Meta:
         verbose_name = _("shelf annual inspection image")
+
+
 
 """ to be delete """
 """
@@ -329,6 +347,7 @@ class hydrant_inspection(models.Model):
 
 """
 """ to be delete """
+
 
 class Rehearsal(models.Model):
     title = models.CharField(_('Title'), max_length=30, blank=True)   
