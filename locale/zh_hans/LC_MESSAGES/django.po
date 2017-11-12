@@ -3322,19 +3322,19 @@ msgstr "完成时间"
 
 #: .\trainings\views.py:26
 msgid "Q1"
-msgstr ""
+msgstr "第一季度"
 
 #: .\trainings\views.py:27
 msgid "Q2"
-msgstr ""
+msgstr "第二季度"
 
 #: .\trainings\views.py:28
 msgid "Q3"
-msgstr ""
+msgstr "第三季度"
 
 #: .\trainings\views.py:29
 msgid "Q4"
-msgstr ""
+msgstr "第四季度"
 
 #: .\trainings\views.py:36
 msgid "plan"
