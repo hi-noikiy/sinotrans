@@ -8,7 +8,7 @@ from django.views.generic.edit import FormMixin, ModelFormMixin
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.utils.translation import ugettext as _
-from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, MethodFilter
+from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, MethodFilter, MultipleChoiceFilter
 from django.db.models import Q
 from django.http import HttpResponse, Http404
 import json
@@ -401,8 +401,13 @@ operators = {
         'iendswith': 'LIKE %s',
     }
 '''
+
+
+
 class InsepctionFilter(FilterSet):
-    cateory = CharFilter(name='category', lookup_type='icontains', distinct=True)
+    #cateory = CharFilter(name='category', lookup_type='icontains', distinct=True)
+    category = MultipleChoiceFilter(name='category', choices=DailyInspection.daily_insepction_category, distinct=True)
+    #category = MethodFilter(name='category', action='category_filter', distinct=True)
     #category_id = CharFilter(name='categories__id', lookup_type='icontains', distinct=True)
     rectification_status = CharFilter(name='rectification_status', lookup_type='exact', distinct=True)
     owner = CharFilter(name='owner', lookup_type='icontains', distinct=True)
@@ -410,10 +415,20 @@ class InsepctionFilter(FilterSet):
     class Meta:
         model = DailyInspection
         fields = [
+            'category',
             'owner',
             'rectification_status',
-            'category',
+            
         ]
+
+    def category_filter(self, queryset, value):
+
+        qs = queryset
+        for category in value:
+            print category
+            qs = qs.filter(category=category)
+
+        return qs.distinct()
 
 class FilterMixin(object):
     filter_class = None
