@@ -623,10 +623,10 @@ class ShelfInspectionRecordFilter(FilterSet):
             })
             qs = qs1
 
-            for ins in qs1:
-                qs2 = queryset.filter(**{
-                'shelf__warehouse_channel': ins.shelf.warehouse_channel,})
-                qs = (qs | qs2)
+            # for ins in qs1:
+            #     qs2 = queryset.filter(**{
+            #     'shelf__warehouse_channel': ins.shelf.warehouse_channel,})
+            #     qs = (qs | qs2)
             return qs.distinct()
         
         return queryset
