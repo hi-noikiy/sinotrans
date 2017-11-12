@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import post_delete, post_save, pre_save
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 class TrainingCourse(models.Model):
@@ -11,8 +13,6 @@ class TrainingCourse(models.Model):
         ('other',_('other')),
     )
 
-    date = models.DateField(_('training date'), auto_now_add=False, auto_now=False)
-    location = models.CharField(_('training location'),max_length=30, blank=False, null=False)
     topic = models.CharField(_('training topic'), max_length=150, blank=False, null=False)
     category = models.CharField(_('training category'), choices=TRAINING_CATEGORY_OPTION, max_length=150, blank=False, null=False)
     content = models.TextField(_('training content'),blank=True, null=True)
@@ -24,33 +24,64 @@ class TrainingCourse(models.Model):
     def __unicode__(self): 
         return _("training course") + self.topic
 
-class AnnualTraningPlan(models.Model):
-    training_course = models.ForeignKey(TrainingCourse, verbose_name=_("training"))
-    planned_date = models.DateField(_('planned date'), auto_now_add=False, auto_now=False)
-    actual_date = models.DateField(_('actual date'), auto_now_add=False, auto_now=False, blank=True, null=True)
+    def get_absolute_url(self):
+        print self.pk
+        return reverse("trainingcourse_detail", kwargs={"pk": self.pk })
+
+class TrainingRecord(models.Model):
+
+    training_course = models.ForeignKey(TrainingCourse, verbose_name=_("training course"))
+    date = models.DateField(_('training date'), auto_now_add=False, auto_now=False)
+    location = models.CharField(_('training location'),max_length=30, blank=False, null=False)    
+    trainer = models.CharField(_("trainer"), max_length=30,  blank=False, null=False)
+    audiences = models.CharField(_("audiences"), max_length=30,  blank=False, null=False)
 
     class Meta:
-        verbose_name = _("annual training plan")
-        verbose_name_plural = _("annual training plan")
+        verbose_name = _("training record")
+        verbose_name_plural = _("training record")
 
     def __unicode__(self): 
-        return _("annual training plan") + self.training_course.topic
+        return _("training record") + " %s %s" % (self.training_course.topic , self.date )
 
-class TrainingPerson(models.Model):
+    def get_absolute_url(self):
+        return reverse("trainingrecord_detail", kwargs={"pk": self.pk })
+
+class TrainingTranscript(models.Model):
     POSITION_OPTION = (
         ('driver',_('driver')),
         ('forklift driver',_('forklift driver')),
         ('project manager',_('project manager')),
     )
 
-    training_course = models.ForeignKey(TrainingCourse, verbose_name=_("training"))
+    training_record = models.ForeignKey(TrainingRecord, verbose_name=_("training record"))
     trainee = models.CharField(_("trainee"), max_length=30,  blank=False, null=False)
     score = models.PositiveIntegerField(_("score"), blank=False, null=False)
     work_position = models.CharField(_("work position"), max_length=30, choices=POSITION_OPTION, blank=False, null=False)
 
     class Meta:
-        verbose_name = _("training person")
-        verbose_name_plural = _("training persons")
+        verbose_name = _("training transcript")
+        verbose_name_plural = _("training transcript")
 
     def __unicode__(self): 
-        return _("training person") + self.trainee    
+        return _("training transcript") + self.trainee    
+
+class AnnualTraningPlan(models.Model):
+    training_course = models.ForeignKey(TrainingCourse, verbose_name=_("training"))
+    planned_date = models.DateField(_('planned date'), auto_now_add=False, auto_now=False)
+    actual_date = models.DateField(_('actual date'), auto_now_add=False, auto_now=False, blank=True, null=True)
+    training_record = models.OneToOneField(TrainingRecord, verbose_name=_("training record"), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("annual training plan")
+        verbose_name_plural = _("annual training plan")
+
+    def __unicode__(self): 
+        return _("annual training plan") + " %s %s" % (self.training_course.topic, self.planned_date)        
+
+def update_actual_date(sender, instance, *args, **kwargs):
+
+    if instance.training_record and instance.training_record.date and not instance.actual_date:
+        instance.actual_date = instance.training_record.date
+        instance.save()
+
+post_save.connect(update_actual_date, sender=AnnualTraningPlan)        

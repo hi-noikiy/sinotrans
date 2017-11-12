@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+{% load staticfiles %}
+{% load myform %}
+
+<style type="text/css">
+{% block style %}
+
+.display table thead tr.header3 th{
+    width:3%!important;
+}
+
+
+.display table thead tr.header1 th:nth-child(1){
+    width:28%!important;
+}
+
+.display table tbody tr td:nth-child(1){
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+{% endblock %}
+</style>
+
+{% block content %}
+
+<div class="page-header">
+    <h3>{% trans project_name %} {{ request.GET.year }} {% trans "year" %}
+        <small>{% trans "Project Review" %}</small>
+    </h3>
+</div>
+
+<div class="row display">
+    <div class="col-sm-12">
+        <div class="form-filter-flat">
+            <form  method="GET" action="{% url 'annualtrainingplan_list' %}">
+                {{ top_filter_form }}
+                <input type='submit' class='btn btn-primary' value="{% trans 'Apply Filter' %}">
+                <a class="btn btn-default" href="{% url 'annualtrainingplan_list' %}"  >{% trans 'Clear Filters' %}</a>   
+            </form>                    
+        </div>
+    
+    <div style="overflow-x:auto;">
+        <table class="table-plan-actual-display table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
+            <thead>    
+            	{% for header in headers %}
+            		<tr class="header{{forloop.counter}}">
+            		{% for cell in header %}
+            		{{cell.3}}
+            		<th rowspan={{cell.1}} colspan={{cell.2}}>{{cell.0}}</th>
+            		{% endfor %}
+            		 </tr>
+            	{% endfor %}                      
+            </thead>
+            <tbody>            	
+            	{% for row in objects %}
+            	<tr>
+            		{% for column in row %}            		
+            			{% if forloop.counter == 1 %}
+            			<td>
+            				<a href="{{ column.get_absolute_url }}" >{{column}}</a>
+            			</td>
+            			{% else %}
+            			<td {% if column.1 == "A"%} style="background-color:green; " {%endif%} >
+            				<a {% if column.1 == "A"%} style="color:white;"{%endif%} href="{{ column.0.get_absolute_url }}" >{{column.1}}</a>
+            			</td>
+            			{% endif %}            		
+            		{% endfor %}
+            	</tr>
+            	{% endfor %}
+            	
+            </tbody>
+        </table>   
+    </div>
+
+    </div>
+</div>
+
+{% endblock %}

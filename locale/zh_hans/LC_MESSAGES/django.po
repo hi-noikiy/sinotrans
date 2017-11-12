@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-11 13:39+0800\n"
+"POT-Creation-Date: 2017-11-12 08:59+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,6 +163,8 @@ msgstr "结束检查日期"
 #: .\outsourcing\templates\kpi\transportationkpi_create.html:9
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:26
 #: .\outsourcing\templates\kpi\transportationkpi_update.html:9
+#: .\trainings\forms.py:21
+#: .\trainings\templates\trainings\annualtraningplan_list.html:26
 msgid "year"
 msgstr "年"
 
@@ -298,6 +300,7 @@ msgstr "检查种类"
 #: .\inspection\templates\shelf\shelf_inspection_detail.html:196
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:36
 #: .\outsourcing\templates\kpi\transportationkpi_list_edit.html:48
+#: .\trainings\templates\trainings\annualtraningplan_list.html:36
 msgid "Apply Filter"
 msgstr "过滤"
 
@@ -308,6 +311,7 @@ msgstr "过滤"
 #: .\inspection\templates\shelf\shelf_inspection_detail.html:196
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:37
 #: .\outsourcing\templates\kpi\transportationkpi_list_edit.html:49
+#: .\trainings\templates\trainings\annualtraningplan_list.html:37
 msgid "Clear Filters"
 msgstr "清除过滤"
 
@@ -334,6 +338,7 @@ msgstr "基本信息"
 
 #: .\equipments\templates\equipment\spray_pump_room_inspection_list_display.html:31
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:27
+#: .\trainings\templates\trainings\annualtraningplan_list.html:27
 msgid "Project Review"
 msgstr "项目回顾"
 
@@ -354,6 +359,7 @@ msgstr "后退"
 #: .\outsourcing\views.py:158 .\outsourcing\views.py:174
 #: .\outsourcing\views.py:262 .\outsourcing\views.py:318
 #: .\site-packages\breadcrumbs\breadcrumbs.py:81 .\templates\navbar.html.py:20
+#: .\trainings\views.py:59
 msgid "Home"
 msgstr "主页"
 
@@ -740,22 +746,18 @@ msgid "root cause"
 msgstr ""
 
 #: .\inspection\models.py:386
-#| msgid "Check Person"
 msgid "feedback person"
 msgstr "反馈人"
 
 #: .\inspection\models.py:387
-#| msgid "Rectification Measures"
 msgid "rectification measures"
 msgstr "整改措施"
 
 #: .\inspection\models.py:388
-#| msgid "planned date"
 msgid "planned complete date"
 msgstr "计划完成时间"
 
 #: .\inspection\models.py:389
-#| msgid "Rectification Status"
 msgid "rectification status"
 msgstr "整改状态"
 
@@ -764,18 +766,16 @@ msgid "close person"
 msgstr "关闭人员"
 
 #: .\inspection\models.py:391
-#| msgid "Picture before Rectification"
 msgid "picture before rectification"
 msgstr "整改前照片"
 
 #: .\inspection\models.py:392
-#| msgid "Picture after Rectification"
 msgid "picture after rectification"
 msgstr "整改后照片"
 
 #: .\inspection\models.py:395 .\inspection\models.py:396
 msgid "PI"
-msgstr ""
+msgstr "隐患报告"
 
 #: .\inspection\templates\dailyinspection\dailyinspection_create.html:21
 #: .\inspection\templates\dailyinspection\dailyinspection_list.html:88
@@ -1347,7 +1347,7 @@ msgstr "培训合格"
 #: .\outsourcing\models.py:219 .\outsourcing\models.py:223
 #: .\outsourcing\models.py:228
 #: .\outsourcing\templates\transportation\vehicle_detail.html:46
-#: .\trainings\models.py:41
+#: .\trainings\models.py:44
 msgid "driver"
 msgstr "司机"
 
@@ -3223,90 +3223,133 @@ msgstr ""
 msgid "Please check your email to complete the registration process."
 msgstr ""
 
-#: .\trainings\apps.py:6 .\trainings\models.py:28 .\trainings\models.py:46
+#: .\trainings\apps.py:6 .\trainings\models.py:62 .\trainings\views.py:19
+#: .\trainings\views.py:25
 msgid "training"
 msgstr "培训"
 
-#: .\trainings\models.py:8
+#: .\trainings\models.py:9
 msgid "work license"
 msgstr "上岗证"
 
-#: .\trainings\models.py:9 .\trainings\models.py:33 .\trainings\models.py:34
-#: .\trainings\models.py:37
+#: .\trainings\models.py:10 .\trainings\models.py:68 .\trainings\models.py:69
+#: .\trainings\models.py:72 .\trainings\views.py:60
 msgid "annual training plan"
 msgstr "年度培训计划"
 
-#: .\trainings\models.py:10
+#: .\trainings\models.py:11
 msgid "meeting before work"
 msgstr "班前会"
 
-#: .\trainings\models.py:11
+#: .\trainings\models.py:12
 msgid "other"
 msgstr "其他"
 
-#: .\trainings\models.py:14
-msgid "training date"
-msgstr "培训日期"
-
 #: .\trainings\models.py:15
-msgid "training location"
-msgstr "培训地点"
-
-#: .\trainings\models.py:16
 msgid "training topic"
 msgstr "培训主题"
 
-#: .\trainings\models.py:17
+#: .\trainings\models.py:16
 msgid "training category"
 msgstr "培训类型"
 
-#: .\trainings\models.py:18
+#: .\trainings\models.py:17
 msgid "training content"
 msgstr "培训内容"
 
-#: .\trainings\models.py:21 .\trainings\models.py:25
+#: .\trainings\models.py:20 .\trainings\models.py:24 .\trainings\models.py:28
 msgid "training course"
 msgstr "培训课程"
 
-#: .\trainings\models.py:22
+#: .\trainings\models.py:21
 msgid "training courses"
 msgstr "培训课程"
 
 #: .\trainings\models.py:29
-msgid "planned date"
-msgstr "计划时间"
+msgid "training date"
+msgstr "培训日期"
 
 #: .\trainings\models.py:30
-msgid "actual date"
-msgstr "完成时间"
+msgid "training location"
+msgstr "培训地点"
 
-#: .\trainings\models.py:42
+#: .\trainings\models.py:31
+#| msgid "trainee"
+msgid "trainer"
+msgstr "培训人"
+
+#: .\trainings\models.py:32
+#| msgid "Maintenance"
+msgid "audiences"
+msgstr "与会人员"
+
+#: .\trainings\models.py:35 .\trainings\models.py:36 .\trainings\models.py:39
+#: .\trainings\models.py:49 .\trainings\models.py:65
+msgid "training record"
+msgstr "培训记录"
+
+#: .\trainings\models.py:45
 msgid "forklift driver"
 msgstr "叉车司机"
 
-#: .\trainings\models.py:43
+#: .\trainings\models.py:46
 msgid "project manager"
 msgstr "项目经理"
 
-#: .\trainings\models.py:47
+#: .\trainings\models.py:50
 msgid "trainee"
-msgstr "受训人员"
+msgstr "受训者"
 
-#: .\trainings\models.py:48
+#: .\trainings\models.py:51
 msgid "score"
 msgstr "分数"
 
-#: .\trainings\models.py:49
+#: .\trainings\models.py:52
 msgid "work position"
 msgstr "岗位"
 
-#: .\trainings\models.py:52 .\trainings\models.py:56
-msgid "training person"
-msgstr "培训人员"
+#: .\trainings\models.py:55 .\trainings\models.py:56 .\trainings\models.py:59
+msgid "training transcript"
+msgstr "培训成绩"
 
-#: .\trainings\models.py:53
-msgid "training persons"
-msgstr "培训人员"
+#: .\trainings\models.py:63
+msgid "planned date"
+msgstr "计划时间"
+
+#: .\trainings\models.py:64
+msgid "actual date"
+msgstr "完成时间"
+
+#: .\trainings\views.py:26
+msgid "Q1"
+msgstr ""
+
+#: .\trainings\views.py:27
+msgid "Q2"
+msgstr ""
+
+#: .\trainings\views.py:28
+msgid "Q3"
+msgstr ""
+
+#: .\trainings\views.py:29
+msgid "Q4"
+msgstr ""
+
+#: .\trainings\views.py:36
+msgid "plan"
+msgstr "计划"
+
+#: .\trainings\views.py:37
+#| msgid "actual date"
+msgid "actual"
+msgstr "实际"
+
+#~ msgid "training person"
+#~ msgstr "培训人员"
+
+#~ msgid "training persons"
+#~ msgstr "培训人员"
 
 #~ msgid "Spray Pump Room"
 #~ msgstr "喷淋泵房"

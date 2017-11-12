@@ -93,6 +93,7 @@ TEMPLATES = [
                 os.path.join(BASE_DIR, "wechat","templates"),
                 os.path.join(BASE_DIR, "fileuploadwrapper","templates"),
                 os.path.join(BASE_DIR, "inspection","templates"),
+                os.path.join(BASE_DIR, "trainings","templates"),                
                 ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -230,9 +231,16 @@ else:
     CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'ckeditor/uploads') #not used
     MEDIA_URL = '/media/'
 
-#print "base dir" + BASE_DIR
-#print "STATIC_ROOT" + STATIC_ROOT
-#print STATICFILES_DIRS
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        #'toolbar': 'Full',
+        #'height': 300,
+        #'width': 300,
+        'language': 'zh-cn',  # ckeditor is not align with django latest lan (>1.9)  I also tried config.js, it doesn't work # see widgets.py for the language settings
+    },
+}
+
 
 try:
     import settings_security

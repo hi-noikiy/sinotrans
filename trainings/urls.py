@@ -4,11 +4,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from .views import (
-
+    AnnualTrainingPlanListView, TrainingRecordDetailView,TrainingCourseDetailView,
 )
 
 urlpatterns = [
-    # url(r'^electronicalequipmentinspection/list/$', ElectricalEquipmentInspectionListView.as_view(), name='equipmentinsepction_list'),
-    # url(r'^electronicalequipmentinspection/detail/(?P<pk>\d+)/$', ElectricalEquipmentInspectionDetailView.as_view(), name='electronialequipmentinsepction_detail'),
+    url(r'^annualtrainingplan/list/$', AnnualTrainingPlanListView.as_view(), name='annualtrainingplan_list'),
+    url(r'^trainingrecord/detail/(?P<pk>\d+)/$', TrainingRecordDetailView.as_view(), name='trainingrecord_detail'),
+    url(r'^trainingcourse/detail/(?P<pk>\d+)/$', TrainingCourseDetailView.as_view(), name='trainingcourse_detail'),
     # url(r'^electronicalequipmentinspection/create/$', ElectricalEquipmentInspectionCreateView.as_view(), name='electronialequipmentinsepction_create'),
 ]
