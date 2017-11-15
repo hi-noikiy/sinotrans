@@ -93,10 +93,13 @@ td select{
   change_form.css
 
 ******************************************/
+
+/*
 body.change-form  fieldset.module:nth-child(1){
     width: 50%;
     float: left;
 }
+*/
 
 body.change-form  .submit-row{
     clear:both; /* incase only one fieldset and no tables */

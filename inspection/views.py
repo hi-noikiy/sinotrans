@@ -32,7 +32,9 @@ from .forms import (
     DailyInspectionForm, InspectionFilterForm, 
     ShelfInspectionRecordForm, ShelfFilterForm, ShelfInspectionForm, ShelfUploadForm,
     )
-from .forms import shelf_inspection_record_Formset
+from .forms import (
+    shelf_inspection_record_Formset, shelf_gradient_inspection_Formset,
+    )
 
 
 from .models import image_upload_to_dailyinspection
@@ -541,11 +543,11 @@ class StatMixin(object):
         return llcounterperdaypercategory
 
 #class ShelfInspectionStatView(TemplateView):
-class ShelfInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, View):
+class DailyInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, View):
     template_name = "dailyinspection/dailyinspection_stat.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ShelfInspectionStatView, self).get_context_data(*args, **kwargs)
+        context = super(DailyInspectionStatView, self).get_context_data(*args, **kwargs)
         context["objects_list"] = DailyInspection.objects.order_by('-updated')
         context["dates"] = self.get_dates()
         context["categories"] = self.get_catetory()
@@ -831,3 +833,103 @@ class ShelfInspectionRecordDetailView(DetailView):
             (self.get_object(),request.path_info),
         ])
         return super(ShelfInspectionRecordDetailView, self).dispatch(request,args,kwargs)     
+
+from itertools import chain
+
+class ShelfGradientInspectionView(DetailView): 
+    model = shelf_inspection
+    template_name = "shelf/shelf_gradient_inspection.html"
+    #filter_class = ShelfInspectionRecordFilter
+
+    def get_groups(self, *args, **kwargs):
+        qs = shelf_inspection_record.objects.filter(shelf_inspection=self.get_object())
+        groups = []
+        for object in qs:
+            group_id = object.shelf.get_group_id()
+            if groups == None or len(groups)==0:
+                groups = [group_id]
+            else:
+                if not group_id in groups:
+                    groups.append(group_id)
+
+        return groups
+
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShelfGradientInspectionView, self).get_context_data(*args, **kwargs)
+
+        qs = shelf_inspection_record.objects.filter(shelf_inspection=self.get_object())
+        qs_upright = qs.filter(shelf__is_gradient_measurement_mandatory=True)
+        qs_not_upright = qs.filter(shelf__is_gradient_measurement_mandatory=False)
+
+        queryset = None
+
+        for group in self.get_groups():
+            queryset0 = qs_upright.relevant(group_id=group)
+            queryset1 = qs_not_upright.relevant(group_id=group)
+
+            formsets = [shelf_gradient_inspection_Formset(prefix="".join(list(queryset0[0].shelf.get_group_id()))+"upright", queryset=shelf_inspection_record.objects.filter(pk__in=[x.pk for x in queryset0])),
+                        shelf_gradient_inspection_Formset(prefix="".join(list(queryset0[0].shelf.get_group_id()))+"noupright",queryset=shelf_inspection_record.objects.filter(pk__in=[x.pk for x in queryset1])),]
+
+            if queryset is None:
+                queryset = [formsets]
+            else:
+                queryset.append(formsets)
+
+        context["formset_queryset"] = queryset
+
+        return context       
+
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
+            (_('shelf gradient inspection'),request.path_info),
+        ])
+
+        return super(ShelfGradientInspectionView, self).dispatch(request,args,kwargs)
+
+
+    def post(self, request, *args, **kwargs):
+        qs = shelf_inspection_record.objects.filter(shelf_inspection=self.get_object())
+        qs_upright = qs.filter(shelf__is_gradient_measurement_mandatory=True)
+        qs_not_upright = qs.filter(shelf__is_gradient_measurement_mandatory=False)
+
+        queryset = None
+
+        for group in self.get_groups():
+            queryset0 = qs_upright.relevant(group_id=group)
+            queryset1 = qs_not_upright.relevant(group_id=group)
+
+            formsets = [shelf_gradient_inspection_Formset(request.POST or None, request.FILES or None, prefix="".join(list(queryset0[0].shelf.get_group_id()))+"upright"),
+                        shelf_gradient_inspection_Formset(request.POST or None, request.FILES or None, prefix="".join(list(queryset0[0].shelf.get_group_id()))+"noupright"),]
+
+            if queryset is None:
+                queryset = [formsets]
+            else:
+                queryset.append(formsets)
+
+        is_valid = True
+        for formsets in queryset:
+            for formset in formsets:
+                if formset.is_valid() == False:
+                    is_valid = False
+                    break
+            if False == is_valid:
+                break
+
+        if True == is_valid:
+            for formsets in queryset:
+                for formset in formsets:            
+                    instances = formset.save(commit=False)
+                    for instance in instances:
+                        instance.save()
+            messages.success(request, "Your list has been updated.")
+            return redirect(reverse("shelf_gradient_inspection",  kwargs={"pk":self.get_object().id}))
+
+        #self.object_list = self.get_queryset() # copy from BaseListView::get
+        context = self.get_context_data()
+        context['formset_queryset'] = queryset
+        return self.render_to_response(context)

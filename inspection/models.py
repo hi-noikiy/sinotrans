@@ -184,6 +184,7 @@ post_save.connect(file_cleanup2, sender=DailyInspection, dispatch_uid="DailyInsp
 pre_save.connect(save_raw_instance, sender=DailyInspection)
 
 
+
 class shelf(models.Model):
     type = models.CharField(_('Shelf Type'), max_length=30, blank=True)    
     warehouse = models.CharField(_('Warehouse Number'), max_length=30, blank=True)
@@ -217,6 +218,14 @@ class shelf(models.Model):
         field = shelf._meta.get_field(fieldname)
         return "%s" % self._get_FIELD_display(field)
 
+    def is_same_shelf_group(self, instance):
+        if instance.get_group_id() == self.get_group_id():
+            return True
+        return False
+
+    def get_group_id(self):
+        return[self.type, self.warehouse,self.compartment, self.warehouse_channel,self.group]
+
     class Meta:
         verbose_name = _('Shelf')
         verbose_name_plural =  _('Shelf')
@@ -236,6 +245,45 @@ class shelf_inspection(models.Model):
         verbose_name = _("shelf inspection")
         verbose_name_plural = _("shelf inspection")
 
+# class ProductQuerySet(models.query.QuerySet):
+#     def active(self):
+#         return self.filter(active=True)
+
+
+# class ProductManager(models.Manager):
+#     def get_queryset(self):
+#         return ProductQuerySet(self.model, using=self._db)
+
+#     def all(self, *args, **kwargs):
+#         return self.get_queryset().active()
+
+#     def get_related(self, instance):
+#         products_one = self.get_queryset().filter(categories__in=instance.categories.all())
+#         products_two = self.get_queryset().filter(default=instance.default)
+#         qs = (products_one | products_two).exclude(id=instance.id).distinct()
+#         return qs
+
+class ProductQuerySet(models.query.QuerySet):
+    def relevant(self, instance): #instance : one of the upright shelf
+        return self.filter(shelf__type=instance.shelf.type).filter(shelf__warehouse=instance.shelf.warehouse).\
+                        filter(shelf__warehouse=instance.shelf.compartment).\
+                        filter(shelf__warehouse_channel=instance.shelf.warehouse_channel).filter(shelf__group=instance.shelf.group)
+
+    def relevant(self, type, warehouse, warehouse_channel, group): 
+        return self.filter(shelf__type=type).filter(shelf__warehouse=warehouse).filter(shelf__warehouse=compartment).\
+                        filter(shelf__warehouse_channel=warehouse_channel).filter(shelf__group=group)
+
+    def relevant(self, group_id): 
+        return self.filter(shelf__type=group_id[0]).filter(shelf__warehouse=group_id[1]).filter(shelf__compartment=group_id[2]).\
+                        filter(shelf__warehouse_channel=group_id[3]).filter(shelf__group=group_id[4])
+
+class ShelfInspectionRecordManager(models.Manager):
+    def relevant(self, *args, **kwargs):
+        return self.get_queryset().relevant(*args, **kwargs)
+
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+
 class shelf_inspection_record(models.Model):
     shelf_inspection_record_use_condition = (
         ('1', _('Normal')),
@@ -250,6 +298,8 @@ class shelf_inspection_record(models.Model):
     gradient = models.DecimalField(_('Gradient'), decimal_places=1, max_digits=20, blank=True, null=True)
     forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False)
     comments = models.TextField(_('Comments'), max_length=30, blank=True,null=True)
+
+    objects = ShelfInspectionRecordManager()
 
     def __unicode__(self): 
         return _("shelf inspection record") + " %s" % (self.shelf)

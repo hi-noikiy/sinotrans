@@ -1,0 +1,45 @@
+{% extends "shelf/shelf_inspection_detail.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %}
+
+<div class='row'>
+
+        {% if formset_queryset.count == 0 %}
+            {% trans "Nothing found" %}
+        {% else %}
+        	<form method="post" action="">{% csrf_token %}
+            {% for formsets in formset_queryset %}                
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {% include "shelf/formset.html" with formset=formsets.0 %}
+                            <hr>
+                            <h5 class="panel-title small">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#formset-{{forloop.counter}}">{% trans "check relevent gradient " %}</a>
+                            </h5>
+                        </div>
+                        <div id="formset-{{forloop.counter}}" class="panel-collapse collapse">
+                            <div class="panel-body">                            	                      
+	                            {% include "shelf/formset.html" with formset=formsets.1 %}                        
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            {% endfor %}
+            <div class="col-sm-12">
+            <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+            </form>
+        
+        {% endif %}       
+
+</div>
+
+
+
+{% endblock %}

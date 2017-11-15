@@ -5,41 +5,16 @@
 
 <style type="text/css">
 {% block style %}
-tr td select, tr td input, tr td textarea{
-    width: 100%;
-    border-radius: 3px;
-    height: 30px;
-    text-indent:3px;
-}
 
-table tr{
-    width:100%;
-}
 
-table tr th{
-    padding:0px;
-    margin:0px;
+
+table.table_form tr th{
     width:30%;
 }
 
 .errorlist{
     color:#b94a48;
     font-weight:bold;
-}
-
-table ul{
-	list-style:none;
-}
-
-table li{
-	float:left;
-	width:50%;
-}
-
-table li input[type="radio"]{
-    height:20px;
-    width:20px;
-    margin:10px;
 }
 
 
@@ -60,7 +35,7 @@ table li input[type="radio"]{
                 </a>
                 </h4>
             </div>
-            <div id="form_inspection_today" class="panel-collapse collapse">
+            <div id="form_inspection_today" class="panel-collapse collapse-in">
                 <div class="panel-body">
                     <form method="post" action="">{% csrf_token %}
                         {{ formset.management_form }}
@@ -70,7 +45,7 @@ table li input[type="radio"]{
                             {% else %}
                             <a href="{% url 'equipmentinsepction_create' cat=current_category|add:"0" %}">Create New</a>
                             {% endif %}</h4>
-                            <table style="width: 100%">
+                            <table style="width: 100%" class="table_form">
                                 {{ form.as_table }}
                             </table>
                             <hr>
@@ -80,8 +55,6 @@ table li input[type="radio"]{
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 {% endblock %}

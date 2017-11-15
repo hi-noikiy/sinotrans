@@ -1,0 +1,12 @@
+{{ formset.management_form }}
+<div class="row">   
+    {% for form in formset %}
+    <h5> {% if not forloop.last or forloop.first %}{% endif %}</h5>
+    <div class="col-sm-6">       
+        <table style="width: 100%" class="table_form">
+            <caption style="text-align: left;"><a href="{{form.instance.get_absolute_url }}"> {{form.instance }} </a>  </caption>
+            {{ form.as_table }}
+        </table>
+    </div>         
+    {% endfor %}
+</div>   

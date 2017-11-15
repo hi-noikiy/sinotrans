@@ -12,10 +12,11 @@ from .views import (
     DailyInspectionDetailView,
     DailyInspectionCreateView,
     DailyInspectionDeleteView,
-    ShelfInspectionStatView,
+    DailyInspectionStatView,
     ShelfInspectionListView,
     ShelfInspectionDetailView,
     ShelfInspectionCreateView,
+    ShelfGradientInspectionView,
     ShelfDetailView,
     ShelfListView,
     ShelfInspectionRecordDetailView,
@@ -34,11 +35,13 @@ urlpatterns = [
     url(r'^dailyinspection/(?P<pk>\d+)/$', DailyInspectionDetailView.as_view(), name='dailyinspection_detail'),  
     url(r'^dailyinspection/update/(?P<pk>\d+)/$', DailyInspectionUpdateView.as_view(), name='dailyinspection_update'),
     url(r'^dailyinspection/(?P<pk>\d+)/delete/$', DailyInspectionDeleteView.as_view(), name='dailyinspection_delete'),
+    url(r'^dailyinspectionstat$', DailyInspectionStatView.as_view(), name='daily_inspection_stat'),   
 
     url(r'^shelfinspectionlist$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),  
     url(r'^shelfinspectiondetail/(?P<pk>\d+)/$', ShelfInspectionDetailView.as_view(), name='shelf_inspection_detail'),  
     url(r'^shelfinspectioncreate$', ShelfInspectionCreateView.as_view(), name='shelf_inspection_create'),  
-    url(r'^shelfinspectionstat$', ShelfInspectionStatView.as_view(), name='shelf_inspection_stat'),   
+
+    url(r'^shelfgradientinspection/(?P<pk>\d+)/$', ShelfGradientInspectionView.as_view(), name='shelf_gradient_inspection'),  
 
     url(r'^shelfinspectionrecorddetail/(?P<pk>\d+)/$', ShelfInspectionRecordDetailView.as_view(), name='shelf_inspection_record_detail'),  
 

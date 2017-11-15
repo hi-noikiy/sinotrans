@@ -170,6 +170,18 @@ class ShelfInspectionForm(forms.ModelForm):
         exclude = [
         ]
 
+class ShelfGradientInspectionForm(forms.ModelForm):
+    class Meta:
+        model = shelf_inspection_record
+
+        fields = [
+            "gradient",
+        ]
+shelf_gradient_inspection_Formset = modelformset_factory(shelf_inspection_record, 
+                                            form=ShelfGradientInspectionForm, 
+                                            formset=BaseModelFormSet, 
+                                            extra=0)
+
 class ShelfInspectionRecordForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):

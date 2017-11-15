@@ -182,9 +182,6 @@
 {% endblock %}
 </script>
 
-{% block content1 %}
-	{% include "shelf/shelf_inspection_detail_records_container.html" with object_list=object_list %}    
-{% endblock %}
 
 {% block content %}
 
@@ -205,8 +202,13 @@
 		{% else %}
 			{% include "shelf/shelf_inspection_detail_records_container_div.html" with object_list=object_list %}      	
 		{% endif %}
+
+		<hr>
+		<a href="{% url 'shelf_gradient_inspection' pk=object.id %}"><i class="fa fa-pencil-square fa-2x" aria-hidden="true"></i></a>
                  
 	</div>
+
+
 
 
 </div>
