@@ -11,7 +11,7 @@ from django.contrib import admin
 
 from newsletter.views import home, contact
 from zakkabag.views import about, sitemap, set_language
-from .uploadhandler import CKEditorImageUpload
+# from .views import CKEditorImageUpload
 					
 admin.autodiscover()
 
@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^setlang/$', set_language, name='setlang'),
     url(r'^phone_login/', include('phone_login.urls')),
 
-    url(r'^upload/ckeditorimage/$', CKEditorImageUpload, name='ckeditor_image_upload'), 
+    # url(r'^upload/ckeditorimage/$', CKEditorImageUpload, name='ckeditor_image_upload'), 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     
 ]

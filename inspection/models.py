@@ -184,6 +184,15 @@ post_save.connect(file_cleanup2, sender=DailyInspection, dispatch_uid="DailyInsp
 pre_save.connect(save_raw_instance, sender=DailyInspection)
 
 
+class ShelfImport(models.Model):
+    shelf_import_file = models.FileField(_("shelf import file"), upload_to='upload/shelf_excel')
+    # name = models.CharField(_('name'), max_length=30, blank=True)    
+
+    class Meta:
+        ordering = ['shelf_import_file']
+
+    def __unicode__(self):
+        return self.shelf_import_file.name    
 
 class shelf(models.Model):
     type = models.CharField(_('Shelf Type'), max_length=30, blank=True)    
@@ -221,6 +230,15 @@ class shelf(models.Model):
     def is_same_shelf_group(self, instance):
         if instance.get_group_id() == self.get_group_id():
             return True
+        return False
+
+    def is_exist(self):
+        try:
+            if shelf.objects.filter(type=self.type).filter(warehouse=self.warehouse).filter(compartment=self.compartment).\
+                filter(warehouse_channel=self.warehouse_channel).filter(group=self.group).filter(number=self.number).filter(is_gradient_measurement_mandatory=self.is_gradient_measurement_mandatory):
+                return True
+        except:
+            pass
         return False
 
     def get_group_id(self):

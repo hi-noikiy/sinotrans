@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     OfficeInspection,
     DailyInspection,
-    shelf, shelf_inspection, shelf_inspection_record, ShelfAnnualInspection, ShelfAnnualInspectionImage,
+    shelf, shelf_inspection, shelf_inspection_record, ShelfAnnualInspection, ShelfAnnualInspectionImage, ShelfImport,
     Rehearsal, PI,
     )
     
@@ -109,6 +109,15 @@ class ShelfInspectionAdmin(admin.ModelAdmin):
     ]
 
 
+from .uploads import import_shelf
+class ShelfImportAdmin(admin.ModelAdmin):
+    list_display = ('shelf_import_file',)
+
+    def save_model(self, request, obj, form, change):
+
+        re = super(ShelfImportAdmin,self).save_model(request, obj, form, change)
+        import_shelf(self, request, obj, change)
+        return re
 
 class ShelfAdmin(admin.ModelAdmin):
     list_display = ['id',"type", "warehouse",'compartment','warehouse_channel', 'group','number','is_gradient_measurement_mandatory']
@@ -159,6 +168,7 @@ class PIAdmin(admin.ModelAdmin):
 admin.site.register(DailyInspection, DailyInspectionAdmin)
 admin.site.register(OfficeInspection, OfficeInspectionAdmin)
 admin.site.register(shelf, ShelfAdmin)
+admin.site.register(ShelfImport, ShelfImportAdmin)
 admin.site.register(shelf_inspection, ShelfInspectionAdmin)
 admin.site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 admin.site.register(Rehearsal, RehearsalAdmin)
@@ -167,6 +177,7 @@ admin.site.register(PI, PIAdmin)
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
 my_admin_site.register(shelf, ShelfAdmin)
+my_admin_site.register(ShelfImport, ShelfImportAdmin)
 my_admin_site.register(shelf_inspection, ShelfInspectionAdmin)
 my_admin_site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 my_admin_site.register(Rehearsal, RehearsalAdmin)
