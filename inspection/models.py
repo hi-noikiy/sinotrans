@@ -190,6 +190,8 @@ class ShelfImport(models.Model):
 
     class Meta:
         ordering = ['shelf_import_file']
+        verbose_name = _('shelf import')
+        verbose_name_plural =  _('shelf import')
 
     def __unicode__(self):
         return self.shelf_import_file.name    
