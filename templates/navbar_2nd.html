@@ -5,6 +5,7 @@
     <div class="container-fluid nva-bar-2">
         <div class='container'>    
             <ul class="list-inline">
+                <li><a href="{% url 'ArticleListView' %}">{% trans 'news' %}</a></li>
                 <li><a href="{% url 'dailyinspection_list' %}">{% trans 'Inspection' %}</a></li>
                 <li><a href="{% url 'shelf_inspection_list' %}">{% trans 'Shelf' %}</a></li>
                 <li><a href="{% url 'equipmentinsepction_list' %}">{% trans 'Equipment' %}</a></li>

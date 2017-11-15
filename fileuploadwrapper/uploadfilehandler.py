@@ -21,7 +21,7 @@ class UploadProgressCachedHandler(FileUploadHandler):
 
 
     def handle_raw_input(self, input_data, META, content_length, boundary, encoding=None):
-        print "handle_raw_input : content_length = %d" % content_length
+
         self.content_length = content_length
         if 'CSRF_COOKIE' in self.request.GET:
             self.cache_key = self.request.GET['CSRF_COOKIE']
@@ -32,11 +32,8 @@ class UploadProgressCachedHandler(FileUploadHandler):
                 'totalsize': self.content_length,
                 'uploaded': 0
             })
-            #print "handle_raw_input cache_key %s set successfully" % self.cache_key
-            #print "result %s" % (self.cache_key)
-            #print cache.get(self.cache_key)
         else:
-            print "handle_raw_input cache_key not set"
+            print "UploadProgressCachedHandler:handle_raw_input cache_key not set, content_length = %d" % content_length
 
     def new_file(self, field_name, file_name, content_type, content_length, charset=None, content_type_extra=None):
         pass
@@ -61,6 +58,7 @@ class UploadProgressCachedHandler(FileUploadHandler):
             cache.set(self.cache_key, data)
             time.sleep(2) # sleep for give time to receive final response in request progress bar
 
+        print "UploadProgressCachedHandler:file_complete"
 
     def upload_complete(self):
         """
@@ -68,4 +66,4 @@ class UploadProgressCachedHandler(FileUploadHandler):
         """
         if self.cache_key:            
             cache.delete(self.cache_key)  # hebinn
-        print "upload complete"
+        print "UploadProgressCachedHandler:upload_complete"

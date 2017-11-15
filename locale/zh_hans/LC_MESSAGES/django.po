@@ -934,31 +934,29 @@ msgstr "货架倾斜度检查"
 
 #: .\newsletter\models.py:71
 msgid "news"
-msgstr ""
+msgstr "新闻"
 
 #: .\newsletter\models.py:72
-#, fuzzy
 #| msgid "Base Information"
 msgid "policy and information"
-msgstr "基本信息"
+msgstr "政策和信息"
 
 #: .\newsletter\models.py:73
 msgid "organization and position responsibility"
-msgstr ""
+msgstr "组织架构和岗位职责"
 
 #: .\newsletter\models.py:74
 msgid "road risk map"
-msgstr ""
+msgstr "道路风险图"
 
 #: .\newsletter\templates\article\article_list.html:108
 msgid "Top News"
-msgstr ""
+msgstr "热点新闻"
 
 #: .\newsletter\templates\article\article_list.html:125
-#, fuzzy
 #| msgid "Messages"
 msgid "Scroll Messages"
-msgstr "消息"
+msgstr "滚动消息"
 
 #: .\outsourcing\admin.py:79
 msgid "Record"
@@ -966,7 +964,7 @@ msgstr "记录"
 
 #: .\outsourcing\apps.py:6
 msgid "outsourcing"
-msgstr ""
+msgstr "外包"
 
 #: .\outsourcing\forms.py:43 .\outsourcing\models.py:275
 #: .\outsourcing\templates\kpi\transportationkpi_create.html:10

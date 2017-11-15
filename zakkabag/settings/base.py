@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django_filters',    
     'pagination', # not supported since django1.9 due to error 'WSGIRequest' object has no attribute 'REQUEST', in django 1.9, Replace `request.REQUEST` with `POST` and `GET`
     'ckeditor',
+    'ckeditor_uploader',
     'phone_login',
 ]
 
@@ -218,7 +219,7 @@ if USE_SAE_BUCKET: #'SERVER_SOFTWARE' in os.environ:
     os.environ.setdefault("sae.storage.path", os.path.join(BASE_DIR, "static_in_env2"))
     '''
 
-    CKEDITOR_UPLOAD_PATH = 'ckeditor/uploads' #not valid
+    CKEDITOR_UPLOAD_PATH = 'ckeditor/uploads'
 
     MEDIA_URL = '/'    
 else:
@@ -228,8 +229,11 @@ else:
 #        MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "media_root")    
     if MEDIA_PREFIX:
         MEDIA_ROOT = os.path.join(MEDIA_ROOT, MEDIA_PREFIX)			
-    CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'ckeditor/uploads') #not used
+
     MEDIA_URL = '/media/'
+
+    #CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'ckeditor/uploads')
+    CKEDITOR_UPLOAD_PATH = 'ckeditor/uploads'
 
 
 CKEDITOR_CONFIGS = {
