@@ -10,174 +10,174 @@
 //http://www.w3school.com.cn/jquery/css_css.asp
 //http://www.w3school.com.cn/jquery/jquery_css_classes.asp
 
-	$(".edit-form").bind("click",function(){
-	    expand_shrink_form($(this));
-	});	
-	function expand_shrink_form(this_expand_shrink){
-	    var instance_div = this_expand_shrink.parent().parent();  
-	    var form_div = this_expand_shrink.parent().parent().next();  
-	    instance_div.css("display","none");
-	    form_div.css("display","block");	    
-	}	
+    $(".edit-form").bind("click",function(){
+        expand_shrink_form($(this));
+    });    
+    function expand_shrink_form(this_expand_shrink){
+        var instance_div = this_expand_shrink.parent().parent();  
+        var form_div = this_expand_shrink.parent().parent().next();  
+        instance_div.css("display","none");
+        form_div.css("display","block");        
+    }    
 
-	$(".edit-fields").bind("click",function(){
-	    show_edit_form($(this));
-	});	
+    $(".edit-fields").bind("click",function(){
+        show_edit_form($(this));
+    });    
 
-	$(".close-fields").bind("click",function(){
-	    close_edit_form($(this));
-	});	
+    $(".close-fields").bind("click",function(){
+        close_edit_form($(this));
+    });    
 
-	function show_edit_form(this_edit_button){
-	    var instance_div = this_edit_button.parent().parent().find(".displayonly");  
-	    var form_div = this_edit_button.parent().parent().find(".edit");  
-	    var check_button = this_edit_button.parent().children(".check-fields");
-	    var close_button = this_edit_button.parent().children(".close-fields");
-	    instance_div.css("display","none");
-	    form_div.css("display","block");	 
-	    check_button.css("display","block");
-	    close_button.css("display","block");
-	    this_edit_button.css("display","none");
-	}		
+    function show_edit_form(this_edit_button){
+        var instance_div = this_edit_button.parent().parent().find(".displayonly");  
+        var form_div = this_edit_button.parent().parent().find(".edit");  
+        var check_button = this_edit_button.parent().children(".check-fields");
+        var close_button = this_edit_button.parent().children(".close-fields");
+        instance_div.css("display","none");
+        form_div.css("display","block");     
+        check_button.css("display","block");
+        close_button.css("display","block");
+        this_edit_button.css("display","none");
+    }        
 
-	function close_edit_form(this_close_button){
-	    var instance_div = this_close_button.parent().parent().find(".displayonly");  
-	    var form_div = this_close_button.parent().parent().find(".edit");  
-	    var check_button = this_close_button.parent().children(".check-fields");
-	    var edit_button = this_close_button.parent().children(".edit-fields");
-	    instance_div.css("display","block");
-	    form_div.css("display","none");	 
-	    check_button.css("display","none");
-	    edit_button.css("display","block");
-	    this_close_button.css("display","none");
-	}		
+    function close_edit_form(this_close_button){
+        var instance_div = this_close_button.parent().parent().find(".displayonly");  
+        var form_div = this_close_button.parent().parent().find(".edit");  
+        var check_button = this_close_button.parent().children(".check-fields");
+        var edit_button = this_close_button.parent().children(".edit-fields");
+        instance_div.css("display","block");
+        form_div.css("display","none");     
+        check_button.css("display","none");
+        edit_button.css("display","block");
+        this_close_button.css("display","none");
+    }        
 
 /*
-	(function($){
-		$.fn.bindPostCommentHandler = function() {
-			this.each(function() {
-				$(this).submit(function() {
-					options.data['form_id'] = $(this).attr('id');
-					console.log(options.data);
-					$(this).ajaxSubmit(options);
-					return false;
-				});
-			});
-		}
-	})(jQuery);
+    (function($){
+        $.fn.bindPostCommentHandler = function() {
+            this.each(function() {
+                $(this).submit(function() {
+                    options.data['form_id'] = $(this).attr('id');
+                    console.log(options.data);
+                    $(this).ajaxSubmit(options);
+                    return false;
+                });
+            });
+        }
+    })(jQuery);
 */
-	function SubmitFunc(){		
-		options.data['form_id'] = $(this).attr('id');
-		console.log(options.data);
-		$(this).ajaxSubmit(options);
-		return false;
-	}
+    function SubmitFunc(){        
+        options.data['form_id'] = $(this).attr('id');
+        console.log(options.data);
+        $(this).ajaxSubmit(options);
+        return false;
+    }
 
-	$('.ajaxform').submit(SubmitFunc);
+    $('.ajaxform').submit(SubmitFunc);
 
-	function showRequest(formData, jqForm, options) {
-	    var queryString = $.param(formData);
-	    console.log('showRequest');
+    function showRequest(formData, jqForm, options) {
+        var queryString = $.param(formData);
+        console.log('showRequest');
 
-	    return true;
-	}
+        return true;
+    }
 
-	function showResponse(responseText, statusText, xhr, $form)  {
-	    if(statusText === "success"){
-	        //console.log(responseText.message);
-	    } 
+    function showResponse(responseText, statusText, xhr, $form)  {
+        if(statusText === "success"){
+            //console.log(responseText.message);
+        } 
 
-	    //replaceWith method
-	    /* 
-	    form_template = $(responseText).find('#form-extract');
-	    form_template_html = form_template.html();
-	    var form_id = $form.attr('id');
-	    var tr_id = form_id.slice('id_form-'.length, form_id.length);
-	    //tr_id = '2';
-	    $('#id_tr-'+tr_id).replaceWith('<tr' + ' id=id_tr-' + tr_id + '>' + form_template_html + '</tr>');
+        //replaceWith method
+        /* 
+        form_template = $(responseText).find('#form-extract');
+        form_template_html = form_template.html();
+        var form_id = $form.attr('id');
+        var tr_id = form_id.slice('id_form-'.length, form_id.length);
+        //tr_id = '2';
+        $('#id_tr-'+tr_id).replaceWith('<tr' + ' id=id_tr-' + tr_id + '>' + form_template_html + '</tr>');
 
-	    //$('.ajaxform').submit(SubmitFunc);
-	    //$('.ajaxform').on("submit", SubmitFunc);
-	    //$('.ajaxform').onsubmit = SubmitFunc;
-	    //$('form#' + form_id).bindPostCommentHandler();
-	    thisform = $('form#' + form_id);
-	    thisform.val("submit");
-	    thisform.submit(SubmitFunc);
-	    thisform.bind("submit",SubmitFunc);
-	    thisform.bind("submit",function(){
-		    options.data['form_id'] = $(this).attr('id');
-			console.log(options.data);
-			$(this).ajaxSubmit(options);
-			return false;
-		});	
+        //$('.ajaxform').submit(SubmitFunc);
+        //$('.ajaxform').on("submit", SubmitFunc);
+        //$('.ajaxform').onsubmit = SubmitFunc;
+        //$('form#' + form_id).bindPostCommentHandler();
+        thisform = $('form#' + form_id);
+        thisform.val("submit");
+        thisform.submit(SubmitFunc);
+        thisform.bind("submit",SubmitFunc);
+        thisform.bind("submit",function(){
+            options.data['form_id'] = $(this).attr('id');
+            console.log(options.data);
+            $(this).ajaxSubmit(options);
+            return false;
+        });    
 
-	    $('form#' + form_id + " .fa-check").bind("click",function(){
-	    	var thisform = $(this).parent('form');
-		    options.data['form_id'] = thisform.attr('id');
-			console.log(options.data);
-			thisform.ajaxSubmit(options);
-			return false;
-		});	
+        $('form#' + form_id + " .fa-check").bind("click",function(){
+            var thisform = $(this).parent('form');
+            options.data['form_id'] = thisform.attr('id');
+            console.log(options.data);
+            thisform.ajaxSubmit(options);
+            return false;
+        });    
 
-		$(".edit-fields").bind("click",function(){
-		    show_edit_form($(this));
-		});	
+        $(".edit-fields").bind("click",function(){
+            show_edit_form($(this));
+        });    
 
-		$(".close-fields").bind("click",function(){
-		    close_edit_form($(this));
-		});
+        $(".close-fields").bind("click",function(){
+            close_edit_form($(this));
+        });
 
-		*/
+        */
 
 
-	    
-	    var form_id = "form#" + responseText.form_id
-	    var use_condition = responseText.form_id + '-' + 'use_condition'
-	    var elem_user_condition = $("#" + use_condition);
-	    elem_user_condition.parent().prev().text(responseText.use_condition);
-	    var gradient = responseText.form_id + '-' + 'gradient'	    
-	    var elem_gradient = $("#" + gradient);	    
-	    elem_gradient.parent().prev().text(responseText.gradient);
-	    if(responseText.gradient>1.4){
-	    	//elem_gradient.parent().prev().css('background-color','#e671d9');
-	    	elem_gradient.parent().prev().addClass('div-table-cell-highlight');
-	    	
-	    }else{
-	    	//elem_gradient.parent().prev().css('background-color','');
-	    	elem_gradient.parent().prev().removeClass('div-table-cell-highlight');
-	    }
-	    var is_locked = responseText.form_id + '-' + 'is_locked'	    
-	    var elem_is_locked = $("#" + is_locked);	    
-	    elem_is_locked.parent().prev().text(responseText.is_locked);
-	    //var forecast_complete_time = responseText.form_id + '-' + 'forecast_complete_time'	    
-	    //var elem_forecast_complete_time = $("#" + forecast_complete_time);	    
-	    //elem_forecast_complete_time.parent().prev().text(responseText.forecast_complete_time);
-	    
-	    close_edit_form($(form_id).parent().find('.close-fields'));
-	    
-	}
+        
+        var form_id = "form#" + responseText.form_id
+        var use_condition = responseText.form_id + '-' + 'use_condition'
+        var elem_user_condition = $("#" + use_condition);
+        elem_user_condition.parent().prev().text(responseText.use_condition);
+        var gradient = responseText.form_id + '-' + 'gradient'        
+        var elem_gradient = $("#" + gradient);        
+        elem_gradient.parent().prev().text(responseText.gradient);
+        if(responseText.gradient>1.4){
+            //elem_gradient.parent().prev().css('background-color','#e671d9');
+            elem_gradient.parent().prev().addClass('div-table-cell-highlight');
+            
+        }else{
+            //elem_gradient.parent().prev().css('background-color','');
+            elem_gradient.parent().prev().removeClass('div-table-cell-highlight');
+        }
+        var is_locked = responseText.form_id + '-' + 'is_locked'        
+        var elem_is_locked = $("#" + is_locked);        
+        elem_is_locked.parent().prev().text(responseText.is_locked);
+        //var forecast_complete_time = responseText.form_id + '-' + 'forecast_complete_time'        
+        //var elem_forecast_complete_time = $("#" + forecast_complete_time);        
+        //elem_forecast_complete_time.parent().prev().text(responseText.forecast_complete_time);
+        
+        close_edit_form($(form_id).parent().find('.close-fields'));
+        
+    }
 
-	function showError(response){
-	    console.log(response.responseText);
-	}
+    function showError(response){
+        console.log(response.responseText);
+    }
 
-	var options = {
-		//target : '#blank',
-	    beforeSubmit:  showRequest, 
-	    success:       showResponse,
-	    error:         showError,
-	    //url:       "/fileupload/uploadfile",
-	    type:      "post",
-	    dataType:  "json",
-	    //clearForm: true ,
-	    //resetForm: true ,
-	    data:{
-	    	//ajax: true,
-	    },
+    var options = {
+        //target : '#blank',
+        beforeSubmit:  showRequest, 
+        success:       showResponse,
+        error:         showError,
+        //url:       "/fileupload/uploadfile",
+        type:      "post",
+        dataType:  "json",
+        //clearForm: true ,
+        //resetForm: true ,
+        data:{
+            //ajax: true,
+        },
 
-	    // $.ajax options can be used here too, for example:
-	    //timeout:   3000
-	};
+        // $.ajax options can be used here too, for example:
+        //timeout:   3000
+    };
 
 {% endblock %}
 </script>
@@ -188,25 +188,27 @@
 <div class='row object_lists'>
 
     <div class="col-sm-3 ">
-    	<form method="GET" action="">	
-			{{ shelfFilterForm|crispy }}
-			<input type='submit' value="{% trans 'Apply Filter' %}" class='btn btn-primary'> <a class="btn btn-default" href="{{object.get_absolute_url}}"  >{% trans 'Clear Filters' %}</a>
-		</form>
-		  		
-	    <hr>
+        <form method="GET" action="">    
+            {{ shelfFilterForm|crispy }}
+            <input type='submit' value="{% trans 'Apply Filter' %}" class='btn btn-primary'> <a class="btn btn-default" href="{{object.get_absolute_url}}"  >{% trans 'Clear Filters' %}</a>
+        </form>
+                  
+        <hr>
     </div>
-    <div class="col-sm-9 ">	
+    <div class="col-sm-9 ">   
+        <div class="pull-right"> 
+            <a href="{% url 'shelf_gradient_inspection' pk=object.id %}"><i class="fa fa-pencil-square" aria-hidden="true"> {% trans "shelf gradient inspection" %}</i></a>
+        </div>
+        <div>
+        {% if object_list.count == 0 %}
+            {% trans "Nothing found" %}
+        {% else %}
+            {% include "shelf/shelf_inspection_detail_records_container_div.html" with object_list=object_list %}          
+        {% endif %}
+        </div>
         
-		{% if object_list.count == 0 %}
-			{% trans "Nothing found" %}
-		{% else %}
-			{% include "shelf/shelf_inspection_detail_records_container_div.html" with object_list=object_list %}      	
-		{% endif %}
-
-		<hr>
-		<a href="{% url 'shelf_gradient_inspection' pk=object.id %}"><i class="fa fa-pencil-square fa-2x" aria-hidden="true"></i></a>
                  
-	</div>
+    </div>
 
 
 

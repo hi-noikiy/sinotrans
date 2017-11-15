@@ -886,6 +886,7 @@ class ShelfGradientInspectionView(DetailView):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
+            (_('Shelf Inspection Detail'),reverse("shelf_inspection_detail", kwargs={"pk":self.get_object().id})),
             (_('shelf gradient inspection'),request.path_info),
         ])
 
