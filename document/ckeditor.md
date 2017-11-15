@@ -92,10 +92,12 @@ function getCookie(name){
 
 但是ckeditor.js做了html的encode处理，用下面语句代替
 ``` html
-\x3cinput type\x3d"hidden" name\x3d"csrfmiddlewaretoken" value\x3d"'+getCookie("csrftoken")+'"\x3e```
+\x3cinput type\x3d"hidden" name\x3d"csrfmiddlewaretoken" value\x3d"'+getCookie("csrftoken")+'"\x3e
+```
 
 
 # 参考文档
+- [基于django的博客系统如何完美地使用富文本编辑器ckeditor](http://www.nanerbang.com/article/2/)
 - [django教你熟练掌握富文本编辑器CKEditor的方法](http://www.php.cn/python-tutorials-360824.html)
 - [django下ckeditor上传图片的实现](http://blog.csdn.net/ypq5566/article/details/37594371)
 - [CKEditor图片上传实现详细步骤(使用Struts 2)](http://blog.csdn.net/xiao__gui/article/details/7684505)
