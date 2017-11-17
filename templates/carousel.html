@@ -13,27 +13,17 @@
     background: no-repeat center center;    
 }
 
-.mycarousel img{
-    /*display:block;*/
-    width: 100%;
+.mycarousel .carousel-inner img{
+    /*width: 100%;*/
     height: auto;    
-}
-
-.item>img{
+    max-height:400px;
     text-align:center;
     vertical-align: middle;
-    margin: auto;
+    margin: auto;    
+}
 
-	/*position: absolute;
-	margin-left:5%;
-	margin-right: 5%;
-	margin-top: 5%;
-	margin-bottom: 5%;	
-	height:90%；
-	width:90%；
-
-	display: block;
-	*/
+.mycarousel .carousel-inner .carousel-caption { /*overwrite*/
+    /*position: relative;*/
 }
 
 {% endblock %}
@@ -50,15 +40,19 @@
       </ol>
 
       <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox">
-        {% for obj in objects %}
-          {% if forloop.first %}<div class="item active">{% else %}<div class="item">{% endif %}
-            <img src="{{obj.image.url}}" alt="{{obj.title}}">
-            <div class="carousel-caption">
-              {{obj.title}}
+      <div class="carousel-inner" role="listbox">        
+      {% for obj in objects %}
+          <div class="item {% if forloop.first %}active{% endif %}">
+            <div class="row">
+              <div class="col-sm-12"><img src="{{obj.image.url}}" alt="{{obj.title}}" class="img-responsive"></div>
+              <div class="col-sm-0">
+                <div class="carousel-caption">
+                  <h1>{{obj.title}}</h1>
+                </div>
+              </div>
             </div>
           </div>
-        {% endfor %}
+      {% endfor %}     
       </div>
 
       <!-- Controls -->
@@ -71,5 +65,6 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-  </div>
+  </div>  
 </div>
+

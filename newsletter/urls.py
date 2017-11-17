@@ -7,6 +7,6 @@ from .views import ArticleListView, ArticleDetailView
 
 urlpatterns = [
 
-    url(r'^$', ArticleListView.as_view(), name='ArticleListView'),
-    url(r'^(?P<pk>\d+)/$', ArticleDetailView.as_view(), name='Article_detail'), 
+    url(r'^$', ArticleListView.as_view(), name='article_list'),
+    url(r'^(?P<pk>\d+)/$', ArticleDetailView.as_view(), name='article_detail'), 
 ]

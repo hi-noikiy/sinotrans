@@ -1,0 +1,29 @@
+{% load i18n %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {% trans "Top News" %}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <ul style="list-style:none; padding-left:2px; margin-left:2px;">
+            {% for object in objects %}
+            <li style="padding-bottom: 5px;">
+                <a href='{{ object.get_absolute_url }}'>{{object.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {% trans "Scroll Messages" %}
+        </h3>
+    </div>
+    <div class="panel-body">
+
+    </div>
+</div>

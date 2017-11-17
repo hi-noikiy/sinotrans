@@ -18,7 +18,7 @@ class BannerAdmin(admin.ModelAdmin):
 		model = Banner
 
 class ArticleAdmin(admin.ModelAdmin):
-	list_display = ["title", "content",'image']
+	list_display = ["category","title", "publishtime","abstract","image"]
 	class Meta:
 		model = Article
 

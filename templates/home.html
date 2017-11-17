@@ -42,23 +42,32 @@
   {% include "carousel.html" with objects=banners %}
 {% endblock %}
 
+
 {% block content %}
-
-{% endblock %}
-
-{% block content___ %}
 <br>
 
 <div class= 'row'><div class="col-xs-12">
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h3>Recommended Products</h3>
+    <h3>{% trans "Newsletter" %}</h3>
   </div>
   <div class="panel-body scale-product" >
-    {% include "products/products.html" with object_list=products col_class_set__="col-sm-2" %}
-  </div>
-  <div style="text-align: -webkit-center;">
-    <p><a class="btn btn-default btn-lg" href="/products" role="button">More</a></p>
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            {% for category in categories %}
+            <li role="presentation" class="{% if forloop.first %}active{% endif %}"><a href="#{{category.0}}" aria-controls={{category.0}} role="tab" data-toggle="tab">{{category.1}}</a></li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content">
+          {% for object in objects %}
+            <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
+              {% include "article/articles.html" with objects=object.1 %}
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
   </div>
 </div>
 </div></div>
@@ -66,10 +75,54 @@
 <div class= 'row'><div class="col-xs-12">
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h3>Featured Products</h3>
+    <h3>{% trans "Daily Inspection" %}</h3>
   </div>
-  <div class="panel-body scale-product">
-    {% include "products/products.html" with object_list=products2 %}
+  <div class="panel-body" >
+    <div>
+      {% if dailyinspection_object_list.count == 0 %}
+        {% trans "Nothing found" %}
+      {% else %}
+        {% include "dailyinspection/inspections.html" with object_list=dailyinspection_object_list %}
+      {% endif %}
+    </div>
+  </div>
+  <div style="text-align: -webkit-center; ">
+    <p><a class="btn btn-warning btn-lg" href="{% url 'dailyinspection_list' %}" role="button">More</a></p>
+  </div>
+</div>
+</div></div>
+
+
+<div class= 'row'><div class="col-xs-12">
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3>{% trans "shelf inspection" %}</h3>
+  </div>
+  <div class="panel-body" >
+    <div>
+    {% if shelf_inspection_records.count == 0 %}
+        {% trans "Nothing found" %}
+    {% else %}  
+        <div class="row div-table-header">
+            <div class="col-xs-3">{% trans 'Create Date' %}</div>
+            <div class="col-xs-3">{% trans 'Use Condition' %}</div>
+            <div class="col-xs-3">{% trans 'Locked' %}</div>
+            <div class="col-xs-3">{% trans 'Gradient' %} > 1.4</div>
+        </div>
+
+        {% for record in shelf_inspection_records %}
+        <div class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-body">
+            <div class="col-xs-3"><a href='{{ record.0.get_absolute_url }}'>{{record.0.check_date}}</a></div>
+            <div class="col-xs-3">{{record.1}}</div>
+            <div class="col-xs-3">{{record.2}}</div>
+            <div class="col-xs-3">{{record.3}}</div>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+  </div>
+  <div style="text-align: -webkit-center;">
+    <p><a class="btn btn-warning btn-lg" href="{% url 'shelf_inspection_list' %}" role="button">More</a></p>
   </div>
 </div>
 </div></div>

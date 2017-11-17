@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 22:28+0800\n"
+"POT-Creation-Date: 2017-11-17 22:19+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -357,7 +357,8 @@ msgstr "后退"
 #: .\inspection\views.py:597 .\inspection\views.py:666
 #: .\inspection\views.py:757 .\inspection\views.py:779
 #: .\inspection\views.py:810 .\inspection\views.py:831
-#: .\inspection\views.py:887 .\outsourcing\views.py:40
+#: .\inspection\views.py:887 .\newsletter\views.py:124
+#: .\newsletter\views.py:143 .\outsourcing\views.py:40
 #: .\outsourcing\views.py:66 .\outsourcing\views.py:90
 #: .\outsourcing\views.py:123 .\outsourcing\views.py:158
 #: .\outsourcing\views.py:174 .\outsourcing\views.py:262
@@ -535,7 +536,6 @@ msgid "shelf import file"
 msgstr "货架导入文件"
 
 #: .\inspection\models.py:193 .\inspection\models.py:194
-#| msgid "shelf import file"
 msgid "shelf import"
 msgstr "货架信息导入"
 
@@ -941,29 +941,48 @@ msgstr "货架检查列表"
 msgid "Shelf Inspection Detail"
 msgstr "货架检查详情"
 
-#: .\newsletter\models.py:71 .\templates\navbar_2nd.html.py:8
+#: .\newsletter\models.py:37 .\newsletter\models.py:38
+#| msgid "trainer"
+msgid "banner"
+msgstr "横幅"
+
+#: .\newsletter\models.py:50 .\templates\navbar_2nd.html.py:8
 msgid "news"
 msgstr "新闻"
 
-#: .\newsletter\models.py:72
+#: .\newsletter\models.py:51
 msgid "policy and information"
 msgstr "政策和信息"
 
-#: .\newsletter\models.py:73
+#: .\newsletter\models.py:52
 msgid "organization and position responsibility"
 msgstr "组织架构和岗位职责"
 
-#: .\newsletter\models.py:74
+#: .\newsletter\models.py:53
 msgid "road risk map"
 msgstr "道路风险图"
 
-#: .\newsletter\templates\article\article_list.html:108
+#: .\newsletter\models.py:68 .\newsletter\models.py:69
+#| msgid "actual"
+msgid "artical"
+msgstr "文章"
+
+#: .\newsletter\templates\article\article_detail.html:11
+msgid "Abstract"
+msgstr "摘要"
+
+#: .\newsletter\templates\article\sidebar.html:6
 msgid "Top News"
 msgstr "热点新闻"
 
-#: .\newsletter\templates\article\article_list.html:125
+#: .\newsletter\templates\article\sidebar.html:23
 msgid "Scroll Messages"
 msgstr "滚动消息"
+
+#: .\newsletter\views.py:125 .\newsletter\views.py:144
+#: .\templates\home.html:52
+msgid "Newsletter"
+msgstr "新闻中心"
 
 #: .\outsourcing\admin.py:79
 msgid "Record"

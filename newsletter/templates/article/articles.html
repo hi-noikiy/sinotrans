@@ -1,0 +1,85 @@
+<style type="text/css">
+
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:active {text-decoration: none;}
+a:hover {text-decoration: none;}
+
+    .article-table{
+        /*display:table;
+        overflow:hidden;*/
+        margin-top:30px;
+    }
+
+    .article-table .article-row{
+        /*display:table-row;
+        padding-bottom: 10000px;
+        margin-bottom:-10000px; */        
+        border-bottom: 1px solid #efefef;
+        height: auto;
+
+    }
+
+    .article-row:hover{
+        background-color: #eeeeee;
+    }
+
+    .article-table .article-row .article-cell{
+        /*display:table-cell;*/
+        vertical-align: middle;        
+    }
+
+    .article-table .article-img{
+        margin:0;
+        padding:0;
+
+        /*background-image: url("{{object.image.url}}");*/
+        background-repeat: no-repeat;
+        /*
+        background-color: #5ACDFF !important;
+        */
+        background-size: cover;
+    }    
+
+    .article-table .article-text{
+        margin:0;
+        padding:10px 10px 0 10px;
+    }
+
+    .article-text .article-title{
+        color: #4e4e4e;
+        font-size: 18px;
+    }
+
+    .article-text .article-title:hover{
+        color: #2d826f;
+    }
+
+    .article-text .article-abstract{
+        color: #428bca;
+    }
+
+    .article-text .article-time{
+        display: block;
+        text-align: right;
+        padding-top: 1em;
+        padding-right: 0.2em;
+        font-size: 0.875em;
+    }
+</style>
+
+<div class="article-table">
+    {% for object in objects %}
+        <div class="article-row row">
+            <div class="article-cell article-img col-sm-3 ">
+                <a href='{{ object.get_absolute_url }}'><img class="img-responsive" src="{{object.image.url}}"></a>                    
+            </div>
+            <div class="article-cell article-text col-sm-8">
+                <p class="article-title"><a href='{{ object.get_absolute_url }}'>{{object.title}}</a></p>
+
+                <p class="article-abstract">{{object.abstract|truncatechars:50}}</p>
+                <span class="article-time">{{object.publishtime}}</span>
+            </div>
+        </div>
+    {% endfor %}
+</div>

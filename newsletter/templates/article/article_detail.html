@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 
 <div class='row'>
-	<div class='col-sm-6 col-sm-offset-3'>
+	<div class='col-sm-6 col-sm-offset-2'>
 		<div class="text-center">
 			<lead><h1>{{object.title}}</h1></lead>
-			time : {{object.publishtime}}
-			<p>{{object.abstract}}</p>
+			{{object.publishtime}}
+			<p>{% trans "Abstract" %}: {{object.abstract}}</p>
 		</div>
 		<hr>
 

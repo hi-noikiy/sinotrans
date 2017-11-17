@@ -15,31 +15,6 @@ class SignUp(models.Model):
     def __unicode__(self): #Python 3.3 is __str__
         return self.email
 
-'''
-class UserWechat(models.Model):
-    #user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True) #not required
-    openid = models.CharField(max_length=120, blank=True, null=True)
-    unionid = models.CharField(max_length=120, blank=True, null=True)
-    city = models.CharField(max_length=120, blank=True, null=True)
-    country = models.CharField(max_length=120, blank=True, null=True)    
-    headimgurl = models.CharField(max_length=120, blank=True, null=True)
-    language = models.CharField(max_length=120, blank=True, null=True)
-    sex = models.CharField(max_length=120, blank=True, null=True)    
-    privilege = models.CharField(max_length=120, blank=True, null=True)
-    nickname = models.CharField(max_length=120, blank=True, null=True)
-
-    def __unicode__(self): #def __str__(self):
-        return self.nickname
-
-    def admin_user_id(self):
-        if self.user:
-            return str(self.user.id)
-        else:
-            return "None" 
-
-    def get_absolute_url(self):
-        return reverse("personalcenter", kwargs={"id": self.id })
-'''
 
 def image_upload_to_banner(instance, filename):
     title = instance.title
@@ -56,7 +31,11 @@ class Banner(models.Model):
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return self.title        
+        return self.title      
+
+    class Meta:
+        verbose_name = _("banner")  
+        verbose_name_plural = _("banner")  
 
 def image_upload_to_article(instance, filename):
     title = instance.title
@@ -67,12 +46,12 @@ def image_upload_to_article(instance, filename):
     return "article/%s" %(new_filename)
 
 class Article(models.Model):
-    article_category = (
+    article_category = [
         ('news', _('news')),
-        ('policy and information', _('policy and information')),
-        ('organization and position responsibility', _('organization and position responsibility')),
-        ('road risk map', _('road risk map')),
-    )
+        ('policy_and_information', _('policy and information')),
+        ('organization_and_position_responsibility', _('organization and position responsibility')),
+        ('road_risk_map', _('road risk map')),
+    ]
 
     """docstring for Article"""
     category = models.CharField(verbose_name='title', choices = article_category, max_length=150, blank=True, null=True, default="news")
@@ -83,7 +62,10 @@ class Article(models.Model):
     image = models.ImageField(upload_to=image_upload_to_article)
 
     def get_absolute_url(self):
-        return reverse("Article_detail", kwargs={"pk": self.id })
+        return reverse("article_detail", kwargs={"pk": self.id })
 
+    class Meta:
+        verbose_name = _("artical")  
+        verbose_name_plural = _("artical")  
 
 

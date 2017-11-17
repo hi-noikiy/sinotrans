@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from .forms import SignUpForm,ContactForm
 from .models import Banner, Article
-
+from django.utils.translation import ugettext as _
 
 
 from django.views.generic.list import ListView
@@ -16,7 +16,7 @@ from django.core.urlresolvers import reverse
 # from django.utils.http import is_safe_url
 # from django.http import HttpResponseRedirect
 
-
+from inspection.models import DailyInspection, shelf_inspection
 
 
 def home(request):    
@@ -31,6 +31,26 @@ def home(request):
         'banners':banners,
 
     }
+
+    try:
+        context["categories"] = Article.article_category
+        context["objects"] = [(category[0], Article.objects.filter(category=category[0])) for category in Article.article_category]
+    except:
+        pass
+
+    try:
+        context["dailyinspection_object_list"] = DailyInspection.objects.all()[:8]
+    except:
+        pass
+
+    try:
+        records_list = [(object, \
+            object.shelf_inspection_record_set.filter(use_condition=1).count(), \
+            object.shelf_inspection_record_set.filter(is_locked=False).count(), \
+            object.shelf_inspection_record_set.filter(gradient__gt=1.4).count()) for object in shelf_inspection.objects.all()]
+        context["shelf_inspection_records"] = records_list[:10]
+    except:
+        pass
     
     if form.is_valid():
         #form.save()
@@ -115,8 +135,8 @@ class ArticleDetailView(DetailView):
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()
         request.breadcrumbs([
-            ("Home",reverse("home", kwargs={})),
-            ("Newsletter",reverse("ArticleListView", kwargs={})),
+            (_("Home"),reverse("home", kwargs={})),
+            (_("Newsletter"),reverse("article_list", kwargs={})),
             (instance.title,request.path_info),
         ])
         return super(ArticleDetailView, self).dispatch(request,args,kwargs)      
@@ -127,13 +147,15 @@ class ArticleListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ArticleListView, self).get_context_data(*args, **kwargs)
-        context["objects"] = Article.objects.all()
+        #context["category"] = list(set([article.category for article in Article.objects.all()]))
+        context["categories"] = Article.article_category
+        context["objects"] = [(category[0], Article.objects.filter(category=category[0])) for category in Article.article_category]
         return context       
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
-            ("Home",reverse("home", kwargs={})),
-            ('Newsletter',request.path_info),
+            (_("Home"),reverse("home", kwargs={})),
+            (_("Newsletter"),reverse("article_list", kwargs={})),
         ])
         return super(ArticleListView, self).dispatch(request,args,kwargs)   
 

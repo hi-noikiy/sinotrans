@@ -26,42 +26,39 @@
 {% if records.count == 0 %}
     {% trans "Nothing found" %}
 {% else %}	
-
-
-
-<div class="row div-table-header">
-    <div class="col-xs-3">{% trans 'Create Date' %}</div>
-    <div class="col-xs-3">{% trans 'Use Condition' %}</div>
-    <div class="col-xs-3">{% trans 'Locked' %}</div>
-    <div class="col-xs-3">{% trans 'Gradient' %} > 1.4</div>
-</div>
-
-{% for record in records %}
-<div class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-body">
-    <div class="col-xs-3"><a href='{{ record.0.get_absolute_url }}'>{{record.0.check_date}}</a></div>
-    <div class="col-xs-3">{{record.1}}</div>
-    <div class="col-xs-3">{{record.2}}</div>
-    <div class="col-xs-3">{{record.3}}</div>
-</div>
-{% endfor %}
-
-<div class="text-center">
-    <div class="pagination">
-        <span class="step-links">
-            {% if records.has_previous %}
-                <a href="?page={{ records.previous_page_number }}"><< previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ records.number }} of {{ records.paginator.num_pages }}
-            </span>
-
-            {% if records.has_next %}
-                <a href="?page={{ records.next_page_number }}">next >></a>
-            {% endif %}
-        </span>
+    <div class="row div-table-header">
+        <div class="col-xs-3">{% trans 'Create Date' %}</div>
+        <div class="col-xs-3">{% trans 'Use Condition' %}</div>
+        <div class="col-xs-3">{% trans 'Locked' %}</div>
+        <div class="col-xs-3">{% trans 'Gradient' %} > 1.4</div>
     </div>
-</div>
+
+    {% for record in records %}
+    <div class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-body">
+        <div class="col-xs-3"><a href='{{ record.0.get_absolute_url }}'>{{record.0.check_date}}</a></div>
+        <div class="col-xs-3">{{record.1}}</div>
+        <div class="col-xs-3">{{record.2}}</div>
+        <div class="col-xs-3">{{record.3}}</div>
+    </div>
+    {% endfor %}
+
+    <div class="text-center">
+        <div class="pagination">
+            <span class="step-links">
+                {% if records.has_previous %}
+                    <a href="?page={{ records.previous_page_number }}"><< previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ records.number }} of {{ records.paginator.num_pages }}
+                </span>
+
+                {% if records.has_next %}
+                    <a href="?page={{ records.next_page_number }}">next >></a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
 {% endif %}
 
 
