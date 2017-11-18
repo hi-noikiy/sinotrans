@@ -4,29 +4,29 @@
 {% load i18n %}
 {% load staticfiles %}
 
-
-<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
-
-<style>
-{% block head_css_extend_before_main_css %}
-{{form.media.css}}
-{% endblock %}
-</style>
-
+<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static 'admin/' %}{% endfilter %}";</script>
 <script src="{% static 'js/jquery.init.both.js' %}"></script>
 <script src="/admin/jsi18n/"></script>
 <script src="{% static 'admin/js/core.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
 {% if  not "calendar.js" in form.media.js|escapejs  %}
 <script src="{% static 'admin/js/calendar.js' %}"></script>
 {% endif %}
 {% if  not "DateTimeShortcuts.js" in form.media.js|escapejs  %}
 <script src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
 {% endif %}
-<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static 'admin/' %}{% endfilter %}";</script>
+
+
+
 <script src="{% static 'js/form_horizontal_layout.js' %}"></script>
 
 
+<style>
+{% block head_css_extend_before_main_css %}
+{{form.media.css}}
+{% endblock %}
+</style>
 
 {% block javascript_extended %}
 {{form.media.js}}

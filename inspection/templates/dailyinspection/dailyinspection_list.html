@@ -75,7 +75,7 @@ $(document).ready(function(){
 			</div>
 
 			{% for category in categories%}
-			<div class='col-xs-4 col-md-2 categorylist  text-center'>
+			<div class='col-xs-4 col-md-2 categorylist  text-center {% if category.0 in request.GET.category %}active{% endif %}'>
 				<a href="{% url 'dailyinspection_list' %}?category={{category.0}}" style="display: block; " >{{category.1}}</a>
 			</div>
 			{% cycle '' '' '' '' '' '</div><div class="row">'%}

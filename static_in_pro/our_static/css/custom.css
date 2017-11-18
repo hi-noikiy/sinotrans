@@ -238,7 +238,7 @@ div.form-filter-inline{
     display: block;
     background-color: #79aec8;
     border-radius: 3px;
-    padding: 2px;
+    padding: 2px 10px;
     text-align: center;
     vertical-align: middle;
     color: #ffffff;
@@ -252,20 +252,19 @@ div.form-filter-inline{
 
 .form-filter-inline .form-group select,
 .form-filter-inline .form-group input{
-    height:100%;
-}
-
-.form-filter-inline .form-group select,{
+    height:30px;
     width:100%;
+    text-indent: 5px;    
 }
 
 .form-filter-inline div.apply-filter.form-group{
     vertical-align: bottom;
+    margin-top: 25px;    
 }
 
 .form-filter-inline div.apply-filter.form-group input{
     height: 32px;
-    padding-top: 5px;
+    padding: 5px 25px 5px 15px;
 }
 
 .form-filter-inline div.apply-filter.form-group a{

@@ -83,7 +83,7 @@ class ShelfAnnualInspectionAdmin(admin.ModelAdmin):
 class ShelfInspectionRecordInline(admin.TabularInline):
     model = shelf_inspection_record
     extra = 0
-    #max_num = 10
+    max_num = 10
 
     def view_on_site(self, obj):
         url = reverse('shelf_inspection_detail', kwargs={'pk': obj.pk})        

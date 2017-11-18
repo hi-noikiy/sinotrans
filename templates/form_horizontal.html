@@ -1,4 +1,4 @@
-
+{% load i18n %}
 <!--overwrite base.cc-->
 <style>
 input[type=submit]#create-sumit {
@@ -33,5 +33,5 @@ input[type=submit]#create-sumit {
             </div>
         {% endif %}            
     {% endfor %}
-    <input id="create-sumit"  type="submit" name="submit" class="btn btn-primary pull-right" value={% if submitvalue %}{{submitvalue}}{% else %}"submit"{% endif %} />
+    <input id="create-sumit"  type="submit" name="submit" class="btn btn-primary pull-right" value={% if submitvalue %}{{submitvalue}}{% else %}{% trans "submit" %}{% endif %} />
 </form>

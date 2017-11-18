@@ -51,8 +51,11 @@ def image_upload_to_dailyinspection(instance, filename):
 
 class DailyInspectionManager(models.Manager):
     def external(self, *args, **kwargs):
-        #raise Http404
-        return super(DailyInspectionManager,self).filter(rectification_status__icontains='uncompleted')
+        return super(DailyInspectionManager,self).filter(rectification_status__iexact='completed')
+
+    def overdue(self, *args, **kwargs):
+        return super(DailyInspectionManager,self).filter(rectification_status__icontains='uncompleted').filter(due_date__lte=datetime.now().date())
+
 class DailyInspection(models.Model):
 
     daily_insepction_category = (
@@ -159,7 +162,10 @@ class DailyInspection(models.Model):
         for item in self.impact:
             for (a,b) in DailyInspection.daily_insepction_impact:
                 if a == item:
-                    value = "%s,%s" % (value,b)
+                    if "" == value:
+                        value = b
+                    else:
+                        value = "%s,%s" % (value,b)
                     break
         return value
 
@@ -207,7 +213,7 @@ class shelf(models.Model):
     is_gradient_measurement_mandatory = models.BooleanField(_('Gradient Measurement Mandatory'), blank=True)
 
     def __unicode__(self): 
-        return "%s-%s-%s-%s" % (self.warehouse,self.compartment, self.warehouse_channel,self.number)
+        return "%s-%s-%s" % (self.warehouse,self.compartment, self.number)
 
     def get_shelf_name(self):
         return _('Shelf')

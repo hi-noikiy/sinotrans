@@ -89,8 +89,13 @@ class EquipmentInspectiontFilterForm(forms.Form):
     date_of_inspection_start = forms.DateField(label=_("Date of Inspection Start"), required=False)
     date_of_inspection_end = forms.DateField(label=_("Date of Inspection End"), required=False)
 
+
     def __init__(self, *args, **kwargs):
         super(EquipmentInspectiontFilterForm, self).__init__(*args, **kwargs)
+        self.fields['date_of_inspection_start'].widget.attrs['class'] ="calenda"
+        self.fields['date_of_inspection_end'].widget.attrs['class'] ="calenda"
+
+    '''        
         self.fields['date_of_inspection_start'].widget = widgets.AdminDateWidget()
         self.fields['date_of_inspection_end'].widget = widgets.AdminDateWidget() 
 
@@ -113,7 +118,8 @@ class EquipmentInspectiontFilterForm(forms.Form):
 
         media = media + Media(self.Media)
 
-        return media        
+        return media
+    '''
 
 class SprayPumpRoomInspectionForm(forms.ModelForm):
     class Meta:

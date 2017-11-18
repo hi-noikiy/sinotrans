@@ -314,6 +314,16 @@ class DailyInspectionDetailView( DetailView):
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_detail.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(DailyInspectionDetailView, self).get_context_data(*args, **kwargs)
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname] and not isinstance(field, ManyToOneRel)]
+        context["image_fields"] = ["image_before","image_after"]
+        context["display_fields"] = ["category","rectification_status","location"]
+        context["fields_exclude"] = []
+        context["fields_multichoice"] = ["impact"]
+
+        return context
+
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()
 

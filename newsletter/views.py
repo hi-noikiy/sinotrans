@@ -51,6 +51,13 @@ def home(request):
         context["shelf_inspection_records"] = records_list[:10]
     except:
         pass
+
+    try:
+        count = DailyInspection.objects.overdue().count()
+        #context["overdue_dailyinspection"]  = count
+        request.session["cart_item_count"] = count
+    except:
+        pass        
     
     if form.is_valid():
         #form.save()
