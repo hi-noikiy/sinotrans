@@ -12,6 +12,7 @@ from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, M
 from django.db.models import Q
 from django.http import HttpResponse, Http404
 import json
+import time
 from PIL import Image
 import os
 from django.contrib import messages
@@ -572,7 +573,7 @@ class ShelfInspectionListView(ListView):
             object.shelf_inspection_record_set.filter(is_locked=False).count(), \
             object.shelf_inspection_record_set.filter(gradient__gt=1.4).count()) for object in shelf_inspection.objects.all()]
 
-        paginator = Paginator(records_list, 2)
+        paginator = Paginator(records_list, 20)
 
         records = None
 
@@ -646,7 +647,7 @@ class ShelfInspectionDetailView(DetailView):
             queryset =  shelf_inspection_record.objects.filter(shelf_inspection__id = pk).order_by('shelf__id')
             filter_class = self.filter_class
             if filter_class and kwargs.get('filter'):
-                queryset = filter_class(self.request.GET, queryset=queryset)
+                queryset = filter_class(self.request.GET, queryset=queryset).qs
             return queryset
         return None
 
@@ -654,7 +655,7 @@ class ShelfInspectionDetailView(DetailView):
         context = super(ShelfInspectionDetailView, self).get_context_data(*args, **kwargs)
         context["object_list"] = self.get_record_queryset(filter=True)
         context["shelfFilterForm"] = ShelfFilterForm(data=self.request.GET or None) 
-        formset = shelf_inspection_record_Formset(queryset=self.get_record_queryset(filter=True).qs,
+        formset = shelf_inspection_record_Formset(queryset=self.get_record_queryset(filter=True),
             initial=[{'use_condition': _('Normal'),}])    
         context["formset"] = formset
 
@@ -672,16 +673,13 @@ class ShelfInspectionDetailView(DetailView):
 
 
     def post(self, request, *args, **kwargs):
-        #print request.is_ajax()
-        #print 'request.POST >>>>>>>>>>'
-        #print request.POST
         if request.is_ajax():
             form_id = request.POST.get('form_id')
             prefix = form_id.replace('id_', '')
             form = ShelfInspectionRecordForm(request.POST, prefix=prefix)
-            #print form.errors
+            print form
             if form.is_valid():
-                instance_id = form.clean_id()
+                instance_id = form.clean_id()                
                 try:
                     instance = shelf_inspection_record.objects.get(pk=instance_id)
                     form.save(commit=False)
@@ -692,7 +690,7 @@ class ShelfInspectionDetailView(DetailView):
                         'form_id': form_id,
                     }                    
                     for fieldname in shelf_inspection_record._meta.get_all_field_names():
-                        if not ( fieldname in ShelfInspectionRecordForm.Meta.exclude or fieldname in ShelfInspectionRecordForm.Meta.hidden_form):
+                        if not ( fieldname in ShelfInspectionRecordForm.Meta.exclude or fieldname in ShelfInspectionRecordForm.Meta.display_with_field_hiden):
                             if form.cleaned_data.get(fieldname, None) is not None: # be careful for False
                                 setattr(instance, fieldname, form.cleaned_data.get(fieldname))
                                 json_data.update({fieldname: instance.my_get_field_display(fieldname)})
@@ -709,6 +707,7 @@ class ShelfInspectionDetailView(DetailView):
                     '''              
                 except:
                     raise Http404
+            print form_id
             return HttpResponse(json.dumps({'message': 'invalid form!','valid':False,'form_id': form_id}))
         else:
             raise Http404
@@ -721,7 +720,7 @@ class ShelfInspectionCreateView(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfInspectionCreateView, self).get_context_data(*args, **kwargs)
-        context["form"] = ShelfInspectionForm()
+        context["form"] = ShelfInspectionForm(self.request.POST or None, self.request.GET or None)  # without paramter, error will not be displayed
         return context
 
     def get_form(self, *args, **kwargs):
@@ -733,7 +732,6 @@ class ShelfInspectionCreateView(CreateView):
         return form
 
     def post(self, request, *args, **kwargs):
-        postresult = super(ShelfInspectionCreateView, self).post(request, *args, **kwargs)
 
         form = ShelfInspectionForm(request.POST, request.FILES)
         if form.is_valid():
@@ -743,14 +741,13 @@ class ShelfInspectionCreateView(CreateView):
                 shelf_inspection_record_instance = shelf_inspection_record()
                 shelf_inspection_record_instance.shelf = shelf_instance
                 shelf_inspection_record_instance.shelf_inspection = obj
-                shelf_inspection_record_instance.is_locked = False
-                import time
+                shelf_inspection_record_instance.is_locked = False                
                 shelf_inspection_record_instance.forecast_complete_time = time.strftime('%Y-%m-%d',time.localtime(time.time()))
                 shelf_inspection_record_instance.save()            
 
             return redirect(reverse("shelf_inspection_detail", kwargs={'pk': obj.id}))
 
-        return postresult
+        return super(ShelfInspectionCreateView, self).post(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([

@@ -12,6 +12,7 @@
         {% if formset_queryset.count == 0 %}
             {% trans "Nothing found" %}
         {% else %}
+            {% autopaginate formset_queryset 5 %}
         	<form method="post" action="">{% csrf_token %}
             {% for formsets in formset_queryset %}                
                 <div class="col-sm-12">
@@ -31,10 +32,13 @@
                     </div>
                 </div>                
             {% endfor %}
-            <div class="col-sm-12">
-            <input type="submit" class="btn btn-primary" value="Submit">
-            </div>
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </div>
             </form>
+            <div class="text-center">
+            {% paginate %}
+            </div>   
         
         {% endif %}       
 

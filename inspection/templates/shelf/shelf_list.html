@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load myform %}
 {% load i18n %}
+{% load pagination_tags %}
 
 {% block content %}
 
@@ -22,6 +23,7 @@
 {% if object_list|length == 0 %}
 {% trans "Nothing found" %}
 {% else %}
+{% autopaginate object_list 15 %}
 <table class="table table-hover table-striped text-center">
     <thead>        
         {% for field in object_list.0.get_fields %}
@@ -34,6 +36,7 @@
     </thead>
     <tbody>
         {% for object in object_list %}
+
         <tr>            
             {% for field in object.get_fields %}            
                 {% if field.name == object|my_get_pk_name %}
@@ -44,9 +47,12 @@
                 {% endif %}            
             {% endfor %}
         </tr>
-        {% endfor %}
+        {% endfor %}        
     </tbody>
 </table>
+<div class="text-center">
+{% paginate %}
+</div>   
 {% endif %}
 
 {% endblock %}

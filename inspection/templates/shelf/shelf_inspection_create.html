@@ -12,3 +12,9 @@
 	</div>
 </div>
 {% endblock %}
+
+<script type="text/javascript">
+{% block jquery %}
+    $('input.dateinput').datepicker({ dateFormat: "yy/mm/dd" });
+{% endblock %}
+</script>

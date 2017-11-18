@@ -1,6 +1,6 @@
 {% load myform %}
 {% load i18n %}
-
+{% load pagination_tags %}
 
 <style type="text/css">
 tr td{
@@ -41,15 +41,19 @@ td .edit-fields{
     margin: 0 0 1em;
 }
 
+.col{
+    width: 22%;
+}
+
 </style>
 
-
+{% autopaginate formset 10 %}
 <table class="table table-hover table-striped table-container table-condensed">
 	<caption>{% trans 'Shelf Inspections Record' %}</caption>
     <thead>
 	    <tr>
         {% for field in formset.0 %}
-            {% if not field.name in formset.0.Meta.hidden %}
+            {% if not field.name in formset.0.Meta.hidden or field.name in formset.0.Meta.display_with_field_hiden %}
             <th class="text-center">{{field.label}}</th>
             {% endif %}
         {% endfor %}
@@ -61,23 +65,27 @@ td .edit-fields{
         
         <form method="POST" class="ajaxform" id="id_form-{{forloop.counter0}}" action=''>{% csrf_token %}            
             {% for field in form %}
-                {% if field.name in form.Meta.hidden_form %}
-                    <td style="display:none" type='hidden'>{{field}}</td>                    
-                    {% if not field.name in form.Meta.hidden %}
-                    <td class="text-center">
-                        {% if 'shelf' == field.name %}<a href="{% url 'shelf_detail' form.instance.shelf.id %}" >{% endif %}
-                        {{form.instance.shelf}}
-                        {% if 'shelf' == field.name %}</a>{% endif %}
-                    </td>
-                    {% endif %}
-                {% elif field.name in form.Meta.disabled %}
-                    <td class="text-center">{{form.instance|my_get_field_display:field.name}}</td>
+                {% if field.name in form.Meta.hidden and not field.name in form.Meta.display_with_field_hiden %}
+                    <td style="display:none" type='hidden'>{{field}}</td>
                 {% else %}
-                    <td>
-                        <div class="displayonly text-center" style="display: block; {% if field.name == 'gradient' and form.instance.gradient > 1.4 %} background-color:#da678c; {% endif %}">{{form.instance|my_get_field_display:field.name}}</div>
-                        <div class="edit" style="display: none">{{field}}</div>
+                    <td class="col {% cycle 'col1' 'col2' 'col3' 'col4' %}">
+                    {% if field.name in form.Meta.hidden %}
+                        <p style="display:none" type='hidden'>{{field}}</p>                    
+                        {% if field.name in form.Meta.display_with_field_hiden %}
+                        <p class="text-center">
+                            {% if 'shelf' == field.name %}<a href="{% url 'shelf_detail' form.instance.shelf.id %}" >{% endif %}
+                            {{form.instance.shelf}}
+                            {% if 'shelf' == field.name %}</a>{% endif %}
+                        </p>
+                        {% endif %}
+                    {% elif field.name in form.Meta.disabled %}
+                        <p class="text-center">{{form.instance|my_get_field_display:field.name}}</p>
+                    {% else %}
+                        <p class="displayonly text-center" style="display: block; {% if field.name == 'gradient' and form.instance.gradient > 1.4 %} background-color:#da678c; {% endif %}">{{form.instance|my_get_field_display:field.name}}</p>
+                        <p class="edit" style="display: none">{{field}}</p>
+                    {% endif%}
                     </td>
-                {% endif%}            
+                {% endif %}       
             
             {% endfor %}
                 <td>
@@ -93,3 +101,6 @@ td .edit-fields{
         {% endfor %}
     </tbody>
 </table>
+<div class="text-center">
+{% paginate %}
+</div>   

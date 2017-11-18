@@ -54,9 +54,12 @@ a:hover {text-decoration: none;}
 
 .div-table-header{
     padding: 10px 0 10px;
-    background-color: #a5d2e8;
+    background: linear-gradient(rgba(124, 152, 177, 0.88), #428bca);
+    color:white;
+    /*
     border-top: 1px solid #337ab7;
     border-bottom: 1px solid #337ab7;
+    */
 }
 
 .div-table-body div.div-table-row:hover{

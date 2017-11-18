@@ -6,6 +6,7 @@ from django.db.models.signals import post_delete, post_save, pre_save
 from .utils import file_cleanup, file_cleanup2, save_raw_instance
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.http import Http404
 from django.utils import timezone
 from datetime import datetime, timedelta
@@ -206,7 +207,7 @@ class shelf(models.Model):
     is_gradient_measurement_mandatory = models.BooleanField(_('Gradient Measurement Mandatory'), blank=True)
 
     def __unicode__(self): 
-        return "%s-%s-%s-%s-%s" % (self.warehouse,self.compartment, self.warehouse_channel,self.group,self.number)
+        return "%s-%s-%s-%s" % (self.warehouse,self.compartment, self.warehouse_channel,self.number)
 
     def get_shelf_name(self):
         return _('Shelf')
@@ -328,21 +329,23 @@ class shelf_inspection_record(models.Model):
         return reverse("shelf_inspection_record_detail", kwargs={"pk": self.id })
 
     # can be replaced by field.value_to_string(object)
+    # for jason tranmit
     def my_get_field_display(self,fieldname):
 
         if not hasattr(self, fieldname):
             return None
         
         field = self.__class__._meta.get_field(fieldname)
-        #if 'is_locked' == fieldname:
+
         if isinstance(field, models.BooleanField):
             if True == getattr(self,fieldname):
-                return "Y"
+                return ugettext("Yes")
             else:
-                return "N"
+                return ugettext("No")
         else:
             field = shelf_inspection_record._meta.get_field(fieldname)
             return "%s" % self._get_FIELD_display(field)
+
 
     class Meta:
         verbose_name = _("shelf inspection record")

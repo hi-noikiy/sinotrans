@@ -41,7 +41,7 @@ a:hover {text-decoration: none;}
 	<h4>{% trans 'Shelf Inspections Record' %}</h4>
     <div class="row div-table-header">        
         {% for field in formset.0 %}
-            {% if not field.name in formset.0.Meta.hidden %}
+            {% if not field.name in formset.0.Meta.hidden or field.name in formset.0.Meta.display_with_field_hiden %}
             <div class="div-table-col {% cycle 'div-table-col1' 'div-table-col2' 'div-table-col3' 'div-table-col4' %}"><b>{{field.label}}</b></div>
             {% endif %}
         {% endfor %}
@@ -55,16 +55,16 @@ a:hover {text-decoration: none;}
             <div id='id_tr-{{forloop.counter0}}' class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-row">
                           
                 {% for field in form %}
-                    {% if field.name in form.Meta.hidden %}
+                    {% if field.name in form.Meta.hidden and not field.name in form.Meta.display_with_field_hiden %}
                         <div style="display:none; float: left;clear: both" type='hidden' >{{field}}</div>
                     {% else %}
                     <div class="div-table-col {% cycle 'div-table-col1' 'div-table-col2' 'div-table-col3' 'div-table-col4' %}" style="">
-                        {% if field.name in form.Meta.hidden_form %}
-                            <p style="display:none" type='hidden'>{{field}}</p>
-                            {% if 'shelf' == field.name %}<a href="{% url 'shelf_detail' form.instance.shelf.id %}" >{% endif %}
-                                {{form.instance.shelf}}
-                            {% if 'shelf' == field.name %}</a>{% endif %}
-                        {% elif field.name in form.Meta.disabled %}
+                        {% if field.name in form.Meta.hidden %}
+                            <p style="display:none" type='hidden'>{{field}}</p>                        
+                            {% if field.name in form.Meta.display_with_field_hiden %}
+                                {% if 'shelf' == field.name %}<a href="{% url 'shelf_detail' form.instance.shelf.id %}" >{{form.instance.shelf}}</a>{% endif %}
+                            {% endif%}  
+                        {% elif field.name in form.Meta.disabled %}                      
                             <p>{{form.instance|my_get_field_display:field.name}}</p>
                         {% else %}
                             <p class="displayonly {% if field.name == 'gradient' and form.instance.gradient > 1.4 %} div-table-cell-highlight {% endif %}" style="display: block; ">{{form.instance|my_get_field_display:field.name}}</p>

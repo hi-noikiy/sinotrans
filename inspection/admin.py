@@ -33,10 +33,10 @@ class MyAdminSite(AdminSite):
 my_admin_site = MyAdminSite(name='sinotrans')
 
 # Register your models here.
-class OfficeInspectionAdmin(admin.ModelAdmin):
-    list_display = ["location", "plug",'timestamp']
-    class Meta:
-        model = OfficeInspection
+# class OfficeInspectionAdmin(admin.ModelAdmin):
+#     list_display = ["location", "plug",'timestamp']
+#     class Meta:
+#         model = OfficeInspection
 
 class DailyInspectionAdmin(admin.ModelAdmin):
     list_display = ['inspection_content', "category","rectification_status",'owner','due_date','created','updated','location']
@@ -166,7 +166,7 @@ class PIAdmin(admin.ModelAdmin):
 
 
 admin.site.register(DailyInspection, DailyInspectionAdmin)
-admin.site.register(OfficeInspection, OfficeInspectionAdmin)
+# admin.site.register(OfficeInspection, OfficeInspectionAdmin)
 admin.site.register(shelf, ShelfAdmin)
 admin.site.register(ShelfImport, ShelfImportAdmin)
 admin.site.register(shelf_inspection, ShelfInspectionAdmin)
@@ -175,7 +175,7 @@ admin.site.register(Rehearsal, RehearsalAdmin)
 admin.site.register(PI, PIAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
-my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
+# my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
 my_admin_site.register(shelf, ShelfAdmin)
 my_admin_site.register(ShelfImport, ShelfImportAdmin)
 my_admin_site.register(shelf_inspection, ShelfInspectionAdmin)

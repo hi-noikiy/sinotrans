@@ -11,9 +11,9 @@
         <tr id='form-extract'>
         <form method="POST" class="ajaxform" id="{{form_id}}" action=''>{% csrf_token %}            
             {% for field in form %}
-                {% if field.name in form.Meta.hidden_form %}
+                {% if field.name in form.Meta.hidden %}
                     <td style="display:none" type='hidden'>{{field}}</td>                    
-                    {% if not field.name in form.Meta.hidden %}
+                    {% if field.name in form.Meta.display_with_field_hiden %}
                     <td class="text-center">{{form.instance|my_get_field_display:field.name}}</td>
                     {% endif %}
                 {% elif field.name in form.Meta.disabled %}

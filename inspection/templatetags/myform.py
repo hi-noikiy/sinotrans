@@ -1,4 +1,5 @@
 from django import template
+from django.db import models
 from django.utils.translation import ugettext as _
 
 register = template.Library()
@@ -16,11 +17,7 @@ def render_field(value):
 def my_get_field_value(inst, fieldname):
     if hasattr(inst, fieldname):
         value = getattr(inst, fieldname)
-        if True == value:
-            value = _("Yes")
-        elif False == value:
-            value = _("No")
-        elif None == value:
+        if None == value:
             value = ""
         else:
             pass
@@ -33,6 +30,15 @@ def my_get_field_value(inst, fieldname):
 def my_get_field_display(inst, fieldname):
     if hasattr(inst, fieldname):
         field = inst._meta.get_field(fieldname)   
+        value = getattr(inst, fieldname)
+        if True == value:
+            return  _("Yes")
+        elif False == value:
+            return  _("No")
+        elif None == value:
+            return  ""
+        else:
+            pass
         return "%s" % inst._get_FIELD_display(field)  
         #return inst.my_get_field_display(fieldname)
     return None
@@ -55,9 +61,3 @@ def get_pk_name(model):
     meta = model._meta.concrete_model._meta
     return _get_pk(meta).name
 """
-
-@register.filter(name='my_get_pk_val')
-def my_get_pk_val(inst):
-    return inst._get_pk_val()
-
-    
