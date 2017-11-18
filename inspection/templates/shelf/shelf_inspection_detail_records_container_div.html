@@ -51,8 +51,8 @@ a:hover {text-decoration: none;}
     <div class="div-table-body">
         {% autopaginate formset 10 %}
         {% for form in formset %}        
-        <form method="POST" class="ajaxform" id="id_form-{{forloop.counter0}}" action=''>{% csrf_token %}
-            <div id='id_tr-{{forloop.counter0}}' class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-row">
+        <form method="POST" class="ajaxform" id="id_{{form.prefix}}" action=''>{% csrf_token %}
+            <div id='id_tr-{{form.prefix}}' class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-row">
                           
                 {% for field in form %}
                     {% if field.name in form.Meta.hidden and not field.name in form.Meta.display_with_field_hiden %}
