@@ -13,6 +13,7 @@ from .views import (
     DailyInspectionCreateView,
     DailyInspectionDeleteView,
     DailyInspectionStatView,
+    LineChartJSONView,
     ShelfInspectionListView,
     ShelfInspectionDetailView,
     ShelfInspectionCreateView,
@@ -36,6 +37,7 @@ urlpatterns = [
     url(r'^dailyinspection/update/(?P<pk>\d+)/$', DailyInspectionUpdateView.as_view(), name='dailyinspection_update'),
     url(r'^dailyinspection/(?P<pk>\d+)/delete/$', DailyInspectionDeleteView.as_view(), name='dailyinspection_delete'),
     url(r'^dailyinspectionstat$', DailyInspectionStatView.as_view(), name='daily_inspection_stat'),   
+    url(r'^linechartjason$', LineChartJSONView.as_view(), name='line_chart_json'),   
 
     url(r'^shelfinspectionlist$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),  
     url(r'^shelfinspectiondetail/(?P<pk>\d+)/$', ShelfInspectionDetailView.as_view(), name='shelf_inspection_detail'),  

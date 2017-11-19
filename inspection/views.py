@@ -5,6 +5,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormMixin, ModelFormMixin
+from chartjs.views.lines import BaseLineChartView
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -255,6 +256,8 @@ def save_and_get_image(form, fieldname, instance, obj):
                 img.thumbnail((newWidth,newHeight),Image.ANTIALIAS)
                 filename = image_upload_to_dailyinspection(instance if instance else obj, in_mem_image_file.name)
                 filepath = os.path.join(settings.MEDIA_ROOT, filename)
+                if not os.path.exists(os.path.dirname(filepath)):
+                    os.makedirs(os.path.dirname(filepath))                
                 img.save(filepath)
                 # set new filename
                 setattr(obj,fieldname,filename)
@@ -512,6 +515,7 @@ class DailyInspectionListView(FilterMixin, ListView):
         ])
         return super(DailyInspectionListView, self).dispatch(request,args,kwargs)   
 
+# https://github.com/novafloss/django-chartjs
 class StatMixin(object):
 
     # ['category']['date']['count']
@@ -524,9 +528,32 @@ class StatMixin(object):
         dates.sort()
         return dates
 
+    def get_dates_value(self):
+        dates = list([ ins.created for ins in DailyInspection.objects.order_by('-updated')])
+        dates = list(set(dates))
+        dates.sort()
+        return dates
+
     def get_catetory(self):
         categories = list([ ins[1] for ins in DailyInspection.daily_insepction_category])
         return categories
+
+    def get_catetory_value(self):
+        categories = list([ ins[0] for ins in DailyInspection.daily_insepction_category])
+        return categories
+
+    def get_chart_counts(self):
+        counts = []
+        dates = self.get_dates_value()
+        categories = self.get_catetory_value()
+        for category in categories:
+            count  = [DailyInspection.objects.filter(created=date).filter(category=category).count() for date in dates ]
+            if counts == None:
+                counts = [count]
+            else:
+                counts.append(count)
+        return counts
+
 
     def get_counters_sorted(self):
         llcounterperdaypercategory = {}
@@ -559,7 +586,7 @@ class DailyInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, Vi
 
     def get_context_data(self, *args, **kwargs):
         context = super(DailyInspectionStatView, self).get_context_data(*args, **kwargs)
-        context["objects_list"] = DailyInspection.objects.order_by('-updated')
+        context["objects_list"] = DailyInspection.objects.order_by('-updated')[:10]
         context["dates"] = self.get_dates()
         context["categories"] = self.get_catetory()
         context["counters"] = self.get_counters_sorted()
@@ -568,6 +595,20 @@ class DailyInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, Vi
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
+
+class LineChartJSONView(StatMixin, BaseLineChartView):
+    def get_labels(self):
+        """Return labels for the x-axis."""
+        return self.get_dates()
+
+    def get_providers(self):
+        """Return names of datasets."""
+        return self.get_catetory()
+
+    def get_data(self):
+        """Return 3 datasets to plot."""
+        return self.get_chart_counts()
+
 
 class ShelfInspectionListView(ListView): 
     model = shelf_inspection

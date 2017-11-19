@@ -46,7 +46,7 @@ def image_upload_to_dailyinspection(instance, filename):
     title, file_extension = filename.split(".")
     #new_filename = "%s-%s.%s" %(instance.created.strftime('%Y-%m-%d-%H-%M-%S'), slugify(title), file_extension)
     #new_filename = "%s-%s.%s" %(instance.created.strftime('%Y%m%d%H%M%S'), slugify(title), file_extension)
-    new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), slugify(title), file_extension) # created was not ready for CreateView
+    new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), title, file_extension) # created was not ready for CreateView
     return "dailyinspection/%s/%s" %(instance.category, new_filename)
 
 class DailyInspectionManager(models.Manager):
@@ -431,7 +431,7 @@ class hydrant_inspection(models.Model):
 class Rehearsal(models.Model):
     title = models.CharField(_('Title'), max_length=30, blank=True)   
     date = models.DateField(_('Date'),auto_now_add=False, auto_now=False)
-    attachment = models.FileField(_('Attachment'), blank=True) 
+    attachment = models.FileField(_('Attachment'), blank=True, upload_to='rehearsal') 
     
     class Meta:
         verbose_name = _("rehearsal")
