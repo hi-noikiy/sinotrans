@@ -203,7 +203,7 @@
         {% if object_list.count == 0 %}
             {% trans "Nothing found" %}
         {% else %}
-            {% include "shelf/shelf_inspection_detail_records_container_div.html" with object_list=object_list %}          
+            {% include "shelf/shelf_inspection_detail_records_container_table.html" with object_list=object_list %}          
         {% endif %}
         </div>
     </div>

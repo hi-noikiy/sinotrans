@@ -85,28 +85,73 @@ class ShelfInspectionRecordInline(admin.TabularInline):
     extra = 0
     max_num = 10
 
+    def get_max_num(self, request, obj=None, **kwargs):
+        max_num = 10
+        # if obj and obj.parent:
+        #     return max_num - 5
+        return max_num
+
     def view_on_site(self, obj):
         url = reverse('shelf_inspection_detail', kwargs={'pk': obj.pk})        
         #return get_current_site(self.request) + url
         return 'https://sinotran.applinzi.com' + url
 
-'''
-class shelf_inspection_recordAdmin(admin.ModelAdmin):
-    list_display = ["use_condition", "check_person",'gradient','forecast_complete_time','is_locked']
-    
+
+class ShelfInspectionRecordAdmin(admin.ModelAdmin):
+    list_display = [
+        "shelf", 
+        # "shelf_inspection",
+        "use_condition",
+        "is_locked",
+        "check_person",
+        "gradient",
+        "forecast_complete_time",
+        ]
+
+    list_editable = [
+        # "shelf", 
+        # "shelf_inspection__check_date",
+        "use_condition",
+        "is_locked",
+        "check_person",
+        "gradient",
+        "forecast_complete_time",
+        ]
+
+    search_fields = [
+        # "shelf", 
+        # "shelf_inspection__check_date",
+        "use_condition",
+        "is_locked",
+        "check_person",
+        "gradient",
+        # "forecast_complete_time",
+        "comments"]
+
+    list_filter = [
+        "shelf__is_gradient_measurement_mandatory",
+        "shelf_inspection",
+        "use_condition",
+        "check_person",
+        "forecast_complete_time",
+        ]
+
+    ordering = ['shelf']
+    list_per_page = 20
+    list_max_show_all = 100
+
     class Meta:
         model = shelf_inspection_record
-'''
+
+    class Media:
+        css = {
+            "all": ("css/model_admin.css","css/inspection.css")
+        }
+        js = ("js/jquery.min.js","js/model_admin.js",)
 
 class ShelfInspectionAdmin(admin.ModelAdmin):
-    list_display = ["check_date"]
-    
-    class Meta:
-        model = shelf_inspection  
+    list_display = ('check_date',)
 
-    inlines = [
-        ShelfInspectionRecordInline,
-    ]
 
 
 from .uploads import import_shelf
@@ -170,6 +215,7 @@ admin.site.register(DailyInspection, DailyInspectionAdmin)
 admin.site.register(shelf, ShelfAdmin)
 admin.site.register(ShelfImport, ShelfImportAdmin)
 admin.site.register(shelf_inspection, ShelfInspectionAdmin)
+admin.site.register(shelf_inspection_record, ShelfInspectionRecordAdmin)
 admin.site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 admin.site.register(Rehearsal, RehearsalAdmin)
 admin.site.register(PI, PIAdmin)
@@ -179,6 +225,7 @@ my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 my_admin_site.register(shelf, ShelfAdmin)
 my_admin_site.register(ShelfImport, ShelfImportAdmin)
 my_admin_site.register(shelf_inspection, ShelfInspectionAdmin)
+my_admin_site.register(shelf_inspection_record, ShelfInspectionRecordAdmin)
 my_admin_site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 my_admin_site.register(Rehearsal, RehearsalAdmin)
 my_admin_site.register(PI, PIAdmin)

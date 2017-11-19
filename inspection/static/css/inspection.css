@@ -21,3 +21,16 @@ body.model-dailyinspection #changelist table tbody tr td:nth-child(5) {
 body.model-dailyinspection #changelist table tbody tr td:nth-child(9) {
     width:8%!important;
 }
+
+
+/* shelf inspection record*/
+
+body.model-shelf_inspection_record #changelist table tbody tr td:first-child {
+    width:auto!important;
+}
+body.model-shelf_inspection_record #changelist table tbody tr td:nth-child(n+2),
+body.model-shelf_inspection_record #changelist table tbody tr th {
+    width:16%!important;
+}
+
+

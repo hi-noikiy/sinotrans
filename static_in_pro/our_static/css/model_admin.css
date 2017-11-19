@@ -62,6 +62,10 @@ td select{
     text-align: center;    
 }
 
+#changelist  table tbody td input.vDateField{
+    width:auto;
+}
+
 #changelist  input[type=checkbox]{
     /*padding:5px 0px 0px 0px!important;*/
 }

@@ -12,7 +12,7 @@
         {% if formset_queryset.count == 0 %}
             {% trans "Nothing found" %}
         {% else %}
-            {% autopaginate formset_queryset 4 %}
+            {% autopaginate formset_queryset 8 %}
         	<form method="post" action="">{% csrf_token %}
             {% for formsets in formset_queryset %}                
                 <div class="col-sm-12">

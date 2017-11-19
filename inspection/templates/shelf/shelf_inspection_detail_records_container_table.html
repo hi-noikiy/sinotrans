@@ -51,7 +51,7 @@ td .edit-fields{
 <table class="table table-hover table-striped table-container table-condensed">
 	<caption>{% trans 'Shelf Inspections Record' %}</caption>
     <thead>
-	    <tr>
+	    <tr class="table-primary">
         {% for field in formset.0 %}
             {% if not field.name in formset.0.Meta.hidden or field.name in formset.0.Meta.display_with_field_hiden %}
             <th class="text-center">{{field.label}}</th>

@@ -27,6 +27,12 @@
     margin-right: 8px;
     border-radius: 5px;
 }
+
+.subtitle .block.warning{
+    background-color: red;
+    color: white;
+}
+
 .content{
     padding-top:30px;
 }
@@ -56,7 +62,7 @@
                 <lead><h3>{{object.inspection_content}}</h3></lead>
                 <div class='subtitle' >
                     <div class="block"><span><b>{% trans 'Create' %}</b></span> : {{object.created}} &nbsp &nbsp &nbsp</div>
-                    <div class="block"><span><b>{% trans 'Rectification Status' %}</b></span> : {{object|my_get_field_display:"rectification_status"}} &nbsp &nbsp &nbsp</div>
+                    <div class="block {% if object|my_get_field_value:'rectification_status' == 'uncompleted' %}warning{% endif %}"><span><b>{% trans 'Rectification Status' %}</b></span> : {{object|my_get_field_display:"rectification_status"}} &nbsp &nbsp &nbsp</div>
                 </div>
                 <div style="clear:both;"></div>
             </div>
@@ -79,7 +85,7 @@
 
             <br>
             {% for field in fields %}
-                {% if field.name in image_fields %}
+                {% if field.name in image_fields and object|my_get_field_value:field.name %}
                 <b>{{field.verbose_name}}</b> : <img  class= 'img-responsive' src="{{ object|my_get_field_value:field.name|my_get_field_value:'url'}}"/> <br>    
                 {% endif %}
             {% endfor %}
