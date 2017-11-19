@@ -523,13 +523,13 @@ class StatMixin(object):
 
     def get_dates(self):
         #dates = list([ ins.created.strftime("%Y-%m-%d") for ins in DailyInspection.objects.order_by('-updated')])        
-        dates = list([ ins.get_created_date() for ins in DailyInspection.objects.order_by('-updated')])
+        dates = list([ ins.get_created_date() for ins in DailyInspection.objects.order_by('-updated')[:30]])
         dates = list(set(dates))
         dates.sort()
         return dates
 
     def get_dates_value(self):
-        dates = list([ ins.created for ins in DailyInspection.objects.order_by('-updated')])
+        dates = list([ ins.created for ins in DailyInspection.objects.order_by('-updated')[:30]])
         dates = list(set(dates))
         dates.sort()
         return dates
@@ -589,7 +589,7 @@ class DailyInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, Vi
 
     def get_context_data(self, *args, **kwargs):
         context = super(DailyInspectionStatView, self).get_context_data(*args, **kwargs)
-        context["objects_list"] = DailyInspection.objects.order_by('-updated')[:10]
+        context["objects_list"] = DailyInspection.objects.order_by('-updated')
         context["dates"] = self.get_dates()
         context["categories"] = self.get_catetory()
         context["counters"] = self.get_counters_sorted()
@@ -598,6 +598,14 @@ class DailyInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, Vi
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Inspection List'),reverse("dailyinspection_list", kwargs={})),
+            (_('Inspection Statistic'),request.path_info),
+        ])
+        return super(DailyInspectionStatView, self).dispatch(request,args,kwargs)  
 
 class LineChartJSONView(StatMixin, BaseLineChartView):
     def get_labels(self):
