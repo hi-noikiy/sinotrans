@@ -13,7 +13,7 @@ from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, M
 from django.db.models import Q
 from django.http import HttpResponse, Http404
 import json
-import time
+import time, datetime
 from PIL import Image
 import os
 from django.contrib import messages
@@ -544,10 +544,13 @@ class StatMixin(object):
 
     def get_chart_counts(self):
         counts = []
-        dates = self.get_dates_value()
+        dates = self.get_dates()
         categories = self.get_catetory_value()
         for category in categories:
-            count  = [DailyInspection.objects.filter(created=date).filter(category=category).count() for date in dates ]
+            count  = [DailyInspection.objects.filter(created__range=(\
+                            datetime.datetime( datetime.datetime.strptime(date,'%Y-%m-%d').year, datetime.datetime.strptime(date,'%Y-%m-%d').month,datetime.datetime.strptime(date,'%Y-%m-%d').day,0,0,0),\
+                            datetime.datetime(datetime.datetime.strptime(date,'%Y-%m-%d').year, datetime.datetime.strptime(date,'%Y-%m-%d').month,datetime.datetime.strptime(date,'%Y-%m-%d').day,23,59,59)))\
+                                             .filter(category=category).count() for date in dates ]
             if counts == None:
                 counts = [count]
             else:
