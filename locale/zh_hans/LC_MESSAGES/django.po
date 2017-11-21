@@ -1664,16 +1664,16 @@ msgstr ""
 #: .\picking\models.py:19
 #| msgid "project manager"
 msgid "product number"
-msgstr "产品编号"
+msgstr "产品数量"
 
 #: .\picking\models.py:20
 msgid "packing number"
-msgstr "拣配单号"
+msgstr "包装数量"
 
 #: .\picking\models.py:21 .\picking\models.py:40
 #| msgid "Home"
 msgid "volume"
-msgstr "主页"
+msgstr "体积"
 
 #: .\picking\models.py:25 .\picking\models.py:26 .\picking\models.py:32
 msgid "waybill"

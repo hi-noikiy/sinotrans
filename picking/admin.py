@@ -16,24 +16,37 @@ class PickingBillAdmin(admin.ModelAdmin):
     list_display = [
                 "waybill",
                 "number",
-                "product_id",
-                "product_name",
-                "dispatch_bill_number",
+                # "product_id",
+                # "product_name",
+                # "dispatch_bill_number",
                 "waybill_number",
                 "product_total_number",
                 "packing_total_number",
                 "status",
-                "created",
+                # "created",
                 ]
 
     list_editable = [
-                "product_id",
-                "product_name",
-                "dispatch_bill_number",
+                # "product_id",
+                # "product_name",
+                # "dispatch_bill_number",
                 "waybill_number",
                 "product_total_number",
                 "packing_total_number",
                 "status",
+                ]
+
+    search_fields = [
+                "waybill",
+                "number",
+                # "product_id",
+                # "product_name",
+                # "dispatch_bill_number",
+                "waybill_number",
+                "product_total_number",
+                "packing_total_number",
+                "status",
+                # "created",
                 ]
 
     list_filter = [ "product_id","waybill_number","dispatch_bill_number"]
@@ -62,6 +75,14 @@ class WaybillAdmin(admin.ModelAdmin):
                 "product_number",
                 "packing_number",
     ]
+
+    search_fields = [
+                'number',
+                "forwarder",
+                "product_number",
+                "packing_number",
+    ]
+
 
     list_filter = [ 
                 "forwarder",
