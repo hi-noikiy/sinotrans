@@ -11,6 +11,8 @@ from django.http import Http404
 from django.utils import timezone
 from datetime import datetime, timedelta
 from fields import ThumbnailImageField
+from django.conf import settings
+from uuslug import slugify as uuslugify
 
 # Create your models here.
 
@@ -45,8 +47,10 @@ def image_upload_to_dailyinspection(instance, filename):
     print filename
     title, file_extension = filename.split(".")
     #new_filename = "%s-%s.%s" %(instance.created.strftime('%Y-%m-%d-%H-%M-%S'), slugify(title), file_extension)
-    #new_filename = "%s-%s.%s" %(instance.created.strftime('%Y%m%d%H%M%S'), slugify(title), file_extension)
-    new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), title, file_extension) # created was not ready for CreateView
+    if settings.UUSLUGIFY == True:
+        new_filename = "%s-%s.%s" %(instance.created.strftime('%Y%m%d%H%M%S'), uuslugify(title), file_extension)
+    else:
+        new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), title, file_extension) # created was not ready for CreateView
     return "dailyinspection/%s/%s" %(instance.category, new_filename)
 
 class DailyInspectionManager(models.Manager):
