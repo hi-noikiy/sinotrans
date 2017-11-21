@@ -25,10 +25,10 @@ def image_upload_to_banner(instance, filename):
     return "banner/%s" %(new_filename)
 
 class Banner(models.Model):
-    image = models.ImageField(upload_to=image_upload_to_banner)
-    title = models.CharField(max_length=120, null=True, blank=True)
-    text = models.CharField(max_length=220, null=True, blank=True)
-    active = models.BooleanField(default=True)
+    image = models.ImageField(verbose_name=_("image"), upload_to=image_upload_to_banner)
+    title = models.CharField(verbose_name=_('title'), max_length=120, null=True, blank=True)
+    text = models.CharField(verbose_name=_('text'), max_length=220, null=True, blank=True)
+    active = models.BooleanField(verbose_name=_('active'), default=True)
 
     def __unicode__(self):
         return self.title      
@@ -54,12 +54,12 @@ class Article(models.Model):
     ]
 
     """docstring for Article"""
-    category = models.CharField(verbose_name='title', choices = article_category, max_length=150, blank=True, null=True, default="news")
-    title = models.CharField(verbose_name='title', max_length=150, blank=False, null=False)
-    content = RichTextField('content')
-    publishtime = models.DateTimeField(auto_now_add=True, auto_now=False)
-    abstract = models.TextField(blank=False, null=False)
-    image = models.ImageField(upload_to=image_upload_to_article)
+    category = models.CharField(verbose_name=_('category'), choices = article_category, max_length=150, blank=True, null=True, default="news")
+    title = models.CharField(verbose_name=_('title'), max_length=150, blank=False, null=False)
+    content = RichTextField(_('content'))
+    publishtime = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name=_("publishtime"))
+    abstract = models.TextField(_("abstract"), blank=False, null=False)
+    image = models.ImageField(verbose_name=_("image"), upload_to=image_upload_to_article)
 
     def get_absolute_url(self):
         return reverse("article_detail", kwargs={"pk": self.id })

@@ -17,6 +17,8 @@ class TrainingTranscriptAdmin(admin.ModelAdmin):
     list_per_page = 10
     list_max_show_all = 80
 
+    view_on_site = False
+
     class Meta:
         model = TrainingTranscript
 
@@ -33,6 +35,8 @@ class TrainingRecordAdmin(admin.ModelAdmin):
     ordering = ['training_course']
     list_per_page = 10
     list_max_show_all = 80
+
+    view_on_site = False
 
     inlines = [
         TrainingTranscriptInline,
@@ -57,6 +61,8 @@ class AnnualTraningPlanAdmin(admin.ModelAdmin):
     list_per_page = 10
     list_max_show_all = 80
 
+    view_on_site = False
+
     form = AnnualTraningPlanForm
 
     class Meta:
@@ -72,6 +78,8 @@ class TrainingCourseAdmin(admin.ModelAdmin):
     ordering = ['topic']
     list_per_page = 10
     list_max_show_all = 80
+
+    view_on_site = False
 
     inlines = [
         AnnualTraningPlanInline,

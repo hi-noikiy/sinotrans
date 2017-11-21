@@ -60,6 +60,10 @@ class DailyInspectionAdmin(admin.ModelAdmin):
         js = ("js/jquery.min.js","js/model_admin.js",)
         
 
+    def view_on_site(self, obj):
+        url = reverse('dailyinspection_detail', kwargs={'pk': obj.pk})
+        return url
+
 class ShelfAnnualInspectionImageInline(admin.TabularInline):
     model = ShelfAnnualInspectionImage  
     extra = 0
@@ -71,6 +75,8 @@ class ShelfAnnualInspectionInline(admin.TabularInline):
 
 class ShelfAnnualInspectionAdmin(admin.ModelAdmin):
     list_display = ["shelf","date","next_date",]
+
+    view_on_site = False
 
     inlines = [
         ShelfAnnualInspectionImageInline,
@@ -91,11 +97,12 @@ class ShelfInspectionRecordInline(admin.TabularInline):
         #     return max_num - 5
         return max_num
 
+"""
     def view_on_site(self, obj):
         url = reverse('shelf_inspection_detail', kwargs={'pk': obj.pk})        
         #return get_current_site(self.request) + url
         return 'https://sinotran.applinzi.com' + url
-
+"""
 
 class ShelfInspectionRecordAdmin(admin.ModelAdmin):
     list_display = [
@@ -140,6 +147,8 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
     list_per_page = 20
     list_max_show_all = 100
 
+    view_on_site = False
+
     class Meta:
         model = shelf_inspection_record
 
@@ -152,6 +161,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
 class ShelfInspectionAdmin(admin.ModelAdmin):
     list_display = ('check_date',)
 
+    view_on_site = False
 
 
 from .uploads import import_shelf
@@ -199,12 +209,16 @@ class RehearsalAdmin(admin.ModelAdmin):
     list_display = ['title',"date","attachment"]
     list_search = ['title',"date",]
 
+    view_on_site = False
+
     class Meta:
         model = Rehearsal
 
 class PIAdmin(admin.ModelAdmin):
     list_display = ['date',"reporter","company_of_reporter","department_of_reporter","PI_area","category","direct_reason","root_cause","feedback_person","rectification_measures",]
     list_search = ['date',"reporter","company_of_reporter","department_of_reporter","PI_area","category","direct_reason","root_cause","feedback_person","rectification_measures",]
+
+    view_on_site = False
 
     class Meta:
         model = PI

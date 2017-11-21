@@ -18,6 +18,8 @@ class EquipmentTypeAdmin(admin.ModelAdmin):
     list_editable = ["name"]
     list_filter = [ "name"]
 
+    view_on_site = False
+
     class Meta:
         model = EquipmentType
 
@@ -25,6 +27,8 @@ class EquipmentAdmin(admin.ModelAdmin):
     list_display = ["name","type"]
     list_editable = ["name", "type"]
     list_filter = [ "type"]
+
+    view_on_site = False
 
     class Meta:
         model = Equipment
@@ -34,6 +38,8 @@ class EquipmentInspectionAdmin(admin.ModelAdmin):
     list_editable = ["use_condition","inspector"]
     list_filter = ["equipment","use_condition","inspector","date_of_inspection"]
     form = EquipmentInspectionForm
+
+    view_on_site = False
 
     class Meta:
         model = EquipmentInspection
@@ -78,7 +84,10 @@ class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
         "pool_wall_dry_and_no_leak",
         "no_sundries_in_pump_house",
         "pump_house_clean_and_tidy",]
+        
     list_filter = ['year','month',]
+
+    view_on_site = False
 
     class Meta:
         model = SprayPumpRoomInspection

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-19 15:44+0800\n"
+"POT-Creation-Date: 2017-11-19 20:25+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,9 +73,9 @@ msgstr ""
 msgid "Designates whether the user can log into this admin site."
 msgstr ""
 
-#: .\authwrapper\models.py:161
+#: .\authwrapper\models.py:161 .\newsletter\models.py:31
 msgid "active"
-msgstr ""
+msgstr "激活"
 
 #: .\authwrapper\models.py:162
 msgid ""
@@ -207,6 +207,11 @@ msgstr "备注"
 msgid "Date of Inspection"
 msgstr "检查日期"
 
+#: .\equipments\models.py:47
+#| msgid "Update"
+msgid "updated"
+msgstr "已更新"
+
 #: .\equipments\models.py:50 .\equipments\models.py:51
 #: .\equipments\models.py:77 .\equipments\models.py:78
 msgid "Equipment Inspection"
@@ -317,6 +322,20 @@ msgstr "清除过滤"
 #: .\equipments\templates\equipment\equipment_inspection_list.html:90
 msgid "Date of inspection"
 msgstr "检查日期"
+
+#: .\equipments\templates\equipment\equipment_inspection_list.html:115
+#: .\equipments\templates\equipment\equipment_inspection_list.html:117
+#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:5
+#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:7
+msgid "previous"
+msgstr "上一页"
+
+#: .\equipments\templates\equipment\equipment_inspection_list.html:125
+#: .\equipments\templates\equipment\equipment_inspection_list.html:127
+#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:21
+#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:23
+msgid "next"
+msgstr "下一页"
 
 #: .\equipments\templates\equipment\spray_pump_room_inspection_create.html:19
 #: .\equipments\templates\equipment\spray_pump_room_inspection_update.html:19
@@ -634,7 +653,8 @@ msgstr "下次年检日期"
 msgid "shelf annual inspection"
 msgstr "货架年度检查"
 
-#: .\inspection\models.py:385 .\outsourcing\models.py:61
+#: .\inspection\models.py:385 .\newsletter\models.py:28
+#: .\newsletter\models.py:62 .\outsourcing\models.py:61
 #: .\outsourcing\models.py:156
 msgid "image"
 msgstr "图片"
@@ -758,7 +778,7 @@ msgstr "服务内容"
 msgid "PI area"
 msgstr ""
 
-#: .\inspection\models.py:480
+#: .\inspection\models.py:480 .\newsletter\models.py:57
 #: .\outsourcing\templates\table_transposition_display.html:10
 msgid "category"
 msgstr "分类"
@@ -950,7 +970,6 @@ msgid "daily inspection updated fail"
 msgstr "日常巡检更新失败"
 
 #: .\inspection\views.py:605
-#| msgid "Shelf Inspection List"
 msgid "Inspection List"
 msgstr "巡检列表"
 
@@ -963,6 +982,16 @@ msgstr "货架检查列表"
 #: .\inspection\views.py:731 .\inspection\views.py:948
 msgid "Shelf Inspection Detail"
 msgstr "货架检查详情"
+
+#: .\newsletter\models.py:29 .\newsletter\models.py:58
+#, fuzzy
+#| msgid "Title"
+msgid "title"
+msgstr "标题"
+
+#: .\newsletter\models.py:30
+msgid "text"
+msgstr "文本"
 
 #: .\newsletter\models.py:37 .\newsletter\models.py:38
 msgid "banner"
@@ -983,6 +1012,20 @@ msgstr "组织架构和岗位职责"
 #: .\newsletter\models.py:53
 msgid "road risk map"
 msgstr "道路风险图"
+
+#: .\newsletter\models.py:59
+#, fuzzy
+#| msgid "service content"
+msgid "content"
+msgstr "服务内容"
+
+#: .\newsletter\models.py:60
+msgid "publishtime"
+msgstr "发布时间"
+
+#: .\newsletter\models.py:61
+msgid "abstract"
+msgstr "摘要"
 
 #: .\newsletter\models.py:68 .\newsletter\models.py:69
 msgid "artical"
@@ -1960,7 +2003,7 @@ msgstr ""
 #: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2152
 #: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2142
 msgid "Text"
-msgstr ""
+msgstr "文本"
 
 #: .\site-packages-djangos\1.8.4\django\db\models\fields\__init__.py:2175
 #: .\site-packages-djangos\1.9\django\db\models\fields\__init__.py:2168
@@ -2869,16 +2912,6 @@ msgstr ""
 msgid ""
 "Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or "
 "hyphens."
-msgstr ""
-
-#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:5
-#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:7
-msgid "previous"
-msgstr ""
-
-#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:21
-#: .\site-packages-upgrade-stop\pagination\templates\pagination\pagination.html:23
-msgid "next"
 msgstr ""
 
 #: .\site-packages\breadcrumbs\breadcrumbs.py:116

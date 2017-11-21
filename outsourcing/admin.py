@@ -28,7 +28,18 @@ class ForkliftMaintInline(admin.TabularInline):
 class ForkliftAnnualInspectionInline(admin.StackedInline):
     model = ForkliftAnnualInspection
     extra = 0
-    max_num = 10    
+    max_num = 10
+    # pk_field = ForkliftAnnualInspectionImage
+
+    fieldsets= [
+        ("",{
+             'fields':
+                (
+                 'forklift',
+                 'date',
+                 'next_date',
+                 # 'forkliftannualinspectionimage_set',
+                 )}),]    
 
 class ForkliftAnnualInspectionImageInline(admin.TabularInline):
     model = ForkliftAnnualInspectionImage
@@ -41,21 +52,27 @@ class ForkliftAnnualInspectionAdmin(admin.ModelAdmin):
     list_filter = ('date',)
     ordering = ('date',) 
 
+    view_on_site = False
+
     inlines = [
         ForkliftAnnualInspectionImageInline,            
     ]
 
 class ForkliftRepairAdmin(admin.ModelAdmin):
-    list_display = ["damage_reason", "accessories_name","accessories_num","repaired","repaire_date",]
+    list_display = ["forklift", "damage_reason", "accessories_name","accessories_num","repaired","repaire_date",]
     search_fields = ("damage_reason", "accessories_name","accessories_num","repaired","repaire_date",)
     list_filter = ("damage_reason", "repaired","repaire_date",)
     ordering = ('repaire_date',) 
+
+    view_on_site = False
 
 class ForkliftMaintAdmin(admin.ModelAdmin):
     list_display = ["created", "updated"]
     search_fields = ("created", "updated" )
     list_filter = ("created", "updated" )
     ordering = ("created", "updated") 
+
+    view_on_site = False
 
 class ForkliftAdmin(admin.ModelAdmin):
     list_display = ["internal_car_number", "internal_plate_number",'sn']
@@ -108,11 +125,17 @@ class ForkliftAdmin(admin.ModelAdmin):
         }
         js = ("js/jquery.min.js","js/model_admin.js",)
 
+    def view_on_site(self, obj):
+        url = reverse('forklift_detail', kwargs={'pk': obj.pk})
+        return url
+
 class DriverAdmin(admin.ModelAdmin):
     list_display = ["name", "driver_ID","driver_license_type","contact_phone"]
     search_fields = ("name", "driver_ID","driver_license_type","contact_phone" )
     list_filter = ("driver_license_type",)
     ordering = ("driver_ID",) 
+
+    view_on_site = False
 
     class Meta:
         model = Driver    
@@ -183,6 +206,8 @@ class VehicleAdmin(admin.ModelAdmin):
                  'anti_drop_equipment',
                  )}),]   
 
+    view_on_site = False
+
     class Meta:
         model = Vehicle    
 
@@ -198,6 +223,8 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
     search_fields = ("vehicle", "driver","date_of_inspection","inspector","carrier","rectification_qualified","disqualification_comments" )
     list_filter = ("vehicle","driver","inspector", "carrier",  "rectification_qualified",)
     ordering = ("vehicle","date_of_inspection",) 
+
+    view_on_site = False
 
     class Meta:
         model = VehicleInspection    
@@ -247,6 +274,8 @@ class VehicleTransportationKPIAdmin(admin.ModelAdmin):
     search_fields = ("transportation_project", "year","month", )
     list_filter = ("transportation_project", "year","month", )
     ordering = ( "year","month", "transportation_project",) 
+
+    view_on_site = False
 
     class Meta:
         model = VehicleTransportationKPI    

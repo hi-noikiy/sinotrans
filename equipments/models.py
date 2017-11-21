@@ -44,7 +44,7 @@ class AbstractEquipmentInspection(models.Model):
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
     comments = models.TextField(_('Comments'), max_length=130, blank=True)   
     date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False)
-    updated = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(_('updated'),auto_now_add=True, auto_now=False)
 
     class Meta:
         verbose_name = _('Equipment Inspection')
