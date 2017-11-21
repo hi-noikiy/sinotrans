@@ -45,13 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
+    'picking',
     'equipments',
     'outsourcing',        
     'authwrapper',
     'newsletter',
     'personalcenter',
     'inspection', # (1) 'inspection.apps.InspectionConfig', (2) or use default_app_config = 'inspection.apps.InspectionConfig' in inspection/__init__.py
-    'trainings',
+    'trainings',    
     'zakkabag',
     'crispy_forms',
     'registration',
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'chartjs',
     'phone_login',
+
 ]
 
 MIDDLEWARE_CLASSES = (

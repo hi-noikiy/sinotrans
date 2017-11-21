@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-19 20:25+0800\n"
+"POT-Creation-Date: 2017-11-21 23:10+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,14 +128,14 @@ msgstr ""
 
 #: .\equipments\forms.py:16 .\equipments\forms.py:72 .\equipments\models.py:43
 #: .\equipments\templates\equipment\equipment_inspection_list.html:88
-#: .\inspection\models.py:322
+#: .\inspection\models.py:326
 #: .\inspection\templates\shelf\shelf_inspection_list.html:31
 #: .\templates\home.html:119
 msgid "Use Condition"
 msgstr "使用状况"
 
 #: .\equipments\forms.py:66 .\inspection\forms.py:140
-#: .\inspection\models.py:90
+#: .\inspection\models.py:94
 msgid "Category"
 msgstr "分类"
 
@@ -187,18 +187,18 @@ msgid "Equipment"
 msgstr "设备"
 
 #: .\equipments\models.py:38 .\equipments\models.py:59
-#: .\equipments\views.py:198 .\inspection\models.py:316
+#: .\equipments\views.py:198 .\inspection\models.py:320
 #: .\inspection\views.py:721
 msgid "Normal"
 msgstr "正常"
 
 #: .\equipments\models.py:39 .\equipments\models.py:59
-#: .\inspection\models.py:317
+#: .\inspection\models.py:321
 msgid "Breakdown"
 msgstr "损坏"
 
-#: .\equipments\models.py:45 .\inspection\models.py:263
-#: .\inspection\models.py:327
+#: .\equipments\models.py:45 .\inspection\models.py:267
+#: .\inspection\models.py:331
 msgid "Comments"
 msgstr "备注"
 
@@ -208,7 +208,6 @@ msgid "Date of Inspection"
 msgstr "检查日期"
 
 #: .\equipments\models.py:47
-#| msgid "Update"
 msgid "updated"
 msgstr "已更新"
 
@@ -347,7 +346,7 @@ msgstr "提交"
 
 #: .\equipments\templates\equipment\spray_pump_room_inspection_detail.html:15
 #: .\inspection\templates\model_filelds_table_display.html:8
-#: .\inspection\views.py:100 .\outsourcing\admin.py:68
+#: .\inspection\views.py:100 .\outsourcing\admin.py:85
 #: .\outsourcing\templates\forklift\forklift_detail.html:14
 #: .\outsourcing\templates\kpi\transportationkpi_detail.html:15
 #: .\outsourcing\templates\transportation\vehicle_detail.html:15
@@ -412,16 +411,16 @@ msgstr "卫生"
 msgid "Inspection"
 msgstr "巡检"
 
-#: .\inspection\forms.py:64 .\inspection\models.py:92
+#: .\inspection\forms.py:64 .\inspection\models.py:96
 msgid "Impact"
 msgstr "影响"
 
-#: .\inspection\forms.py:149 .\inspection\models.py:94
+#: .\inspection\forms.py:149 .\inspection\models.py:98
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:71
 msgid "Rectification Status"
 msgstr "整改状态"
 
-#: .\inspection\forms.py:157 .\inspection\models.py:95
+#: .\inspection\forms.py:157 .\inspection\models.py:99
 msgid "Owner"
 msgstr "负责人"
 
@@ -429,7 +428,7 @@ msgstr "负责人"
 msgid "Gradient Check Only"
 msgstr "仅倾斜度测量"
 
-#: .\inspection\forms.py:278 .\inspection\models.py:207
+#: .\inspection\forms.py:278 .\inspection\models.py:211
 msgid "Shelf Type"
 msgstr "货架类型"
 
@@ -451,379 +450,379 @@ msgstr "仓库通道"
 msgid "shelf upload"
 msgstr "货架组"
 
-#: .\inspection\models.py:29
+#: .\inspection\models.py:31
 msgid "plug"
 msgstr "插座"
 
-#: .\inspection\models.py:30
+#: .\inspection\models.py:32
 msgid "power"
 msgstr "功率"
 
-#: .\inspection\models.py:62
+#: .\inspection\models.py:66
 msgid "People"
 msgstr "人员"
 
-#: .\inspection\models.py:63
+#: .\inspection\models.py:67
 msgid "Device"
 msgstr "设备"
 
-#: .\inspection\models.py:64
+#: .\inspection\models.py:68
 msgid "Machine"
 msgstr "机器"
 
-#: .\inspection\models.py:65
+#: .\inspection\models.py:69
 msgid "Method"
 msgstr "方法"
 
-#: .\inspection\models.py:66
+#: .\inspection\models.py:70
 msgid "Environment"
 msgstr "环境"
 
-#: .\inspection\models.py:71
+#: .\inspection\models.py:75
 msgid "economic loss"
 msgstr "经济损失"
 
-#: .\inspection\models.py:72
+#: .\inspection\models.py:76
 msgid "personnel injury"
 msgstr "人员伤亡"
 
-#: .\inspection\models.py:73
+#: .\inspection\models.py:77
 msgid "non-conformance 5SS standard"
 msgstr "不符合5SS标准"
 
-#: .\inspection\models.py:77
+#: .\inspection\models.py:81
 msgid "Completed"
 msgstr "已完成"
 
-#: .\inspection\models.py:78
+#: .\inspection\models.py:82
 msgid "Uncompleted"
 msgstr "未完成"
 
-#: .\inspection\models.py:87
+#: .\inspection\models.py:91
 msgid "Storage Area"
 msgstr "存储区"
 
-#: .\inspection\models.py:91
+#: .\inspection\models.py:95
 msgid "Inspection Content"
 msgstr "巡检内容"
 
-#: .\inspection\models.py:93
+#: .\inspection\models.py:97
 msgid "Rectification Measures"
 msgstr "整改措施"
 
-#: .\inspection\models.py:96
+#: .\inspection\models.py:100
 msgid "Due Date"
 msgstr "截止日期"
 
-#: .\inspection\models.py:97
+#: .\inspection\models.py:101
 msgid "Inspection Created Date"
 msgstr "巡检创建日期"
 
-#: .\inspection\models.py:98
+#: .\inspection\models.py:102
 msgid "Inspection Updated Date"
 msgstr "巡检更新日期"
 
-#: .\inspection\models.py:99
+#: .\inspection\models.py:103
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:98
 msgid "Picture before Rectification"
 msgstr "整改前照片"
 
-#: .\inspection\models.py:100
+#: .\inspection\models.py:104
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:99
 msgid "Picture after Rectification"
 msgstr "整改后照片"
 
-#: .\inspection\models.py:102
+#: .\inspection\models.py:106
 msgid "Location"
 msgstr "位置"
 
-#: .\inspection\models.py:107 .\inspection\models.py:185
-#: .\inspection\models.py:186 .\inspection\views.py:310
+#: .\inspection\models.py:111 .\inspection\models.py:189
+#: .\inspection\models.py:190 .\inspection\views.py:310
 #: .\inspection\views.py:335 .\inspection\views.py:387
 #: .\inspection\views.py:514 .\templates\home.html.py:89
 msgid "Daily Inspection"
 msgstr "日常巡检"
 
-#: .\inspection\models.py:195
+#: .\inspection\models.py:199
 msgid "shelf import file"
 msgstr "货架导入文件"
 
-#: .\inspection\models.py:200 .\inspection\models.py:201
+#: .\inspection\models.py:204 .\inspection\models.py:205
 msgid "shelf import"
 msgstr "货架信息导入"
 
-#: .\inspection\models.py:208
+#: .\inspection\models.py:212
 msgid "Warehouse Number"
 msgstr "仓库号"
 
-#: .\inspection\models.py:209
+#: .\inspection\models.py:213
 msgid "Compartment Number"
 msgstr "仓间号"
 
-#: .\inspection\models.py:210
+#: .\inspection\models.py:214
 msgid "Warehouse Channel Number"
 msgstr "仓库通道号"
 
-#: .\inspection\models.py:211
+#: .\inspection\models.py:215
 msgid "Shelf Group"
 msgstr "货架组"
 
-#: .\inspection\models.py:212
+#: .\inspection\models.py:216
 msgid "Shelf Number"
 msgstr "货架号"
 
-#: .\inspection\models.py:213
+#: .\inspection\models.py:217
 msgid "Gradient Measurement Mandatory"
 msgstr "立柱货架"
 
-#: .\inspection\models.py:219 .\inspection\models.py:257
-#: .\inspection\models.py:258 .\inspection\models.py:320
-#: .\inspection\models.py:368 .\inspection\views.py:831
+#: .\inspection\models.py:223 .\inspection\models.py:261
+#: .\inspection\models.py:262 .\inspection\models.py:324
+#: .\inspection\models.py:372 .\inspection\views.py:831
 #: .\templates\navbar.html:44 .\templates\navbar_2nd.html.py:10
 msgid "Shelf"
 msgstr "货架"
 
-#: .\inspection\models.py:262
+#: .\inspection\models.py:266
 msgid "Check Date"
 msgstr "检查日期"
 
-#: .\inspection\models.py:266 .\inspection\models.py:272
-#: .\inspection\models.py:273 .\inspection\models.py:321
+#: .\inspection\models.py:270 .\inspection\models.py:276
+#: .\inspection\models.py:277 .\inspection\models.py:325
 #: .\inspection\templates\shelf\shelf_inspection_list.html:21
 #: .\templates\home.html:110
 msgid "shelf inspection"
 msgstr "货架检查"
 
-#: .\inspection\models.py:323
+#: .\inspection\models.py:327
 #: .\inspection\templates\shelf\shelf_inspection_list.html:32
 #: .\templates\home.html:120
 msgid "Locked"
 msgstr "已锁定"
 
-#: .\inspection\models.py:324
+#: .\inspection\models.py:328
 msgid "Check Person"
 msgstr "检查人"
 
-#: .\inspection\models.py:325
+#: .\inspection\models.py:329
 #: .\inspection\templates\shelf\shelf_inspection_list.html:33
 #: .\templates\home.html:121
 msgid "Gradient"
 msgstr "倾斜度"
 
-#: .\inspection\models.py:326
+#: .\inspection\models.py:330
 msgid "Forecast Complete Time"
 msgstr "预计完成日期"
 
-#: .\inspection\models.py:332 .\inspection\models.py:357
-#: .\inspection\models.py:358 .\inspection\views.py:882
+#: .\inspection\models.py:336 .\inspection\models.py:361
+#: .\inspection\models.py:362 .\inspection\views.py:882
 msgid "shelf inspection record"
 msgstr "货架巡检记录"
 
-#: .\inspection\models.py:348 .\inspection\templatetags\myform.py:35
+#: .\inspection\models.py:352 .\inspection\templatetags\myform.py:35
 #: .\outsourcing\models.py:18
 #: .\site-packages-djangos\1.8.4\django\forms\widgets.py:556
 #: .\site-packages-djangos\1.9\django\forms\widgets.py:571
 msgid "Yes"
 msgstr "是"
 
-#: .\inspection\models.py:350 .\inspection\templatetags\myform.py:37
+#: .\inspection\models.py:354 .\inspection\templatetags\myform.py:37
 #: .\outsourcing\models.py:19
 #: .\site-packages-djangos\1.8.4\django\forms\widgets.py:557
 #: .\site-packages-djangos\1.9\django\forms\widgets.py:572
 msgid "No"
 msgstr "否"
 
-#: .\inspection\models.py:369 .\inspection\models.py:474
+#: .\inspection\models.py:373 .\inspection\models.py:478
 #: .\inspection\templates\shelf\shelf_detail.html:40
 #: .\outsourcing\models.py:143 .\outsourcing\models.py:152
 #: .\outsourcing\templates\forklift\forklift_detail.html:144
 msgid "Annual Inspection Date"
 msgstr "年检日期"
 
-#: .\inspection\models.py:370
+#: .\inspection\models.py:374
 #: .\inspection\templates\shelf\shelf_detail.html:40
 #: .\outsourcing\models.py:144
 #: .\outsourcing\templates\forklift\forklift_detail.html:144
 msgid "Next Inspection Date"
 msgstr "下次年检日期"
 
-#: .\inspection\models.py:373 .\inspection\models.py:374
-#: .\inspection\models.py:381
+#: .\inspection\models.py:377 .\inspection\models.py:378
+#: .\inspection\models.py:385
 #: .\inspection\templates\shelf\shelf_detail.html:32
 msgid "shelf annual inspection"
 msgstr "货架年度检查"
 
-#: .\inspection\models.py:385 .\newsletter\models.py:28
+#: .\inspection\models.py:389 .\newsletter\models.py:28
 #: .\newsletter\models.py:62 .\outsourcing\models.py:61
 #: .\outsourcing\models.py:156
 msgid "image"
 msgstr "图片"
 
-#: .\inspection\models.py:388
+#: .\inspection\models.py:392
 #: .\inspection\templates\shelf\shelf_detail.html:49
 msgid "shelf annual inspection image"
 msgstr "货架年度检查图片"
 
-#: .\inspection\models.py:432
+#: .\inspection\models.py:436
 msgid "Title"
 msgstr "标题"
 
-#: .\inspection\models.py:433
+#: .\inspection\models.py:437
 msgid "Date"
 msgstr "日期"
 
-#: .\inspection\models.py:434
+#: .\inspection\models.py:438
 msgid "Attachment"
 msgstr "附件"
 
-#: .\inspection\models.py:437 .\inspection\models.py:438
-#: .\inspection\models.py:444 .\inspection\views.py:93
+#: .\inspection\models.py:441 .\inspection\models.py:442
+#: .\inspection\models.py:448 .\inspection\views.py:93
 #: .\inspection\views.py:111 .\templates\navbar_2nd.html.py:16
 msgid "rehearsal"
 msgstr "演习"
 
-#: .\inspection\models.py:447
+#: .\inspection\models.py:451
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "January"
 msgstr "一月"
 
-#: .\inspection\models.py:448
+#: .\inspection\models.py:452
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "February"
 msgstr "二月"
 
-#: .\inspection\models.py:449
+#: .\inspection\models.py:453
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "March"
 msgstr "三月"
 
-#: .\inspection\models.py:450
+#: .\inspection\models.py:454
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "April"
 msgstr "四月"
 
-#: .\inspection\models.py:451
+#: .\inspection\models.py:455
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "May"
 msgstr "五月"
 
-#: .\inspection\models.py:452
+#: .\inspection\models.py:456
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:18
 #: .\site-packages-djangos\1.9\django\utils\dates.py:18
 msgid "June"
 msgstr "六月"
 
-#: .\inspection\models.py:453
+#: .\inspection\models.py:457
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "July"
 msgstr "七月"
 
-#: .\inspection\models.py:454
+#: .\inspection\models.py:458
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "August"
 msgstr "八月"
 
-#: .\inspection\models.py:455
+#: .\inspection\models.py:459
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "September"
 msgstr "九月"
 
-#: .\inspection\models.py:456
+#: .\inspection\models.py:460
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "October"
 msgstr "十月"
 
-#: .\inspection\models.py:457
+#: .\inspection\models.py:461
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:19
 #: .\site-packages-djangos\1.9\django\utils\dates.py:19
 msgid "November"
 msgstr "十一月"
 
-#: .\inspection\models.py:458
+#: .\inspection\models.py:462
 #: .\site-packages-djangos\1.8.4\django\utils\dates.py:20
 #: .\site-packages-djangos\1.9\django\utils\dates.py:20
 msgid "December"
 msgstr "十二月"
 
-#: .\inspection\models.py:475
+#: .\inspection\models.py:479
 #, fuzzy
 #| msgid "power"
 msgid "reporter"
 msgstr "功率"
 
-#: .\inspection\models.py:476
+#: .\inspection\models.py:480
 msgid "company of reporter"
 msgstr ""
 
-#: .\inspection\models.py:477
+#: .\inspection\models.py:481
 msgid "department of reporter"
 msgstr ""
 
-#: .\inspection\models.py:478
+#: .\inspection\models.py:482
 #, fuzzy
 #| msgid "service content"
 msgid "report content"
 msgstr "服务内容"
 
-#: .\inspection\models.py:479
+#: .\inspection\models.py:483
 msgid "PI area"
 msgstr ""
 
-#: .\inspection\models.py:480 .\newsletter\models.py:57
+#: .\inspection\models.py:484 .\newsletter\models.py:57
 #: .\outsourcing\templates\table_transposition_display.html:10
 msgid "category"
 msgstr "分类"
 
-#: .\inspection\models.py:481
+#: .\inspection\models.py:485
 msgid "risk"
 msgstr ""
 
-#: .\inspection\models.py:482
+#: .\inspection\models.py:486
 msgid "direct reason"
 msgstr ""
 
-#: .\inspection\models.py:483
+#: .\inspection\models.py:487
 msgid "root cause"
 msgstr ""
 
-#: .\inspection\models.py:484
+#: .\inspection\models.py:488
 msgid "feedback person"
 msgstr "反馈人"
 
-#: .\inspection\models.py:485
+#: .\inspection\models.py:489
 msgid "rectification measures"
 msgstr "整改措施"
 
-#: .\inspection\models.py:486
+#: .\inspection\models.py:490
 msgid "planned complete date"
 msgstr "计划完成时间"
 
-#: .\inspection\models.py:487
+#: .\inspection\models.py:491
 msgid "rectification status"
 msgstr "整改状态"
 
-#: .\inspection\models.py:488
+#: .\inspection\models.py:492
 msgid "close person"
 msgstr "关闭人员"
 
-#: .\inspection\models.py:489
+#: .\inspection\models.py:493
 msgid "picture before rectification"
 msgstr "整改前照片"
 
-#: .\inspection\models.py:490
+#: .\inspection\models.py:494
 msgid "picture after rectification"
 msgstr "整改后照片"
 
-#: .\inspection\models.py:493 .\inspection\models.py:494
+#: .\inspection\models.py:497 .\inspection\models.py:498
 msgid "PI"
 msgstr "隐患报告"
 
@@ -1048,7 +1047,7 @@ msgstr "滚动消息"
 msgid "Newsletter"
 msgstr "新闻中心"
 
-#: .\outsourcing\admin.py:79
+#: .\outsourcing\admin.py:96
 msgid "Record"
 msgstr "记录"
 
@@ -1652,6 +1651,73 @@ msgstr "指标"
 #: .\templates\navbar.html:46 .\templates\navbar_2nd.html.py:13
 msgid "Forklift"
 msgstr "叉车"
+
+#: .\picking\models.py:17 .\picking\models.py:33
+#| msgid "name"
+msgid "number"
+msgstr "编号"
+
+#: .\picking\models.py:18
+msgid "forwarder"
+msgstr ""
+
+#: .\picking\models.py:19
+#| msgid "project manager"
+msgid "product number"
+msgstr "产品编号"
+
+#: .\picking\models.py:20
+msgid "packing number"
+msgstr "拣配单号"
+
+#: .\picking\models.py:21 .\picking\models.py:40
+#| msgid "Home"
+msgid "volume"
+msgstr "主页"
+
+#: .\picking\models.py:25 .\picking\models.py:26 .\picking\models.py:32
+msgid "waybill"
+msgstr "运单"
+
+#: .\picking\models.py:34
+msgid "product id"
+msgstr "产品编号"
+
+#: .\picking\models.py:35
+#| msgid "project manager"
+msgid "product name"
+msgstr "产品名称"
+
+#: .\picking\models.py:36
+msgid "dispatch bill number"
+msgstr "发货单号"
+
+#: .\picking\models.py:37
+msgid "waybill number"
+msgstr "运单号"
+
+#: .\picking\models.py:38
+#| msgid "relevant trailer number"
+msgid "product total number"
+msgstr "产品总数"
+
+#: .\picking\models.py:39
+#| msgid "relevant trailer number"
+msgid "packing total number"
+msgstr "包装总数"
+
+#: .\picking\models.py:41
+msgid "status"
+msgstr "状态"
+
+#: .\picking\models.py:42
+#| msgid "Create Date"
+msgid "created date"
+msgstr "创建日期"
+
+#: .\picking\models.py:46 .\picking\models.py:47
+msgid "picking bill"
+msgstr "拣配单"
 
 #: .\site-packages-djangos\1.8.4\django\contrib\messages\apps.py:7
 #: .\site-packages-djangos\1.9\django\contrib\messages\apps.py:7
@@ -3080,6 +3146,10 @@ msgstr ""
 #: .\site-packages\sae-dependency\argparse.py:2392
 #, python-format
 msgid "%s: error: %s\n"
+msgstr ""
+
+#: .\site-packages\uuslug\apps.py:11
+msgid "uuslug app"
 msgstr ""
 
 #: .\templates\footer.html:51
