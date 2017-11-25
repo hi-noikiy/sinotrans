@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-25 15:47+0800\n"
+"POT-Creation-Date: 2017-11-25 22:45+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,7 @@ msgstr "分类"
 #: .\equipments\forms.py:80 .\equipments\models.py:44
 #: .\equipments\models.py:116
 #: .\equipments\templates\equipment\equipment_inspection_list.html:89
-#: .\equipments\views.py:343 .\outsourcing\models.py:230
+#: .\equipments\views.py:344 .\outsourcing\models.py:230
 msgid "Inspector"
 msgstr "检查人"
 
@@ -194,6 +194,7 @@ msgstr "正常"
 
 #: .\equipments\models.py:39 .\equipments\models.py:59
 #: .\inspection\models.py:321
+#: .\inspection\templates\shelf\shelf_inspection_list.html:31
 msgid "Breakdown"
 msgstr "损坏"
 
@@ -208,6 +209,7 @@ msgid "Date of Inspection"
 msgstr "检查日期"
 
 #: .\equipments\models.py:47
+#: .\equipments\templates\equipment\equipment_inspection_edit_form_success.html:7
 msgid "updated"
 msgstr "已更新"
 
@@ -286,15 +288,41 @@ msgid "pump house clean and tidy"
 msgstr "泵房地面干净、整洁"
 
 #: .\equipments\models.py:121 .\equipments\models.py:125
-#: .\equipments\models.py:126 .\equipments\views.py:269
-#: .\equipments\views.py:285 .\equipments\views.py:381
-#: .\equipments\views.py:443
+#: .\equipments\models.py:126 .\equipments\views.py:270
+#: .\equipments\views.py:286 .\equipments\views.py:382
+#: .\equipments\views.py:444
 msgid "Spray Pump Room Inspection"
 msgstr "喷淋泵房检查"
+
+#: .\equipments\templates\equipment\equipment_inspection_create_form.html:11
+#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:70
+#: .\inspection\views.py:311 .\inspection\views.py:818
+msgid "Create"
+msgstr "创建"
+
+#: .\equipments\templates\equipment\equipment_inspection_create_form.html:18
+#: .\equipments\templates\equipment\equipment_inspection_edit_form.html:68
+#: .\inspection\templates\dailyinspection\dailyinspection_delete.html:11
+msgid "cancel"
+msgstr "取消"
+
+#: .\equipments\templates\equipment\equipment_inspection_create_form.html:19
+#: .\equipments\templates\equipment\equipment_inspection_edit_form.html:69
+#| msgid "valve"
+msgid "Save"
+msgstr "保存"
+
+#: .\equipments\templates\equipment\equipment_inspection_edit_form_success.html:10
+msgid "Updated successfully! You can close now!"
+msgstr "更新已完成，现在可以关闭窗口！"
 
 #: .\equipments\templates\equipment\equipment_inspection_list.html:41
 msgid "Insepction Categories"
 msgstr "检查种类"
+
+#: .\equipments\templates\equipment\equipment_inspection_list.html:43
+msgid "All"
+msgstr "全部"
 
 #: .\equipments\templates\equipment\equipment_inspection_list.html:63
 #: .\equipments\templates\equipment\spray_pump_room_inspection_list_display.html:40
@@ -340,6 +368,7 @@ msgstr "下一页"
 #: .\equipments\templates\equipment\spray_pump_room_inspection_update.html:19
 #: .\outsourcing\templates\kpi\transportationkpi_create.html:14
 #: .\outsourcing\templates\kpi\transportationkpi_update.html:14
+#: .\outsourcing\templates\table_transposition_formset.html:64
 #: .\picking\templates\picking\pickingbill_assign.html:28
 #: .\picking\templates\picking\waybill_complete.html:13
 #: .\templates\registration\registration_form.html:14
@@ -363,13 +392,21 @@ msgstr "基本信息"
 msgid "Project Review"
 msgstr "项目回顾"
 
+#: .\equipments\templates\equipment\spray_pump_room_inspection_list_display.html:49
+msgid "Edit"
+msgstr "编辑"
+
+#: .\equipments\templates\equipment\spray_pump_room_inspection_list_edit.html:69
+msgid "Display"
+msgstr "显示"
+
 #: .\equipments\templates\equipment\spray_pump_room_inspection_update.html:20
 #: .\outsourcing\templates\kpi\transportationkpi_update.html:15
 msgid "back"
 msgstr "后退"
 
-#: .\equipments\views.py:268 .\equipments\views.py:284
-#: .\equipments\views.py:380 .\equipments\views.py:442
+#: .\equipments\views.py:269 .\equipments\views.py:285
+#: .\equipments\views.py:381 .\equipments\views.py:443
 #: .\inspection\views.py:92 .\inspection\views.py:110
 #: .\inspection\views.py:187 .\inspection\views.py:220
 #: .\inspection\views.py:309 .\inspection\views.py:334
@@ -388,23 +425,23 @@ msgstr "后退"
 msgid "Home"
 msgstr "主页"
 
-#: .\equipments\views.py:338
+#: .\equipments\views.py:339
 msgid "power distribution cabinet"
 msgstr "配电柜"
 
-#: .\equipments\views.py:339
+#: .\equipments\views.py:340
 msgid "spray pump"
 msgstr "喷淋泵"
 
-#: .\equipments\views.py:340
+#: .\equipments\views.py:341
 msgid "valve"
 msgstr "阀门"
 
-#: .\equipments\views.py:341
+#: .\equipments\views.py:342
 msgid "pool"
 msgstr "水池"
 
-#: .\equipments\views.py:342
+#: .\equipments\views.py:343
 msgid "sanitation"
 msgstr "卫生"
 
@@ -418,7 +455,6 @@ msgid "Impact"
 msgstr "影响"
 
 #: .\inspection\forms.py:130
-#| msgid "March"
 msgid "Search"
 msgstr "搜索"
 
@@ -625,15 +661,16 @@ msgstr "预计完成日期"
 msgid "shelf inspection record"
 msgstr "货架巡检记录"
 
-#: .\inspection\models.py:352 .\inspection\templatetags\myform.py:35
+#: .\inspection\models.py:352 .\inspection\templatetags\myform.py:45
 #: .\outsourcing\models.py:18
 #: .\site-packages-djangos\1.8.4\django\forms\widgets.py:556
 #: .\site-packages-djangos\1.9\django\forms\widgets.py:571
 msgid "Yes"
 msgstr "是"
 
-#: .\inspection\models.py:354 .\inspection\templatetags\myform.py:37
-#: .\outsourcing\models.py:19
+#: .\inspection\models.py:354
+#: .\inspection\templates\shelf\shelf_inspection_list.html:32
+#: .\inspection\templatetags\myform.py:47 .\outsourcing\models.py:19
 #: .\site-packages-djangos\1.8.4\django\forms\widgets.py:557
 #: .\site-packages-djangos\1.9\django\forms\widgets.py:572
 msgid "No"
@@ -850,15 +887,6 @@ msgstr "确定要删除"
 msgid "confirm"
 msgstr "确定"
 
-#: .\inspection\templates\dailyinspection\dailyinspection_delete.html:11
-msgid "cancel"
-msgstr "取消"
-
-#: .\inspection\templates\dailyinspection\dailyinspection_detail.html:70
-#: .\inspection\views.py:311 .\inspection\views.py:818
-msgid "Create"
-msgstr "创建"
-
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:104
 msgid "Update"
 msgstr "更新"
@@ -953,6 +981,11 @@ msgstr "下载"
 #: .\templates\home.html:118
 msgid "Create Date"
 msgstr "创建日期"
+
+#: .\inspection\templates\shelf\shelf_inspection_list.html:53
+#| msgid "image"
+msgid "Page"
+msgstr "页"
 
 #: .\inspection\utils.py:140
 #, python-format
@@ -3173,13 +3206,18 @@ msgstr ""
 msgid "uuslug app"
 msgstr ""
 
+#: .\templates\about.html:7 .\templates\footer.html.py:55
+#: .\templates\footer.html:57
+msgid "About Us"
+msgstr "关于我们"
+
+#: .\templates\about.html:20
+msgid "Address"
+msgstr "地址"
+
 #: .\templates\footer.html:51
 msgid "Follow Us"
 msgstr "关注我们"
-
-#: .\templates\footer.html:55 .\templates\footer.html.py:57
-msgid "About Us"
-msgstr "关于我们"
 
 #: .\templates\footer.html:62
 msgid "Contact Us"

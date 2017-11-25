@@ -26,7 +26,8 @@
 				</div>
 			</div>
 
-			<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >Update</a>
+			<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans 'Update' %}</a>
+			<a href="{% url 'transportationkpi_list_display' %}?year={{transport_kpi_year}}&month={{transport_kpi_month}}" class="btn btn-default" >{% trans 'Back' %}</a>
 		</div>
 	</div>
 

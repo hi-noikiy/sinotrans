@@ -73,7 +73,7 @@
         <div class="tab-content">
           {% for object in objects %}
             <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
-              {% include "article/articles.html" with objects=object.1 img_width='col-sm-1' %}
+              {% include "article/articles.html" with objects=object.1 img_width='col-sm-2' %}
             </div>
             {% endfor %}
         </div>

@@ -55,6 +55,6 @@ table.table-formset thead tr th:nth-child(1){
 
 <br>
 
-<a href="{% url 'transportationkpi_list_display' %}" class="btn btn-default" >Display</a>
+<a href="{% url 'transportationkpi_list_display' %}?year={{request.GET.year}}&month={{request.GET.month}}" class="btn btn-default" >{% trans 'Display' %}</a>
 
 {% endblock %}

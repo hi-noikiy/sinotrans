@@ -60,7 +60,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        <input type="submit" class="btn btn-primary" value="Submit" style="{% if not formset or not formset|length %}display: none;{% endif %}">
+        <input type="submit" class="btn btn-primary" value="{% trans 'Submit' %}" style="{% if not formset or not formset|length %}display: none;{% endif %}">
     </form>    
 </div>
 

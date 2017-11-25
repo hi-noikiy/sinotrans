@@ -146,7 +146,8 @@ class TransportationKPIDetailView(DetailView):
         context = super(TransportationKPIDetailView, self).get_context_data(*args, **kwargs)
 
         context["fields"] = [field for field in self.model._meta.get_fields() if not field.name=="id"]
-
+        context["transport_kpi_year"] = self.request.session["transport_kpi_year"]
+        context["transport_kpi_month"] = self.request.session["transport_kpi_month"]
         return context
 
 
@@ -246,6 +247,9 @@ class TransportationKPIListDisplayView(ListView):
         context["top_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
 
         context["project_name"] = "vehicle tranportation KPI"
+
+        self.request.session["transport_kpi_year"] = self.request.GET.get('year')
+        self.request.session["transport_kpi_month"] = self.request.GET.get('month')
 
         if self.request.GET.get('year') and self.request.GET.get('month'):
             context["create_url"] = reverse("transportationkpi_create", kwargs={'year':self.request.GET.get('year'), 'month':self.request.GET.get('month')})

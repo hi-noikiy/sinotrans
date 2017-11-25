@@ -28,9 +28,9 @@
 {% else %}	
     <div class="row div-table-header">
         <div class="col-xs-3">{% trans 'Create Date' %}</div>
-        <div class="col-xs-3">{% trans 'Use Condition' %}</div>
-        <div class="col-xs-3">{% trans 'Locked' %}</div>
-        <div class="col-xs-3">{% trans 'Gradient' %} > 1.4</div>
+        <div class="col-xs-3">{% trans 'Use Condition' %} ({% trans 'Breakdown' %})</div>
+        <div class="col-xs-3">{% trans 'Locked' %} ({% trans 'No' %})</div>
+        <div class="col-xs-3">{% trans 'Gradient' %} (>1.4)</div>
     </div>
 
     {% for record in records %}
@@ -50,7 +50,7 @@
                 {% endif %}
 
                 <span class="current">
-                    Page {{ records.number }} of {{ records.paginator.num_pages }}
+                    {% trans 'Page' %} {{ records.number }} / {{ records.paginator.num_pages }}
                 </span>
 
                 {% if records.has_next %}

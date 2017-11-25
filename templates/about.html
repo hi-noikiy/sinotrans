@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class='row'>
 	<div class='col-sm-6 col-sm-offset-3'>
-		<h1 class="text-center">About Us</h1>
+		<h1 class="text-center">{% trans 'About Us' %}</h1>
 		<div  style="text-align: left">
 			<p>Hunan Cofoe Medical Technology Development Co.,Ltd is a professional medical devices high-tech technology type production enterprise which is specialized in household medical auxiliary rehabilitation appliance and household electronic surveillance products' R&D.</p>
 			<p>
@@ -16,7 +17,7 @@
 			"Be focus, Be professional." All of the Cofoe staffs will take the masses' health as own duty. Opening the market with quality,stabilizing the market with services,expanding the market with products, strive to become one of the home medical equipment manufacturers which possesses various products, best quality and best service,so that meet the market demand and the benefit of the general public.</p>
 		</div>
 		<hr>
-		<p><b>Address:</b></p>
+		<p><b>{% trans 'Address' %}:</b></p>
 		<iframe src="sitemap" width="600" height="300" frameborder="0" scrolling="no"></iframe>
 	</div>
 </div>

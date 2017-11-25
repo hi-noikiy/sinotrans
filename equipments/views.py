@@ -257,6 +257,7 @@ class SprayPumproomInspectionDetailView(DetailView):
         context = super(SprayPumproomInspectionDetailView, self).get_context_data(*args, **kwargs)
 
         context["fields"] = [field for field in self.model._meta.get_fields() if not field.name=="id"]
+        context["spraypumproominspection_year"] = self.request.session["spraypumproominspection_year"]
 
         return context
 
@@ -365,6 +366,8 @@ class SprayPumproomInspectionListDisplayView(ListView):
         context["top_filter_form"] = SprayPumproomInspectionFilterForm(data=self.request.GET or None) 
 
         context["project_name"] = "Spray Pump Room Inspection"
+
+        self.request.session["spraypumproominspection_year"] = self.request.GET.get('year')        
 
         if self.request.GET.get('year'):
             context["create_url"] = reverse("spraypumproominspection_create", kwargs={'year':self.request.GET.get('year'), })

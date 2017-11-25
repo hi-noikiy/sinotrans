@@ -46,6 +46,6 @@
 	</div>
 </div>
 
-<a href="{% url 'spraypumproominspection_list_edit' %}" class="btn btn-primary" style="min-width: 70px;">Edit</a>
+<a href="{% url 'spraypumproominspection_list_edit' %}?year={{request.GET.year}}" class="btn btn-primary" style="min-width: 70px;">{% trans "Edit" %}</a>
 
 {% endblock %} 

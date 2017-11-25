@@ -147,4 +147,5 @@ class SprayPumproomInspectionFilterForm(forms.Form):
     year = forms.IntegerField(
         label=_('year'),
         initial=2017,
+        min_value=2017,
         required=False)
