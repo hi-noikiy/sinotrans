@@ -1649,7 +1649,7 @@ msgstr "车辆运输KPI"
 #: .\outsourcing\templates\forklift\forklift_list.html:20
 #: .\outsourcing\templates\transportation\vehicle_list.html:32
 msgid "Outsource Management"
-msgstr ""
+msgstr "外包管理"
 
 #: .\outsourcing\templates\table_transposition_display.html:16
 msgid "indicator"
