@@ -18,7 +18,9 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>    
+            {% comment %}
             <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>
+            {% endcomment %}
             <li><a href="{% url 'about' %}">{% trans 'About' %}</a></li>
             <li><a href="{% url 'sinotrans:index' %}">{% trans 'Admin' %}</a></li>
 
@@ -51,7 +53,7 @@
               <li><a href='{{request.user.get_absolute_url}}'}>{{request.user.get_wechatprofile}}</a></li> 
               <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>              
               {% else %}
-              <li><a href="{{request.user.get_absolute_url}}">{{request.user}}</a></li> 
+              <li><a href="{#request.user.get_absolute_url#}">{{request.user}}</a></li> 
               <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
               {% endif %}
 <!--- below shuold be useless -->              
@@ -59,9 +61,9 @@
               <li><a href="{{request.wechat.get_absolute_url}}">{{request.wechat}}</a></li> 
               <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>          
             {% else %}
-              <li><a href="{% url 'register_phone' %}">{% trans 'Register' %}</a></li>
+              {# <li><a href="{% url 'register_phone' %}">{% trans 'Register' %}</a></li> #}
               {# <li><a href="{% url 'registration_register' %}">{% trans 'Register' %}</a></li> #}
-              <li><a href='{% url "wechatlogin" %}'><i class="fa fa-weixin" aria-hidden="true"></i></a></li>
+              {# <li><a href='{% url "wechatlogin" %}'><i class="fa fa-weixin" aria-hidden="true"></i></a></li> #}
               {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'Login' %} <span class="caret"></span></a>

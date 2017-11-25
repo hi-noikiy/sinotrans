@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load myform %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <form method="POST" accept="">{% csrf_token %}
+            {{waybill_scan_form|crispy}}
+            <input type="submit" class="btn btn-primary" value="{% trans 'Submit' %}" >
+        </form>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <table class="table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
+            <thead>
+                <tr class="table-primary">
+                    {% for field in fields %}
+                    <th>{{field.verbose_name}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in waybill_objects_unassigned %}
+                <tr>
+                    {% for field in fields %}
+                    <td>{{ object|my_get_field_value:field.name }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

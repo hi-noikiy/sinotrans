@@ -94,7 +94,7 @@ class DailyInspection(models.Model):
     category = models.CharField(_('Category'), max_length=30, choices = daily_insepction_category, blank=False, default = 'device')
     inspection_content = models.CharField(_('Inspection Content'), max_length=30, blank=False)
     impact = models.CharField(_('Impact'), max_length=30, blank=False)
-    rectification_measures = models.TextField(_('Rectification Measures'), max_length=30, blank=False)
+    rectification_measures = models.TextField(_('Rectification Measures'), max_length=500, blank=False)
     rectification_status = models.CharField(_('Rectification Status'), max_length=30, choices = daily_insepction_correction_status, blank=False, default = 'uncompleted')
     owner = models.CharField(_('Owner'), max_length=30, blank=False)
     due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False)

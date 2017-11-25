@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-21 23:10+0800\n"
+"POT-Creation-Date: 2017-11-25 10:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -340,6 +340,8 @@ msgstr "下一页"
 #: .\equipments\templates\equipment\spray_pump_room_inspection_update.html:19
 #: .\outsourcing\templates\kpi\transportationkpi_create.html:14
 #: .\outsourcing\templates\kpi\transportationkpi_update.html:14
+#: .\picking\templates\picking\pickingbill_assign.html:28
+#: .\picking\templates\picking\waybill_complete.html:13
 #: .\templates\registration\registration_form.html:14
 msgid "Submit"
 msgstr "提交"
@@ -1652,17 +1654,31 @@ msgstr "指标"
 msgid "Forklift"
 msgstr "叉车"
 
-#: .\picking\models.py:17 .\picking\models.py:33
-#| msgid "name"
-msgid "number"
-msgstr "编号"
+#: .\picking\forms.py:11 .\picking\models.py:36
+msgid "pickingbill number"
+msgstr "拣配单号"
+
+#: .\picking\forms.py:16
+msgid "picking staff"
+msgstr "拣配工"
+
+#: .\picking\forms.py:22 .\picking\models.py:17 .\picking\models.py:40
+msgid "waybill number"
+msgstr "运单号"
+
+#: .\picking\forms.py:27
+msgid "label staff"
+msgstr "标签工"
+
+#: .\picking\forms.py:32
+msgid "distribution staff"
+msgstr "交接工"
 
 #: .\picking\models.py:18
 msgid "forwarder"
-msgstr ""
+msgstr "承运商"
 
 #: .\picking\models.py:19
-#| msgid "project manager"
 msgid "product number"
 msgstr "产品数量"
 
@@ -1670,52 +1686,53 @@ msgstr "产品数量"
 msgid "packing number"
 msgstr "包装数量"
 
-#: .\picking\models.py:21 .\picking\models.py:40
-#| msgid "Home"
+#: .\picking\models.py:21 .\picking\models.py:43
 msgid "volume"
 msgstr "体积"
 
-#: .\picking\models.py:25 .\picking\models.py:26 .\picking\models.py:32
-msgid "waybill"
-msgstr "运单"
-
-#: .\picking\models.py:34
-msgid "product id"
-msgstr "产品编号"
-
-#: .\picking\models.py:35
-#| msgid "project manager"
-msgid "product name"
-msgstr "产品名称"
-
-#: .\picking\models.py:36
-msgid "dispatch bill number"
-msgstr "发货单号"
-
-#: .\picking\models.py:37
-msgid "waybill number"
-msgstr "运单号"
-
-#: .\picking\models.py:38
-#| msgid "relevant trailer number"
-msgid "product total number"
-msgstr "产品总数"
-
-#: .\picking\models.py:39
-#| msgid "relevant trailer number"
-msgid "packing total number"
-msgstr "包装总数"
-
-#: .\picking\models.py:41
+#: .\picking\models.py:22 .\picking\models.py:44
 msgid "status"
 msgstr "状态"
 
-#: .\picking\models.py:42
-#| msgid "Create Date"
+#: .\picking\models.py:23 .\picking\models.py:45
 msgid "created date"
 msgstr "创建日期"
 
-#: .\picking\models.py:46 .\picking\models.py:47
+#: .\picking\models.py:24
+#| msgid "created date"
+msgid "completed time"
+msgstr "完成时间"
+
+#: .\picking\models.py:28 .\picking\models.py:29 .\picking\models.py:35
+msgid "waybill"
+msgstr "运单"
+
+#: .\picking\models.py:37
+msgid "product id"
+msgstr "产品编号"
+
+#: .\picking\models.py:38
+msgid "product name"
+msgstr "产品名称"
+
+#: .\picking\models.py:39
+msgid "dispatch bill number"
+msgstr "发货单号"
+
+#: .\picking\models.py:41
+msgid "product total number"
+msgstr "产品总数"
+
+#: .\picking\models.py:42
+msgid "packing total number"
+msgstr "包装总数"
+
+#: .\picking\models.py:46
+#| msgid "planned date"
+msgid "assigned time"
+msgstr "分配时间"
+
+#: .\picking\models.py:50 .\picking\models.py:51
 msgid "picking bill"
 msgstr "拣配单"
 
@@ -3537,6 +3554,9 @@ msgstr "计划"
 #: .\trainings\views.py:109
 msgid "actual"
 msgstr "实际"
+
+#~ msgid "number"
+#~ msgstr "编号"
 
 #~ msgid "training person"
 #~ msgstr "培训人员"

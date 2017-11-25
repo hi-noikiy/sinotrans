@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^equipments/', include('equipments.urls')),
     url(r'^outsourcing/', include('outsourcing.urls')),
     url(r'^trainings/', include('trainings.urls')),
+    url(r'^picking/', include('picking.urls')),
 
     url(r'^accounts/', include('registration.backends.default.urls')),    
     url(r'^setlang/$', set_language, name='setlang'),

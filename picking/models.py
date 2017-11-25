@@ -14,11 +14,14 @@ from django.conf import settings
 
 
 class Waybill(models.Model):
-    number = models.CharField(_('number'), max_length=30, blank=True)   
+    number = models.CharField(_('waybill number'), max_length=30, blank=True)   
     forwarder = models.CharField(_('forwarder'), max_length=30, blank=True)    
     product_number = models.IntegerField(_('product number'), blank=True)    
     packing_number = models.IntegerField(_('packing number'), blank=True)   
     volume = models.DecimalField(_('volume'), max_digits=20, decimal_places=5, blank=True)    
+    status = models.CharField(_('status'), max_length=30, blank=True) 
+    created = models.DateField(_('created date'),auto_now_add=True, auto_now=False)
+    completed = models.DateTimeField(_('completed time'),auto_now_add=False, auto_now=False)
 
     class Meta:
         ordering = ['number']
@@ -30,7 +33,7 @@ class Waybill(models.Model):
 
 class PickingBill(models.Model):
     waybill = models.ForeignKey(Waybill, verbose_name=_('waybill'))
-    number = models.CharField(_('number'), max_length=30, blank=True)    
+    number = models.CharField(_('pickingbill number'), max_length=30, blank=True)    
     product_id = models.CharField(_('product id'), max_length=30, blank=True)    
     product_name = models.CharField(_('product name'), max_length=30, blank=True)    
     dispatch_bill_number = models.CharField(_('dispatch bill number'), max_length=30, blank=True)    
@@ -40,6 +43,7 @@ class PickingBill(models.Model):
     volume = models.DecimalField(_('volume'), max_digits=20, decimal_places=5, blank=True)    
     status = models.CharField(_('status'), max_length=30, blank=True)   
     created = models.DateField(_('created date'),auto_now_add=True, auto_now=False)
+    assigned = models.DateTimeField(_('assigned time'),auto_now_add=False, auto_now=False)
 
     class Meta:
         ordering = ['number']
