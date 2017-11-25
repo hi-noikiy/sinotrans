@@ -113,7 +113,7 @@ $(document).ready(function(){
 	<ul style="list-style:none; padding-left:2px; margin-left:2px;">
 		{% for object in objects_sort %}
 		<li style="padding-bottom: 5px;">
-			<a href='{{ object.get_absolute_url }}'>{{object}}</a>
+			<a href='{{ object.get_absolute_url }}'>{{object}}  -  <small>{{object.updated}}</small></a>
 		</li>
 		{% endfor %}
 	</ul>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-25 10:23+0800\n"
+"POT-Creation-Date: 2017-11-25 15:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,7 +110,7 @@ msgid "Register for free!"
 msgstr ""
 
 #: .\authwrapper\templates\auth\registration_form_forget.html:4
-#: .\templates\navbar.html:82 .\templates\navbar.html.py:84
+#: .\templates\navbar.html:85 .\templates\navbar.html.py:87
 msgid "Forgot Password"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr "类型"
 #: .\equipments\models.py:30 .\equipments\models.py:31
 #: .\equipments\models.py:42
 #: .\equipments\templates\equipment\equipment_inspection_list.html:87
-#: .\templates\navbar.html:45 .\templates\navbar_2nd.html.py:11
+#: .\templates\navbar.html:48 .\templates\navbar_2nd.html.py:11
 msgid "Equipment"
 msgstr "设备"
 
@@ -409,13 +409,18 @@ msgid "sanitation"
 msgstr "卫生"
 
 #: .\inspection\apps.py:6 .\inspection\views.py:188 .\inspection\views.py:221
-#: .\templates\navbar.html:43 .\templates\navbar_2nd.html.py:9
+#: .\templates\navbar.html:46 .\templates\navbar_2nd.html.py:9
 msgid "Inspection"
 msgstr "巡检"
 
 #: .\inspection\forms.py:64 .\inspection\models.py:96
 msgid "Impact"
 msgstr "影响"
+
+#: .\inspection\forms.py:130
+#| msgid "March"
+msgid "Search"
+msgstr "搜索"
 
 #: .\inspection\forms.py:149 .\inspection\models.py:98
 #: .\inspection\templates\dailyinspection\dailyinspection_detail.html:71
@@ -580,7 +585,7 @@ msgstr "立柱货架"
 #: .\inspection\models.py:223 .\inspection\models.py:261
 #: .\inspection\models.py:262 .\inspection\models.py:324
 #: .\inspection\models.py:372 .\inspection\views.py:831
-#: .\templates\navbar.html:44 .\templates\navbar_2nd.html.py:10
+#: .\templates\navbar.html:47 .\templates\navbar_2nd.html.py:10
 msgid "Shelf"
 msgstr "货架"
 
@@ -998,7 +1003,8 @@ msgstr "文本"
 msgid "banner"
 msgstr "横幅"
 
-#: .\newsletter\models.py:50 .\templates\navbar_2nd.html.py:8
+#: .\newsletter\models.py:50 .\templates\footer.html.py:58
+#: .\templates\navbar_2nd.html:8
 msgid "news"
 msgstr "新闻"
 
@@ -1650,7 +1656,7 @@ msgid "indicator"
 msgstr "指标"
 
 #: .\outsourcing\views.py:41 .\outsourcing\views.py:67
-#: .\templates\navbar.html:46 .\templates\navbar_2nd.html.py:13
+#: .\templates\navbar.html:49 .\templates\navbar_2nd.html.py:13
 msgid "Forklift"
 msgstr "叉车"
 
@@ -1699,7 +1705,6 @@ msgid "created date"
 msgstr "创建日期"
 
 #: .\picking\models.py:24
-#| msgid "created date"
 msgid "completed time"
 msgstr "完成时间"
 
@@ -1728,7 +1733,6 @@ msgid "packing total number"
 msgstr "包装总数"
 
 #: .\picking\models.py:46
-#| msgid "planned date"
 msgid "assigned time"
 msgstr "分配时间"
 
@@ -3181,41 +3185,32 @@ msgstr "关于我们"
 msgid "Contact Us"
 msgstr "联系我们"
 
-#: .\templates\navbar.html:21
-msgid "Contact"
-msgstr "联系"
-
-#: .\templates\navbar.html:22
+#: .\templates\navbar.html:25
 msgid "About"
 msgstr "关于"
 
-#: .\templates\navbar.html:23
+#: .\templates\navbar.html:26
 msgid "Admin"
 msgstr "控制台"
 
-#: .\templates\navbar.html:39
+#: .\templates\navbar.html:42
 msgid "Projects"
 msgstr "项目"
 
-#: .\templates\navbar.html:47 .\templates\navbar_2nd.html.py:12
+#: .\templates\navbar.html:50 .\templates\navbar_2nd.html.py:12
 msgid "Spray Pump"
 msgstr "喷淋泵"
 
-#: .\templates\navbar.html:53 .\templates\navbar.html.py:56
-#: .\templates\navbar.html:61
+#: .\templates\navbar.html:56 .\templates\navbar.html.py:59
+#: .\templates\navbar.html:64
 msgid "Logout"
 msgstr "注销"
 
-#: .\templates\navbar.html:63 .\templates\registration\login.html.py:31
-#: .\templates\registration\login.html:34
-msgid "Register"
-msgstr "注册"
-
-#: .\templates\navbar.html:68
+#: .\templates\navbar.html:71
 msgid "Login"
 msgstr "登陆"
 
-#: .\templates\navbar.html:78 .\templates\registration\login.html.py:5
+#: .\templates\navbar.html:81 .\templates\registration\login.html.py:5
 #: .\templates\registration\login.html:19
 msgid "Log in"
 msgstr "登陆"
@@ -3319,6 +3314,11 @@ msgstr ""
 #: .\templates\registration\login.html:34
 msgid "Not a member?"
 msgstr ""
+
+#: .\templates\registration\login.html:31
+#: .\templates\registration\login.html:34
+msgid "Register"
+msgstr "注册"
 
 #: .\templates\registration\logout.html:4
 msgid "Logged out"
@@ -3554,6 +3554,9 @@ msgstr "计划"
 #: .\trainings\views.py:109
 msgid "actual"
 msgstr "实际"
+
+#~ msgid "Contact"
+#~ msgstr "联系"
 
 #~ msgid "number"
 #~ msgstr "编号"

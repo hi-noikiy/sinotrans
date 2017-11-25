@@ -1,5 +1,6 @@
 
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -7,15 +8,15 @@
         <form id="item_create_form" method="POST" class="form" action='{% url "equipmentinsepction_create" cat=current_category|add:"0" %}'>{% csrf_token %}
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title" id="myModalLabel">Create</h4>
+              <h4 class="modal-title" id="myModalLabel">{% trans 'Create' %}</h4>
             </div>
 
             <div class="modal-body">
                 {{form|crispy}}
             </div>
             <div class="modal-footer">
-                <input id="form_cancel" type="button" class="btn btn-default" data-dismiss="modal" value="Cancel" />
-                <input type="submit" class="btn btn-primary" value="save" style="margin-bottom: 5px;" />
+                <input id="form_cancel" type="button" class="btn btn-default" data-dismiss="modal" value="{% trans 'cancel' %}" />
+                <input type="submit" class="btn btn-primary" value="{% trans 'Save' %}" style="margin-bottom: 5px;" />
             </div>
         </form>
         <script>

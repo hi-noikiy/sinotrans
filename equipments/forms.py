@@ -14,7 +14,7 @@ from .models import (
 class EquipmentInspectionForm(forms.ModelForm):
     use_condition = forms.ChoiceField(
     	label=_('Use Condition'),
-        choices=EquipmentInspection.equipment_use_condition,
+        choices=BLANK_CHOICE_DASH + EquipmentInspection.equipment_use_condition,
         #widget=forms.RadioSelect,
         widget=forms.Select,
     )

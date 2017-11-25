@@ -71,7 +71,7 @@ a:hover {text-decoration: none;}
 <div class="article-table">
     {% for object in objects %}
         <div class="article-row row">
-            <div class="article-cell article-img col-sm-3 ">
+            <div class="article-cell article-img {% if img_width %}{{img_width}}{% else %}col-sm-3{% endif %} ">
                 <a href='{{ object.get_absolute_url }}'><img class="img-responsive" src="{{object.image.url}}"></a>                    
             </div>
             <div class="article-cell article-text col-sm-8">

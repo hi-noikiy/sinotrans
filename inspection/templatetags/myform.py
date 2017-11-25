@@ -25,6 +25,16 @@ def my_get_field_value(inst, fieldname):
 
     return None
 
+
+@register.filter(name='my_hasattr')
+def my_hasattr(inst, fieldname):
+    try:
+        if hasattr(inst, fieldname):
+            return True
+    except:
+        pass
+    return False
+    
 # field value for display ( options, i18n)
 @register.filter(name='my_get_field_display')
 def my_get_field_display(inst, fieldname):

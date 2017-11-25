@@ -197,6 +197,7 @@ class EquipmentInspectionQuickUpdateView(ListView):
         formset = equipment_inspection_model_formset(queryset=self.model.objects.get_this_day(),
             initial=[{'use_condition': _('Normal'),}])
         context["formset"] = formset
+        context["extra_form_lg_one"] = True
         # context["objects_list"] = self.model.objects.get_this_day()
         return context
 

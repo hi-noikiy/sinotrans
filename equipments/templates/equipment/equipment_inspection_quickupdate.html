@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+{% load myform %}
 
 
 <style type="text/css">
@@ -40,9 +41,11 @@ table.table_form tr th{
                     <form method="post" action="">{% csrf_token %}
                         {{ formset.management_form }}
                             {% for form in formset %}
-                            <h4> {% if not forloop.last%}
+                            <h4>{% if not forloop.last%}
                             <a href="{{form.instance.get_absolute_url }}"> {{form.instance }} </a>
-                            {% else %}
+                            {% elif extra_form_lg_one == False %}
+                            <a href="{{form.instance.get_absolute_url }}"> {{form.instance }} </a>
+                            {% elif extra_form_lg_one %}
                             <a href="{% url 'equipmentinsepction_create' cat=current_category|add:"0" %}">Create New</a>
                             {% endif %}</h4>
                             <table style="width: 100%" class="table_form">

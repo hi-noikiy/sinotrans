@@ -127,7 +127,7 @@ class DailyInspectionForm(forms.ModelForm):
     # ModelChoiceField
 
 class InspectionFilterForm(forms.Form):
-    q = forms.CharField(label='Search', required=False)
+    q = forms.CharField(label=_('Search'), required=False)
     '''
     category_id = forms.ModelMultipleChoiceField(
         label='Category',
@@ -180,7 +180,7 @@ class ShelfGradientInspectionForm(forms.ModelForm):
 shelf_gradient_inspection_Formset = modelformset_factory(shelf_inspection_record, 
                                             form=ShelfGradientInspectionForm, 
                                             formset=BaseModelFormSet, 
-                                            extra=0)
+                                            extra=1)
 
 class ShelfInspectionRecordForm(forms.ModelForm):
     
