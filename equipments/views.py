@@ -159,6 +159,14 @@ class EquipmentInspectionListView(FilterMixin, ListView):
     def get_success_url(self, *args, **kwargs):
         return reverse("equipmentinsepction_list", kwargs={})
 
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("Equipmentinsepction List"),  request.path_info),            
+        ])
+        return super(EquipmentInspectionListView, self).dispatch(request,args,kwargs)      
+
+
 class EquipmentInspectionDetailView(DetailView):
     model = EquipmentInspection
     template_name = "equipment/equipment_inspection_detail.html"
@@ -219,6 +227,14 @@ class EquipmentInspectionQuickUpdateView(ListView):
 
     def get_success_url(self, *args, **kwargs):
         return reverse("equipmentinsepction_quickupdate", kwargs={})    
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("Equipmentinsepction List"), reverse("equipmentinsepction_list", kwargs={})),            
+            (_("Quick Update"), request.path_info),
+        ])
+        return super(EquipmentInspectionQuickUpdateView, self).dispatch(request,args,kwargs)      
 
 class EquipmentInspectionUpdateView(UpdateView):
     model = EquipmentInspection
