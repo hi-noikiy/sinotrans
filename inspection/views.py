@@ -938,19 +938,9 @@ class ShelfGradientInspectionView(DetailView):
 
         context["formset_queryset"] = queryset
 
+        print queryset
+
         return context       
-
-
-    def dispatch(self, request, *args, **kwargs):
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
-            (_('Shelf Inspection Detail'),reverse("shelf_inspection_detail", kwargs={"pk":self.get_object().id})),
-            (_('shelf gradient inspection'),request.path_info),
-        ])
-
-        return super(ShelfGradientInspectionView, self).dispatch(request,args,kwargs)
-
 
     def post(self, request, *args, **kwargs):
         qs = shelf_inspection_record.objects.filter(shelf_inspection=self.get_object())
@@ -963,9 +953,11 @@ class ShelfGradientInspectionView(DetailView):
             queryset0 = qs_upright.relevant(group_id=group)
             queryset1 = qs_not_upright.relevant(group_id=group)
 
-            formsets = [shelf_gradient_inspection_Formset(request.POST or None, request.FILES or None, prefix="".join(list(queryset0[0].shelf.get_group_id()))+"upright"),
-                        shelf_gradient_inspection_Formset(request.POST or None, request.FILES or None, prefix="".join(list(queryset0[0].shelf.get_group_id()))+"noupright"),]
+            formsets = [shelf_gradient_inspection_Formset(self.request.POST or None, self.request.FILES or None, prefix="".join(list(queryset0[0].shelf.get_group_id()))+"upright"),]
 
+            if not queryset1 is None:
+                formsets.append(shelf_gradient_inspection_Formset(self.request.POST or None, self.request.FILES or None, prefix="".join(list(queryset0[0].shelf.get_group_id()))+"noupright"))
+            
             if queryset is None:
                 queryset = [formsets]
             else:
@@ -986,10 +978,21 @@ class ShelfGradientInspectionView(DetailView):
                     instances = formset.save(commit=False)
                     for instance in instances:
                         instance.save()
-            messages.success(request, "Your list has been updated.")
+            messages.success(request, _("Your list has been updated."))
             return redirect(reverse("shelf_gradient_inspection",  kwargs={"pk":self.get_object().id}))
 
         #self.object_list = self.get_queryset() # copy from BaseListView::get
         context = self.get_context_data()
         context['formset_queryset'] = queryset
         return self.render_to_response(context)
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
+            (_('Shelf Inspection Detail'),reverse("shelf_inspection_detail", kwargs={"pk":self.get_object().id})),
+            (_('shelf gradient inspection'),request.path_info),
+        ])
+
+        return super(ShelfGradientInspectionView, self).dispatch(request,args,kwargs)
+

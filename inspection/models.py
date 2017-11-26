@@ -255,7 +255,8 @@ class shelf(models.Model):
         return False
 
     def get_group_id(self):
-        return[self.type, self.warehouse,self.compartment, self.warehouse_channel,self.group]
+        #return[self.type, self.warehouse,self.compartment, self.warehouse_channel,self.group]
+        return[self.warehouse,self.compartment, self.warehouse_channel,self.group]
 
     class Meta:
         verbose_name = _('Shelf')
@@ -267,7 +268,7 @@ class shelf_inspection(models.Model):
     comments = models.TextField(_('Comments'), max_length=30, blank=True, null=True)
 
     def __unicode__(self): 
-        return _("shelf inspection") + " %s %d" % (self.check_date, self.id)
+        return _("shelf inspection") + " %s" % (self.check_date)
 
     def get_absolute_url(self):
         return reverse("shelf_inspection_detail", kwargs={"pk": self.id })
@@ -305,9 +306,10 @@ class ProductQuerySet(models.query.QuerySet):
                         filter(shelf__warehouse_channel=warehouse_channel).filter(shelf__group=group)
 
     def relevant(self, group_id): 
-        return self.filter(shelf__type=group_id[0]).filter(shelf__warehouse=group_id[1]).filter(shelf__compartment=group_id[2]).\
-                        filter(shelf__warehouse_channel=group_id[3]).filter(shelf__group=group_id[4])
-
+        #return self.filter(shelf__type=group_id[0]).filter(shelf__warehouse=group_id[1]).filter(shelf__compartment=group_id[2]).\
+        #                filter(shelf__warehouse_channel=group_id[3]).filter(shelf__group=group_id[4])
+        return self.filter(shelf__warehouse=group_id[0]).filter(shelf__compartment=group_id[1]).\
+                        filter(shelf__warehouse_channel=group_id[2]).filter(shelf__group=group_id[3])
 class ShelfInspectionRecordManager(models.Manager):
     def relevant(self, *args, **kwargs):
         return self.get_queryset().relevant(*args, **kwargs)
@@ -333,7 +335,10 @@ class shelf_inspection_record(models.Model):
     objects = ShelfInspectionRecordManager()
 
     def __unicode__(self): 
-        return _("shelf inspection record") + " %s" % (self.shelf)
+        if self.shelf :
+            return _("shelf inspection record") + " %s" % (self.shelf )
+        else:
+            return _("shelf inspection record") + " %s" % (self.id )
 
     def get_absolute_url(self):
         return reverse("shelf_inspection_record_detail", kwargs={"pk": self.id })

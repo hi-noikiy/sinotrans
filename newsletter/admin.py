@@ -24,10 +24,10 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(SignUp, SignUpAdmin)
+# admin.site.register(SignUp, SignUpAdmin)
 admin.site.register(Banner, BannerAdmin)
 admin.site.register(Article, ArticleAdmin)
 
-my_admin_site.register(SignUp, SignUpAdmin)
+# my_admin_site.register(SignUp, SignUpAdmin)
 my_admin_site.register(Banner, BannerAdmin)
 my_admin_site.register(Article, ArticleAdmin)

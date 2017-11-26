@@ -11,7 +11,7 @@ from .forms import (
 )
 from django.core.urlresolvers import reverse
 from django.contrib.sites.shortcuts import get_current_site
-
+from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.admin import AdminSite
 
@@ -19,7 +19,7 @@ class MyAdminSite(AdminSite):
     site_header = 'SINOTRANS'
     site_title = "SINOTRANS"
     #site_url = None
-    index_title = "SINOTRANS Management"
+    index_title = _("SINOTRANS Management")
     """        index_template
     app_index_template
     empty_value_display

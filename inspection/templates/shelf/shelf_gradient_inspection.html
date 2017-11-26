@@ -12,7 +12,7 @@
         {% if formset_queryset.count == 0 %}
             {% trans "Nothing found" %}
         {% else %}
-            {% autopaginate formset_queryset 8 %}
+            {% autopaginate formset_queryset 2 %}
         	<form method="post" action="">{% csrf_token %}
             {% for formsets in formset_queryset %}                
                 <div class="col-sm-12">
@@ -33,7 +33,7 @@
                 </div>                
             {% endfor %}
                 <div class="col-sm-12">
-                    <input type="submit" class="btn btn-primary" value="Submit">
+                    <input type="submit" class="btn btn-primary" value="{% trans 'Submit' %}">
                 </div>
             </form>
             <div class="text-center">

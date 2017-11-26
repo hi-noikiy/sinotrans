@@ -180,7 +180,7 @@ class ShelfGradientInspectionForm(forms.ModelForm):
 shelf_gradient_inspection_Formset = modelformset_factory(shelf_inspection_record, 
                                             form=ShelfGradientInspectionForm, 
                                             formset=BaseModelFormSet, 
-                                            extra=1)
+                                            extra=0)
 
 class ShelfInspectionRecordForm(forms.ModelForm):
     

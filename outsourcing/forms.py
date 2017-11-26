@@ -37,6 +37,7 @@ class VehicleTransportationKPIFilterForm(forms.Form):
     year = forms.IntegerField(
         label=_('year'),
         initial=2017,
+        min_value=2017,
         required=False)
 
     month = forms.ChoiceField(
