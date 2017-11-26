@@ -99,6 +99,9 @@ class DailyInspectionForm(forms.ModelForm):
         exclude = [
             'timestamp',
             'updated',
+            'rectification_status',
+            'inspector',
+            'completed_time'
         ]
         
     class Media:

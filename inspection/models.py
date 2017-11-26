@@ -48,7 +48,7 @@ def image_upload_to_dailyinspection(instance, filename):
     title, file_extension = filename.split(".")
     #new_filename = "%s-%s.%s" %(instance.created.strftime('%Y-%m-%d-%H-%M-%S'), slugify(title), file_extension)
     if settings.UUSLUGIFY == True:
-        new_filename = "%s-%s.%s" %(instance.created.strftime('%Y%m%d%H%M%S'), uuslugify(title), file_extension)
+        new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), uuslugify(title), file_extension)
     else:
         new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), title, file_extension) # created was not ready for CreateView
     return "dailyinspection/%s/%s" %(instance.category, new_filename)
@@ -74,7 +74,7 @@ class DailyInspection(models.Model):
     daily_insepction_impact = (
         ('1', _('economic loss')),
         ('2', _('personnel injury')),
-        ('3', _('non-conformance 5SS standard')),
+        # ('3', _('non-conformance 5SS standard')),
     )
 
     daily_insepction_correction_status = (
@@ -90,16 +90,18 @@ class DailyInspection(models.Model):
     daily_insepction_location = (
         ('1', _('Storage Area')),
     )
-
+ 
     category = models.CharField(_('Category'), max_length=30, choices = daily_insepction_category, blank=False, default = 'device')
     inspection_content = models.CharField(_('Inspection Content'), max_length=30, blank=False)
     impact = models.CharField(_('Impact'), max_length=30, blank=False)
     rectification_measures = models.TextField(_('Rectification Measures'), max_length=500, blank=False)
     rectification_status = models.CharField(_('Rectification Status'), max_length=30, choices = daily_insepction_correction_status, blank=False, default = 'uncompleted')
     owner = models.CharField(_('Owner'), max_length=30, blank=False)
+    inspector = models.OneToOneField(settings.AUTH_USER_MODEL,verbose_name=_('Inspector'), null=True, blank=True) 
     due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False)
     created = models.DateTimeField(_('Inspection Created Date'), auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(_('Inspection Updated Date'), auto_now_add=False, auto_now=True)
+    completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     image_before = ThumbnailImageField(verbose_name = _('Picture before Rectification'), upload_to=image_upload_to_dailyinspection, blank=True, null=True)
     image_after = models.ImageField(_('Picture after Rectification'), upload_to=image_upload_to_dailyinspection, blank=True, null=True)
     #warehouse = models.CharField(_('Warehouse'), max_length=30, choices = daily_insepction_warehouse, blank=False, default = '3#')
@@ -189,6 +191,8 @@ class DailyInspection(models.Model):
         verbose_name = _("Daily Inspection")
         verbose_name_plural = _("Daily Inspection")
         ordering = ['-created']
+
+
 
 post_delete.connect(file_cleanup, sender=DailyInspection, dispatch_uid="DailyInspection.file_cleanup")
 post_save.connect(file_cleanup2, sender=DailyInspection, dispatch_uid="DailyInspection.file_cleanup2")

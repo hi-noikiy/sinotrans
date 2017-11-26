@@ -48,9 +48,12 @@ def image_upload_to_article(instance, filename):
 class Article(models.Model):
     article_category = [
         ('news', _('news')),
+        ('hot', _('hot')),
+        ('regulations', _('regulations')),
         ('policy_and_information', _('policy and information')),
         ('organization_and_position_responsibility', _('organization and position responsibility')),
         ('road_risk_map', _('road risk map')),
+        ('activities', _('activities')),
     ]
 
     """docstring for Article"""

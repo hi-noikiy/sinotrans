@@ -33,8 +33,32 @@ def home(request):
     }
 
     try:
-        context["categories"] = Article.article_category
-        context["objects"] = [(category[0], Article.objects.filter(category=category[0])) for category in Article.article_category]
+        categories_src = [
+            [        
+                ('news', _('news')),
+                ('hot', _('hot')),
+            ],
+            [
+                ('organization_and_position_responsibility', _('organization and position responsibility')), 
+                ('regulations', _('regulations')),
+            ],
+            [
+                ('activities', _('activities')),
+            ]
+
+        ]
+
+        categories = []
+        objects = []        
+        for category in categories_src:
+            categories.append(category )
+            #objects.append((category, Article.objects.filter(category__in=[x[0] for x in category])))
+            objects.append([(x[0], Article.objects.filter(category=x[0])) for x in category])
+        
+        #context["categories"] = Article.article_category
+        #context["objects"] = [(category[0], Article.objects.filter(category=category[0])) for category in Article.article_category]
+        context["categories"] = categories
+        context["objects"] = objects   
     except:
         pass
 

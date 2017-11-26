@@ -74,7 +74,7 @@ a:hover {text-decoration: none;}
             <div class="article-cell article-img {% if img_width %}{{img_width}}{% else %}col-sm-3{% endif %} ">
                 <a href='{{ object.get_absolute_url }}'><img class="img-responsive" src="{{object.image.url}}"></a>                    
             </div>
-            <div class="article-cell article-text col-sm-8">
+            <div class="article-cell article-text col-sm-9">
                 <p class="article-title"><a href='{{ object.get_absolute_url }}'>{{object.title}}</a></p>
 
                 <p class="article-abstract">{{object.abstract|truncatechars:50}}</p>

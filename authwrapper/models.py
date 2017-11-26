@@ -84,15 +84,15 @@ class MyUserManager(BaseUserManager):
 # for phone register, username will be a repalica of phone number
 # for mail register, username and mail is seperated value
 USER_TYPE = (
-    ('username', 'Username'),
-    ('mail', 'Mail'), 
-    ('phone', 'Phone'),
+    ('username', _('username')),
+    ('mail', _('mail')), 
+    ('phone', _('phone')),
     #('wechat', 'Wechat'),
 )
 
 SEX_OPTION = (
-    ('male', 'Male'),
-    ('female', 'Female'),
+    ('male', _('Male')),
+    ('female', _('Female')),
 )
 
 def image_upload_to(instance, filename):
@@ -164,9 +164,9 @@ class MyAbstractUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     
     # identifier = models.CharField(max_length=50, unique=True, db_index=True, verbose_name='username')
-    account_type = models.CharField(max_length=50, blank=True, null=True, choices=USER_TYPE, default = 'username') #login account type
+    account_type = models.CharField(_('account type'),max_length=50, blank=True, null=True, choices=USER_TYPE, default = 'username') #login account type
 
-    image = models.ImageField(upload_to=image_upload_to, blank=True, null=True)
+    image = models.ImageField(_('image'),upload_to=image_upload_to, blank=True, null=True)
 
     # below variable is very important for createsuperuser command
     USERNAME_FIELD = 'phone' if 'phone' == settings.ACCOUNT_REGISTER_TYPE  else 'username'

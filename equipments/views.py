@@ -447,7 +447,7 @@ class SprayPumproomInspectionListEditView(ListView):
             for instance in instances:
                 instance.save()
             messages.success(request, "Your list has been updated.")
-            return redirect(reverse("spraypumproominspection_list_edit",  kwargs={}))
+            return redirect(reverse("spraypumproominspection_list_edit",  kwargs={})+'?year='+self.request.GET.get('year'))
 
         self.object_list = self.get_queryset() # copy from BaseListView::get
         context = self.get_context_data()

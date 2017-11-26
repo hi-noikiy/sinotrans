@@ -57,86 +57,109 @@
 {% block content %}
 <br>
 
-<div class= 'row'><div class="col-xs-12">
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3>{% trans "Newsletter" %}</h3>
-  </div>
-  <div class="panel-body scale-product" >
-    <div>
-        <ul class="nav nav-tabs" role="tablist">
-            {% for category in categories %}
-            <li role="presentation" class="{% if forloop.first %}active{% endif %}"><a href="#{{category.0}}" aria-controls={{category.0}} role="tab" data-toggle="tab">{{category.1}}</a></li>
-            {% endfor %}
-        </ul>
-
-        <div class="tab-content">
-          {% for object in objects %}
-            <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
-              {% include "article/articles.html" with objects=object.1 img_width='col-sm-2' %}
+<div class= 'row'>
+  <div class="col-xs-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3>{% trans "Newsletter" %}</h3>
+      </div>
+      <div class="panel-body scale-product" >
+        <div>
+            <ul class="nav nav-tabs" role="tablist">
+                {% for category in categories.0 %}
+                <li role="presentation" class="{% if forloop.first %}active{% endif %}"><a href="#{{category.0}}" aria-controls={{category.0}} role="tab" data-toggle="tab">{{category.1}}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+              {% for object in objects.0 %}
+                <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
+                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-2' %}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
+      </div>
+    </div>
+  </div>
 
+
+  <div class="col-xs-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3>{% trans "regulations" %}</h3>
+      </div>
+      <div class="panel-body scale-product" >
+        <div>
+            <ul class="nav nav-tabs" role="tablist">
+                {% for category in categories.1 %}
+                <li role="presentation" class="{% if forloop.first %}active{% endif %}"><a href="#{{category.0}}" aria-controls={{category.0}} role="tab" data-toggle="tab">{{category.1}}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+              {% for object in objects.1 %}
+                <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
+                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-2' %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-</div></div>
 
-<div class= 'row'><div class="col-xs-12">
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3>{% trans "Daily Inspection" %}</h3>
-  </div>
-  <div class="panel-body" >
-    <div>
-      {% if dailyinspection_object_list.count == 0 %}
-        {% trans "Nothing found" %}
-      {% else %}
-        {% include "dailyinspection/inspections.html" with object_list=dailyinspection_object_list %}
-      {% endif %}
+
+<div class= 'row'>
+  <div class="col-xs-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3>{% trans "activities" %}</h3>
+      </div>
+      <div class="panel-body scale-product" >
+        <div>
+            <ul class="nav nav-tabs" role="tablist">
+                {% for category in categories.2 %}
+                <li role="presentation" class="{% if forloop.first %}active{% endif %}"><a href="#{{category.0}}" aria-controls={{category.0}} role="tab" data-toggle="tab">{{category.1}}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+              {% for object in objects.2 %}
+                <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
+                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-2' %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div style="text-align: -webkit-center; ">
-    <p><a class="btn btn-warning btn-lg" href="{% url 'dailyinspection_list' %}" role="button">More</a></p>
-  </div>
 </div>
-</div></div>
 
 
-<div class= 'row'><div class="col-xs-12">
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3>{% trans "shelf inspection" %}</h3>
-  </div>
-  <div class="panel-body" >
-    <div>
-    {% if shelf_inspection_records.count == 0 %}
-        {% trans "Nothing found" %}
-    {% else %}  
-        <div class="row div-table-header">
-            <div class="col-xs-3">{% trans 'Create Date' %}</div>
-            <div class="col-xs-3">{% trans 'Use Condition' %}</div>
-            <div class="col-xs-3">{% trans 'Locked' %}</div>
-            <div class="col-xs-3">{% trans 'Gradient' %} > 1.4</div>
+<div class= 'row'>
+  <div class="col-xs-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3>{% trans "Daily Inspection" %}</h3>
+      </div>
+      <div class="panel-body" >
+        <div>
+          {% if dailyinspection_object_list.count == 0 %}
+            {% trans "Nothing found" %}
+          {% else %}
+            {% include "dailyinspection/inspections.html" with object_list=dailyinspection_object_list %}
+          {% endif %}
         </div>
-
-        {% for record in shelf_inspection_records %}
-        <div class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-body">
-            <div class="col-xs-3"><a href='{{ record.0.get_absolute_url }}'>{{record.0.check_date}}</a></div>
-            <div class="col-xs-3">{{record.1}}</div>
-            <div class="col-xs-3">{{record.2}}</div>
-            <div class="col-xs-3">{{record.3}}</div>
-        </div>
-        {% endfor %}
-    {% endif %}
+      </div>
+      <div style="text-align: -webkit-center; ">
+        <p><a class="btn btn-warning btn-lg" href="{% url 'dailyinspection_list' %}" role="button">More</a></p>
+      </div>
     </div>
   </div>
-  <div style="text-align: -webkit-center;">
-    <p><a class="btn btn-warning btn-lg" href="{% url 'shelf_inspection_list' %}" role="button">More</a></p>
-  </div>
 </div>
-</div></div>
+
 
 {% endblock %}
 

@@ -14,6 +14,7 @@ from django.db.models import Q
 from django.http import HttpResponse, Http404
 import json
 import time, datetime
+from django.utils import timezone
 from PIL import Image
 import os
 from django.contrib import messages
@@ -282,6 +283,20 @@ class ThumbnailMixin(object):
         if instance: #for update
             obj.id = instance.id
             obj.created = instance.created
+            obj.inspector = instance.inspector
+            inspection_completed = False
+            if obj.image_after and obj.image_after.url:
+                inspection_completed = True
+                # if not instance.image_after or instance.image_after.url is None:
+                #     inspection_completed = True
+
+            if inspection_completed:
+                obj.completed_time = timezone.now()
+                obj.rectification_status = 'completed'
+            else:
+                obj.completed_time = instance.completed_time
+                obj.rectification_status = instance.rectification_status
+
 
         save_and_get_image(form, 'image_before', instance, obj)
 
@@ -296,10 +311,19 @@ class DailyInspectionCreateView(StaffRequiredMixin, ThumbnailMixin, CreateView):
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_create.html"
 
+    # def form_valid(self, form, *args, **kwargs):
+    #     messages.success(self.request, _("daily inspection create successfully"), extra_tags='capfirst')
+    #     form = super(DailyInspectionCreateView, self).form_valid(form, *args, **kwargs)
+    #     return form
+
     def form_valid(self, form, *args, **kwargs):
+        obj = form.save(commit = False)
+        obj.inspector = self.request.user
+        obj.save()
+
         messages.success(self.request, _("daily inspection create successfully"), extra_tags='capfirst')
-        form = super(DailyInspectionCreateView, self).form_valid(form, *args, **kwargs)
-        return form
+
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self, *args, **kwargs):
         return reverse("dailyinspection_list", kwargs={}) 
@@ -365,6 +389,14 @@ class DailyInspectionUpdateView(StaffRequiredMixin, ThumbnailMixin, UpdateView):
     #         dailyinspection = get_object_or_404(DailyInspection, pk=dailyinspection_pk)
     #     return dailyinspection
 
+    # def form_valid(self, form, *args, **kwargs):
+    #     obj = form.save(commit = False)
+    #     instance = self.get_object()
+    #     if not obj.image_after is None and instance.image_after is None:
+    #         obj.completed_time = timezone.now()
+    #     obj.save()
+
+    #     return HttpResponseRedirect(self.get_success_url())
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -373,6 +405,7 @@ class DailyInspectionUpdateView(StaffRequiredMixin, ThumbnailMixin, UpdateView):
         if form.is_valid():
             messages.success(request, _("daily inspection updated successfully"), extra_tags='capfirst')
             messages.info(request, _("check content please"))
+
             return self.form_valid(form)
         else:
             messages.success(request, _("daily inspection updated fail"))
