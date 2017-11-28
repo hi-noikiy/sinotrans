@@ -24,6 +24,10 @@ from .forms import (
 
 from .models import option_value_convertion
 
+
+class TransportSecurityView(TemplateView):
+    template_name = "transport_security.html"
+
 # Create your views here.
 class ForkliftListView(ListView): 
     model = Forklift

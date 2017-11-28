@@ -6,13 +6,19 @@
         <div class='container'>    
             <ul class="list-inline">
                 <li><a href="{% url 'article_list' %}">{% trans 'Newsletter' %}</a></li>
-                <li><a href="{% url 'dailyinspection_list' %}">{% trans 'Inspection' %}</a></li>
+                <li><a href="{% url 'dailyinspection_list' %}">{% trans 'Daily Inspection' %}</a></li>
+                <li><a href="{% url 'storage_sec' %}">{% trans 'Storage Security' %}</a></li>       
+                {% comment %}
                 <li><a href="{% url 'shelf_inspection_list' %}">{% trans 'Shelf' %}</a></li>
                 <li><a href="{% url 'equipmentinsepction_list' %}">{% trans 'Equipment' %}</a></li>
                 <li><a href="{% url 'spraypumproominspection_list_display' %}">{% trans 'Spray Pump' %}</a></li>
                 <li><a href="{% url 'forklift_list' %}">{% trans 'Forklift' %}</a></li>
+                {% endcomment %}
+                <li><a href="{% url 'transport_security' %}">{% trans 'Transport Security' %}</a></li>                       
+                {% comment %}                
                 <li><a href="{% url 'vehicle_list' %}">{% trans 'vehicle' %}</a></li>
                 <li><a href="{% url 'transportationkpi_list_display' %}">{% trans 'vehicle tranportation KPI' %}</a></li>
+                 {% endcomment %}
                 <li><a href="{% url 'rehearsal_list' %}">{% trans 'rehearsal' %}</a></li>
                 <li><a href="{% url 'annualtrainingplan_list' %}">{% trans 'annual training plan' %}</a></li>                
             </ul> 

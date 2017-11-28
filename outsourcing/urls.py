@@ -13,9 +13,13 @@ from .views import (
     TransportationKPICreateView,
     TransportationKPIDetailView,  
     TransportationKPIUpdateView,
+
+    TransportSecurityView,
 )
 
 urlpatterns = [
+    url(r'^transportsec$', TransportSecurityView.as_view(), name='transport_security'),  
+
     url(r'^vehiclelist$', VehicleListView.as_view(), name='vehicle_list'),  
     url(r'^vehicledetail/(?P<pk>\d+)/$', VehicleDetailView.as_view(), name='vehicle_detail'),    
     url(r'^transportaionkpilistdisplay$', TransportationKPIListDisplayView.as_view(), name='transportationkpi_list_display'),  

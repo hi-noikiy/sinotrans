@@ -71,3 +71,9 @@ def get_pk_name(model):
     meta = model._meta.concrete_model._meta
     return _get_pk(meta).name
 """
+
+@register.filter(name='gradient_normal')
+def gradient_normal(val):
+    if val > -1.5 and val < 1.5:
+        return True
+    return False

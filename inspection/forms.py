@@ -186,9 +186,19 @@ shelf_gradient_inspection_Formset = modelformset_factory(shelf_inspection_record
                                             extra=0)
 
 class ShelfInspectionRecordForm(forms.ModelForm):
+
+    gradient = forms.DecimalField(
+            label=_('Gradient'),
+            min_value=-1.5,
+            max_value=1.5,
+            required=False
+            )
     
     def __init__(self, *args, **kwargs):
         super(ShelfInspectionRecordForm, self).__init__(*args, **kwargs)
+        
+        self.fields['gradient'].widget.attrs['step'] = 0.1
+
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.instance1 = instance

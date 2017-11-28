@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+            <ul class="list-inline">
+                <li><a href="{% url 'shelf_inspection_list' %}">{% trans 'Shelf' %}</a></li>
+                <li><a href="{% url 'equipmentinsepction_list' %}">{% trans 'Equipment' %}</a></li>
+                <li><a href="{% url 'spraypumproominspection_list_display' %}">{% trans 'Spray Pump' %}</a></li>
+                <li><a href="{% url 'forklift_list' %}">{% trans 'Forklift' %}</a></li>           
+            </ul> 
+    </div>
+</div>
+
+{% block content %}
+
+
+
+<div class='row featured-row'>
+  <div class='col-sm-12 text-center'>
+   
+    <div class='col-sm-3'>
+      <a href="{% url 'shelf_inspection_list' %}"><i class="fa fa-upload fa-3x"></i></a>
+      <h2>{% trans 'Shelf' %}</h2>
+      <p class='lead'>
+      Shelf Inspection.
+      </p>
+    </div>
+    <div class='col-sm-3'>
+      <a href="{% url 'equipmentinsepction_list' %}"><i class="fa fa-upload fa-3x"></i></a>
+      <h2>{% trans 'Equipment' %}</h2>
+      <p class='lead'>
+      Device.
+      </p>
+    </div>
+    <div class='col-sm-3'>
+      <a href="{% url 'spraypumproominspection_list_display' %}"><i class="fa fa-upload fa-3x"></i></a>
+      <h2>{% trans 'Spray Pump' %}</h2>
+      <p class='lead'>
+      Spray Pump.
+      </p>
+    </div>
+    <div class='col-sm-3'>
+      <a href="{% url 'forklift_list' %}"><i class="fa fa-upload fa-3x"></i></a>
+      <h2>{% trans 'Forklift' %}</h2>
+      <p class='lead'>
+      Forklift.
+      </p>
+    </div>
+
+
+  </div>
+
+</div>
+
+{% endblock %}

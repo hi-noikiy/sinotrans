@@ -45,6 +45,9 @@ from .models import image_upload_to_dailyinspection
 # Create your views here.
 
 
+class StorageSecurityView(TemplateView):
+    template_name = "storage_security.html"
+    
 class TableListMixin(object):
     field_display = []
 
@@ -836,7 +839,8 @@ class ShelfInspectionCreateView(CreateView):
                 shelf_inspection_record_instance = shelf_inspection_record()
                 shelf_inspection_record_instance.shelf = shelf_instance
                 shelf_inspection_record_instance.shelf_inspection = obj
-                shelf_inspection_record_instance.is_locked = False                
+                shelf_inspection_record_instance.use_condition = 1                
+                shelf_inspection_record_instance.is_locked = False   
                 shelf_inspection_record_instance.forecast_complete_time = time.strftime('%Y-%m-%d',time.localtime(time.time()))
                 shelf_inspection_record_instance.save()            
 

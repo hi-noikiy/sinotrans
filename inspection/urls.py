@@ -24,6 +24,8 @@ from .views import (
     RehearsalListView,
     RehearsalDetailView,
 
+    StorageSecurityView,
+
 )
 
 urlpatterns = [
@@ -38,6 +40,8 @@ urlpatterns = [
     url(r'^dailyinspection/(?P<pk>\d+)/delete/$', DailyInspectionDeleteView.as_view(), name='dailyinspection_delete'),
     url(r'^dailyinspectionstat$', DailyInspectionStatView.as_view(), name='daily_inspection_stat'),   
     url(r'^linechartjason$', LineChartJSONView.as_view(), name='line_chart_json'),   
+
+    url(r'^storagesec$', StorageSecurityView.as_view(), name='storage_sec'),
 
     url(r'^shelfinspectionlist$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),  
     url(r'^shelfinspectiondetail/(?P<pk>\d+)/$', ShelfInspectionDetailView.as_view(), name='shelf_inspection_detail'),  

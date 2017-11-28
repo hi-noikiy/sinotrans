@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+            <ul class="list-inline">
+                <li><a href="{% url 'vehicle_list' %}">{% trans 'vehicle' %}</a></li>
+                <li><a href="{% url 'transportationkpi_list_display' %}">{% trans 'vehicle tranportation KPI' %}</a></li>          
+            </ul> 
+    </div>
+</div>
+
+<style>
+{% block style %}
+  
+.featured-row div div:nth-child(1) {
+    background: url('{% static "img/logo.jpg" %}') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}      
+
+
+{% endblock %}
+</style>
+
+{% block content %}
+
+
+<div class='row featured-row'>
+  <div class='col-sm-12 text-center'>
+   
+    <div class='col-sm-3'>
+      <a href="{% url 'vehicle_list' %}"><i class="fa fa-upload fa-3x"></i></a>
+      <h2>{% trans 'vehicle' %}</h2>
+      <p class='lead'>
+      Shelf Inspection.
+      </p>
+    </div>
+    <div class='col-sm-3'>
+      <a href="{% url 'transportationkpi_list_display' %}"><i class="fa fa-upload fa-3x"></i></a>
+      <h2>{% trans 'vehicle tranportation KPI' %}</h2>
+      <p class='lead'>
+      Device.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
