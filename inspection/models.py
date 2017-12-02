@@ -59,7 +59,7 @@ class DailyInspectionManager(models.Manager):
         return super(DailyInspectionManager,self).filter(rectification_status__iexact='completed')
 
     def overdue(self, *args, **kwargs):
-        return super(DailyInspectionManager,self).filter(rectification_status__icontains='uncompleted').filter(due_date__lte=datetime.now().date())
+        return super(DailyInspectionManager,self).filter(rectification_status__icontains='uncompleted').filter(due_date__lte=timezone.now().date())
 
 
 class DailyInspection(models.Model):
@@ -139,7 +139,7 @@ class DailyInspection(models.Model):
     def get_html_due_date(self):
         if self.due_date is not None and self.rectification_status == 'uncompleted':
             overdue = ''
-            if self.due_date <= datetime.now().date() - timedelta(days=1): # should be 0
+            if self.due_date <= timezone.now().date() - timedelta(days=1): # should be 0
                 overdue = 'overdue'
             html_text = "<span class='due_date %s'>%s</span>" %(overdue, self.due_date)
         else:

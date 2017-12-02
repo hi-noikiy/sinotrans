@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from datetime import datetime, timedelta
+from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from inspection.models import month_choice
@@ -270,7 +271,7 @@ class VehicleTransportationKPI(models.Model):
 
     transportation_project = models.CharField(_("transportation project"), choices=TRANSPORTATION_PROJECT_OPTION, blank=False, null=False, max_length=130)
     year = models.PositiveIntegerField(_("year"),
-        validators=[MinValueValidator(2000), MaxValueValidator(datetime.now().year)],
+        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year)],
         blank=False,null=False, help_text=_("Use the following format: < YYYY >"))
     month = models.CharField(_("month"),  choices=month_choice, blank=False, null=False,max_length=30)
     safe_mileages = models.PositiveIntegerField(_("safe mileage"), blank=False, null=False)

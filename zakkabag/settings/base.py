@@ -145,15 +145,17 @@ else:
 	
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
+USE_TZ = True
 
-TIME_ZONE = 'UTC'
+#TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
 
-USE_TZ = True
+
 if '1.8' in django.get_version():
     LANGUAGE_CODE = 'en' #'en-us', language switch fail
 

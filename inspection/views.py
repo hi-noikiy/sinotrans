@@ -14,6 +14,7 @@ from django.db.models import Q
 from django.http import HttpResponse, Http404
 import json
 import time, datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 from PIL import Image
 import os
@@ -697,17 +698,50 @@ class OverdueChartJSONView(JSONView):
         return data
 
 class LastsChartJSONView(BaseLineChartView):
+    def get_last_times(self):
+        times =  [timezone.now().date() - timedelta(days=i) for i in reversed(range(0,5))]
+        return times
+               
     def get_labels(self):
         """Return labels for the x-axis."""
         return [category[1] for category in DailyInspection.daily_insepction_category]
 
     def get_providers(self):
         """Return names of datasets."""
-        return self.get_catetory()
+        providers =  [ "{0}".format(date) for date in self.get_last_times()]
+        return providers
 
     def get_data(self):
-        """Return 3 datasets to plot."""
-        return self.get_chart_counts()   
+        data =  [[DailyInspection.objects.filter(category=category[0], created__date=date).count() for category in DailyInspection.daily_insepction_category] \
+                    for date in self.get_last_times()]
+        print data
+        return data
+
+
+    def get_context_data(self):
+        data = super(LastsChartJSONView, self).get_context_data()
+        backgroundColors =[
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(0, 255, 0, 0.2)',
+                    'rgba(0, 0, 255, 0.2)',
+                    'rgba(220, 0, 255, 0.2)',
+                    'rgba(0, 220, 255, 0.2)',                    
+                ]
+
+        borderColors =[
+                    'rgba(255, 0, 0, 0.1)',
+                    'rgba(0, 255, 0, 0.1)',
+                    'rgba(0, 0, 255, 0.1)',
+                    'rgba(220, 0, 255, 0.1)',
+                    'rgba(0, 220, 255, 0.1)',                    
+                ]                
+
+        for i, color in enumerate(backgroundColors):
+            data['datasets'][i]['backgroundColor'] = backgroundColors[i]
+            data['datasets'][i]['borderColor'] = borderColors[i]
+
+        # print data
+        return data 
 
 class CompareChartJSONView(BaseLineChartView):
     def get_last_times(self):
@@ -725,7 +759,7 @@ class CompareChartJSONView(BaseLineChartView):
 
 
         return [            
-            "{0}-{1}".format(month, year) for month,year in self.get_last_times()
+            "{0}-{1}".format(year,month) for month,year in self.get_last_times()
         ]
 
     def get_data(self):

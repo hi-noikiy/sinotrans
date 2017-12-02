@@ -61,7 +61,7 @@
 </script>
 
 <div class="page-header">
-    <h3>{% trans "Daily Inspection" %} <small>COMPARE PAST 3 MONTHS</small></h3>
+    <h3>{% trans "COMPARE PAST 3 MONTHS" %} <small></small></h3>
 </div>
 <canvas id="myChartCompare" width="500" height="200"></canvas>
 <script type="text/javascript">
@@ -96,9 +96,42 @@
 </script>
 
 <div class="page-header">
-    <h3>{% trans "Daily Inspection" %} <small>FOR LATEST 1 WEEK</small></h3>
+    <h3>{% trans "FOR LATEST 1 WEEK" %} <small>FOR LATEST 1 WEEK</small></h3>
 </div>
+<canvas id="myChartLast" width="500" height="200"></canvas>
+<script type="text/javascript">    
+// http://www.chartjs.org/docs/latest/axes/cartesian/linear.html
+    $.get('{% url "line_chart_json_lasts" %}', function(data) {
+        var ctx = $("#myChartLast").get(0).getContext("2d");
 
+        new Chart(ctx, {
+            type: 'bar', 
+            data: data,
+
+            options: {
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of Daily Inspection'
+                        },
+                        ticks: {
+                            beginAtZero:true,
+                            min: 0,
+                            suggestedMin: 0,
+                            stepSize:1,
+                        }
+                    }]
+                }
+            }            
+        });
+    });
+</script>
+
+
+<div class="page-header">
+    <h3>{% trans "LAST 5 ACTUAL DAYS" %} <small>LAST 5 ACTUAL DAYS</small></h3>
+</div>
 
 <table class="text-center table table-hover table-striped ">
     <thead>

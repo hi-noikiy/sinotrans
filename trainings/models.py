@@ -71,7 +71,7 @@ class TrainingTranscript(models.Model):
 
 class AnnualTraningPlan(models.Model):
     year = models.PositiveIntegerField(_("year"),
-        validators=[MinValueValidator(2000), MaxValueValidator(datetime.now().year)],
+        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year)],
         blank=False,null=False, help_text=_("Use the following format: < YYYY >"))    
     training_course = models.ForeignKey(TrainingCourse, verbose_name=_("training"))
     planned_date = models.DateField(_('planned date'), auto_now_add=False, auto_now=False)

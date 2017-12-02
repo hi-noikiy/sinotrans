@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from .models import AnnualTraningPlan
 import datetime
-
+from django.utils import timezone
 
 class AnnualTraningPlanForm(forms.ModelForm):
     class Meta:
@@ -19,5 +19,6 @@ class AnnualTrainingPlanFilterForm(forms.Form):
 
     year = forms.IntegerField(
         label=_('year'),
-        initial=datetime.datetime.now().year,
+        #initial=datetime.datetime.now().year,
+        initial=timezone.now().year,        
         required=False)        
