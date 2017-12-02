@@ -26,7 +26,7 @@ from django.db.models.fields.related import (
 # Create your views here.
 from .models import (
     OfficeInspection, 
-    DailyInspection, 
+    DailyInspection, DailyInspectionLog,
     shelf_inspection_record, shelf_inspection, shelf,
     Rehearsal,
     )
@@ -296,6 +296,8 @@ class ThumbnailMixin(object):
             if inspection_completed:
                 obj.completed_time = timezone.now()
                 obj.rectification_status = 'completed'
+                log = '{0}-{1} {2}'.format(datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S'),self.request.user,_("uploaded image to complete the inspector").encode("utf-8")) 
+                DailyInspectionLog(dailyinspection=instance,log=log).save()
             else:
                 obj.completed_time = instance.completed_time
                 obj.rectification_status = instance.rectification_status
@@ -351,6 +353,7 @@ class DailyInspectionDetailView( DetailView):
         context["display_fields"] = ["category","rectification_status","location"]
         context["fields_exclude"] = []
         context["fields_multichoice"] = ["impact"]
+        context["logs"] = DailyInspectionLog.objects.filter(dailyinspection=self.get_object())
 
         return context
 

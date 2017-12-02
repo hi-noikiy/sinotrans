@@ -28,19 +28,20 @@ def image_upload_to(instance, filename):
     return "inspection/%s/%s" %(instance.location, new_filename)
 
 class OfficeInspection(models.Model):
-	plug = models.CharField(_('plug'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')
-	power = models.CharField(_('power'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')
-	comments = models.TextField(blank=True, null=True)
-	location = models.CharField(max_length=120, blank=False, null=True)
-	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-	image = models.ImageField(upload_to=image_upload_to, blank=True, null=True)
+    plug = models.CharField(_('plug'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')
+    power = models.CharField(_('power'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')
+    comments = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=120, blank=False, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    image = models.ImageField(upload_to=image_upload_to, blank=True, null=True)
 
-	def __unicode__(self): 
-		return "Office " + self.location
+    def __unicode__(self): 
+        return "Office " + self.location
 
-	def get_absolute_url(self):
-		return reverse("OfficeInspection_detail", kwargs={"pk": self.id })
+    def get_absolute_url(self):
+        return reverse("OfficeInspection_detail", kwargs={"pk": self.id })
+
 
 
 def image_upload_to_dailyinspection(instance, filename):
@@ -59,6 +60,7 @@ class DailyInspectionManager(models.Manager):
 
     def overdue(self, *args, **kwargs):
         return super(DailyInspectionManager,self).filter(rectification_status__icontains='uncompleted').filter(due_date__lte=datetime.now().date())
+
 
 class DailyInspection(models.Model):
 
@@ -198,6 +200,12 @@ post_delete.connect(file_cleanup, sender=DailyInspection, dispatch_uid="DailyIns
 post_save.connect(file_cleanup2, sender=DailyInspection, dispatch_uid="DailyInspection.file_cleanup2")
 pre_save.connect(save_raw_instance, sender=DailyInspection)
 
+class DailyInspectionLog(models.Model):
+    dailyinspection = models.ForeignKey(DailyInspection, verbose_name=_('Daily Inspection'))
+    log = models.CharField(_('log'), max_length=300, blank=False, null=False)
+
+    def __unicode__(self): 
+        return ugettext("Daily Inspection") + self.log
 
 class ShelfImport(models.Model):
     shelf_import_file = models.FileField(_("shelf import file"), upload_to='upload/shelf_excel')
