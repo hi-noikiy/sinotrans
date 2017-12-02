@@ -88,6 +88,7 @@ $(document).ready(function(){
 	    	<a class="fa fa-plus-square fa-1x" href="{% url 'dailyinspection_create' %}" title='{% trans "Create New Item" %}' > {% trans "Create New Item" %}</a>
             {% endif %}
             <a class="fa fa-area-chart fa-1x"  href="{% url 'daily_inspection_stat' %}"  title='{% trans "Inspection Statistic" %}' > {% trans "Inspection Statistic" %}</a>
+            <a class="fa fa-warning fa-1x"  style="color: red;" href="{% url 'dailyinspection_list' %}?overdue=1"  title='{% trans "Inspection Overdue" %}' > <span style="color: #428bd3;">{% trans "Inspection Overdue" %}</span></a>
 	    </div>
 
 	    <div class="object_lists" style="clear: both;">

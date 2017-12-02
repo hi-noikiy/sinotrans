@@ -47,7 +47,7 @@ from .models import image_upload_to_dailyinspection
 
 class StorageSecurityView(TemplateView):
     template_name = "storage_security.html"
-    
+
 class TableListMixin(object):
     field_display = []
 
@@ -240,13 +240,13 @@ def get_dailyinspection_path():
         return insepection_path
 
 
-def save_and_get_image(form, fieldname, instance, obj):
+def save_and_get_image(form, fieldname, instance, obj, required=False):
     in_mem_image_file = form.cleaned_data[fieldname] # new image file
     instance_file = getattr(instance,fieldname, None)  # original file
 
     if in_mem_image_file:
         # delete original file
-        if instance and instance_file:
+        if instance and instance_file and not in_mem_image_file == instance_file:
             instance_file.delete(save=True)       
 
         if getattr(form, 'clear_' + fieldname, None)():
@@ -301,7 +301,7 @@ class ThumbnailMixin(object):
                 obj.rectification_status = instance.rectification_status
 
 
-        save_and_get_image(form, 'image_before', instance, obj)
+        save_and_get_image(form, 'image_before', instance, obj, required=True)
 
         save_and_get_image(form, 'image_after', instance, obj)
 
@@ -411,17 +411,17 @@ class DailyInspectionUpdateView(StaffRequiredMixin, ThumbnailMixin, UpdateView):
 
             return self.form_valid(form)
         else:
-            messages.success(request, _("daily inspection updated fail"))
+            messages.error(request, _("daily inspection updated fail"), extra_tags='alert-error')
             return self.form_invalid(form)
 
         return super(DailyInspectionUpdateView, self).post(request, *args, **kwargs) 
 
     def dispatch(self, request, *args, **kwargs):
-        instance = self.get_object()
+        self.object = self.get_object()
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_("Daily Inspection"),reverse("dailyinspection_list", kwargs={})),
-            (instance,request.path_info),
+            (self.object,request.path_info),
         ])
         return super(DailyInspectionUpdateView, self).dispatch(request,args,kwargs)   
 
@@ -462,6 +462,7 @@ class InsepctionFilter(FilterSet):
     #category = MethodFilter(name='category', action='category_filter', distinct=True)
     #category_id = CharFilter(name='categories__id', lookup_type='icontains', distinct=True)
     rectification_status = CharFilter(name='rectification_status', lookup_type='exact', distinct=True)
+    # due_date = MethodFilter(name='due_date', action='overdue_filter', distinct=True)
     owner = CharFilter(name='owner', lookup_type='icontains', distinct=True)
 
     class Meta:
@@ -470,6 +471,7 @@ class InsepctionFilter(FilterSet):
             'category',
             'owner',
             'rectification_status',
+            # 'due_date'
             
         ]
 
@@ -481,6 +483,14 @@ class InsepctionFilter(FilterSet):
             qs = qs.filter(category=category)
 
         return qs.distinct()
+
+    # def overdue_filter(self, queryset, value):
+
+    #     qs = queryset
+    #     for due_date in value:
+    #         qs = qs.filter(due_date__lt=due_date)
+
+    #     return qs.distinct()
 
 class FilterMixin(object):
     filter_class = None
@@ -497,10 +507,10 @@ class FilterMixin(object):
         context = super(FilterMixin, self).get_context_data(*args, **kwargs)
         qs = self.get_queryset()
         ordering = self.request.GET.get(self.search_ordering_param, '-created')
-        if ordering:
+        if qs and ordering:
             qs = qs.order_by(ordering)
         filter_class = self.filter_class
-        if filter_class:
+        if qs and filter_class:
             f = filter_class(self.request.GET, queryset=qs)
             context["object_list"] = f
         return context
@@ -522,11 +532,18 @@ class DailyInspectionListView(FilterMixin, ListView):
     def get_queryset(self, *args, **kwargs):
         qs = super(DailyInspectionListView, self).get_queryset(*args, **kwargs)
         query = self.request.GET.get("q")
+        overdue = self.request.GET.get("overdue")
 
-        qs  = self.model.objects.all()
+        qs  = None
         if not self.request.user.is_staff and not self.request.user.is_superuser:
             qs =  self.model.objects.external()
+        else:
+            qs =  self.model.objects.all()
 
+        if overdue:
+            qs = qs.filter(due_date__lt=timezone.now()).filter(rectification_status="uncompleted")
+            return qs
+        
         if query:
             qs = qs.filter(
                 Q(impact__icontains=query) |

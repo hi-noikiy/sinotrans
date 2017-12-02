@@ -197,8 +197,9 @@ class MyAbstractUser(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
     def __unicode__(self):
-        return self.username
- 
+        return self.get_full_name()
+
+
     def has_perm(self, perm, obj=None):
         return super(MyAbstractUser, self).has_perm(perm, obj)
  

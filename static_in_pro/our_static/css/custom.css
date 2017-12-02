@@ -48,6 +48,15 @@ a:hover {text-decoration: none;}
 
 /*******************  
 
+           message
+           
+*********************/
+div.alert div.error{
+	color:red!important;
+}
+
+/*******************  
+
            table style div
            
 *********************/

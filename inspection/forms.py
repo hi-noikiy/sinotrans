@@ -5,6 +5,8 @@ from django.forms.models import modelformset_factory
 from django.contrib.admin import widgets                                       
 from django.forms.widgets import Media
 from django.contrib.admin.templatetags.admin_static import static
+from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from .models import (
     OfficeInspection,
@@ -58,7 +60,7 @@ class SchedulerProfileChoiceField(MultipleChoiceField):
 
 class DailyInspectionForm(forms.ModelForm):
     
-    
+
     try: # may report error in fresh migrations from scratch
         impact = forms.MultipleChoiceField(
                 label=_('Impact'),
@@ -69,6 +71,15 @@ class DailyInspectionForm(forms.ModelForm):
                 #initial= lambda: [item for item in DailyInspection.daily_insepction_impact if item],
                 required=True
                 )
+
+        owner = forms.ModelChoiceField(
+                label=_('Owner'),
+                queryset=get_user_model().objects.all(),
+                empty_label = None, #not show enmpty
+                required=True
+                )         
+        
+   
     except:
         pass
 
@@ -154,6 +165,13 @@ class InspectionFilterForm(forms.Form):
             widget=forms.RadioSelect(),
             required=False
             )   
+
+    # overdue = forms.BooleanField(
+    #         label=_('Overdue'),
+    #         # widget=forms.RadioSelect(),
+    #         required=False
+    #         )   
+
     #owner = forms.CharField(label='Owner',required=False)
     try:
         owner = forms.ChoiceField(

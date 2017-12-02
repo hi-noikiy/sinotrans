@@ -14,8 +14,9 @@
 <style>
 {% block style %}
   
-.featured-row div div:nth-child(1) {
-    background: url('{% static "img/logo.jpg" %}') no-repeat center center;
+.featured-row div div:nth-child(1),
+.featured-row div div:nth-child(2) {
+    /*background: url('{% static "img/vehicle.jpg" %}') no-repeat center center;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -34,14 +35,14 @@
   <div class='col-sm-12 text-center'>
    
     <div class='col-sm-3'>
-      <a href="{% url 'vehicle_list' %}"><i class="fa fa-upload fa-3x"></i></a>
+      <a href="{% url 'vehicle_list' %}"><i class="fa fa-camera fa-3x"></i></a>
       <h2>{% trans 'vehicle' %}</h2>
       <p class='lead'>
       Shelf Inspection.
       </p>
     </div>
     <div class='col-sm-3'>
-      <a href="{% url 'transportationkpi_list_display' %}"><i class="fa fa-upload fa-3x"></i></a>
+      <a href="{% url 'transportationkpi_list_display' %}"><i class="fa fa-camera fa-3x"></i></a>
       <h2>{% trans 'vehicle tranportation KPI' %}</h2>
       <p class='lead'>
       Device.

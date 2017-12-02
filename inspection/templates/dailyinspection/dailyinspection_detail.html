@@ -95,9 +95,6 @@
                 <b>{{field.verbose_name}}</b> : <img  class= 'img-responsive' src="{{ object|my_get_field_value:field.name|my_get_field_value:'url'}}"/> <br>    
                 {% endif %}
             {% endfor %}
-<!--             {% trans 'Picture before Rectification' %} : <img  class= 'img-responsive' src="{{ object.get_image_url_before}}"/> <br>            
-            {% trans 'Picture after Rectification' %} : <img  class= 'img-responsive' src="{{ object.get_image_url_after}}"/> <br>    --> 
-
             <hr>
 
             {% if request.user.is_staff or request.user.is_superuser %}
