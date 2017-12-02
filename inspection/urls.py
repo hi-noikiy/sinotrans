@@ -14,6 +14,9 @@ from .views import (
     DailyInspectionDeleteView,
     DailyInspectionStatView,
     LineChartJSONView,
+    OverdueChartJSONView,
+    LastsChartJSONView,
+    CompareChartJSONView,
     ShelfInspectionListView,
     ShelfInspectionDetailView,
     ShelfInspectionCreateView,
@@ -40,6 +43,9 @@ urlpatterns = [
     url(r'^dailyinspection/(?P<pk>\d+)/delete/$', DailyInspectionDeleteView.as_view(), name='dailyinspection_delete'),
     url(r'^dailyinspectionstat$', DailyInspectionStatView.as_view(), name='daily_inspection_stat'),   
     url(r'^linechartjason$', LineChartJSONView.as_view(), name='line_chart_json'),   
+    url(r'^linechartjasonoverdue$', OverdueChartJSONView.as_view(), name='line_chart_json_overdue'),   
+    url(r'^linechartjasonlasts$', LastsChartJSONView.as_view(), name='line_chart_json_lasts'),   
+    url(r'^linechartjasoncompare$', CompareChartJSONView.as_view(), name='line_chart_json_compare'),   
 
     url(r'^storagesec$', StorageSecurityView.as_view(), name='storage_sec'),
 

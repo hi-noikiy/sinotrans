@@ -172,7 +172,6 @@ class InspectionFilterForm(forms.Form):
     #         required=False
     #         )   
 
-    #owner = forms.CharField(label='Owner',required=False)
     try:
         owner = forms.ChoiceField(
                 label=_('Owner'),

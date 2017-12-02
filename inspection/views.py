@@ -5,7 +5,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormMixin, ModelFormMixin
-from chartjs.views.lines import BaseLineChartView
+from chartjs.views.lines import (JSONView, BaseLineChartView)
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -386,24 +386,6 @@ class DailyInspectionUpdateView(StaffRequiredMixin, ThumbnailMixin, UpdateView):
         #context["media"] = settings.MEDIA_URL
         return context        
 
-
-    # def get_object(self, *args, **kwargs):
-    #     reuse SingleObjectMixin::get_object
-    #     dailyinspection_pk = self.kwargs.get("pk")
-    #     dailyinspection = None
-    #     if dailyinspection_pk:
-    #         dailyinspection = get_object_or_404(DailyInspection, pk=dailyinspection_pk)
-    #     return dailyinspection
-
-    # def form_valid(self, form, *args, **kwargs):
-    #     obj = form.save(commit = False)
-    #     instance = self.get_object()
-    #     if not obj.image_after is None and instance.image_after is None:
-    #         obj.completed_time = timezone.now()
-    #     obj.save()
-
-    #     return HttpResponseRedirect(self.get_success_url())
-
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         # self.object = self.get_object(*args, **kwargs)
@@ -676,6 +658,101 @@ class LineChartJSONView(StatMixin, BaseLineChartView):
         """Return 3 datasets to plot."""
         return self.get_chart_counts()
 
+# var data = {
+#     labels : ["January","February","March","April","May","June","July"],
+#     datasets : [
+#         {
+#             fillColor : "rgba(220,220,220,0.5)",
+#             strokeColor : "rgba(220,220,220,1)",
+#             data : [65,59,90,81,56,55,40]
+#         },
+#         {
+#             fillColor : "rgba(151,187,205,0.5)",
+#             strokeColor : "rgba(151,187,205,1)",
+#             data : [28,48,40,19,96,27,100]
+#         }
+#     ]
+# }
+
+class OverdueChartJSONView(JSONView):
+
+    def get_context_data(self):
+        data = { 
+            'datasets': [{
+                # 'label': '# of Votes',
+                'data': [DailyInspection.objects.filter(rectification_status="uncompleted", due_date__lt=timezone.now(), category=category[0]).count() for category in DailyInspection.daily_insepction_category],
+                'backgroundColor': [
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(0, 255, 0, 0.2)',
+                    'rgba(0, 0, 255, 0.2)',
+                    'rgba(220, 0, 255, 0.2)',
+                    'rgba(0, 220, 255, 0.2)',
+                ]            
+            }],
+
+            # These labels appear in the legend and in the tooltips when hovering different arcs
+            'labels': [category[1] for category in DailyInspection.daily_insepction_category],
+        };
+
+        return data
+
+class LastsChartJSONView(BaseLineChartView):
+    def get_labels(self):
+        """Return labels for the x-axis."""
+        return [category[1] for category in DailyInspection.daily_insepction_category]
+
+    def get_providers(self):
+        """Return names of datasets."""
+        return self.get_catetory()
+
+    def get_data(self):
+        """Return 3 datasets to plot."""
+        return self.get_chart_counts()   
+
+class CompareChartJSONView(BaseLineChartView):
+    def get_last_times(self):
+        #  RuntimeWarning: DateTimeField DailyInspection.created received a naive datetime (2017-12-02 23:59:59) while time zone support is active.
+        year = timezone.now().year #time.localtime()[0]
+        month = timezone.now().month #time.localtime()[1]        
+        return [[month-i or 12, year if month > i else year-1] for i in reversed(range(0,3))]
+               
+    def get_labels(self):
+        """Return labels for the x-axis."""
+        return [category[1] for category in DailyInspection.daily_insepction_category]
+
+    def get_providers(self):
+        """Return names of datasets."""
+
+
+        return [            
+            "{0}-{1}".format(month, year) for month,year in self.get_last_times()
+        ]
+
+    def get_data(self):
+        data =  [[DailyInspection.objects.filter(category=category[0], created__month=month, created__year=year).count() for category in DailyInspection.daily_insepction_category] \
+                    for month, year in self.get_last_times()]
+        return data
+
+
+    def get_context_data(self):
+        data = super(CompareChartJSONView, self).get_context_data()
+        backgroundColors =[
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(0, 255, 0, 0.2)',
+                    'rgba(0, 0, 255, 0.2)',
+                ]
+
+        borderColors =[
+                    'rgba(255, 0, 0, 0.1)',
+                    'rgba(0, 255, 0, 0.1)',
+                    'rgba(0, 0, 255, 0.1)',
+                ]                
+
+        for i, color in enumerate(backgroundColors):
+            data['datasets'][i]['backgroundColor'] = backgroundColors[i]
+            data['datasets'][i]['borderColor'] = borderColors[i]
+
+        return data
 
 class ShelfInspectionListView(ListView): 
     model = shelf_inspection
