@@ -14,7 +14,7 @@ from django.db.models import Q
 from django.http import HttpResponse, Http404
 import json
 import time, datetime
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.utils import timezone
 from PIL import Image
 import os
@@ -555,6 +555,7 @@ class DailyInspectionListView(FilterMixin, ListView):
         return super(DailyInspectionListView, self).dispatch(request,args,kwargs)   
 
 # https://github.com/novafloss/django-chartjs
+
 class StatMixin(object):
 
     # ['category']['date']['count']
@@ -622,6 +623,7 @@ class StatMixin(object):
 
         return llcounterperdaypercategory
 
+
 #class ShelfInspectionStatView(TemplateView):
 class DailyInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, View):
     template_name = "dailyinspection/dailyinspection_stat.html"
@@ -658,6 +660,31 @@ class LineChartJSONView(StatMixin, BaseLineChartView):
     def get_data(self):
         """Return 3 datasets to plot."""
         return self.get_chart_counts()
+
+    def get_context_data(self):
+        data = super(LineChartJSONView, self).get_context_data()
+        backgroundColors =[
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(0, 255, 0, 0.2)',
+                    'rgba(0, 0, 255, 0.2)',
+                    'rgba(220, 0, 255, 0.2)',
+                    'rgba(0, 220, 255, 0.2)',                    
+                ]
+
+        borderColors =[
+                    'rgba(255, 0, 0, 0.1)',
+                    'rgba(0, 255, 0, 0.1)',
+                    'rgba(0, 0, 255, 0.1)',
+                    'rgba(220, 0, 255, 0.1)',
+                    'rgba(0, 220, 255, 0.1)',                    
+                ]                
+
+        for i, color in enumerate(backgroundColors):
+            data['datasets'][i]['backgroundColor'] = backgroundColors[i]
+            data['datasets'][i]['borderColor'] = borderColors[i]
+
+        # print data
+        return data 
 
 # var data = {
 #     labels : ["January","February","March","April","May","June","July"],
