@@ -555,6 +555,32 @@ class DailyInspectionListView(FilterMixin, ListView):
         return super(DailyInspectionListView, self).dispatch(request,args,kwargs)   
 
 # https://github.com/novafloss/django-chartjs
+class LineChartColorMixin(object):
+    def get_context_data(self):
+        data = super(LineChartColorMixin, self).get_context_data()
+        backgroundColors =[
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(0, 255, 0, 0.2)',
+                    'rgba(0, 0, 255, 0.2)',
+                    'rgba(220, 0, 255, 0.2)',
+                    'rgba(0, 220, 255, 0.2)',                    
+                ]
+
+        borderColors =[
+                    'rgba(255, 0, 0, 0.1)',
+                    'rgba(0, 255, 0, 0.1)',
+                    'rgba(0, 0, 255, 0.1)',
+                    'rgba(220, 0, 255, 0.1)',
+                    'rgba(0, 220, 255, 0.1)',                    
+                ]                
+
+        for i in range(0,len(self.get_providers())):
+        #for i, color in enumerate(backgroundColors)
+            data['datasets'][i]['backgroundColor'] = backgroundColors[i]
+            data['datasets'][i]['borderColor'] = borderColors[i]
+
+        # print data
+        return data 
 
 class StatMixin(object):
 
@@ -648,7 +674,7 @@ class DailyInspectionStatView(StatMixin, TemplateResponseMixin, ContextMixin, Vi
         ])
         return super(DailyInspectionStatView, self).dispatch(request,args,kwargs)  
 
-class LineChartJSONView(StatMixin, BaseLineChartView):
+class LineChartJSONView(StatMixin, LineChartColorMixin, BaseLineChartView):
     def get_labels(self):
         """Return labels for the x-axis."""
         return self.get_dates()
@@ -661,30 +687,6 @@ class LineChartJSONView(StatMixin, BaseLineChartView):
         """Return 3 datasets to plot."""
         return self.get_chart_counts()
 
-    def get_context_data(self):
-        data = super(LineChartJSONView, self).get_context_data()
-        backgroundColors =[
-                    'rgba(255, 0, 0, 0.2)',
-                    'rgba(0, 255, 0, 0.2)',
-                    'rgba(0, 0, 255, 0.2)',
-                    'rgba(220, 0, 255, 0.2)',
-                    'rgba(0, 220, 255, 0.2)',                    
-                ]
-
-        borderColors =[
-                    'rgba(255, 0, 0, 0.1)',
-                    'rgba(0, 255, 0, 0.1)',
-                    'rgba(0, 0, 255, 0.1)',
-                    'rgba(220, 0, 255, 0.1)',
-                    'rgba(0, 220, 255, 0.1)',                    
-                ]                
-
-        for i, color in enumerate(backgroundColors):
-            data['datasets'][i]['backgroundColor'] = backgroundColors[i]
-            data['datasets'][i]['borderColor'] = borderColors[i]
-
-        # print data
-        return data 
 
 # var data = {
 #     labels : ["January","February","March","April","May","June","July"],
@@ -724,7 +726,7 @@ class OverdueChartJSONView(JSONView):
 
         return data
 
-class LastsChartJSONView(BaseLineChartView):
+class LastsChartJSONView(LineChartColorMixin, BaseLineChartView):
     def get_last_times(self):
         times =  [timezone.now().date() - timedelta(days=i) for i in reversed(range(0,5))]
         return times
@@ -744,33 +746,7 @@ class LastsChartJSONView(BaseLineChartView):
         print data
         return data
 
-
-    def get_context_data(self):
-        data = super(LastsChartJSONView, self).get_context_data()
-        backgroundColors =[
-                    'rgba(255, 0, 0, 0.2)',
-                    'rgba(0, 255, 0, 0.2)',
-                    'rgba(0, 0, 255, 0.2)',
-                    'rgba(220, 0, 255, 0.2)',
-                    'rgba(0, 220, 255, 0.2)',                    
-                ]
-
-        borderColors =[
-                    'rgba(255, 0, 0, 0.1)',
-                    'rgba(0, 255, 0, 0.1)',
-                    'rgba(0, 0, 255, 0.1)',
-                    'rgba(220, 0, 255, 0.1)',
-                    'rgba(0, 220, 255, 0.1)',                    
-                ]                
-
-        for i, color in enumerate(backgroundColors):
-            data['datasets'][i]['backgroundColor'] = backgroundColors[i]
-            data['datasets'][i]['borderColor'] = borderColors[i]
-
-        # print data
-        return data 
-
-class CompareChartJSONView(BaseLineChartView):
+class CompareChartJSONView(LineChartColorMixin, BaseLineChartView):
     def get_last_times(self):
         #  RuntimeWarning: DateTimeField DailyInspection.created received a naive datetime (2017-12-02 23:59:59) while time zone support is active.
         year = timezone.now().year #time.localtime()[0]
@@ -783,8 +759,6 @@ class CompareChartJSONView(BaseLineChartView):
 
     def get_providers(self):
         """Return names of datasets."""
-
-
         return [            
             "{0}-{1}".format(year,month) for month,year in self.get_last_times()
         ]
@@ -795,25 +769,25 @@ class CompareChartJSONView(BaseLineChartView):
         return data
 
 
-    def get_context_data(self):
-        data = super(CompareChartJSONView, self).get_context_data()
-        backgroundColors =[
-                    'rgba(255, 0, 0, 0.2)',
-                    'rgba(0, 255, 0, 0.2)',
-                    'rgba(0, 0, 255, 0.2)',
-                ]
+    # def get_context_data(self):
+    #     data = super(CompareChartJSONView, self).get_context_data()
+    #     backgroundColors =[
+    #                 'rgba(255, 0, 0, 0.2)',
+    #                 'rgba(0, 255, 0, 0.2)',
+    #                 'rgba(0, 0, 255, 0.2)',
+    #             ]
 
-        borderColors =[
-                    'rgba(255, 0, 0, 0.1)',
-                    'rgba(0, 255, 0, 0.1)',
-                    'rgba(0, 0, 255, 0.1)',
-                ]                
+    #     borderColors =[
+    #                 'rgba(255, 0, 0, 0.1)',
+    #                 'rgba(0, 255, 0, 0.1)',
+    #                 'rgba(0, 0, 255, 0.1)',
+    #             ]                
 
-        for i, color in enumerate(backgroundColors):
-            data['datasets'][i]['backgroundColor'] = backgroundColors[i]
-            data['datasets'][i]['borderColor'] = borderColors[i]
+    #     for i, color in enumerate(backgroundColors):
+    #         data['datasets'][i]['backgroundColor'] = backgroundColors[i]
+    #         data['datasets'][i]['borderColor'] = borderColors[i]
 
-        return data
+    #     return data
 
 class ShelfInspectionListView(ListView): 
     model = shelf_inspection
