@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% load staticfiles %}
 {% load i18n %}
+{% load myform %}
 
 
 <style>
@@ -87,6 +88,7 @@
                             <th>{% trans "Equipment" %} </th>
                             <th>{% trans "Use Condition" %} </th>
                             <th>{% trans "Owner" %} </th>
+                            <th>{% trans "rectification completed time" %} </th>
                             <th>{% trans "Inspector" %} </th>
                             <th>{% trans "Date of inspection" %} </th>
                             <th></th>
@@ -98,6 +100,7 @@
                                 <td> {{object.equipment}}</td>
                                 <td> {{object.get_use_condition}}</td>
                                 <td> {{object.owner}}</td>
+                                <td> {% if object.completed_time %}{{object.completed_time}}{% endif %}</td>
                                 <td> {{object.inspector}}</td>
                                 <td> {{object.date_of_inspection}}</td>
                                 <td>

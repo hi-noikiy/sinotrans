@@ -14,6 +14,7 @@ from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 import csv
 import codecs
+from django.utils import timezone
 
 from .models import  (
     EquipmentInspection,
@@ -263,7 +264,13 @@ class EquipmentInspectionUpdateView(UpdateView):
         return super(EquipmentInspectionUpdateView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
-        form.save()
+        obj = self.get_object()
+        instance = form.save(commit=False)
+        if obj.use_condition == "breakdown" and instance.use_condition == "normal":
+            instance.completed_time = timezone.now() #.strftime('%Y-%m-%d %H:%M:%S')
+        elif obj.use_condition == "normal" and instance.use_condition == "breakdown":
+            instance.completed_time = None
+        instance.save()
         item = EquipmentInspection.objects.get(id=self.item_id)
         return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': item, "is_create_view" : 0 }))        
 

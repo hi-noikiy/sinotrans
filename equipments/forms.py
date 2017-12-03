@@ -37,6 +37,7 @@ class EquipmentInspectionForm(forms.ModelForm):
 
         exclude = {
             'inspector',
+            'completed_time'
         }
 
     def __init__(self, *args, **kwargs):
@@ -52,7 +53,7 @@ class EquipmentInspectionForm(forms.ModelForm):
                 else:
                     field.widget.attrs['class'] = 'form-control'
 
-        # self.fields['date_of_inspection'].widget.attrs['class'] = self.fields['date_of_inspection'].widget.attrs['class'] + ' calendar'
+        self.fields['due_date'].widget.attrs['class'] = self.fields['due_date'].widget.attrs['class'] + ' calendar'
 
 # class EquipmentInspectionModelFormSet(BaseModelFormSet):
 #     pass
