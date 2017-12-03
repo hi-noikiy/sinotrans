@@ -109,8 +109,10 @@ $(document).ready(function(){
 
 <hr>
 <div>
-	<h3>{% trans "Latest Update" %}</h3>
-	<hr>
+	<div class="page-header">
+	    <h3>{% trans "Latest Update" %} <small>LAST UPDATED</small></h3>
+	</div>
+	
 	<ul style="list-style:none; padding-left:2px; margin-left:2px;">
 		{% for object in objects_sort %}
 		<li style="padding-bottom: 5px;">

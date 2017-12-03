@@ -291,14 +291,14 @@ class ThumbnailMixin(object):
             inspection_completed = False
             if obj.image_after and obj.image_after.url:
                 inspection_completed = True
-                # if not instance.image_after or instance.image_after.url is None:
-                #     inspection_completed = True
+                if not instance.image_after or instance.image_after.url is None or not instance.image_after.url == obj.image_after.url:                    
+                    log = '{0}-{1} {2}'.format(datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S'),self.request.user,_("uploaded image to complete the inspector").encode("utf-8")) 
+                    DailyInspectionLog(dailyinspection=instance,log=log).save()
+
 
             if inspection_completed:
                 obj.completed_time = timezone.now()
                 obj.rectification_status = 'completed'
-                log = '{0}-{1} {2}'.format(datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S'),self.request.user,_("uploaded image to complete the inspector").encode("utf-8")) 
-                DailyInspectionLog(dailyinspection=instance,log=log).save()
             else:
                 obj.completed_time = instance.completed_time
                 obj.rectification_status = instance.rectification_status
