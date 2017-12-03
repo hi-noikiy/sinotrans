@@ -45,7 +45,7 @@ class AbstractEquipmentInspection(models.Model):
     owner = models.CharField(_('Owner'), max_length=30, blank=False)
     comments = models.TextField(_('Comments'), max_length=130, blank=True)   
     date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
-    updated = models.DateTimeField(_('updated'),auto_now_add=False, auto_now=True)
+    updated = models.DateTimeField(_('Latest Update'),auto_now_add=False, auto_now=True)
     due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=True, blank=True)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
 

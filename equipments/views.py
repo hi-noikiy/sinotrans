@@ -119,6 +119,12 @@ class EquipmentInspectionListView(FilterMixin, ListView):
         context["categories"] = EquipmentType.objects.all()
         context["current_category"] = category_id
         context["object_list"] = qs
+        context["object_list_overdue"] = queryset.filter(use_condition="breakdown", due_date__lt=timezone.now()) if queryset else None 
+        from .admin import EquipmentInspectionAdmin
+        fields = EquipmentInspectionAdmin.list_display
+        context["fields"] = [field.name for field in self.model._meta.get_fields() if field.name in fields]
+        context["fields"].remove('completed_time')
+        context["fields_display"] = ["use_condition",]
         context["filter_form"] = EquipmentInspectiontFilterForm(data=self.request.GET or None) 
 
         filter_use_condition = self.request.GET.get("use_condition", "")

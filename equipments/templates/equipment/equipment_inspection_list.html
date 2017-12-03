@@ -137,6 +137,43 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-header">
+            <h3>{% trans "Inspection Overdue" %} <small>OVEDUE</small></h3> 
+        </div>
+        {% if object_list_overdue.count > 0 %}
+            <table class="table table-striped table-hover table-responsive table-condensed table-align-center"  style="width: 100%">
+                <thead>
+                    <tr class="table-primary">
+                        {% for field in fields %}
+                        <th>{{ object_list_overdue.0|my_get_field_verbose_name:field }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list_overdue %}
+                    <tr>
+                        {% for field in fields %}
+                        <td>
+                        {% if field in fields_display %}
+                            {{ object|my_get_field_display:field }}
+                        {% else %}
+                            {{ object|my_get_field_value:field }}
+                        {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>                            
+            </table>
+        {% else %}
+            {% trans "Nothing found" %}
+        {% endif %}
+
+    </div>      
+</div>
+
 {% endblock %}
 
 <script>
