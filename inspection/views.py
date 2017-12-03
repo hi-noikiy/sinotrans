@@ -727,8 +727,8 @@ class OverdueChartJSONView(JSONView):
         return data
 
 class LastsChartJSONView(LineChartColorMixin, BaseLineChartView):
-    def get_last_times(self):
-        times =  [timezone.now().date() - timedelta(days=i) for i in reversed(range(0,5))]
+    def get_time_range(self):
+        times =  [timezone.now(), timezone.now() - timedelta(weeks=1)]
         return times
                
     def get_labels(self):
@@ -737,13 +737,12 @@ class LastsChartJSONView(LineChartColorMixin, BaseLineChartView):
 
     def get_providers(self):
         """Return names of datasets."""
-        providers =  [ "{0}".format(date) for date in self.get_last_times()]
+        providers =  [ "{0}  ~  {1}".format(self.get_time_range()[1].date(), self.get_time_range()[0].date()), ]
         return providers
 
     def get_data(self):
-        data =  [[DailyInspection.objects.filter(category=category[0], created__date=date).count() for category in DailyInspection.daily_insepction_category] \
-                    for date in self.get_last_times()]
-        print data
+        data =  [[DailyInspection.objects.filter(category=category[0], created__gte=self.get_time_range()[1]).count()\
+                     for category in DailyInspection.daily_insepction_category],]
         return data
 
 class CompareChartJSONView(LineChartColorMixin, BaseLineChartView):
