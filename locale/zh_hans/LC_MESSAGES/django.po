@@ -3727,8 +3727,11 @@ msgstr "实际"
 #~ msgid "training persons"
 #~ msgstr "培训人员"
 
-#~ msgid "Spray Pump Room"
-#~ msgstr "喷淋泵房"
+msgid "Spray Pump Room"
+msgstr "喷淋泵房"
+
+msgid "Spray Warehouse"
+msgstr "喷淋库房"
 
 #~ msgid "Daily Inspection "
 #~ msgstr "日常巡检"

@@ -36,11 +36,18 @@
     </div>
     <div class='col-sm-3'>
       <a href="{% url 'spraypumproominspection_list_display' %}"><i class="fa fa-camera fa-3x"></i></a>
-      <h2>{% trans 'Spray Pump' %}</h2>
+      <h2>{% trans 'Spray Pump Room' %}</h2>
       <p class='lead'>
-      Spray Pump.
+      Spray Pump Room.
       </p>
     </div>
+    <div class='col-sm-3'>
+      <a href="{% url 'spraypumproominspection_list_display' %}"><i class="fa fa-camera fa-3x"></i></a>
+      <h2>{% trans 'Spray Warehouse' %}</h2>
+      <p class='lead'>
+      Spray Warehouse.
+      </p>
+    </div>    
     <div class='col-sm-3'>
       <a href="{% url 'forklift_list' %}"><i class="fa fa-camera fa-3x"></i></a>
       <h2>{% trans 'Forklift' %}</h2>
@@ -48,7 +55,20 @@
       Forklift.
       </p>
     </div>
-
+    <div class='col-sm-3'>
+      <a href="{% url 'forklift_list' %}"><i class="fa fa-camera fa-3x"></i></a>
+      <h2>{% trans 'HSSE KPI' %}</h2>
+      <p class='lead'>
+      HSSE KPI.
+      </p>
+    </div>    
+    <div class='col-sm-3'>
+      <a href="{% url 'annualtrainingplan_list' %}?class=warehouse"><i class="fa fa-camera fa-3x"></i></a>
+      <h2>{% trans 'annual training plan' %}</h2>
+      <p class='lead'>
+      Annual Training Plan.
+      </p>
+    </div> 
 
   </div>
 

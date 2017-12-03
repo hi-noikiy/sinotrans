@@ -31,6 +31,8 @@ table.transposition tr th{
 
 			{% include "includes/inlineview.html" with title="training record"  object_foreign_set=object.trainingrecord_set fields_foreign=fields_training_record fields_foreign_display=fields_training_record_display %}
 
+			{% include "includes/inlineview.html" with title="annual training plan"  object_foreign_set=object.annualtraningplan_set fields_foreign=fields_annual_training_plan fields_foreign_display=fields_annual_training_plan_display %} 
+
 			<!-- <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >Update</a> -->
 		</div>
 	</div>

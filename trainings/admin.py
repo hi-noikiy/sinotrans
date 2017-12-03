@@ -28,11 +28,11 @@ class TrainingRecordInline(admin.TabularInline):
     extra = 0
 
 class TrainingRecordAdmin(admin.ModelAdmin):
-    list_display = ['training_course',  "date", "location", "trainer", 'audiences']
-    list_filter = [ 'training_course','location' ]
-    search_fields = ['training_course', "date", "location", "trainer", 'audiences']
-    list_display_links = ['training_course']
-    ordering = ['training_course']
+    list_display = ["training_course", "date", "location", "trainer", 'audiences']
+    list_filter = [ "training_course",'location' ]
+    search_fields = ["training_course", "date", "location", "trainer", 'audiences']
+    list_display_links = ["training_course",]
+    ordering = ["training_course",]
     list_per_page = 10
     list_max_show_all = 80
 

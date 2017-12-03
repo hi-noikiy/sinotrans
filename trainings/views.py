@@ -70,6 +70,13 @@ class TrainingCourseDetailView(DetailView):
         context["fields_training_record"] = fields_training_record
         context["fields_training_record_display"] = ["",] 
 
+        from .admin import AnnualTraningPlanAdmin
+        fields_annual_training_plan = AnnualTraningPlanAdmin.list_display
+        if "training_course" in fields_annual_training_plan:
+            fields_annual_training_plan.remove("training_course")
+        context["fields_annual_training_plan"] = fields_annual_training_plan
+        context["fields_annual_training_plan_display"] = ["",] 
+
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -101,6 +108,8 @@ class AnnualTrainingPlanListView(ListView):
 
         qs = self.get_queryset()
         queryset = self.filter_class(self.request.GET, queryset=qs)
+        if self.request.GET.get("class"):
+            queryset = queryset.qs.filter(training_course__training_class=self.request.GET.get("class"))
         context["object_list"] = queryset if self.request.GET else None
 
         context["top_filter_form"] = AnnualTrainingPlanFilterForm(data=self.request.GET or None) 
@@ -130,7 +139,7 @@ class AnnualTrainingPlanListView(ListView):
 
         objects = []
         initial = ["",""]*12
-        for object in queryset.qs:
+        for object in queryset:
         	row = [object.training_course] + initial
         	row[object.planned_date.month * 2 - 1] = (object.training_record,"P") #object.planned_date
         	if object.actual_date:

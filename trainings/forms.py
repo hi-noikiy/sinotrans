@@ -20,5 +20,6 @@ class AnnualTrainingPlanFilterForm(forms.Form):
     year = forms.IntegerField(
         label=_('year'),
         #initial=datetime.datetime.now().year,
+        min_value=2017,
         initial=timezone.now().year,        
         required=False)        

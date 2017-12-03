@@ -42,13 +42,26 @@
       </p>
     </div>
     <div class='col-sm-3'>
+      <a href="{% url 'vehicle_list' %}"><i class="fa fa-camera fa-3x"></i></a>
+      <h2>{% trans 'driver' %}</h2>
+      <p class='lead'>
+      Driver.
+      </p>
+    </div>    
+    <div class='col-sm-3'>
       <a href="{% url 'transportationkpi_list_display' %}"><i class="fa fa-camera fa-3x"></i></a>
       <h2>{% trans 'vehicle tranportation KPI' %}</h2>
       <p class='lead'>
       Device.
       </p>
     </div>
-
+    <div class='col-sm-3'>
+      <a href="{% url 'annualtrainingplan_list' %}?class=transportation"><i class="fa fa-camera fa-3x"></i></a>
+      <h2>{% trans 'annual training plan' %}</h2>
+      <p class='lead'>
+      Annual Training Plan.
+      </p>
+    </div> 
   </div>
 
 </div>
