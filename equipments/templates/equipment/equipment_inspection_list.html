@@ -30,6 +30,10 @@
 <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static 'admin/' %}{% endfilter %}";</script>    
 {% endblock %}
 
+{% block jswotag/// %}
+<script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}    
+
 {% block content %}
 <div class="row">
     <div class="col-sm-3">
@@ -82,6 +86,7 @@
                         <tr class="table-primary" style="border-top-width: 2px;">
                             <th>{% trans "Equipment" %} </th>
                             <th>{% trans "Use Condition" %} </th>
+                            <th>{% trans "Owner" %} </th>
                             <th>{% trans "Inspector" %} </th>
                             <th>{% trans "Date of inspection" %} </th>
                             <th></th>
@@ -92,6 +97,7 @@
                             <tr class="equipment-inspection-item table-primary-hover">
                                 <td> {{object.equipment}}</td>
                                 <td> {{object.get_use_condition}}</td>
+                                <td> {{object.owner}}</td>
                                 <td> {{object.inspector}}</td>
                                 <td> {{object.date_of_inspection}}</td>
                                 <td>
@@ -127,6 +133,7 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 <script>

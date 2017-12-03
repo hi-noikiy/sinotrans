@@ -1565,11 +1565,11 @@ msgstr "防止跌落设备"
 #: .\outsourcing\templates\transportation\vehicle_list.html:35
 #: .\outsourcing\views.py:95 .\outsourcing\views.py:128
 msgid "vehicle"
-msgstr "车辆"
+msgstr "运输车辆"
 
 #: .\outsourcing\models.py:197
 msgid "vehicles"
-msgstr "车辆"
+msgstr "运输车辆"
 
 #: .\outsourcing\models.py:207
 #: .\site-packages-djangos\1.9\django\utils\translation\__init__.py:234
@@ -1781,7 +1781,7 @@ msgstr "车辆运输KPI"
 #: .\outsourcing\templates\forklift\forklift_list.html:20
 #: .\outsourcing\templates\transportation\vehicle_list.html:32
 msgid "Outsource Management"
-msgstr "外包管理"
+msgstr "车辆管理"
 
 #: .\outsourcing\templates\table_transposition_display.html:16
 msgid "indicator"

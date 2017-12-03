@@ -190,7 +190,9 @@ class EquipmentInspectionCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-        instance = form.save()
+        instance = form.save(commit = False)
+        instance.inspector = self.request.user
+        instance.save()
         return HttpResponse(render_to_string('equipment/equipment_inspection_edit_form_success.html', {'object': instance, "is_create_view" : 1 }))  
 
 class EquipmentInspectionQuickUpdateView(ListView):
@@ -252,6 +254,7 @@ class EquipmentInspectionUpdateView(UpdateView):
             pass
 
         context["form"] = form
+        print context
 
         return context
 

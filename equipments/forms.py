@@ -11,6 +11,9 @@ from .models import (
     SprayPumpRoomInspection,
 )
 
+from django.conf import settings
+from django.contrib.auth import get_user_model
+
 class EquipmentInspectionForm(forms.ModelForm):
     use_condition = forms.ChoiceField(
     	label=_('Use Condition'),
@@ -19,10 +22,21 @@ class EquipmentInspectionForm(forms.ModelForm):
         widget=forms.Select,
     )
 
+    try:
+        owner = forms.ModelChoiceField(
+                label=_('Owner'),
+                queryset=get_user_model().objects.all(),
+                empty_label = None, #not show enmpty
+                required=True
+                )     
+    except:
+        pass
+
     class Meta:
         model = EquipmentInspection
 
         exclude = {
+            'inspector',
         }
 
     def __init__(self, *args, **kwargs):
@@ -38,17 +52,7 @@ class EquipmentInspectionForm(forms.ModelForm):
                 else:
                     field.widget.attrs['class'] = 'form-control'
 
-        self.fields['date_of_inspection'].widget.attrs['class'] = self.fields['date_of_inspection'].widget.attrs['class'] + ' calendar'
-
-        # self.fields['use_condition'].choices = EquipmentInspection.equipment_use_condition
-        # self.fields['use_condition'].widget = forms.RadioSelect
-
-    # def clean(self, *args, **kwargs):
-    #     super(EquipmentInspectionForm, self).clean(*args, **kwargs)
-    #     equip = self.cleaned_data.get('equipment')
-    #     date_of_inspection = self.cleaned_data.get('date_of_inspection')
-    #     if self.Meta.model.objects.filter(equipment=equip, date_of_inspection=date_of_inspection).exists():
-    #         raise forms.ValidationError('record already exist')
+        # self.fields['date_of_inspection'].widget.attrs['class'] = self.fields['date_of_inspection'].widget.attrs['class'] + ' calendar'
 
 # class EquipmentInspectionModelFormSet(BaseModelFormSet):
 #     pass

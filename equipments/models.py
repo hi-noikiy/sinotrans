@@ -42,9 +42,10 @@ class AbstractEquipmentInspection(models.Model):
     equipment = models.ForeignKey(Equipment, verbose_name=_('Equipment'))
     use_condition = models.CharField(_('Use Condition'), choices=equipment_use_condition, max_length=30, blank=False,null=False,default='normal')
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
+    owner = models.CharField(_('Owner'), max_length=30, blank=False)
     comments = models.TextField(_('Comments'), max_length=130, blank=True)   
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False)
-    updated = models.DateTimeField(_('updated'),auto_now_add=True, auto_now=False)
+    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(_('updated'),auto_now_add=False, auto_now=True)
 
     class Meta:
         verbose_name = _('Equipment Inspection')

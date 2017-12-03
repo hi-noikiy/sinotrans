@@ -527,8 +527,7 @@ class ChartMixin(object):
             'labels': [_(category[1]) for category in DailyInspection.daily_insepction_category_view], # why ugettext in models.py didn't work?
         };
         context["data"] = json.dumps(data)
-        print context["data"]
-
+        
         return context
 
 class DailyInspectionListView(ChartMixin, FilterMixin, ListView): 
