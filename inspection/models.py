@@ -72,6 +72,14 @@ class DailyInspection(models.Model):
         ('environment', _('Environment')),
     )
 
+    daily_insepction_category_view = (
+        ('people', ugettext('People')),
+        ('device', ugettext('Device')),
+        ('machine', ugettext('Machine')),
+        ('method', ugettext('Method')),
+        ('environment', ugettext('Environment')),
+    )
+
     # index can only be 1 char, see SelectMultiple:render & Select(Widget):render_options / selected_choices = set(force_text(v) for v in selected_choices) ==> bug ? set([force_text(v)]
     daily_insepction_impact = (
         ('1', _('economic loss')),

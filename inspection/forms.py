@@ -142,6 +142,7 @@ class DailyInspectionForm(forms.ModelForm):
 
 class InspectionFilterForm(forms.Form):
     q = forms.CharField(label=_('Search'), required=False)
+
     '''
     category_id = forms.ModelMultipleChoiceField(
         label='Category',
@@ -182,6 +183,14 @@ class InspectionFilterForm(forms.Form):
                 )    
     except:
         pass
+
+    start = forms.DateField(label=_("Date of Inspection Start"), required=False)
+    end = forms.DateField(label=_("Date of Inspection End"), required=False)    
+
+    def __init__(self, *args, **kwargs):
+        super(InspectionFilterForm, self).__init__(*args, **kwargs)
+        self.fields['start'].widget.attrs['class'] ="calenda"
+        self.fields['end'].widget.attrs['class'] ="calenda"
 
 class ShelfInspectionForm(forms.ModelForm):
     class Meta:

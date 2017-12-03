@@ -12,41 +12,58 @@ a:active {text-decoration: none;}
 a:hover {text-decoration: none;}
 
 .left-bar{
-	background-color: aliceblue;
-	border-radius : 3px;
-	color: #777;
-	padding-top: 8px;
+    background-color: aliceblue;
+    border-radius : 3px;
+    color: #777;
+    padding-top: 8px;
 }
 div.categorylist{
-	margin-right: 0px; /* if the value > 0, then next div will move to next line*/
-	padding: 15px 8px;
-	/*background-color: #eef1f3;*/
+    margin-right: 0px; /* if the value > 0, then next div will move to next line*/
+    padding: 15px 8px;
+    /*background-color: #eef1f3;*/
 }
 
 .categorylist:hover, .category-content .active{
-	background-color: #d9edf7;
+    background-color: #d9edf7;
 }
 
 .category-content{
-	text-decoration: none;
-	outline: none;
-	border-radius: 3px;
-	border: solid 1px #d9edf7;
-	overflow:hidden;
-	margin: 1px; /* adapt pic width div */
-	font-size: smaller;
+    text-decoration: none;
+    outline: none;
+    border-radius: 3px;
+    border: solid 1px #d9edf7;
+    overflow:hidden;
+    margin: 1px; /* adapt pic width div */
+    font-size: smaller;
 }
 
 
 {% endblock%}
 </style>
 
+
+<script>
+{% block jquery %}
+    //http://www.runoob.com/jqueryui/example-datepicker.html
+
+    $('input.calenda').datepicker({
+        dateFormat: "yy-mm-dd", //$(this).val() can define format in widget
+        numberOfMonths: 2,
+        changeYear: true,
+        changeMonth: true,
+        showButtonPanel: true,
+        showWeek: true,
+    });
+{% endblock %}
+</script>
+
+
 <script>
 {% block js %}
 
 $(document).ready(function(){
-	$("td:contains('uncompleted')").css("background-color","red");
-	$("td:contains('completed')").css("background-color","green");
+    $("td:contains('uncompleted')").css("background-color","red");
+    $("td:contains('completed')").css("background-color","green");
 
 });
 
@@ -56,70 +73,94 @@ $(document).ready(function(){
 {% block content %}
 
 <div class='row'>
-	<div class='col-xs-4 col-sm-3 col-md-2 left-bar'>
-		<form method="GET" action="{% url 'dailyinspection_list' %}">
-			{{ InspectionFilterForm|crispy }}
+    <div class='col-xs-4 col-sm-3 col-md-2 left-bar'>
+        <form method="GET" action="{% url 'dailyinspection_list' %}">
+            {{ InspectionFilterForm|crispy }}
 
-			<!-- <input type='hidden' name='q' value='{{ request.GET.q }}' /> -->
-			<input type='submit' class='btn btn-primary' style="margin-bottom: 5px;" value="{% trans 'Apply Filter' %}">
-			<a class="btn btn-default"  style="margin-bottom: 5px;" href="{% url 'dailyinspection_list' %}"  >{% trans 'Clear Filters' %}</a>
-		</form>
-	    <hr>
-	</div>
-	<div class='col-xs-8 col-sm-9 col-md-10 container'>
+            <!-- <input type='hidden' name='q' value='{{ request.GET.q }}' /> -->
+            <input type='submit' class='btn btn-primary' style="margin-bottom: 5px;" value="{% trans 'Apply Filter' %}">
+            <a class="btn btn-default"  style="margin-bottom: 5px;" href="{% url 'dailyinspection_list' %}"  >{% trans 'Clear Filters' %}</a>
+        </form>
+        <hr>
+    </div>
+    <div class='col-xs-8 col-sm-9 col-md-10 container'>
 
         
-		<div class="row category-content">
-			<div class='col-xs-4 col-md-2 categorylist active text-center'>
-				<a href="{% url 'dailyinspection_list' %}">{% trans "All Categories" %}</a>
-			</div>
+        <div class="row category-content">
+            <div class='col-xs-4 col-md-2 categorylist active text-center'>
+                <a href="{% url 'dailyinspection_list' %}">{% trans "All Categories" %}</a>
+            </div>
 
-			{% for category in categories%}
-			<div class='col-xs-4 col-md-2 categorylist  text-center {% if category.0 in request.GET.category %}active{% endif %}'>
-				<a href="{% url 'dailyinspection_list' %}?category={{category.0}}" style="display: block; " >{{category.1}}</a>
-			</div>
-			{% cycle '' '' '' '' '' '</div><div class="row">'%}
-			{% endfor %}
-		</div>
-		<br>
+            {% for category in categories%}
+            <div class='col-xs-4 col-md-2 categorylist  text-center {% if category.0 in request.GET.category %}active{% endif %}'>
+                <a href="{% url 'dailyinspection_list' %}?category={{category.0}}" style="display: block; " >{{category.1}}</a>
+            </div>
+            {% cycle '' '' '' '' '' '</div><div class="row">'%}
+            {% endfor %}
+        </div>
+        <br>
 
-		<div class="object_create pull-right">
+        <div class="object_create pull-right">
             {% if request.user.is_staff or request.user.is_superuser %}
-	    	<a class="fa fa-plus-square fa-1x" href="{% url 'dailyinspection_create' %}" title='{% trans "Create New Item" %}' > {% trans "Create New Item" %}</a>
+            <a class="fa fa-plus-square fa-1x" href="{% url 'dailyinspection_create' %}" title='{% trans "Create New Item" %}' > {% trans "Create New Item" %}</a>
             {% endif %}
             <a class="fa fa-area-chart fa-1x"  href="{% url 'daily_inspection_stat' %}"  title='{% trans "Inspection Statistic" %}' > {% trans "Inspection Statistic" %}</a>
             <a class="fa fa-warning fa-1x"  style="color: red;" href="{% url 'dailyinspection_list' %}?overdue=1"  title='{% trans "Inspection Overdue" %}' > <span style="color: #428bd3;">{% trans "Inspection Overdue" %}</span></a>
-	    </div>
+        </div>
 
-	    <div class="object_lists" style="clear: both;">
-			{% autopaginate object_list 8 %}
+        <div class="object_lists" style="clear: both;">
+            {% autopaginate object_list 8 %}
             
-			{% if object_list.count == 0 %}
-				{% trans "Nothing found" %}
-			{% else %}
-				{% include "dailyinspection/inspections.html" with object_list=object_list %}
-			{% endif %}
+            {% if object_list.count == 0 %}
+                {% trans "Nothing found" %}
+            {% else %}
+                {% include "dailyinspection/inspections.html" with object_list=object_list %}
+            {% endif %}
             
-			<div class="text-center">
-			{% paginate %}
-			</div>
-		</div>
-	</div>
+            <div class="text-center">
+            {% paginate %}
+            </div>
+        </div>
+    </div>
 </div>
 
 <hr>
-<div>
-	<div class="page-header">
-	    <h3>{% trans "Latest Update" %} <small>LAST UPDATED</small></h3>
-	</div>
-	
-	<ul style="list-style:none; padding-left:2px; margin-left:2px;">
-		{% for object in objects_sort %}
-		<li style="padding-bottom: 5px;">
-			<a href='{{ object.get_absolute_url }}'>{{object}}  -  <small>{{object.updated}}</small></a>
-		</li>
-		{% endfor %}
-	</ul>
+<div class="row">
+
+    <div class="col-sm-6">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+        <div class="page-header">
+            <h3>{% trans "Inspection Statistics" %} <small> INSPECTION STATISTICS TOTAL:{{object_list.count}}</small></h3>
+        </div>
+        <canvas id="myChartStat" width="500" height="200"></canvas>
+
+
+        <script type="text/javascript">
+
+            var ctx = $("#myChartStat").get(0).getContext("2d");
+
+            new Chart(ctx, {
+                type: 'doughnut',  // 'pie'
+                data: {{data|safe}},
+                options: {}
+            });
+        </script>
+    </div>
+
+    <div class="col-sm-6">
+	    <div class="page-header">
+	        <h3>{% trans "Latest Update" %} <small>LAST UPDATED</small></h3>
+	    </div>
+
+	    <ul style="list-style:none; padding-left:2px; margin-left:2px;">
+	        {% for object in objects_sort %}
+	        <li style="padding-bottom: 5px;">
+	            <a href='{{ object.get_absolute_url }}'>{{object}}  -  <small>{{object.updated}}</small></a>
+	        </li>
+	        {% endfor %}
+	    </ul>
+	</div>	    
 </div>
 
 {% endblock %}

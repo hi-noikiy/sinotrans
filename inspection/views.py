@@ -451,13 +451,16 @@ class InsepctionFilter(FilterSet):
     # due_date = MethodFilter(name='due_date', action='overdue_filter', distinct=True)
     owner = CharFilter(name='owner', lookup_type='icontains', distinct=True)
 
+    start = CharFilter(name='created', lookup_type='gte', distinct=True)
+    end = CharFilter(name='created', lookup_type='lte', distinct=True)
+
     class Meta:
         model = DailyInspection
         fields = [
             'category',
             'owner',
             'rectification_status',
-            # 'due_date'
+            'created'
             
         ]
 
@@ -498,10 +501,36 @@ class FilterMixin(object):
         filter_class = self.filter_class
         if qs and filter_class:
             f = filter_class(self.request.GET, queryset=qs)
-            context["object_list"] = f
+            context["object_list"] = f.qs # f also works
         return context
 
-class DailyInspectionListView(FilterMixin, ListView): 
+class ChartMixin(object):
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ChartMixin, self).get_context_data(*args, **kwargs)
+        object_list = context["object_list"]
+        data = { 
+            'datasets': [{
+                # 'label': '# of Votes',
+                'data': [object_list.filter(category=category[0]).count() if not object_list is None else 0 for category in DailyInspection.daily_insepction_category],
+                'backgroundColor': [
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(0, 255, 0, 0.2)',
+                    'rgba(0, 0, 255, 0.2)',
+                    'rgba(220, 0, 255, 0.2)',
+                    'rgba(0, 220, 255, 0.2)',
+                ]            
+            }],
+
+            # These labels appear in the legend and in the tooltips when hovering different arcs
+            'labels': [_(category[1]) for category in DailyInspection.daily_insepction_category_view], # why ugettext in models.py didn't work?
+        };
+        context["data"] = json.dumps(data)
+        print context["data"]
+
+        return context
+
+class DailyInspectionListView(ChartMixin, FilterMixin, ListView): 
     model = DailyInspection
     template_name = "dailyinspection/dailyinspection_list.html"
     filter_class = InsepctionFilter
@@ -509,10 +538,12 @@ class DailyInspectionListView(FilterMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(DailyInspectionListView, self).get_context_data(*args, **kwargs)
         # context["objects_list"] = DailyInspection.objects.order_by('-updated')
-        context["objects_sort"] = DailyInspection.objects.order_by('-updated')
+        context["objects_sort"] = DailyInspection.objects.order_by('-updated')[:10]
         context["query"] = self.request.GET.get("q")
         context["InspectionFilterForm"] = InspectionFilterForm(data=self.request.GET or None)        
         context["categories"] = DailyInspection.daily_insepction_category
+
+        print context['data']
         return context       
 
     def get_queryset(self, *args, **kwargs):
@@ -526,6 +557,7 @@ class DailyInspectionListView(FilterMixin, ListView):
         else:
             qs =  self.model.objects.all()
 
+        # for over due only
         if overdue:
             qs = qs.filter(due_date__lt=timezone.now()).filter(rectification_status="uncompleted")
             return qs
