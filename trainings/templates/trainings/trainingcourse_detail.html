@@ -14,31 +14,22 @@ $('tbody img').each(function(){
 
 </script>
 
+<style type="text/css">
+{% block style %}
+table.transposition tr th{
+    width:20%;
+}
+{% endblock %}
+</style>
+
 {% block content %}
 
 	<div class="row">
 		<div class="col-sm-12">
 
-			<div class="panel panel-primary">
-			    <div class="panel-heading">
-			        <h3 class="panel-title">
-			            {% trans "Base Information" %}
-			        </h3>
-			    </div>
-			    <div class="panel-body">
-					<table class="table-striped table-hover table-responsive table-condensed"  style="width: 100%">
-						<tbody>
-							{% for field in fields %}
-								{% if field.name == "content" %}
-									<tr><th>{{field.verbose_name}}</th><td>{{ object.content|safe }}</td></tr>
-								{% else %}
-									<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_display:field.name}}</td></tr>
-								{% endif %}
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
+			{% include "includes/detailview.html" with object=object fields=fields fields_safe_content=fields_safe_content %}
+
+			{% include "includes/inlineview.html" with title="training record"  object_foreign_set=object.trainingrecord_set fields_foreign=fields_training_record fields_foreign_display=fields_training_record_display %}
 
 			<!-- <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >Update</a> -->
 		</div>

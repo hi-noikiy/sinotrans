@@ -206,7 +206,7 @@ class ShelfAdmin(admin.ModelAdmin):
 
 
 class RehearsalAdmin(admin.ModelAdmin):
-    list_display = ['title',"date","attachment"]
+    list_display = ['title',"date","attachment","image"]
     list_search = ['title',"date",]
 
     view_on_site = False

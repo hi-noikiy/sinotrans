@@ -117,7 +117,7 @@ class SprayPumpRoomInspection(models.Model):
     pump_house_clean_and_tidy = models.BooleanField(_('pump house clean and tidy'), blank=True, default=False)
 
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=False, auto_now=False)
+    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
 
     objects = SprayPumpRoomInspectionManager()
     def __unicode__(self):

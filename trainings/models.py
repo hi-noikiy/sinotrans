@@ -17,6 +17,13 @@ class TrainingCourse(models.Model):
         ('other',_('other')),
     )
 
+    TRAINING_CLASS_OPTION = (
+        ('warehouse',_('warehouse')),
+        ('transportation',_('transportation')),
+    )
+
+
+    training_class = models.CharField(_('training class'), choices=TRAINING_CLASS_OPTION, max_length=150, default='warehouse',blank=False, null=False)
     topic = models.CharField(_('training topic'), max_length=150, blank=False, null=False)
     category = models.CharField(_('training category'), choices=TRAINING_CATEGORY_OPTION, max_length=150, blank=False, null=False)
     content = RichTextField(_('training content'),blank=True, null=True)
@@ -45,7 +52,8 @@ class TrainingRecord(models.Model):
         verbose_name_plural = _("training record")
 
     def __unicode__(self): 
-        return _("training record") + " %s %s" % (self.training_course.topic , self.date )
+        #return _("training record") + " %s %s" % (self.training_course.topic , self.date )
+        return" %s %s" % (self.training_course.topic , self.date )
 
     def get_absolute_url(self):
         return reverse("trainingrecord_detail", kwargs={"pk": self.pk })

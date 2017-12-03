@@ -28,6 +28,13 @@ class TrainingRecordDetailView(DetailView):
 
         context["fields"] = [self.model._meta.get_field(fieldname) for fieldname in field]
 
+        from .admin import TrainingTranscriptAdmin
+        fields_training_transcript = TrainingTranscriptAdmin.list_display
+        if "training_record" in fields_training_transcript:
+            fields_training_transcript.remove("training_record")
+        context["fields_training_transcript"] = fields_training_transcript
+        context["fields_training_transcript_display"] = ["work_position",] 
+
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -46,12 +53,22 @@ class TrainingCourseDetailView(DetailView):
         context = super(TrainingCourseDetailView, self).get_context_data(*args, **kwargs)
 
         field = [
+            "training_class",
             "topic",
             "category",
             "content",
         ]
 
         context["fields"] = [self.model._meta.get_field(fieldname) for fieldname in field]
+        context["fields_safe_content"] = ["content",]
+        context["fields_display"] = ["training_class","category",]
+
+        from .admin import TrainingRecordAdmin
+        fields_training_record = TrainingRecordAdmin.list_display
+        if "training_course" in fields_training_record:
+            fields_training_record.remove("training_course")
+        context["fields_training_record"] = fields_training_record
+        context["fields_training_record_display"] = ["",] 
 
         return context
 

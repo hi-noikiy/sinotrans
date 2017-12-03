@@ -348,8 +348,10 @@ class shelf_inspection_record(models.Model):
     use_condition = models.CharField(_('Use Condition'), choices = shelf_inspection_record_use_condition, max_length=30, blank=True) 
     is_locked = models.BooleanField(_('Locked'), blank=True)
     check_person = models.CharField(_('Check Person'), max_length=30, blank=True)
+    owner = models.CharField(_('Owner'), max_length=30, blank=False)
     gradient = models.DecimalField(_('Gradient'), decimal_places=1, max_digits=20, blank=True, null=True)
     forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False)
+    completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     comments = models.TextField(_('Comments'), max_length=30, blank=True,null=True)
 
     objects = ShelfInspectionRecordManager()
@@ -461,6 +463,7 @@ class Rehearsal(models.Model):
     title = models.CharField(_('Title'), max_length=30, blank=True)   
     date = models.DateField(_('Date'),auto_now_add=False, auto_now=False)
     attachment = models.FileField(_('Attachment'), blank=True, upload_to='rehearsal') 
+    image = models.FileField(_('image'), blank=True, upload_to='rehearsal') 
     
     class Meta:
         verbose_name = _("rehearsal")
