@@ -207,6 +207,13 @@ table tr.table-primary th{
     background: linear-gradient(rgba(124, 152, 177, 0.88), #428bca);
 }
 
+table tr.table-primary-light th{
+    border-bottom: solid 1px #f9b9c3;
+    background: linear-gradient(rgba(124, 152, 177, 0.88), rgba(66, 139, 202, 0.41));
+    color: #f5f5f5;
+    border-color: #bce8f1;
+}
+
 /************************* 
 
              left navigation 

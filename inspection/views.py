@@ -502,6 +502,7 @@ class FilterMixin(object):
         if qs and filter_class:
             f = filter_class(self.request.GET, queryset=qs)
             context["object_list"] = f.qs # f also works
+            context["object_list_count"] = f.qs.count()
         return context
 
 class ChartMixin(object):
