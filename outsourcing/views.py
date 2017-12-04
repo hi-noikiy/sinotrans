@@ -16,14 +16,15 @@ from .models import (
 	Forklift, ForkliftMaint, 
     Vehicle, Driver, VehicleInspection,
     VehicleTransportationKPI,
+
+    option_value_convertion
 	)
 from .forms import (
     vehicle_transportation_kpi_model_formset, VehicleTransportationKPIForm,
     VehicleTransportationKPIFilterForm,
     )
 
-from .models import option_value_convertion
-
+from trainings.models import TrainingTranscript
 
 class TransportSecurityView(TemplateView):
     template_name = "transport_security.html"
@@ -35,8 +36,14 @@ class ForkliftListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ForkliftListView, self).get_context_data(*args, **kwargs)
-        context["object_list"] = Forklift.objects.all()
-        
+
+        from .admin import ForkliftAdmin
+        fields = ForkliftAdmin.list_display
+
+        context["object_list"] = self.model.objects.all()
+        context["fields"] = [field for field in self.model._meta.get_fields() if field.name in fields]
+        context["fields_display"] = ["",] 
+
         return context       
 
     def dispatch(self, request, *args, **kwargs):
@@ -73,6 +80,61 @@ class ForklifDetailView(DetailView):
         ])
         return super(ForklifDetailView, self).dispatch(request,args,kwargs)           
 
+class DriverListView(ListView): 
+    model = Driver
+    template_name = "transportation/driver_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DriverListView, self).get_context_data(*args, **kwargs)
+        context["object_list"] = self.model.objects.all()
+
+        from .admin import DriverAdmin
+        fields = DriverAdmin.list_display
+
+        context["object_list"] = self.model.objects.all()
+        context["fields"] = [field for field in self.model._meta.get_fields() if field.name in fields]
+        context["fields_display"] = ["",] 
+
+        return context       
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('driver'),request.path_info),
+        ])
+        return super(DriverListView, self).dispatch(request,args,kwargs)   
+
+class DriverDetailView(DetailView): 
+    model = Driver
+    template_name = "transportation/driver_detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DriverDetailView, self).get_context_data(*args, **kwargs)
+        context["object"] = self.get_object()
+
+        exclude = {
+            'id',
+        }
+
+        context["fields"] = [self.model._meta.get_field(field.name) for field in self.model._meta.fields  if not field.name in exclude]
+        context["fields_safe_content"] = ["",]   
+        context["fields_display"] = ["training_qualified",] 
+
+        from trainings.admin import TrainingTranscriptAdmin
+        fields_training_transcript = TrainingTranscriptAdmin.list_display
+        context["fields_training_transcript"] = fields_training_transcript
+        context["fields_training_transcript_display"] = ["work_position",]
+        context["driver_training_transcripts"] = TrainingTranscript.objects.filter(work_position='driver', trainee=self.get_object().name)  # later maybe need add Driver ForeignKey to TrainingTranscript to avoid dup name
+
+        return context        
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("driver"),reverse("driver_list", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
+        return super(DriverDetailView, self).dispatch(request,args,kwargs)           
 
 class VehicleListView(ListView): 
     model = Vehicle
@@ -81,12 +143,14 @@ class VehicleListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(VehicleListView, self).get_context_data(*args, **kwargs)
 
-        from admin import VehicleAdmin
+        from .admin import VehicleAdmin
         fields = VehicleAdmin.list_display
 
-        context["object_list"] = Vehicle.objects.all()
+        context["object_list"] = self.model.objects.all()
         context["fields"] = [field for field in self.model._meta.get_fields() if field.name in fields]
-        
+        context["fields_display"] = ["",] 
+
+
         return context       
 
     def dispatch(self, request, *args, **kwargs):
@@ -112,12 +176,14 @@ class VehicleDetailView(DetailView):
         fieldsets = VehicleAdmin.fieldsets
         context["fieldsets"] = fieldsets
 
-        from admin import DriverAdmin
-        fields_dirver = DriverAdmin.list_display
-        context["fields_dirver"] = fields_dirver
+        # from admin import DriverAdmin
+        # fields_dirver = DriverAdmin.list_display
+        # context["fields_dirver"] = fields_dirver
 
         from admin import VehicleInspectionAdmin
         fields_vehicle_inspection = VehicleInspectionAdmin.list_display
+        if "vehicle" in fields_vehicle_inspection:
+            fields_vehicle_inspection.remove("vehicle")
         context["fields_vehicle_inspection"] = fields_vehicle_inspection
         
         return context       

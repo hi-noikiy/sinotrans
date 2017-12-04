@@ -173,7 +173,6 @@ class Vehicle(models.Model):
     )
 
     service_content = models.CharField(_("service content"), choices=SERVICE_CONTENT_OPTION, max_length=130, blank=False, null=False)
-    motorcade = models.CharField(_("motorcade"), max_length=30, blank=False, null=False)
     relevant_license_plate = models.CharField(_("relevant license plate"), max_length=30, blank=False, null=False)
     vehicle_inspection_valid_until = models.DateField(_("vehicle inspection valid until"), blank=False, null=False,auto_now=False, auto_now_add=False)
     vehicle_type = models.CharField(_("vehicle type"), max_length=30, blank=False, null=False)
@@ -203,7 +202,7 @@ class Vehicle(models.Model):
         return reverse("vehicle_detail", kwargs={"pk": self.pk })
 
 class Driver(models.Model):
-    vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle"), blank=True, null=True )
+    #vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle"), blank=True, null=True )
     name = models.CharField(_("name"), max_length=30, blank=False, null=False)
     driver_ID = models.CharField(_("Driver ID"), max_length=30, blank=False, null=False)
     driver_license_type = models.CharField(_("driver license type"), max_length=30, blank=False, null=False)
@@ -215,7 +214,8 @@ class Driver(models.Model):
     driver_license_valid_until = models.DateField(_("driver license valid until"),  blank=False, null=False,auto_now=False, auto_now_add=False)
     contact_phone = models.CharField(_("contact phone"), max_length=30, blank=False, null=False)
     training_qualified = models.CharField(_("training qualified"), choices = RESULT_OPTION, max_length=30, blank=False, null=False)
-    
+    motorcade = models.CharField(_("motorcade"), max_length=30, blank=False, null=False)
+
     class Meta:
         verbose_name = _("driver")
         verbose_name_plural = _("drivers")
@@ -223,6 +223,8 @@ class Driver(models.Model):
     def __unicode__(self): 
         return _("driver") + " %s %s" % (self.name, self.driver_ID)
 
+    def get_absolute_url(self):
+        return reverse("driver_detail", kwargs={"pk": self.pk })
 
 class VehicleInspection(models.Model):
     vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle") )

@@ -130,9 +130,9 @@ class ForkliftAdmin(admin.ModelAdmin):
         return url
 
 class DriverAdmin(admin.ModelAdmin):
-    list_display = ["name", "driver_ID","driver_license_type","contact_phone"]
-    search_fields = ("name", "driver_ID","driver_license_type","contact_phone" )
-    list_filter = ("driver_license_type",)
+    list_display = ["name", "driver_ID","driver_license_type","contact_phone","motorcade",]
+    search_fields = ("name", "driver_ID","driver_license_type","contact_phone" ,"motorcade",)
+    list_filter = ("driver_license_type","motorcade",)
     ordering = ("driver_ID",) 
 
     view_on_site = False
@@ -147,8 +147,7 @@ class VehicleInspectionInline(admin.TabularInline):
 
 class VehicleAdmin(admin.ModelAdmin):
     list_display = [
-                        "service_content", 
-                        "motorcade",
+                        "service_content",                         
                         "relevant_license_plate",
                         'vehicle_inspection_valid_until',
                         "vehicle_type",
@@ -160,7 +159,6 @@ class VehicleAdmin(admin.ModelAdmin):
                         ]
     search_fields = (
                         "service_content", 
-                        "motorcade",
                         "relevant_license_plate",
                         'vehicle_inspection_valid_until',
                         "vehicle_type",
@@ -170,7 +168,7 @@ class VehicleAdmin(admin.ModelAdmin):
                         'green_mark_valid_until',
                         'insurance_policy_valid_until',
                         )
-    list_filter = ("motorcade","service_content", )
+    list_filter = ("service_content", )
     ordering = ("relevant_license_plate",) 
 
     inlines = [
@@ -182,7 +180,6 @@ class VehicleAdmin(admin.ModelAdmin):
              'fields':
                 (
                  'service_content',
-                 'motorcade',
                  'relevant_license_plate',
                  'vehicle_inspection_valid_until',
                  'vehicle_type',
