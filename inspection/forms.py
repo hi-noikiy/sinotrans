@@ -283,7 +283,7 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             #'shelf'
         ]
 
-        hidden = [ # hiden, but still need the value for validation
+        hidden = [ # input hiden, but still need the value for validation
             'id',
             'shelf',
         ]
@@ -293,7 +293,8 @@ class ShelfInspectionRecordForm(forms.ModelForm):
         ]
 
         field_display = [
-            # use_condition,
+            'use_condition',
+            'is_locked'
         ]        
 
 class shelf_inspection_recordModelFormSet(BaseModelFormSet):

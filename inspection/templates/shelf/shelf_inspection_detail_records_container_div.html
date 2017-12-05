@@ -17,17 +17,17 @@ a:hover {text-decoration: none;}
     margin-top: 5px;
 }
 
-.div-table-col1, .div-table-col2, .div-table-col3{
-    width:22%;
+.div-table-col1, .div-table-col2, .div-table-col3,.div-table-col4,.div-table-col5{
+    width:14%;
     float: left;
 }
 
-.div-table-col4{
+.div-table-col6{
     float: left;
-    width:10%;
+    width:20%;
 }
 
-.div-table-col5{
+.div-table-col-last{
     padding-right: 10px;
     float: right;
     width: 70px;
@@ -42,10 +42,10 @@ a:hover {text-decoration: none;}
     <div class="row div-table-header">        
         {% for field in formset.0 %}
             {% if not field.name in formset.0.Meta.hidden or field.name in formset.0.Meta.display_with_field_hiden %}
-            <div class="div-table-col {% cycle 'div-table-col1' 'div-table-col2' 'div-table-col3' 'div-table-col4' %}"><b>{{field.label}}</b></div>
+            <div class="div-table-col {% cycle 'div-table-col1' 'div-table-col2' 'div-table-col3' 'div-table-col4'  'div-table-col5'  'div-table-col6' %}"><b>{{field.label}}</b></div>
             {% endif %}
         {% endfor %}
-        <div class="div-table-col5"></div>
+        <div class="div-table-col-last"></div>
             
     </div>
     <div class="div-table-body">
@@ -58,7 +58,7 @@ a:hover {text-decoration: none;}
                     {% if field.name in form.Meta.hidden and not field.name in form.Meta.display_with_field_hiden %}
                         <div style="display:none; float: left;clear: both" type='hidden' >{{field}}</div>
                     {% else %}
-                    <div class="div-table-col {% cycle 'div-table-col1' 'div-table-col2' 'div-table-col3' 'div-table-col4' %}" style="">
+                    <div class="div-table-col {% cycle 'div-table-col1' 'div-table-col2' 'div-table-col3' 'div-table-col4' 'div-table-col5'  'div-table-col6' %}" style="">
                         {% if field.name in form.Meta.hidden %}
                             <p style="display:none" type='hidden'>{{field}}</p>                        
                             {% if field.name in form.Meta.display_with_field_hiden %}
@@ -67,7 +67,7 @@ a:hover {text-decoration: none;}
                         {% elif field.name in form.Meta.disabled %}                      
                             <p>{{form.instance|my_get_field_display:field.name}}</p>
                         {% else %}
-                            <p class="displayonly {% if field.name == 'gradient' and not form.instance.gradient|gradient_normal %} div-table-cell-highlight {% endif %}" style="display: block; ">{{form.instance|my_get_field_display:field.name}}</p>
+                            <p class="displayonly {% if field.name == 'gradient' and not form.instance.gradient|gradient_normal %} div-table-cell-highlight {% endif %}" style="display: block; ">{% if field.name in form.Meta.field_display %}{{form.instance|my_get_field_display:field.name}}{% else %}{{form.instance|my_get_field_value:field.name}}{% endif %}</p>
                             <p class="edit" style="display: none">{{field}}</p>
                         {% endif%}  
                     </div>
@@ -75,7 +75,7 @@ a:hover {text-decoration: none;}
 
                 {% endfor %}
 
-                <div class="div-table-col5 text-left">
+                <div class="div-table-col-last text-left">
                     <i class="fa fa-1x fa-pencil-square-o edit-fields" style="padding-left: 50%" aria-hidden="true" ></i>
                     <input type="image" value=" " class="fa fa-2x fa-check check-fields"  style="display: none; padding-right: 0; margin-right: 0; clear:both; float:left;" />
                     <i class="fa fa-2x fa-times close-fields" aria-hidden="true" style="display: none; float:left;"></i>
