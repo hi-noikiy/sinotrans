@@ -303,6 +303,10 @@ class TransportationKPIListDisplayView(ListView):
             "0",
         ]
 
+        field_display = [
+            'transportation_project',
+        ]    
+        
         rows = [field for field in self.model._meta.get_fields() if field.name not in excludes]
         rows = zip(rows,indicator)
         
@@ -313,7 +317,8 @@ class TransportationKPIListDisplayView(ListView):
         context["indicator"] = indicator
         context["rows"] = rows # row th display
         context["hidden_fields"] = excludes
-
+        context["field_display"] = field_display
+        
         context["top_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
 
         context["project_name"] = "vehicle tranportation KPI"

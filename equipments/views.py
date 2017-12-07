@@ -460,6 +460,9 @@ class DashboardTableListDisplayView(ListView):
         'year',
     ]
 
+    field_display = [
+    ]
+
     column_key = 'month'  # default
     filter_key_name = 'year'
 
@@ -480,7 +483,7 @@ class DashboardTableListDisplayView(ListView):
         if 0: # only show exist month in db
             context["columns"] = get_exist_option_items(month_choice, self.get_queryset(), context["column_key"])
         else:
-            context["columns"] = month_choice            
+            context["columns"] = month_choice         
         
         context["columns_exist"] = [ obj.month for obj in queryset.qs ] if queryset else None
         # 
@@ -488,6 +491,7 @@ class DashboardTableListDisplayView(ListView):
         context["indicator"] = self.indicator
         context["rows"] = rows # row th display
         context["hidden_fields"] = self.excludes
+        context["field_display"] = self.field_display
         context["top_filter_form"] = self.filter_form(data=self.request.GET or None) 
         context["project_name"] = self.model._meta.verbose_name
 
@@ -539,6 +543,10 @@ class SprayPumproomInspectionListDisplayView(DashboardTableListDisplayView):
         ('inspector', _("Inspector"),2),
     ]
 
+    field_display = [
+        'month',
+    ]
+
 class SprayWarehouseInspectionFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)
 
@@ -559,6 +567,10 @@ class SprayWarehouseInspectionListDisplayView(DashboardTableListDisplayView):
         ('valve_normal', _("The end test device"),5),  # left is align with model field
         ('pipe_network_pressure_normal', _("spray header and pipe network"),4),
         ('inspector', _("Inspector"),2),
+    ]
+
+    field_display = [
+        'month',
     ]
 
 class HSSEKPIFilter(FilterSet):
@@ -594,7 +606,10 @@ class HSSEKPIListDisplayView(DashboardTableListDisplayView):
         '100%',
         'NA',
     ]
-    
+
+    field_display = [
+        'month',
+    ]    
 
     def get_context_data(self, *args, **kwargs):
         context = super(HSSEKPIListDisplayView, self).get_context_data(*args, **kwargs)
