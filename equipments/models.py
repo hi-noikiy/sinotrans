@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from inspection.models import month_choice
-
+from inspection.utils import PercentageField
 # Create your models here.
 class EquipmentType(models.Model):
     
@@ -186,3 +186,52 @@ class SprayWarehouseInspection(models.Model):
 
     def get_create_url(self, year, month):
         return reverse("spraywarehouseinspection_create", kwargs={"year": year,"month": month  })        
+
+class HSSEKPI(models.Model):
+    year = models.PositiveIntegerField(_("year"),
+        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year)],
+        blank=False,null=False, help_text=_("Use the following format: < YYYY >"))
+    month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False, null=False)
+    LTI = models.PositiveIntegerField(_('LTI'), blank=False, null=False, default=0)
+    RWC  = models.PositiveIntegerField(_('RWC - restricted working cases'), blank=False, null=False, default=0)
+    MTC = models.PositiveIntegerField(_('MTC - medical treatment cases'), blank=False, null=False, default=0)
+    FAC = models.PositiveIntegerField(_('FAC'), blank=False, null=False, default=0)
+    LPOC = models.PositiveIntegerField(_('LPOC'), blank=False, null=False, default=0)
+    cargo_lost_liter = models.PositiveIntegerField(_('cargo lost liter'), blank=False, null=False, default=0)
+    TRC = models.PositiveIntegerField(_('TRC'), blank=False, null=False, default=0)
+    LSR_violation_case_count = models.PositiveIntegerField(_('LSR violation case count'), blank=False, null=False, default=0)
+    PI_NM_reported_count = models.PositiveIntegerField(_('PI NM reported count'), blank=False, null=False, default=0)
+    best_PI_NM_report_count = models.PositiveIntegerField(_('best PI NM report count'), blank=False, null=False, default=0)
+    PI_NM_close_rate = PercentageField(_('PI NM close rate'), blank=False, null=False, max_length=30, default='0%')
+    leadship_SSWT_ongoing_count = models.PositiveIntegerField(_('leadship SSWT ongoing count'), blank=False, null=False, default=0)
+    leadship_SSWT_close_rate = PercentageField(_('leadship SSWT close rate'), blank=False, null=False, max_length=30, default='0%')
+    annual_plan_execution_rate = PercentageField(_('annual plan execution rate'), blank=False, null=False, max_length=30, default='0%')
+    save_working_hours = models.PositiveIntegerField(_('save working hours'), blank=False, null=False, default=0)
+
+    inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
+    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+
+    def __unicode__(self):
+        return _("HSSE KPI") + " %s" % (self.month)
+
+    class Meta:
+        ordering = ('month',)
+        verbose_name = _("HSSE KPI")
+        verbose_name_plural = _("HSSE KPI")
+        unique_together = (('month','year',),)        
+
+    def get_absolute_url(self):
+        return reverse("hssekpi_detail", kwargs={"pk": self.id })    
+
+    def get_absolute_url_update(self):
+        return reverse("hssekpi_update", kwargs={"pk": self.id })
+
+
+    def get_list_display(self):
+        return reverse("hssekpi_list_display", kwargs={}) 
+
+    def get_list_edit(self):
+        return reverse("hssekpi_list_edit", kwargs={}) 
+
+    def get_create_url(self, year, month):
+        return reverse("hssekpi_create", kwargs={"year": year,"month": month  })           

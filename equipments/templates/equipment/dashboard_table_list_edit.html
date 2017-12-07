@@ -54,12 +54,12 @@ table.table-formset thead tr th:nth-child(1){
                 <a class="btn btn-default" href="{{ formset.1.instance.get_list_edit }}"  >{% trans 'Clear Filters' %}</a>   
             </form>                    
         </div>    
-        {% include "table_transposition_formset.html" %}
+        {% include "table_transposition_dashboard/table_transposition_edit_formset.html" %}
     </div>
 </div>
 
 <br>
 
-<a href="{{ formset.1.instance.get_list_display }}?year={{request.GET.year}}" class="btn btn-default" >{% trans 'Display' %}</a>
+<a href="{% if formset %}{{ formset.1.instance.get_list_display }}{% else%}{{ fakeform.instance.get_list_display }}{%endif%}?year={{request.GET.year}}" class="btn btn-default" >{% trans 'Display' %}</a>
 
 {% endblock %}

@@ -12,6 +12,16 @@ def render_field(value):
     else:
         return value
 
+
+@register.filter(name='my_isboolean')
+def my_isboolean(inst, fieldname):
+    if hasattr(inst, fieldname):
+        field = inst._meta.get_field(fieldname)   
+        if isinstance(field, models.BooleanField):
+            return True
+
+    return False
+    
 # field value in db
 @register.filter(name='my_get_field_value')
 def my_get_field_value(inst, fieldname):
@@ -41,9 +51,9 @@ def my_get_field_display(inst, fieldname):
     if hasattr(inst, fieldname):
         field = inst._meta.get_field(fieldname)   
         value = getattr(inst, fieldname)
-        if True == value:
+        if True == value and my_isboolean(inst, fieldname):
             return  _("Yes")
-        elif False == value:
+        elif False == value and my_isboolean(inst, fieldname):
             return  _("No")
         elif None == value:
             return  ""

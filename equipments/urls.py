@@ -21,6 +21,12 @@ from .views import (
     SprayWarehouseInspectionDetailView,
     SprayWarehouseInspectionUpdateView,
     SprayWarehouseInspectionCreateView,     
+
+    HSSEKPIListEditView,
+    HSSEKPIListDisplayView,
+    HSSEKPIDetailView,
+    HSSEKPIUpdateView,
+    HSSEKPICreateView,       
 )
 
 urlpatterns = [
@@ -42,5 +48,11 @@ urlpatterns = [
     url(r'^spraywarehouseinspection/listdisplay/$', SprayWarehouseInspectionListDisplayView.as_view(), name='spraywarehouseinspection_list_display'),
     url(r'^spraywarehouseinspection/detail/(?P<pk>\d+)/$', SprayWarehouseInspectionDetailView.as_view(), name='spraywarehouseinspection_detail'),
     url(r'^spraywarehouseinspection/update/(?P<pk>\d+)/$', SprayWarehouseInspectionUpdateView.as_view(), name='spraywarehouseinspection_update'),
-    url(r'^spraywarehouseinspection/create/(?P<year>\d+)/(?P<month>\d+)/$', SprayWarehouseInspectionCreateView.as_view(), name='spraywarehouseinspection_create'),      
+    url(r'^spraywarehouseinspection/create/(?P<year>\d+)/(?P<month>\d+)/$', SprayWarehouseInspectionCreateView.as_view(), name='spraywarehouseinspection_create'),    
+
+    url(r'^hssekpi/listedit/$', HSSEKPIListEditView.as_view(), name='hssekpi_list_edit'),
+    url(r'^hssekpi/listdisplay/$', HSSEKPIListDisplayView.as_view(), name='hssekpi_list_display'),
+    url(r'^hssekpi/detail/(?P<pk>\d+)/$', HSSEKPIDetailView.as_view(), name='hssekpi_detail'),
+    url(r'^hssekpi/update/(?P<pk>\d+)/$', HSSEKPIUpdateView.as_view(), name='hssekpi_update'),
+    url(r'^hssekpi/create/(?P<year>\d+)/(?P<month>\d+)/$', HSSEKPICreateView.as_view(), name='hssekpi_create'),   
 ]

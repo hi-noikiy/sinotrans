@@ -7,8 +7,15 @@ from django.contrib.admin.templatetags.admin_static import static
 from django.db.models.fields import BLANK_CHOICE_DASH
 
 from .models import (
-    AbstractEquipmentInspection, Equipment, EquipmentType, EquipmentInspection,
-    SprayPumpRoomInspection, SprayWarehouseInspection,
+    AbstractEquipmentInspection, 
+    Equipment, 
+    EquipmentType, 
+    EquipmentInspection,
+
+    SprayPumpRoomInspection, 
+    SprayWarehouseInspection,
+
+    HSSEKPI,
 )
 
 from django.conf import settings
@@ -163,6 +170,23 @@ class SprayWarehouseInspectionForm(forms.ModelForm):
 
 spray_warehouse_inspection_model_formset = modelformset_factory(SprayWarehouseInspection,
                                             form=SprayWarehouseInspectionForm,
+                                            extra=0)
+
+class HSSEKPIForm(forms.ModelForm):
+    class Meta:
+        model = HSSEKPI
+
+        exclude = {
+            'inspector',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(HSSEKPIForm, self).__init__(*args, **kwargs)
+        self.fields['year'].widget.attrs['readonly'] = True
+        self.fields['month'].widget.attrs['readonly'] = True
+
+hssekpi_model_formset = modelformset_factory(HSSEKPI,
+                                            form=HSSEKPIForm,
                                             extra=0)
 
 class SprayInspectionFilterForm(forms.Form):

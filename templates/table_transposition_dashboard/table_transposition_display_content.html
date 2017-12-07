@@ -33,11 +33,11 @@
             {% for row in rows %}
             <tr>
                 {% if groups %}           
-                {% for group in groups %}
-                    {% if group.0 == row.0.name %}
-                    <th class="table-group" rowspan={{group.2}}>{{group.1}}</th>
-                    {% endif %}
-                {% endfor %}
+                    {% for group in groups %}
+                        {% if group.0 == row.0.name %}
+                        <th class="table-group" rowspan={{group.2}}>{% trans group.1 %}</th>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}    
 
                 <th>{{row.0.verbose_name}}</th>
@@ -51,12 +51,16 @@
                     {% for object in object_list %}
                         {% if object|my_get_field_value:column_key == column.0 %}
 
-                            {% if object|my_get_field_value:row.0.name == True %}                     
+                            {% if object|my_get_field_value:row.0.name == True and object|my_isboolean:row.0.name %}                     
                                 <div class="Yes"><i class="fa fa-check" aria-hidden="true"></i></div>
-                            {% elif object|my_get_field_value:row.0.name == False %}   
+                            {% elif object|my_get_field_value:row.0.name == False and object|my_isboolean:row.0.name %}   
                                 <div class="No"><i class="fa fa-close" aria-hidden="true"></i></div>
                             {% else %}
-                                {{object|my_get_field_display:row.0.name }}
+                                {% if row.0.name in field_display %}
+                                    {{object|my_get_field_display:row.0.name }}
+                                {% else %}
+                                    {{object|my_get_field_value:row.0.name }}
+                                {% endif %}
                             {% endif %}
                             
                             {% if column_key == row.0.name %}
