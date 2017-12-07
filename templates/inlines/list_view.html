@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load myform %}
+{% load pagination_tags %}
 
 <div class="panel panel-info">
     <div class="panel-heading">
@@ -9,15 +10,19 @@
     </div>
     <div class="panel-body">
         {% if object_foreign_set.count > 0 %}
+            
             <table class="table table-striped table-hover table-responsive table-condensed"  style="width: 100%">
                 <thead>
-                    <tr>
+                    <tr class="{{thead_class}}">
                         {% for fieldname in fields_foreign %}
                         <th>{{ object_foreign_set.first|my_get_field_verbose_name:fieldname }}</th>
                         {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
+                {% comment %}
+                {% autopaginate object_foreign_set 15 %}
+                {% endcomment %}
                 {% for object_foreign in object_foreign_set.all %}
                     <tr>
                         {% for fieldname in fields_foreign %}
@@ -30,9 +35,15 @@
                         </td>
                         {% endfor %}
                     </tr>
-                {% endfor %}
+                {% endfor %}     
+                {% comment %}
+                <div class="text-center">
+                {% paginate %}
+                </div>                   
+                {% endcomment %}
                 </tbody>                            
             </table>
+           
         {% else %}
            {% trans "Nothing found" %}
         {% endif %}

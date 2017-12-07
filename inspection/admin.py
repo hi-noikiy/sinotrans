@@ -111,8 +111,11 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         "use_condition",
         "is_locked",
         "check_person",
+        "owner",
         "gradient",
+        'check_date',
         "forecast_complete_time",
+        "completed_time",
         ]
 
     list_editable = [
@@ -120,7 +123,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         # "shelf_inspection__check_date",
         "use_condition",
         "is_locked",
-        "check_person",
+        "owner",
         "gradient",
         "forecast_complete_time",
         ]

@@ -35,7 +35,7 @@
 
     {% for record in records %}
     <div class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-body">
-        <div class="col-xs-3"><a href='{{ record.0.get_absolute_url }}'>{{record.0.check_date}}</a></div>
+        <div class="col-xs-3"><a href='{{ record.0.get_absolute_url_display }}'>{{record.0.check_date}}</a></div>
         <div class="col-xs-3">{{record.1}}</div>
         <div class="col-xs-3">{{record.2}}</div>
         <div class="col-xs-3">{{record.3}}</div>

@@ -202,9 +202,10 @@ table.transposition tr th{
     height:40px;
 }
 
-table tr.table-primary th{
-    border-bottom: solid 1px #f9b9c3;
+.table>thead>tr.table-primary>th{    
     background: linear-gradient(rgba(124, 152, 177, 0.88), #428bca);
+    /*border-bottom:  #f9b9c3 1px  solid;*/
+    border-bottom: #ffffff 5px solid;
 }
 
 table tr.table-primary-light th{

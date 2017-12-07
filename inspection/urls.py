@@ -19,6 +19,7 @@ from .views import (
     CompareChartJSONView,
     ShelfInspectionListView,
     ShelfInspectionDetailView,
+    ShelfInspectionDetailDisplayView,
     ShelfInspectionCreateView,
     ShelfGradientInspectionView,
     ShelfDetailView,
@@ -51,6 +52,7 @@ urlpatterns = [
 
     url(r'^shelfinspectionlist$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),  
     url(r'^shelfinspectiondetail/(?P<pk>\d+)/$', ShelfInspectionDetailView.as_view(), name='shelf_inspection_detail'),  
+    url(r'^shelfinspectiondetaildisplay/(?P<pk>\d+)/$', ShelfInspectionDetailDisplayView.as_view(), name='shelf_inspection_detail_display'),
     url(r'^shelfinspectioncreate$', ShelfInspectionCreateView.as_view(), name='shelf_inspection_create'),  
 
     url(r'^shelfgradientinspection/(?P<pk>\d+)/$', ShelfGradientInspectionView.as_view(), name='shelf_gradient_inspection'),  

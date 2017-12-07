@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load staticfiles %}
+{% load i18n %}
+
+<script>
+{% block jquery %}
+
+
+{% endblock %}
+</script>
+
+
+{% block content %}
+
+<div class='row object_lists'>
+
+    <div class="col-sm-3 ">
+        <form method="GET" action="">    
+            {{ shelfFilterForm|crispy }}
+            <input type='submit' value="{% trans 'Apply Filter' %}" class='btn btn-primary'> <a class="btn btn-default" href="{{object.get_absolute_url}}"  >{% trans 'Clear Filters' %}</a>
+        </form>
+                  
+        <hr>
+    </div>
+    <div class="col-sm-9 ">   
+        {% include "includes/list_view.html" with object_list=shelf_inspection_record_set fields=fields_shelf_inspection_record field_display=fields_shelf_inspection_record_display page_num=15 %}          
+    </div>
+
+</div>
+
+
+
+{% endblock %}

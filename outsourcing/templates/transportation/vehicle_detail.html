@@ -42,9 +42,11 @@
             </div>
         </div>
 
-        <!-- {% include "includes/inlineview.html" with title="driver"  object_foreign_set=object.driver_set fields_foreign=fields_dirver fields_foreign_display=fields_dirver_display %} -->
-
-        {% include "includes/inlineview.html" with title="vehicle inspection"  object_foreign_set=object.vehicleinspection_set fields_foreign=fields_vehicle_inspection fields_foreign_display=fields_vehicle_inspection_display %}
+        {% comment %}
+        {% include "inlines/list_view.html" with title="driver"  object_foreign_set=object.driver_set fields_foreign=fields_dirver fields_foreign_display=fields_dirver_display %}
+        {% endcomment %}
+	
+        {% include "inlines/list_view.html" with title="vehicle inspection"  object_foreign_set=object.vehicleinspection_set fields_foreign=fields_vehicle_inspection fields_foreign_display=fields_vehicle_inspection_display %}
 
 
     </div>

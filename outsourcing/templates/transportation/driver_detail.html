@@ -25,7 +25,7 @@ table.transposition tr th{
 
             {% include "inlines/detail_view.html" with object=object fields=fields fields_safe_content=fields_safe_content %}
 
-            {% include "inlines/inline_view.html" with title="training transcript"  object_foreign_set=driver_training_transcripts fields_foreign=fields_training_transcript fields_foreign_display=fields_training_transcript_display %}
+            {% include "inlines/list_view.html" with title="training transcript"  object_foreign_set=driver_training_transcripts fields_foreign=fields_training_transcript fields_foreign_display=fields_training_transcript_display %}
 
             <!-- <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >Update</a> -->
         </div>

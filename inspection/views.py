@@ -896,6 +896,48 @@ class ShelfInspectionRecordFilter(FilterSet):
         return queryset
 
 
+class ShelfInspectionDetailDisplayView(DetailView): 
+    model = shelf_inspection
+    template_name = "shelf/shelf_inspection_detail_display.html"
+    filter_class = ShelfInspectionRecordFilter
+
+    def get_record_queryset(self, *args, **kwargs):
+        pk = self.kwargs.get('pk', None)
+        if pk:
+            shelf_inspection_instance = get_object_or_404(shelf_inspection, pk=pk)
+            queryset =  shelf_inspection_record.objects.filter(shelf_inspection__id = pk).order_by('shelf__id')
+            filter_class = self.filter_class
+            if filter_class and kwargs.get('filter'):
+                queryset = filter_class(self.request.GET, queryset=queryset).qs
+            return queryset
+        return None
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShelfInspectionDetailDisplayView, self).get_context_data(*args, **kwargs)
+        context["shelf_inspection_record_set"] = self.get_record_queryset(filter=True)
+        from inspection.admin import ShelfInspectionRecordAdmin
+        context["fields_shelf_inspection_record"] = [field for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
+
+        context["fields_shelf_inspection_record_display"] = [
+            "use_condition",
+            "is_locked",
+        ]
+        context["field_display_links"] = []
+        context["title"] = _("shelf inspection record")
+        context["shelfFilterForm"] = ShelfFilterForm(data=self.request.GET or None) 
+
+        return context       
+
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
+            (_('Shelf Inspection Detail'),request.path_info),
+        ])
+
+        return super(ShelfInspectionDetailDisplayView, self).dispatch(request,args,kwargs)
+
 class ShelfInspectionDetailView(DetailView): 
     model = shelf_inspection
     template_name = "shelf/shelf_inspection_detail.html"
@@ -1059,7 +1101,7 @@ class ShelfListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfListView, self).get_context_data(*args, **kwargs)
-        context["ShelfUploadForm"] = ShelfUploadForm  
+        context["ShelfUploadForm"] = ShelfUploadForm          
         context["field_exclude"] = ["shelf_inspection_record","shelfannualinspection",]  
 
         return context    
