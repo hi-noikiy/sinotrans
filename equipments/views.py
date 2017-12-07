@@ -587,6 +587,7 @@ class HSSEKPIListDisplayView(DashboardTableListDisplayView):
     model = HSSEKPI
     filter_class = HSSEKPIFilter
     filter_form = SprayInspectionFilterForm
+    template_name = "equipment/hssekpi_dashboard_list_display.html"  
 
     indicator =[
         '-',
