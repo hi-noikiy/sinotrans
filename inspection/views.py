@@ -994,7 +994,7 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
             form_id = request.POST.get('form_id')
             prefix = form_id.replace('id_', '')
             form = ShelfInspectionRecordForm(request.POST, prefix=prefix)
-            print form
+            
             if form.is_valid():
                 instance_id = form.clean_id()                
                 try:
@@ -1025,7 +1025,7 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
                 except:
                     raise Http404
             
-            return HttpResponse(json.dumps({'message': 'invalid form!','valid':False,'form_id': form_id}))
+            return HttpResponse(json.dumps({'message': form.errors,'valid':False,'form_id': form_id}))
         else:
             raise Http404
 
@@ -1060,6 +1060,7 @@ class ShelfInspectionCreateView(CreateView):
                 shelf_inspection_record_instance.shelf_inspection = obj
                 shelf_inspection_record_instance.use_condition = 1                
                 shelf_inspection_record_instance.is_locked = False
+                shelf_inspection_record_instance.gradient = 0
                 shelf_inspection_record_instance.create_date = timezone.now()
                 # shelf_inspection_record_instance.forecast_complete_time = time.strftime('%Y-%m-%d',time.localtime(time.time()))
                 shelf_inspection_record_instance.save()            

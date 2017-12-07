@@ -53,7 +53,7 @@ a:hover {text-decoration: none;}
         {% for form in formset %}        
         <form method="POST" class="ajaxform" id="id_{{form.prefix}}" action=''>{% csrf_token %}
             <div id='id_tr-{{form.prefix}}' class="row {% cycle 'div-table-row1' 'div-table-row2' %} div-table-row">
-                          
+                {% if form.errors %}<p class="error" style="color: #b75f33;">{{form.non_field_errors}}</p>{% endif %} <!-- useless as we are ajax -->
                 {% for field in form %}
                     {% if field.name in form.Meta.hidden and not field.name in form.Meta.display_with_field_hiden %}
                         <div style="display:none; float: left;clear: both" type='hidden' >{{field}}</div>
@@ -68,7 +68,7 @@ a:hover {text-decoration: none;}
                             <p>{{form.instance|my_get_field_display:field.name}}</p>
                         {% else %}
                             <p class="displayonly {% if field.name == 'gradient' and not form.instance.gradient|gradient_normal %} div-table-cell-highlight {% endif %}" style="display: block; ">{% if field.name in form.Meta.field_display %}{{form.instance|my_get_field_display:field.name}}{% else %}{{form.instance|my_get_field_value:field.name}}{% endif %}</p>
-                            <p class="edit" style="display: none">{{field}}</p>
+                            <p class="edit" style="display: none">{% if field.errors %}<span class="error" style="color:#b75f33">{{ field.errors }}</span>{% endif %}<!-- useless as we are ajax -->{{field}}</p>
                         {% endif%}  
                     </div>
                     {% endif %}
