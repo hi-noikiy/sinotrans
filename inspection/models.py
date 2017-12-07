@@ -291,10 +291,10 @@ class shelf_inspection(models.Model):
         return _("shelf inspection") + " %s" % (self.check_date)
 
     def get_absolute_url(self):
-        return reverse("shelf_inspection_detail", kwargs={"pk": self.id })
+        return reverse("shelf_inspection_detail_and_record_list_edit", kwargs={"pk": self.id })
 
     def get_absolute_url_display(self):
-        return reverse("shelf_inspection_detail_display", kwargs={"pk": self.id })
+        return reverse("shelf_inspection_detail_and_record_list_display", kwargs={"pk": self.id })
 
     class Meta:
         verbose_name = _("shelf inspection")

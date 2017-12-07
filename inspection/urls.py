@@ -18,8 +18,8 @@ from .views import (
     LastsChartJSONView,
     CompareChartJSONView,
     ShelfInspectionListView,
-    ShelfInspectionDetailView,
-    ShelfInspectionDetailDisplayView,
+    ShelfInspectionDetailAndRecordListDisplayView,
+    ShelfInspectionDetailAndRecordListEditView,
     ShelfInspectionCreateView,
     ShelfGradientInspectionView,
     ShelfDetailView,
@@ -51,8 +51,8 @@ urlpatterns = [
     url(r'^storagesec$', StorageSecurityView.as_view(), name='storage_sec'),
 
     url(r'^shelfinspectionlist$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),  
-    url(r'^shelfinspectiondetail/(?P<pk>\d+)/$', ShelfInspectionDetailView.as_view(), name='shelf_inspection_detail'),  
-    url(r'^shelfinspectiondetaildisplay/(?P<pk>\d+)/$', ShelfInspectionDetailDisplayView.as_view(), name='shelf_inspection_detail_display'),
+    url(r'^shelfinspectiondetailedit/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListEditView.as_view(), name='shelf_inspection_detail_and_record_list_edit'),  
+    url(r'^shelfinspectiondetaildisplay/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListDisplayView.as_view(), name='shelf_inspection_detail_and_record_list_display'),
     url(r'^shelfinspectioncreate$', ShelfInspectionCreateView.as_view(), name='shelf_inspection_create'),  
 
     url(r'^shelfgradientinspection/(?P<pk>\d+)/$', ShelfGradientInspectionView.as_view(), name='shelf_gradient_inspection'),  

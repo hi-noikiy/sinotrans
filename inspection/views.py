@@ -868,6 +868,9 @@ class ShelfInspectionRecordFilter(FilterSet):
     warehouse = CharFilter(name='shelf__warehouse', lookup_type='exact', distinct=True)
     compartment = CharFilter(name='shelf__compartment', lookup_type='exact', distinct=True)
     warehouse_channel = CharFilter(name='shelf__warehouse_channel', lookup_type='exact', distinct=True)
+    use_condition = CharFilter(name='use_condition', lookup_type='exact', distinct=True)
+    is_locked = CharFilter(name='is_locked', lookup_type='exact', distinct=True)
+    is_overdue = MethodFilter(name='forecast_complete_time', action='overdue_filter', distinct=True)
 
     class Meta:
         model = shelf_inspection_record
@@ -876,7 +879,10 @@ class ShelfInspectionRecordFilter(FilterSet):
             'type',
             'warehouse',
             'compartment',
-            'warehouse_channel'
+            'warehouse_channel',
+            'use_condition',
+            'is_locked',
+            'forecast_complete_time'
         ]
 
     #def gradient_custom_filter(self, queryset, name, value): # this is for latest version
@@ -895,10 +901,18 @@ class ShelfInspectionRecordFilter(FilterSet):
         
         return queryset
 
+    def overdue_filter(self, queryset, value):
+        if 'on' == value:
+            qs = queryset.filter(**{
+                'forecast_complete_time__lte': timezone.now(),
+            })
+            return qs.distinct()
+        
+        return queryset
 
-class ShelfInspectionDetailDisplayView(DetailView): 
+class ShelfInspectionDetailAndRecordListDisplayView(DetailView):  # Per Inspection
     model = shelf_inspection
-    template_name = "shelf/shelf_inspection_detail_display.html"
+    template_name = "shelf/shelf_inspection_detail_and_record_list_display.html"
     filter_class = ShelfInspectionRecordFilter
 
     def get_record_queryset(self, *args, **kwargs):
@@ -913,7 +927,7 @@ class ShelfInspectionDetailDisplayView(DetailView):
         return None
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ShelfInspectionDetailDisplayView, self).get_context_data(*args, **kwargs)
+        context = super(ShelfInspectionDetailAndRecordListDisplayView, self).get_context_data(*args, **kwargs)
         context["shelf_inspection_record_set"] = self.get_record_queryset(filter=True)
         from inspection.admin import ShelfInspectionRecordAdmin
         context["fields_shelf_inspection_record"] = [field for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
@@ -936,11 +950,11 @@ class ShelfInspectionDetailDisplayView(DetailView):
             (_('Shelf Inspection Detail'),request.path_info),
         ])
 
-        return super(ShelfInspectionDetailDisplayView, self).dispatch(request,args,kwargs)
+        return super(ShelfInspectionDetailAndRecordListDisplayView, self).dispatch(request,args,kwargs)
 
-class ShelfInspectionDetailView(DetailView): 
+class ShelfInspectionDetailAndRecordListEditView(DetailView): 
     model = shelf_inspection
-    template_name = "shelf/shelf_inspection_detail.html"
+    template_name = "shelf/shelf_inspection_detail_and_record_list_edit.html"
     filter_class = ShelfInspectionRecordFilter
 
     def get_record_queryset(self, *args, **kwargs):
@@ -955,7 +969,7 @@ class ShelfInspectionDetailView(DetailView):
         return None
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ShelfInspectionDetailView, self).get_context_data(*args, **kwargs)
+        context = super(ShelfInspectionDetailAndRecordListEditView, self).get_context_data(*args, **kwargs)
         context["object_list"] = self.get_record_queryset(filter=True)
         context["shelfFilterForm"] = ShelfFilterForm(data=self.request.GET or None) 
         formset = shelf_inspection_record_Formset(queryset=self.get_record_queryset(filter=True),
@@ -972,7 +986,7 @@ class ShelfInspectionDetailView(DetailView):
             (_('Shelf Inspection Detail'),request.path_info),
         ])
 
-        return super(ShelfInspectionDetailView, self).dispatch(request,args,kwargs)
+        return super(ShelfInspectionDetailAndRecordListEditView, self).dispatch(request,args,kwargs)
 
 
     def post(self, request, *args, **kwargs):
@@ -1000,7 +1014,7 @@ class ShelfInspectionDetailView(DetailView):
                     instance.save()
                     return HttpResponse(json.dumps(json_data))
                     '''
-                    return render(request,"shelf/shelf_inspection_detail.html",self.get_context_data(*args, **kwargs))
+                    return render(request,"shelf/shelf_inspection_detail_and_record_list_edit.html",self.get_context_data(*args, **kwargs))
                     return render(request,"shelf/response_form.html",context)                
                     form.instance = instance
                     context = {
@@ -1010,7 +1024,7 @@ class ShelfInspectionDetailView(DetailView):
                     '''              
                 except:
                     raise Http404
-            print form_id
+            
             return HttpResponse(json.dumps({'message': 'invalid form!','valid':False,'form_id': form_id}))
         else:
             raise Http404
@@ -1045,11 +1059,12 @@ class ShelfInspectionCreateView(CreateView):
                 shelf_inspection_record_instance.shelf = shelf_instance
                 shelf_inspection_record_instance.shelf_inspection = obj
                 shelf_inspection_record_instance.use_condition = 1                
-                shelf_inspection_record_instance.is_locked = False   
-                shelf_inspection_record_instance.forecast_complete_time = time.strftime('%Y-%m-%d',time.localtime(time.time()))
+                shelf_inspection_record_instance.is_locked = False
+                shelf_inspection_record_instance.create_date = timezone.now()
+                # shelf_inspection_record_instance.forecast_complete_time = time.strftime('%Y-%m-%d',time.localtime(time.time()))
                 shelf_inspection_record_instance.save()            
 
-            return redirect(reverse("shelf_inspection_detail", kwargs={'pk': obj.id}))
+            return redirect(reverse("shelf_inspection_detail_and_record_list_edit", kwargs={'pk': obj.id}))
 
         return super(ShelfInspectionCreateView, self).post(request, *args, **kwargs)
 
@@ -1119,8 +1134,7 @@ class ShelfInspectionRecordDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfInspectionRecordDetailView, self).get_context_data(*args, **kwargs)
-        print self.model._meta.get_fields()
-        context["display_fields"] = ["use_condition",]
+        context["field_display"] = ["use_condition","is_locked",]
         context["detail_view_title"] = _("shelf inspection record")
         context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]        
 
@@ -1232,7 +1246,7 @@ class ShelfGradientInspectionView(DetailView):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
-            (_('Shelf Inspection Detail'),reverse("shelf_inspection_detail", kwargs={"pk":self.get_object().id})),
+            (_('Shelf Inspection Detail'),reverse("shelf_inspection_detail_and_record_list_edit", kwargs={"pk":self.get_object().id})),
             (_('shelf gradient inspection'),request.path_info),
         ])
 

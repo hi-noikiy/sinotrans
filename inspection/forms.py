@@ -210,6 +210,8 @@ shelf_gradient_inspection_Formset = modelformset_factory(shelf_inspection_record
                                             form=ShelfGradientInspectionForm, 
                                             formset=BaseModelFormSet, 
                                             extra=0)
+from django.contrib.auth import get_user_model
+UserModel = get_user_model()
 
 class ShelfInspectionRecordForm(forms.ModelForm):
 
@@ -217,13 +219,24 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             label=_('Gradient'),
             min_value=-1.5,
             max_value=1.5,
-            required=False
+            required=True
             )
-    
+
+    owner = forms.ChoiceField(
+            label=_('Owner'),
+            choices = set((ins, ins) for ins in UserModel.objects.all()),
+            # widget=forms.RadioSelect(),
+            required=True
+            )   
+
     def __init__(self, *args, **kwargs):
         super(ShelfInspectionRecordForm, self).__init__(*args, **kwargs)
         
         self.fields['gradient'].widget.attrs['step'] = 0.1
+        if self.fields['forecast_complete_time'].widget.attrs.get('class'):
+            self.fields['forecast_complete_time'].widget.attrs['class'] = self.fields['forecast_complete_time'].widget.attrs.get('class') + " calenda"
+        else:
+            self.fields['forecast_complete_time'].widget.attrs['class'] = "calenda"
 
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
@@ -275,7 +288,8 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             'shelf_inspection',
             'comments',
             'check_person',
-            'forecast_complete_time',
+            'check_date',
+            'completed_time',
         ]
 
         # workaround, not sure whether this function is already exist
@@ -313,7 +327,27 @@ class ShelfFilterForm(forms.Form):
             required=False
             )
 
-    try:
+
+    CHOICE_LIST = []
+    CHOICE_LIST = list(shelf_inspection_record.shelf_inspection_record_use_condition)
+    CHOICE_LIST.insert(0, ('', '----'))        
+    use_condition = forms.ChoiceField(
+            label=_('Use Condition'),
+            choices = CHOICE_LIST,
+            required=False
+            )   
+
+    is_locked = forms.BooleanField(
+            label=_('Locked'),
+            required=False
+            )
+
+    is_overdue = forms.BooleanField(
+            label=_('overdue'),
+            required=False
+            )
+
+    try:    
         type = forms.ChoiceField(
                 label=_('Shelf Type'),
                 choices = set((ins.type, ins.type) for ins in shelf.objects.all()),

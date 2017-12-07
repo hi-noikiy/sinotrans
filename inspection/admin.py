@@ -99,7 +99,7 @@ class ShelfInspectionRecordInline(admin.TabularInline):
 
 """
     def view_on_site(self, obj):
-        url = reverse('shelf_inspection_detail', kwargs={'pk': obj.pk})        
+        url = reverse('shelf_inspection_detail_and_record_list_edit', kwargs={'pk': obj.pk})        
         #return get_current_site(self.request) + url
         return 'https://sinotran.applinzi.com' + url
 """

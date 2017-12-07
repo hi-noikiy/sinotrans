@@ -19,7 +19,7 @@
 					<table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
 						<tbody>
 							{% for field in fields %}
-								{% if field.name in display_fields %}				
+								{% if field.name in field_display %}				
 								<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_display:field.name}}</td></tr>
 								{% else %}
 								<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_value:field.name}}</td></tr>
