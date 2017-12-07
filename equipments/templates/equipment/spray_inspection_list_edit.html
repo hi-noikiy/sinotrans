@@ -48,10 +48,10 @@ table.table-formset thead tr th:nth-child(1){
     <div class="col-sm-12" >
         <h3 class="beta" ">Beta Version</h3>
         <div class="form-filter-flat">
-            <form  method="GET" action="{% url 'spraypumproominspection_list_edit' %}">
+            <form  method="GET" action="{{ formset.1.instance.get_list_edit }}">
                 {{ top_filter_form }}
                 <input type='submit' class='btn btn-primary' value="{% trans 'Apply Filter' %}">
-                <a class="btn btn-default" href="{% url 'spraypumproominspection_list_edit' %}"  >{% trans 'Clear Filters' %}</a>   
+                <a class="btn btn-default" href="{{ formset.1.instance.get_list_edit }}"  >{% trans 'Clear Filters' %}</a>   
             </form>                    
         </div>    
         {% include "table_transposition_formset.html" %}
@@ -60,6 +60,6 @@ table.table-formset thead tr th:nth-child(1){
 
 <br>
 
-<a href="{% url 'spraypumproominspection_list_display' %}?year={{request.GET.year}}" class="btn btn-default" >{% trans 'Display' %}</a>
+<a href="{{ formset.1.instance.get_list_display }}?year={{request.GET.year}}" class="btn btn-default" >{% trans 'Display' %}</a>
 
 {% endblock %}

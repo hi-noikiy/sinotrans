@@ -2,6 +2,14 @@
 {% load myform %}
 {% load staticfiles %}
 
+<!--
+	formset
+	
+	project_name
+	columns
+	rows_fields
+-->
+
 <div style="overflow-x:auto;">
     <table class="table-transposition-display table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
         <thead>
@@ -56,8 +64,8 @@
                             {% endif %}
                         {% endif %}             
                     {% endfor %}
-                    {% if column_key == row.0.name and not column.0 in columns_exist %}
-                    <a href="{{create_url}}"><i class="fa fa-1x fa-plus-square-o" aria-hidden="true"></i></a>
+                    {% if column_key == row.0.name and not column.0 in columns_exist and request.GET.year%}
+                    <a href="{{create_url}}{{column.0}}"><i class="fa fa-1x fa-plus-square-o" aria-hidden="true"></i></a>
                     {% endif %}                       
                     </td>
                 {% endfor %}

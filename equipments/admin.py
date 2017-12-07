@@ -6,6 +6,7 @@ from .models import (
     EquipmentType,
     EquipmentInspection,
     SprayPumpRoomInspection,
+    SprayWarehouseInspection,
     )
 
 from .forms import (
@@ -98,13 +99,53 @@ class SprayPumpRoomInspectionAdmin(admin.ModelAdmin):
         }
         js = ("js/jquery.min.js","js/model_admin.js",)
 
+class SprayWarehouseInspectionAdmin(admin.ModelAdmin):
+    list_display = ['year','month',
+        "valve_normal",
+        "valve_open_signal_transmission_normal",
+        "valve_no_corrosion",
+        "water_testing_normal",
+        "valve_switch_in_close_status",
+        "pipe_network_pressure_normal",
+        "pipe_valve_in_open_status",
+        "pipe_connection_no_leakage",
+        "spray_head_no_leakage",
+        "inspector",
+        "date_of_inspection",
+        ]
+    list_editable = [
+        "valve_normal",
+        "valve_open_signal_transmission_normal",
+        "valve_no_corrosion",
+        "water_testing_normal",
+        "valve_switch_in_close_status",
+        "pipe_network_pressure_normal",
+        "pipe_valve_in_open_status",
+        "pipe_connection_no_leakage",
+        "spray_head_no_leakage",
+        ]
+        
+    list_filter = ['year','month',]
+
+    view_on_site = False
+
+    class Meta:
+        model = SprayWarehouseInspection
+
+    class Media:
+        css = {
+            "all": ("css/model_admin.css","css/equipment.css")
+        }
+        js = ("js/jquery.min.js","js/model_admin.js",)
+
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentType, EquipmentTypeAdmin)
 admin.site.register(EquipmentInspection, EquipmentInspectionAdmin)
 admin.site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)
-
+admin.site.register(SprayWarehouseInspection, SprayWarehouseInspectionAdmin)
 
 my_admin_site.register(Equipment, EquipmentAdmin)
 my_admin_site.register(EquipmentType, EquipmentTypeAdmin)
 my_admin_site.register(EquipmentInspection, EquipmentInspectionAdmin)    
 my_admin_site.register(SprayPumpRoomInspection, SprayPumpRoomInspectionAdmin)    
+my_admin_site.register(SprayWarehouseInspection, SprayWarehouseInspectionAdmin)

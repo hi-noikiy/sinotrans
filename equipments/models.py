@@ -130,7 +130,59 @@ class SprayPumpRoomInspection(models.Model):
         unique_together = (('month','year',),)        
 
     def get_absolute_url(self):
-        return reverse("spraypumproominspection_detail", kwargs={"pk": self.id })    
+        return reverse("spraypumproominspection_detail", kwargs={"pk": self.id })
 
     def get_absolute_url_update(self):
-        return reverse("spraypumproominspection_update", kwargs={"pk": self.id })           
+        return reverse("spraypumproominspection_update", kwargs={"pk": self.id }) 
+
+    def get_list_display(self):
+        return reverse("spraypumproominspection_list_display", kwargs={}) 
+
+    def get_list_edit(self):
+        return reverse("spraypumproominspection_list_edit", kwargs={}) 
+
+    def get_create_url(self, year, month):
+        return reverse("spraypumproominspection_create", kwargs={"year": year,"month": month })
+
+class SprayWarehouseInspection(models.Model):
+    year = models.PositiveIntegerField(_("year"),
+        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year)],
+        blank=False,null=False, help_text=_("Use the following format: < YYYY >"))
+    month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False,null=False)
+    valve_normal = models.BooleanField(_('valve normal'), blank=True, default=False)
+    valve_open_signal_transmission_normal  = models.BooleanField(_('valve open signal transmission normal '), blank=True, default=False)
+    valve_no_corrosion = models.BooleanField(_('valve no corrosion'), blank=True, default=False)
+    water_testing_normal = models.BooleanField(_('water testing normal'), blank=True, default=False)
+    valve_switch_in_close_status = models.BooleanField(_('valve switch in close status'), blank=True, default=False)
+    pipe_network_pressure_normal = models.BooleanField(_('pipe network pressure normal'), blank=True, default=False)
+    pipe_valve_in_open_status = models.BooleanField(_('pipe valve in open status'), blank=True, default=False)
+    pipe_connection_no_leakage = models.BooleanField(_('pipe connection no leakage'), blank=True, default=False)
+    spray_head_no_leakage = models.BooleanField(_('spray head no leakage'), blank=True, default=False)
+
+    inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
+    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+
+    def __unicode__(self):
+        return _("Spray Warehouse Inspection") + " %s" % (self.month)
+
+    class Meta:
+        ordering = ('month',)
+        verbose_name = _("Spray Warehouse Inspection")
+        verbose_name_plural = _("Spray Warehouse Inspection")
+        unique_together = (('month','year',),)        
+
+    def get_absolute_url(self):
+        return reverse("spraywarehouseinspection_detail", kwargs={"pk": self.id })    
+
+    def get_absolute_url_update(self):
+        return reverse("spraywarehouseinspection_update", kwargs={"pk": self.id })
+
+
+    def get_list_display(self):
+        return reverse("spraywarehouseinspection_list_display", kwargs={}) 
+
+    def get_list_edit(self):
+        return reverse("spraywarehouseinspection_list_edit", kwargs={}) 
+
+    def get_create_url(self, year, month):
+        return reverse("spraywarehouseinspection_create", kwargs={"year": year,"month": month  })        

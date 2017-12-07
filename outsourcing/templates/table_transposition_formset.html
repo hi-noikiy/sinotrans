@@ -1,6 +1,14 @@
 {% load i18n %}
 {% load myform %}
 
+<!--
+	formset
+	
+	project_name
+	columns
+	rows_fields
+-->
+
 <div style="overflow-x:auto; ">
     <form method="post" action="">{% csrf_token %}
         {{ formset.management_form }}
@@ -45,7 +53,7 @@
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %} 
-                                {% endif %}                           
+                                {% endif %}
                             {% endfor %}
                         </td>
                     {% endfor %}

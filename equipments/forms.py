@@ -8,7 +8,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 
 from .models import (
     AbstractEquipmentInspection, Equipment, EquipmentType, EquipmentInspection,
-    SprayPumpRoomInspection,
+    SprayPumpRoomInspection, SprayWarehouseInspection,
 )
 
 from django.conf import settings
@@ -133,11 +133,13 @@ class SprayPumpRoomInspectionForm(forms.ModelForm):
         exclude = {
             #'year',
             #'month',
+            'inspector',
         }
 
     def __init__(self, *args, **kwargs):
         super(SprayPumpRoomInspectionForm, self).__init__(*args, **kwargs)
         self.fields['year'].widget.attrs['readonly'] = True
+        self.fields['month'].widget.attrs['readonly'] = True
         # if 'class' in self.fields['date_of_inspection'].widget.attrs.keys():
         #     self.fields['date_of_inspection'].widget.attrs['class'] = self.fields['date_of_inspection'].widget.attrs['class'] + "calenda"   
         # else:
@@ -147,10 +149,26 @@ spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInsp
                                             form=SprayPumpRoomInspectionForm,
                                             extra=0)
 
-class SprayPumproomInspectionFilterForm(forms.Form):
+class SprayWarehouseInspectionForm(forms.ModelForm):
+    class Meta:
+        model = SprayWarehouseInspection
+
+        exclude = {
+            'inspector',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SprayWarehouseInspectionForm, self).__init__(*args, **kwargs)
+        self.fields['year'].widget.attrs['readonly'] = True
+
+spray_warehouse_inspection_model_formset = modelformset_factory(SprayWarehouseInspection,
+                                            form=SprayWarehouseInspectionForm,
+                                            extra=0)
+
+class SprayInspectionFilterForm(forms.Form):
 
     year = forms.IntegerField(
         label=_('year'),
         initial=2017,
-        min_value=2017,
+        min_value=2000,
         required=False)
