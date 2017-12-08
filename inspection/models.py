@@ -369,6 +369,9 @@ class shelf_inspection_record(models.Model):
     def get_absolute_url(self):
         return reverse("shelf_inspection_record_detail", kwargs={"pk": self.id })
 
+    def get_absolute_url_update(self):
+        return reverse("shelf_inspection_record_update", kwargs={"pk": self.id })
+
     # can be replaced by field.value_to_string(object)
     # for jason tranmit
     def my_get_field_display(self,fieldname):
@@ -387,6 +390,20 @@ class shelf_inspection_record(models.Model):
             field = shelf_inspection_record._meta.get_field(fieldname)
             return "%s" % self._get_FIELD_display(field)
 
+    def turn_normal(self, instance):
+        was_abnormal = False
+        if '2' == instance.use_condition or True == instance.is_locked or instance.gradient > 1.4 or instance.gradient < -1.4:
+            was_abnormal = True
+
+        is_normal = False        
+        obj = self
+        if '1' == obj.use_condition and False == obj.is_locked and obj.gradient < 1.5 and obj.gradient > -1.5:
+            is_normal = True
+
+        if True == was_abnormal and is_normal == True:
+            return True
+
+        return False
 
     class Meta:
         verbose_name = _("shelf inspection record")

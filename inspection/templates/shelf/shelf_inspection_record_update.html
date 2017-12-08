@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<script>
+{% block jquery %}
+    $('input.calenda').datepicker({
+        dateFormat: "yy-mm-dd", //$(this).val() can define format in widget
+        numberOfMonths: 1,
+        changeYear: true,
+        changeMonth: true,
+        showButtonPanel: true,
+        showWeek: true,
+    });
+{% endblock %}
+</script>
+    
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <form method="POST" action="">{% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-primary"  name="submit" value = "{% trans 'Submit' %}">
+            <a href="{{object.get_absolute_url}}" class="btn btn-default">{% trans "back" %}</a>
+        </form>
+    </div>
+</div>  
+{% endblock %}

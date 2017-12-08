@@ -827,11 +827,11 @@ class ShelfInspectionListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfInspectionListView, self).get_context_data(*args, **kwargs)
 
-        queryset = shelf_inspection.objects.all()
+        #queryset = shelf_inspection.objects.all()
 
         records_list = [(object, \
             object.shelf_inspection_record_set.filter(use_condition=2).count(), \
-            object.shelf_inspection_record_set.filter(is_locked=False).count(), \
+            object.shelf_inspection_record_set.filter(is_locked=True).count(), \
             object.shelf_inspection_record_set.filter(gradient__gt=1.4).count()) for object in shelf_inspection.objects.all()]
 
         paginator = Paginator(records_list, 20)
@@ -848,9 +848,28 @@ class ShelfInspectionListView(ListView):
             # If page is out of range (e.g. 9999), deliver last page of results.
             records = paginator.page(paginator.num_pages)
 
-        context["object_list"] = queryset
+        #context["object_list"] = queryset
         context["records"] = records
-        print records
+
+        context["uncompleted_shelf_inspection_record"] = shelf_inspection_record.objects.filter(
+                Q(use_condition=2) |
+                Q(is_locked = True) |
+                Q(gradient__gt = 1.4)
+            ).distinct().order_by("shelf_inspection")
+
+        from .admin import ShelfInspectionRecordAdmin
+        context["fields_shelf_inspection_record"] = [field.name for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
+
+        context["fields_shelf_inspection_record_display"] = [
+            "use_condition",
+            "is_locked",
+        ]
+        context["field_display_links"] = ["shelf",]
+        context["title"] = _("abnormal") + _("shelf inspection record")
+
+        if self.request.session.get("shelf_inspection_pk"):
+            del self.request.session["shelf_inspection_pk"]
+
         return context       
 
 
@@ -940,6 +959,8 @@ class ShelfInspectionDetailAndRecordListDisplayView(DetailView):  # Per Inspecti
         context["title"] = _("shelf inspection record")
         context["shelfFilterForm"] = ShelfFilterForm(data=self.request.GET or None) 
 
+        self.request.session["shelf_inspection_pk"] = self.get_object().pk
+
         return context       
 
 
@@ -951,6 +972,7 @@ class ShelfInspectionDetailAndRecordListDisplayView(DetailView):  # Per Inspecti
         ])
 
         return super(ShelfInspectionDetailAndRecordListDisplayView, self).dispatch(request,args,kwargs)
+
 
 class ShelfInspectionDetailAndRecordListEditView(DetailView): 
     model = shelf_inspection
@@ -976,6 +998,8 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
             initial=[{'use_condition': _('Normal'),}])    
         context["formset"] = formset
 
+        self.request.session["shelf_inspection_pk"] = self.request.GET.get(self.get_object().pk)  
+
         return context       
 
 
@@ -999,7 +1023,9 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
                 instance_id = form.clean_id()                
                 try:
                     instance = shelf_inspection_record.objects.get(pk=instance_id)
-                    form.save(commit=False)
+                    obj = form.save(commit=False)
+                    if obj.turn_normal(instance):
+                        instance.completed_time = timezone.now()                    
                     #form.save()
                     json_data = {
                         'message': 'valid form!',
@@ -1011,6 +1037,7 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
                             if form.cleaned_data.get(fieldname, None) is not None: # be careful for False
                                 setattr(instance, fieldname, form.cleaned_data.get(fieldname))
                                 json_data.update({fieldname: instance.my_get_field_display(fieldname)})
+
                     instance.save()
                     return HttpResponse(json.dumps(json_data))
                     '''
@@ -1137,7 +1164,12 @@ class ShelfInspectionRecordDetailView(DetailView):
         context = super(ShelfInspectionRecordDetailView, self).get_context_data(*args, **kwargs)
         context["field_display"] = ["use_condition","is_locked",]
         context["detail_view_title"] = _("shelf inspection record")
-        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]        
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]   
+
+        shelf_inspection_pk = self.request.session.get("shelf_inspection_pk")        
+        shelf_inspection_instance = shelf_inspection.objects.get(pk=shelf_inspection_pk) if shelf_inspection_pk else None
+        if shelf_inspection_instance:
+            context["shelf_inspection_instance"] = shelf_inspection_instance
 
         return context    
 
@@ -1149,6 +1181,29 @@ class ShelfInspectionRecordDetailView(DetailView):
             (self.get_object(),request.path_info),
         ])
         return super(ShelfInspectionRecordDetailView, self).dispatch(request,args,kwargs)     
+
+class ShelfInspectionRecordUpdateView(StaffRequiredMixin, UpdateView):
+    model = shelf_inspection_record
+    form_class = ShelfInspectionRecordForm
+    template_name = "shelf/shelf_inspection_record_update.html"   
+
+    def form_valid(self, form, *args, **kwargs):
+        obj = form.save(commit = False)
+        obj.inspector = self.request.user
+        obj.save()
+
+        return HttpResponseRedirect(self.get_success_url())    
+
+    def get_success_url(self):
+        return self.get_object().get_absolute_url()
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf Inspection List'), reverse("shelf_inspection_list", kwargs={})),             
+            (self.get_object(), request.path_info),
+        ])
+        return super(ShelfInspectionRecordUpdateView, self).dispatch(request,args,kwargs)  
 
 from itertools import chain
 

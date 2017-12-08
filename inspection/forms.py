@@ -213,6 +213,12 @@ shelf_gradient_inspection_Formset = modelformset_factory(shelf_inspection_record
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 
+# from django.core.exceptions import ValidationError
+# class NotEmptyDecimalField(forms.DecimalField):
+#     def validate(self, value):
+#         if value in self.empty_values and self.required:
+#             raise ValidationError(self.error_messages['required'], code='required')
+
 class ShelfInspectionRecordForm(forms.ModelForm):
 
     gradient = forms.DecimalField(
@@ -228,11 +234,18 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             # widget=forms.RadioSelect(),
             required=True
             )   
+     
+    use_condition = forms.ChoiceField(
+            label=_('Use Condition'),
+            choices = list(shelf_inspection_record.shelf_inspection_record_use_condition),
+            required=True
+            )   
 
     def __init__(self, *args, **kwargs):
         super(ShelfInspectionRecordForm, self).__init__(*args, **kwargs)
         
         self.fields['gradient'].widget.attrs['step'] = 0.1
+        # self.fields['gradient'].widget.attrs['emptyok'] = False
         if self.fields['forecast_complete_time'].widget.attrs.get('class'):
             self.fields['forecast_complete_time'].widget.attrs['class'] = self.fields['forecast_complete_time'].widget.attrs.get('class') + " calenda"
         else:
@@ -280,7 +293,6 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             else:
                 return None
 
-
     class Meta:
         model = shelf_inspection_record
 
@@ -322,12 +334,6 @@ shelf_inspection_record_Formset = modelformset_factory(shelf_inspection_record,
 
 class ShelfFilterForm(forms.Form):
 
-    is_gradient_measurement_mandatory = forms.BooleanField(
-            label=_('Gradient Check Only'),
-            required=False
-            )
-
-
     CHOICE_LIST = []
     CHOICE_LIST = list(shelf_inspection_record.shelf_inspection_record_use_condition)
     CHOICE_LIST.insert(0, ('', '----'))        
@@ -346,7 +352,7 @@ class ShelfFilterForm(forms.Form):
             label=_('overdue'),
             required=False
             )
-
+            
     try:    
         type = forms.ChoiceField(
                 label=_('Shelf Type'),
@@ -354,7 +360,15 @@ class ShelfFilterForm(forms.Form):
                 widget=forms.RadioSelect(),
                 required=False
                 )   
+    except:
+        pass
 
+    is_gradient_measurement_mandatory = forms.BooleanField(
+            label=_('Gradient Check Only'),
+            required=False
+            )
+            
+    try:            
         CHOICE_LIST = []
         for ins in shelf.objects.all().order_by('warehouse'):
             if not (ins.warehouse, ins.warehouse) in CHOICE_LIST:
@@ -371,7 +385,10 @@ class ShelfFilterForm(forms.Form):
                 initial = None,
                 required=False
                 )    
+    except:
+        pass
 
+    try:            
         CHOICE_LIST = []
         for ins in shelf.objects.all().order_by('compartment'):
             if not (ins.compartment, ins.compartment) in CHOICE_LIST:
@@ -387,6 +404,10 @@ class ShelfFilterForm(forms.Form):
                 required=False
                 )  
 
+    except:
+        pass
+
+    try:            
         CHOICE_LIST = []
         for ins in shelf.objects.all().order_by('warehouse_channel'):
             if not (ins.warehouse_channel, ins.warehouse_channel) in CHOICE_LIST:

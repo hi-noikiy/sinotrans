@@ -6,30 +6,14 @@
 
 {% block content %}
 
-	<div class="row">
-		<div class="col-sm-6 col-sm-offset-3">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
 
-			<div class="panel panel-primary">
-			    <div class="panel-heading">
-			        <h3 class="panel-title">
-			            {{detail_view_title}}
-			        </h3>
-			    </div>
-			    <div class="panel-body">
-					<table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
-						<tbody>
-							{% for field in fields %}
-								{% if field.name in field_display %}				
-								<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_display:field.name}}</td></tr>
-								{% else %}
-								<tr><th>{{field.verbose_name}}</th><td>{{object|my_get_field_value:field.name}}</td></tr>
-								{% endif %}
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+            {% include "inlines/detail_view.html" with title=detail_view_title fields_display=field_display %}
+
+            <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+            <a href="{% if shelf_inspection_instance %}{{shelf_inspection_instance.get_absolute_url_display}}{% else %} {% url 'shelf_inspection_list' %}{% endif %}" class="btn btn-default" >{% trans 'Back' %}</a>
+        </div>
+    </div>
 
 {% endblock %}
