@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+
+{% block content %}
+
+<div class='row'>
+    <div class='col-sm-9 '>
+    {% include "includes/model_filelds_table_display.html" %}
+    </div>    
+
+    <div class='col-sm-3 '>
+        placehold
+    </div>    
+</div>
+
+{% endblock %}                    

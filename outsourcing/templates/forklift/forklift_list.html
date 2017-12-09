@@ -16,6 +16,7 @@
     <p class="nav-title">{% trans "Outsource Management" %}</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="{% url 'forklift_list' %}">{% trans "forklift" %}</a></li>
+      <li><a href="{% url 'forklift_repair_list' %}">{% trans "forklift repair" %}</a></li>
     </ul>
 </div>
 {% endblock %}
@@ -25,21 +26,21 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="pull-right">
-            <a  href="{% url 'shelf_inspection_record_list_abnormal'  %}"><i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"><span style="color:#428bca;">{% trans "abnormal" %}{% trans "forklift repair" %}</span></i></a>
+            <a  href="{% url 'forklift_repair_list'  %}"><i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"><span style="color:#428bca;">{% trans "abnormal" %}{% trans "forklift repair" %}</span></i></a>
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block lists %}
-{% include "includes/list_view.html" with page_num=20 %}
+    {% include "includes/list_view.html" with page_num=20 %}
 {% endblock %}
 
 
 
-{% block content1 %}
+{% block content-legacy %}
 
-<div class='row'>
+<!-- <div class='row'>
     <div class='col-sm-3 '>
         <div class="nav-bar" style="margin-right:20%;">
             <p class="nav-title">{% trans "Outsource Management" %}</p>
@@ -100,6 +101,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 {% endblock %}

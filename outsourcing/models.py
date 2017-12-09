@@ -126,7 +126,7 @@ class ForkliftRepair(models.Model):
     created = models.DateTimeField(_('Discovered Date'),auto_now_add=True, auto_now=False)
     due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=True, blank=True)
     owner = models.CharField(_("Owner"), blank=False, null=False, max_length=30)
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    updated = models.DateTimeField(_('updated'),auto_now_add=False, auto_now=True)
 
     class Meta:
         verbose_name = _("forklift repair")
@@ -137,6 +137,9 @@ class ForkliftRepair(models.Model):
 
     def is_repaired(self):
         return self.repaired == "yes"
+
+    def get_absolute_url(self):
+        return reverse("forklift_repair_detail", kwargs={"pk": self.pk })
 
     """
     replace by built-in function get_repaired_display

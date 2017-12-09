@@ -14,8 +14,13 @@ from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, D
 from django.utils import timezone
 
 from .models import (
-	Forklift, ForkliftMaint, 
-    Vehicle, Driver, VehicleInspection,
+	Forklift, 
+    ForkliftMaint, 
+    ForkliftRepair,
+
+    Vehicle, 
+    Driver, 
+    VehicleInspection,
     VehicleTransportationKPI,
 
     option_value_convertion
@@ -103,8 +108,8 @@ class ForkliftDetailView(TableDetailMixin, DetailView):
         }
         forklift_maint_objects = ForkliftMaint.objects.filter(forklift=self.get_object())
         for forklift_maint_object in forklift_maint_objects:
-        	from .models import RESULT_OPTION
-        	forklift_maint_object.fields = dict((field.verbose_name, option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))) 
+            from .models import RESULT_OPTION
+            forklift_maint_object.fields = dict((field.verbose_name, option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))) 
                 for field in forklift_maint_object._meta.fields if not field.name in exclude)
         context["forklift_maint_objects"] = forklift_maint_objects
         
@@ -123,7 +128,39 @@ class ForkliftDetailView(TableDetailMixin, DetailView):
             (_("Forklift"),reverse("forklift_list", kwargs={})),            
             (self.get_object(), request.path_info),
         ])
-        return super(ForkliftDetailView, self).dispatch(request,args,kwargs)           
+        return super(ForkliftDetailView, self).dispatch(request,args,kwargs)  
+
+class ForkliftRepairListView(TableListMixin, ListView): 
+    model = ForkliftRepair
+    template_name = "forklift/forklift_repair_list.html"
+
+    from .admin import ForkliftRepairAdmin
+    fields = [model._meta.get_field(field) for field in ForkliftRepairAdmin.list_display]
+    fields_display = ["repaired",]
+   
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Forklift'),reverse("forklift_list", kwargs={})),
+            (_('forklift repair'),request.path_info),
+        ])
+        return super(ForkliftRepairListView, self).dispatch(request,args,kwargs)   
+
+class ForkliftRepairDetailView(TableDetailMixin, DetailView): 
+    model = ForkliftRepair
+    template_name = "forklift/forklift_repair_detail.html"
+
+    fields = [field for field in model._meta.get_fields() if not field.name in [model._meta.pk.attname,]]
+    fields_display = ["repaired",]
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("forklift repair"),reverse("forklift_repair_list", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
+        return super(ForkliftRepairDetailView, self).dispatch(request,args,kwargs)  
 
 class DriverListView(ListView): 
     model = Driver
