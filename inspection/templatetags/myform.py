@@ -39,15 +39,13 @@ def my_get_field_value(inst, fieldname):
 def my_get_field_url(inst, fieldname):
     if hasattr(inst, fieldname):
         value = getattr(inst, fieldname)
-        return value.url
+        if hasattr(value, "url"):
+            return value.url
 
     return None
 
 @register.filter(name='my_get_foreign_field_url')
 def my_get_foreign_field_url(inst, fieldname):
-
-    print "??"
-    
     if hasattr(inst, fieldname):
         object_set = getattr(inst, fieldname).first()
         return object_set.image.url

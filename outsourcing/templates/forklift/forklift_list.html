@@ -1,4 +1,4 @@
-{% extends "outsourcing_list.html" %}
+{% extends "forklift/forklift_base.html" %}
 {% load crispy_forms_tags %}
 {% load pagination_tags %}
 {% load i18n %}
@@ -11,18 +11,8 @@
 {% endblock %}
 </style>
 
-{% block left_bar %}
-<div class="nav-bar" style="margin-right:20%;">
-    <p class="nav-title">{% trans "Outsource Management" %}</p>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="{% url 'forklift_list' %}">{% trans "forklift" %}</a></li>
-      <li><a href="{% url 'forklift_repair_list' %}">{% trans "forklift repair" %}</a></li>
-    </ul>
-</div>
-{% endblock %}
 
-
-{% block links %}
+{% block links1 %}
 <div class="row">
     <div class="col-sm-12">
         <div class="pull-right">
@@ -37,70 +27,3 @@
 {% endblock %}
 
 
-
-{% block content-legacy %}
-
-<!-- <div class='row'>
-    <div class='col-sm-3 '>
-        <div class="nav-bar" style="margin-right:20%;">
-            <p class="nav-title">{% trans "Outsource Management" %}</p>
-            <ul class="nav nav-pills nav-stacked">
-              <li><a href="{% url 'forklift_list' %}">{% trans "forklift" %}</a></li>
-              <li><a href="{% url 'vehicle_list' %}">{% trans "vehicle" %}</a></li>
-              <li><a href="{% url 'driver_list' %}">{% trans "driver" %}</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class='col-sm-9 '>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="pull-right">
-                    <a  href="{% url 'shelf_inspection_record_list_abnormal'  %}"><i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"><span style="color:#428bca;">{% trans "abnormal" %}{% trans "forklift repair" %}</span></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="object_lists" style="clear: both;">
-            {% autopaginate object_list 8 %}
-            
-            {% if object_list.count == 0 %}
-                {% trans "Nothing found" %}
-            {% else %}
-                <table class="forklift-list table-align-center table-hover  table table-striped table-hover table-responsive table-condensed">
-                    <thead>
-                        <tr class="table-primary">
-                            <th></th>
-                            <th>{% trans "Inner Car Number" %}</th>
-                            <th>{% trans "Inner Plate Number" %}</th>
-                            <th>{% trans "Forklift Model" %}</th>
-                            <th>{% trans "SN" %}</th>
-                            <th>{% trans "Forklift Category" %}</th>
-                            <th>{% trans "Manufacturer" %}</th>
-                            <th>{% trans "forklift image" %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for object in object_list %}
-                        <tr class="table-primary-hover">
-                            <td><a href="{{ object.get_absolute_url }}">{{object}}</a>    </td>
-                            <td>{{object.internal_car_number}}</td>
-                            <td>{{object.internal_plate_number}}</td>
-                            <td>{{object.model}}</td>
-                            <td>{{object.sn}}</td>
-                            <td>{{object.category}}</td>
-                            <td>{{object.manufacturer}}</td>
-                            <td><img src="{{object.forkliftimage_set.first.image.url}}" class="img-responsive" style="width:100px;"> </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>                
-            {% endif %}
-            
-            <div class="text-center">
-            {% paginate %}
-            </div>
-        </div>
-    </div>
-</div> -->
-
-{% endblock %}

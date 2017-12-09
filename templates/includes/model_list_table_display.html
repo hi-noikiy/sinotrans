@@ -27,7 +27,9 @@
                             {% if fieldname in fields_files %}
                                 <td><a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a></td>
                             {% elif fieldname in fields_images %}
-                                <td><img class="img-responsive" style="width:100px;" src="{{object|my_get_field_url:fieldname}}"></td>
+                                <td><img class="img-responsive" style="width:100%;" src="{{object|my_get_field_url:fieldname}}"></td>
+                            {% elif fieldname in fields_display %}
+                                <td>{{ object|my_get_field_display:fieldname }}</td>                                
                             {% else %}
                                 <td>{{ object|my_get_field_value:fieldname }}</td>
                             {% endif %}

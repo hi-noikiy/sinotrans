@@ -1,0 +1,16 @@
+{% extends "outsourcing_list.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+
+
+{% block left_bar %}
+<div class="nav-bar" style="margin-right:20%;">
+    <p class="nav-title">{% trans "Outsource Management" %}</p>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="{% url 'forklift_list' %}">{% trans "forklift" %}</a></li>
+      <li><a href="{% url 'forklift_repair_list' %}"><span style="color:#428bca;">{% trans "Uncompleted" %}{% trans "forklift repair" %}</span> <i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"></i></a></li>
+    </ul>
+</div>    
+{% endblock %}
+                

@@ -29,6 +29,10 @@ from .views import (
     ShelfInspectionRecordListView,
     RehearsalListView,
     RehearsalDetailView,
+    PIListView,
+    PICreateView,
+    PIDetailView,
+    PIUpdateView,
 
     StorageSecurityView,
 
@@ -69,4 +73,8 @@ urlpatterns = [
     url(r'^rehearsallist$', RehearsalListView.as_view(), name='rehearsal_list'),
     url(r'^rehearsaldetail/(?P<pk>\d+)/$', RehearsalDetailView.as_view(), name='rehearsal_detail'),  
 
+    url(r'^pilist$', PIListView.as_view(), name='pi_list'),
+    url(r'^pi/create$', PICreateView.as_view(), name='pi_create'),
+    url(r'^pi/(?P<pk>\d+)/$', PIDetailView.as_view(), name='pi_detail'),  
+    url(r'^pi/update/(?P<pk>\d+)/$', PIUpdateView.as_view(), name='pi_update'),
 ]

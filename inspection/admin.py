@@ -8,6 +8,7 @@ from .models import (
     
 from .forms import (
     DailyInspectionForm,
+    ShelfInspectionRecordForm,
 )
 from django.core.urlresolvers import reverse
 from django.contrib.sites.shortcuts import get_current_site
@@ -152,6 +153,8 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
 
     view_on_site = False
 
+    form = ShelfInspectionRecordForm
+
     class Meta:
         model = shelf_inspection_record
 
@@ -218,9 +221,41 @@ class RehearsalAdmin(admin.ModelAdmin):
         model = Rehearsal
 
 class PIAdmin(admin.ModelAdmin):
-    list_display = ['date',"reporter","company_of_reporter","department_of_reporter","PI_area","category","direct_reason","root_cause","feedback_person","rectification_measures",]
-    list_search = ['date',"reporter","company_of_reporter","department_of_reporter","PI_area","category","direct_reason","root_cause","feedback_person","rectification_measures",]
+    list_display = [
+        "reporter",
+        "company_of_reporter",
+        "department_of_reporter",
+        "area",
+        "category",
+        "direct_reason",
+        "root_cause",
+        "feedback_person",
+        "rectification_measures",
+        "image_before"
+        ]
+    list_search = [
+        "reporter",
+        "company_of_reporter",
+        "department_of_reporter",
+        "area",
+        "category",
+        "direct_reason",
+        "root_cause",
+        "feedback_person",
+        "rectification_measures",
+        ]
 
+    list_filter = [
+        "reporter",
+        "company_of_reporter",
+        "department_of_reporter",
+        "area",
+        "category",
+        "direct_reason",
+        "root_cause",
+        "feedback_person",
+        "rectification_measures",
+        ]
     view_on_site = False
 
     class Meta:

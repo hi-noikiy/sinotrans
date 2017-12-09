@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+<style type="text/css">
+{% block style %}
+
+.object_list table>thead>tr>th{
+    /*width: 25%;*/
+}
+
+.object_list table>tr>th:nth-child(1){
+    /*width: 25%;*/
+}
+{% endblock %}  
+</style>
+
+{% block content %}
+{% include "includes/model_list_table_display.html" with line_per_page=3 %}
+{% endblock %}

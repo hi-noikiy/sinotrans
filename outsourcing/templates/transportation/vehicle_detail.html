@@ -70,6 +70,13 @@ table.table-align-center thead tr th{
         {% endcomment %}
 	
         {% include "inlines/list_view.html" with title="vehicle inspection"  object_foreign_set=object.vehicleinspection_set fields_foreign=fields_vehicle_inspection fields_foreign_display=fields_vehicle_inspection_display table_class="table-align-center" %}
+
+
+        {% comment %}
+        <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+        {% endcomment %}
+        <a href="{% url 'vehicle_list' %}" class="btn btn-default" >{% trans 'Back' %}</a>
+
     </div>
 <!--     <div class='col-sm-3 '>
         placehold

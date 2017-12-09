@@ -40,44 +40,49 @@ table.table tbody tr td:last-child{
         {% endblock %}
     </div>
     <div class='col-sm-9 '>
-        {% block links %}
-        {% endblock %}
 
-        {% block lists %}
-        <div class="object_lists" style="clear: both;">
-            {% autopaginate object_list 8 %}
-            
-            {% if object_list.count == 0 %}
-                {% trans "Nothing found" %}
-            {% else %}
-                <table class="table-align-center table-hover table table-striped table-hover table-responsive table-condensed">
-                    <thead>
-                        <tr class="table-primary">
-                            {% for field in fields %}
-                            <th>{{ field.verbose_name }}</th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for object in object_list %}
-                        <tr class="table-primary-hover">
-                            {% for field in fields %}
-                                {% if forloop.first %}
-                                    <th style="text-align: center;"><a href="{{ object.get_absolute_url }}">{{ object|my_get_field_display:field.name }}</a></th>
-                                {% else %}
-                                    <td>{{ object|my_get_field_value:field.name }}</td>
-                                {% endif %}
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>                
-            {% endif %}
-            
-            <div class="text-center">
-            {% paginate %}
+        {% block container %}
+
+            {% block links %}
+            {% endblock %}
+
+            {% block lists %}
+            <div class="object_lists" style="clear: both;">
+                {% autopaginate object_list 8 %}
+                
+                {% if object_list.count == 0 %}
+                    {% trans "Nothing found" %}
+                {% else %}
+                    <table class="table-align-center table-hover table table-striped table-hover table-responsive table-condensed">
+                        <thead>
+                            <tr class="table-primary">
+                                {% for field in fields %}
+                                <th>{{ field.verbose_name }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in object_list %}
+                            <tr class="table-primary-hover">
+                                {% for field in fields %}
+                                    {% if forloop.first %}
+                                        <th style="text-align: center;"><a href="{{ object.get_absolute_url }}">{{ object|my_get_field_display:field.name }}</a></th>
+                                    {% else %}
+                                        <td>{{ object|my_get_field_value:field.name }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>                
+                {% endif %}
+                
+                <div class="text-center">
+                {% paginate %}
+                </div>
             </div>
-        </div>
+            {% endblock %}
+
         {% endblock %}
     </div>
 </div>

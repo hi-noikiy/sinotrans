@@ -390,7 +390,12 @@ class shelf_inspection_record(models.Model):
             field = shelf_inspection_record._meta.get_field(fieldname)
             return "%s" % self._get_FIELD_display(field)
 
+    def is_normal(self):
+        return '1' == obj.use_condition and False == obj.is_locked and obj.gradient < 1.5 and obj.gradient > -1.5
+
     def turn_normal(self, instance):
+        return instance.is_normal() == False and obj.is_normal()
+
         was_abnormal = False
         if '2' == instance.use_condition or True == instance.is_locked or instance.gradient > 1.4 or instance.gradient < -1.4:
             was_abnormal = True
@@ -511,38 +516,120 @@ month_choice = (
     ('12', _('December')),
 )
 
-"""
-class HSSEKPI(models.Model):
-    year = models.CharField(_("year"), max_length=30, null=False, blank=False)
-    month = models.CharField(_("month"), max_length=30, choices= month_choice, null=False, blank=False)
-"""
+
+def image_upload_to_pi(instance, filename):
+    title, file_extension = filename.split(".")
+    if settings.UUSLUGIFY == True:
+        new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), uuslugify(title), file_extension)
+    else:
+        new_filename = "%s-%s.%s" %(timezone.now().strftime('%Y%m%d%H%M%S'), title, file_extension) # created was not ready for CreateView
+    return "pi/%s/%s" %(instance.category, new_filename)
 
 class PI(models.Model):
 
-    DEPARTMENT_OPTION = (
-        ("safety","safety"),
-        ("storage","storage"),
-        ("administration","administration"),
+    PI_company = (
+        ('SNT', _('SNT')),
     )
-    date = models.DateField(_('Annual Inspection Date'), auto_now_add=False, auto_now=False)
-    reporter = models.CharField(_('reporter'), max_length=30, blank=False,null=False)
-    company_of_reporter = models.CharField(_('company of reporter'), max_length=30, blank=False,null=False)
-    department_of_reporter = models.CharField(_('department of reporter'), choices=DEPARTMENT_OPTION, max_length=30, blank=False,null=False)
-    report_content = models.CharField(_('report content'), max_length=30, blank=False,null=False)
-    PI_area = models.CharField(_('PI area'), max_length=30, blank=False,null=False)
-    category = models.CharField(_('category'), max_length=30, blank=False,null=False)
-    risk = models.CharField(_('risk'), max_length=30, blank=False,null=False)
-    direct_reason = models.CharField(_('direct reason'), max_length=30, blank=False,null=False)
-    root_cause = models.CharField(_('root cause'), max_length=30, blank=False,null=False)
+
+    PI_department = (
+        ('security', _('security')),
+        ('storage', _('storage')),
+        ('administration', _('administration')),
+    )
+
+    PI_area = (
+        ('inwarehouse', _('in warehouse')),
+        ('outwarehouse', _('out warehouse')),
+    )
+
+    PI_category = (
+        ('PI', _('PI')),
+    )
+
+    PI_risk = (
+        ('H', 'H'),
+        ('M', 'M'),
+        ('L', 'L'),
+    )
+
+    PI_direct_reason = (
+        ('unsafe_condition', _('unsafe condition')),
+    )
+ 
+    PI_root_cause = (
+        ('MM', _('MM')),
+        ('EC', _('EC')),
+    )
+
+    PI_correction_status = (
+        ('completed', _('Completed')),
+        ('uncompleted', _('Uncompleted')),
+    )
+
+    
+    reporter = models.CharField(_('reporter'), max_length=30, blank=False)
+    company_of_reporter = models.CharField(_('company of reporter'), max_length=30, choices = PI_company, blank=False,null=False)
+    department_of_reporter = models.CharField(_('department of reporter'), max_length=30, choices = PI_department, blank=False,null=False)
+    report_content = models.TextField(_('report content'), max_length=500, blank=False,null=False)
+    area = models.CharField(_('area'), max_length=30, choices = PI_area, blank=False,null=False, default = 'uncompleted')
+    category = models.CharField(_('category'), max_length=30, choices = PI_category, blank=False,null=False)
+    risk = models.CharField(_('risk'), max_length=30, choices = PI_risk, blank=False,null=False)
+    direct_reason = models.CharField(_('direct reason'), max_length=30, choices = PI_direct_reason, blank=False,null=False)
+    root_cause = models.CharField(_('root cause'), max_length=30, choices = PI_root_cause, blank=False)
     feedback_person = models.CharField(_('feedback person'), max_length=30, blank=False,null=False)
-    rectification_measures = models.CharField(_('rectification measures'), max_length=30, blank=False,null=False)
-    planned_complete_date = models.DateField(_('planned complete date'), auto_now_add=False, auto_now=False)
-    rectification_status = models.CharField(_('rectification status'), max_length=30, blank=False,null=False)
     close_person = models.CharField(_('close person'), max_length=30, blank=False,null=False)
-    picture_before_rectification = models.CharField(_('picture before rectification'), max_length=30, blank=False,null=False)
-    picture_after_rectification = models.CharField(_('picture after rectification'), max_length=30, blank=False,null=False)
+    rectification_measures = models.TextField(_('rectification measures'), max_length=30, blank=False,null=False)
+    rectification_status = models.CharField(_('rectification status'), choices = PI_correction_status, max_length=30, blank=False,null=False)
+    created = models.DateTimeField(_('Inspection Created Date'), auto_now_add=True, auto_now=False)
+    planned_complete_date = models.DateField(_('planned complete date'), auto_now_add=False, auto_now=False)
+    completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    image_before = models.ImageField(_('picture before rectification'), upload_to=image_upload_to_pi, blank=False,null=False)
+    image_after = models.ImageField(_('picture after rectification'), upload_to=image_upload_to_pi, null=True, blank=True)
+
+    
+    def __unicode__(self): 
+        return self.report_content
+
+    def get_absolute_url(self):
+        return reverse("pi_detail", kwargs={"pk": self.id })    
+
+    def get_absolute_url_update(self):
+        return reverse("pi_update", kwargs={"pk": self.id })    
+
+    def get_absolute_url_list(self):
+        return reverse("pi_list", kwargs={})
+
+    def get_image_url_before(self):
+        img = self.image_before
+        if img:
+            return img.url
+        return img     
+
+    def get_image_url_after(self):
+        img = self.image_after
+        if img:
+            return img.url
+        return img 
+
+    def get_html_due_date(self):
+        if self.due_date is not None and self.rectification_status == 'uncompleted':
+            overdue = ''
+            if self.due_date <= timezone.now().date() - timedelta(days=1): # should be 0
+                overdue = 'overdue'
+            html_text = "<span class='due_date %s'>%s</span>" %(overdue, self.due_date)
+        else:
+            html_text = "<span class='due_date'></span>"
+        return mark_safe(html_text)
+
+
+    def get_created_date(self):
+        return self.created.strftime("%Y-%m-%d")     
 
     class Meta:
         verbose_name = _("PI")
         verbose_name_plural = _("PI")
+        ordering = ['-created']
 
+
+
+post_delete.connect(file_cleanup, sender=PI)

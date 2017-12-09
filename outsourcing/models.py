@@ -133,7 +133,8 @@ class ForkliftRepair(models.Model):
         verbose_name_plural = _("forklift repair")
 
     def __unicode__(self): 
-        return _("forklift repair") + " %s %s" % (self.forklift.internal_car_number, self.repaire_date)
+        #return _("forklift repair") + " %s %s" % (self.forklift.internal_car_number, self.created.strftime('%Y-%m-%d %H:%M:%S')) # timezone issue
+        return _("forklift repair") + " %s %s" % (self.forklift.internal_car_number, self.created.strftime('%Y-%m-%d'))
 
     def is_repaired(self):
         return self.repaired == "yes"

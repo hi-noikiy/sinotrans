@@ -32,7 +32,7 @@ from .forms import (
 
 from trainings.models import TrainingTranscript
 
-from inspection.mixins import TableDetailMixin, TableListMixin
+from inspection.mixins import TableDetailViewMixin, TableListViewMixin
 
 class TransportSecurityView(TemplateView):
     template_name = "transport_security.html"
@@ -44,7 +44,7 @@ class TransportSecurityView(TemplateView):
         return context
         
 # Create your views here.
-class ForkliftListView(TableListMixin, ListView): 
+class ForkliftListView(TableListViewMixin, ListView): 
     model = Forklift
     template_name = "forklift/forklift_list.html"
 
@@ -64,7 +64,7 @@ class ForkliftListView(TableListMixin, ListView):
         ])
         return super(ForkliftListView, self).dispatch(request,args,kwargs)   
 
-class ForkliftDetailView(TableDetailMixin, DetailView): 
+class ForkliftDetailView(TableDetailViewMixin, DetailView): 
     model = Forklift
     template_name = "forklift/forklift_detail.html"
 
@@ -130,7 +130,7 @@ class ForkliftDetailView(TableDetailMixin, DetailView):
         ])
         return super(ForkliftDetailView, self).dispatch(request,args,kwargs)  
 
-class ForkliftRepairListView(TableListMixin, ListView): 
+class ForkliftRepairListView(TableListViewMixin, ListView): 
     model = ForkliftRepair
     template_name = "forklift/forklift_repair_list.html"
 
@@ -138,6 +138,8 @@ class ForkliftRepairListView(TableListMixin, ListView):
     fields = [model._meta.get_field(field) for field in ForkliftRepairAdmin.list_display]
     fields_display = ["repaired",]
    
+    def get_queryset(self, *args, **kwargs):
+        return self.model.objects.filter(repaired="no")
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
@@ -147,7 +149,7 @@ class ForkliftRepairListView(TableListMixin, ListView):
         ])
         return super(ForkliftRepairListView, self).dispatch(request,args,kwargs)   
 
-class ForkliftRepairDetailView(TableDetailMixin, DetailView): 
+class ForkliftRepairDetailView(TableDetailViewMixin, DetailView): 
     model = ForkliftRepair
     template_name = "forklift/forklift_repair_detail.html"
 
@@ -238,7 +240,7 @@ class VehicleListView(ListView):
         ])
         return super(VehicleListView, self).dispatch(request,args,kwargs)   
 
-class VehicleDetailView(TableDetailMixin, DetailView): 
+class VehicleDetailView(TableDetailViewMixin, DetailView): 
     model = Vehicle
     template_name = "transportation/vehicle_detail.html"
 

@@ -8,6 +8,11 @@
 <div class='row'>
     <div class='col-sm-9 '>
     {% include "includes/model_filelds_table_display.html" %}
+
+    {% comment %}
+    <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+    {% endcomment %}
+    <a href="{% url 'forklift_repair_list' %}" class="btn btn-default" >{% trans 'Back' %}</a>    
     </div>    
 
     <div class='col-sm-3 '>

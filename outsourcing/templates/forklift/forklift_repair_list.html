@@ -1,4 +1,4 @@
-{% extends "outsourcing_list.html" %}
+{% extends "forklift/forklift_base.html" %}
 {% load crispy_forms_tags %}
 {% load pagination_tags %}
 {% load i18n %}
@@ -11,18 +11,8 @@
 {% endblock %}
 </style>
 
-{% block left_bar %}
-<div class="nav-bar" style="margin-right:20%;">
-    <p class="nav-title">{% trans "Outsource Management" %}</p>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="{% url 'forklift_list' %}">{% trans "forklift" %}</a></li>
-      <li><a href="{% url 'forklift_repair_list' %}">{% trans "forklift repair" %}</a></li>
-    </ul>
-</div>
-{% endblock %}
 
-
-{% block links %}
+{% block links1 %}
 <div class="row">
     <div class="col-sm-12">
         <div class="pull-right">

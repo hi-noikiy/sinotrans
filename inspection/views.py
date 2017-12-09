@@ -20,16 +20,24 @@ from PIL import Image
 import os
 from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
-from .mixins import StaffRequiredMixin, TableListMixin, TableDetailMixin
+from .mixins import StaffRequiredMixin, TableListViewMixin, TableDetailViewMixin
 from django.db.models.fields.related import (
     ForeignObjectRel, ManyToOneRel, OneToOneField, add_lazy_relation,
 )
 # Create your views here.
 from .models import (
     OfficeInspection, 
-    DailyInspection, DailyInspectionLog,
-    shelf_inspection_record, shelf_inspection, shelf,
+    
+    DailyInspection, 
+    DailyInspectionLog,
+
+    shelf_inspection_record, 
+    shelf_inspection, 
+    shelf,
+
     Rehearsal,
+
+    PI,
     )
 from .forms import (
     OfficeInspectionForm, 
@@ -55,7 +63,7 @@ class StorageSecurityView(TemplateView):
         
         return context
 
-class RehearsalListView(TableListMixin, ListView): 
+class RehearsalListView(TableListViewMixin, ListView): 
     model = Rehearsal
     template_name = "rehersal/rehearsal_list.html"
     from .admin import RehearsalAdmin
@@ -75,7 +83,7 @@ class RehearsalListView(TableListMixin, ListView):
         ])
         return super(RehearsalListView, self).dispatch(request,args,kwargs)   
 
-class RehearsalDetailView(TableDetailMixin, DetailView): 
+class RehearsalDetailView(TableDetailViewMixin, DetailView): 
     model = Rehearsal
     template_name = "rehersal/rehearsal_detail.html"
     fieldsets = [("",{"fields":("title","date","attachment","image",)}), ]
@@ -1325,3 +1333,39 @@ class ShelfGradientInspectionView(DetailView):
 
         return super(ShelfGradientInspectionView, self).dispatch(request,args,kwargs)
 
+class PIListView(TableListViewMixin, ListView): 
+    model = PI
+    template_name = "pi/pi_list.html"
+    from .admin import PIAdmin
+    fields = PIAdmin.list_display
+    fields_display = [
+        "company_of_reporter",
+        "department_of_reporter",
+        "area",
+        "category",
+        "direct_reason",
+        "root_cause",
+        "rectification_status",
+        ]
+    fields_files = [""]
+    fields_images = ["image_before","image_after",]
+
+class PIDetailView(TableDetailViewMixin, DetailView): 
+    model = PI
+    template_name = "pi/pi_detail.html"
+    fields_images = ["image_before","image_after",]
+    fields_display = [
+        "company_of_reporter",
+        "department_of_reporter",
+        "area",
+        "category",
+        "direct_reason",
+        "root_cause",
+        "rectification_status",
+        ]
+
+class PICreateView(CreateView): 
+    model = PI
+
+class PIUpdateView(UpdateView): 
+    model = PI    

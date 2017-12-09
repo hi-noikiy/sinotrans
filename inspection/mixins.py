@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils.translation import ugettext as _
 
 class StaffRequiredMixin(object):
     @classmethod
@@ -41,7 +42,7 @@ class LoginRequiredMixin(object):
 	def dispatch(self, request, *args, **kwargs):
 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
-class TableListMixin(object):
+class TableListViewMixin(object):
     fields = []
     fields_display = []
     fields_files = []
@@ -50,7 +51,7 @@ class TableListMixin(object):
     foreign_fields_images = []
 
     def get_context_data(self, *args, **kwargs):
-        context = super(TableListMixin, self).get_context_data(*args, **kwargs)
+        context = super(TableListViewMixin, self).get_context_data(*args, **kwargs)
         context["fields"] = self.fields
         context["fields_display"] = self.fields_display
         context["fields_files"] = self.fields_files
@@ -60,7 +61,15 @@ class TableListMixin(object):
         
         return context
 
-class TableDetailMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (self.model._meta.verbose_name,request.path_info),
+        ])
+        return super(TableListViewMixin, self).dispatch(request,args,kwargs)   
+        
+class TableDetailViewMixin(object):
+
     # fieldsets = [("title",{"fields":("",)}), ]
     fieldsets = []
     fields = []
@@ -68,11 +77,13 @@ class TableDetailMixin(object):
     fields_files = []
     fields_images = []
 
+    model = None
+
     model_sets = [("model name", None, []),]  # model name, object_list, list_display
     
     def get_context_data(self, *args, **kwargs):
-        context = super(TableDetailMixin, self).get_context_data(*args, **kwargs)
-        context["fields"] = self.fields
+        context = super(TableDetailViewMixin, self).get_context_data(*args, **kwargs)
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,]] if not self.fields and not self.fieldsets else None
         context["fieldsets"] = self.fieldsets
         context["fields_display"] = self.fields_display
         context["fields_files"] = self.fields_files
@@ -81,3 +92,11 @@ class TableDetailMixin(object):
         context["model_sets"] = self.model_sets
         
         return context        
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (self.model._meta.verbose_name,self.get_object().get_absolute_url_list()),
+            (self.get_object(),request.path_info),
+        ])
+        return super(TableDetailViewMixin, self).dispatch(request,args,kwargs)           
