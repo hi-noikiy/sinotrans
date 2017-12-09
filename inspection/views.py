@@ -20,7 +20,7 @@ from PIL import Image
 import os
 from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
-from .mixins import StaffRequiredMixin, TableListViewMixin, TableDetailViewMixin
+from .mixins import StaffRequiredMixin, TableListViewMixin, TableDetailViewMixin, UpdateViewMixin, CreateViewMixin
 from django.db.models.fields.related import (
     ForeignObjectRel, ManyToOneRel, OneToOneField, add_lazy_relation,
 )
@@ -43,6 +43,7 @@ from .forms import (
     OfficeInspectionForm, 
     DailyInspectionForm, InspectionFilterForm, 
     ShelfInspectionRecordForm, ShelfFilterForm, ShelfInspectionForm, ShelfUploadForm,
+    PIForm,
     )
 from .forms import (
     shelf_inspection_record_Formset, shelf_gradient_inspection_Formset,
@@ -1364,8 +1365,29 @@ class PIDetailView(TableDetailViewMixin, DetailView):
         "rectification_status",
         ]
 
-class PICreateView(CreateView): 
+class PICreateView(CreateViewMixin, CreateView): 
     model = PI
+    form_class = PIForm
+    template_name = "pi/pi_create.html"
 
-class PIUpdateView(UpdateView): 
-    model = PI    
+class PIUpdateView(UpdateViewMixin, UpdateView): 
+    model = PI
+    form_class = PIForm 
+    template_name = "pi/pi_update.html"
+
+    def form_valid(self, form, *args, **kwargs):
+        obj = form.save(commit = False)
+        instance = self.model.objects.filter(pk=form.instance.pk).first()
+        if obj.is_rectification_completed() and not instance.is_rectification_completed():
+            obj.completed_time = timezone.now()
+            obj.close_person = self.request.user.get_full_name()
+            obj.rectification_status = "completed"
+            obj.save()
+        elif not obj.is_rectification_completed() and instance.is_rectification_completed():
+            obj.completed_time = None
+            obj.close_person = None
+            obj.rectification_status = "uncompleted"
+            obj.save()
+
+        return super(PIUpdateView, self).form_valid(form, *args, **kwargs)
+        return HttpResponseRedirect(self.get_success_url())    

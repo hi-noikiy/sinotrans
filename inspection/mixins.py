@@ -99,4 +99,55 @@ class TableDetailViewMixin(object):
             (self.model._meta.verbose_name,self.get_object().get_absolute_url_list()),
             (self.get_object(),request.path_info),
         ])
-        return super(TableDetailViewMixin, self).dispatch(request,args,kwargs)           
+        return super(TableDetailViewMixin, self).dispatch(request,args,kwargs)    
+
+class UpdateViewMixin(object):
+
+    def get_success_url(self):
+        return self.get_object().get_absolute_url() # default function
+        
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateViewMixin, self).get_context_data(*args, **kwargs) 
+        context["title"] = self.get_object()
+        return context
+
+    # copy from base
+    # def post(self, request, *args, **kwargs):
+    #     form = self.get_form()  # read FormMixin::get_form
+    #     #form = self.form_class(self.request.POST or None, self.request.FILES or None)
+    #     self.object = self.get_object()
+
+    #     if form.is_valid():
+    #         return self.form_valid(form)
+    #     else:            
+    #         return self.form_invalid(form)
+
+    #     return super(UpdateViewMixin, self).post(request, *args, **kwargs)  
+        
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateViewMixin, self).get_context_data(*args, **kwargs) 
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (self.model._meta.verbose_name,self.model().get_absolute_url_list()),
+            (_("Create"),request.path_info),
+        ])
+        return super(CreateViewMixin, self).dispatch(request,args,kwargs)  
+        
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (self.model._meta.verbose_name,self.get_object().get_absolute_url_list()),
+            (self.get_object(),request.path_info),
+        ])
+        return super(UpdateViewMixin, self).dispatch(request,args,kwargs)           
+
+class CreateViewMixin(object):
+
+    def get_success_url(self):
+        #return self.model().get_absolute_url_list()
+        return self.object.get_absolute_url()  # default function
+
+              

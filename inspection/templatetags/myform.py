@@ -47,8 +47,11 @@ def my_get_field_url(inst, fieldname):
 @register.filter(name='my_get_foreign_field_url')
 def my_get_foreign_field_url(inst, fieldname):
     if hasattr(inst, fieldname):
-        object_set = getattr(inst, fieldname).first()
-        return object_set.image.url
+        object = getattr(inst, fieldname).first()
+        if hasattr(object, "image"):
+            img = object.image   # this step will fail if the "fieldname" is not "image", hardcoded here!!!! use object.get_image_display_url() to replace late
+            if hasattr(img, "url"):
+                return img.url
         
     return None
     

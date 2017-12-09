@@ -11,7 +11,10 @@ from django.contrib.auth import get_user_model
 from .models import (
     OfficeInspection,
     DailyInspection,
-    shelf_inspection_record, shelf, shelf_inspection,
+    shelf_inspection_record, 
+    shelf, 
+    shelf_inspection,
+    PI,
     
 )
 
@@ -441,3 +444,24 @@ class ShelfUploadForm(forms.Form):
                 label=_('shelf upload'),
                 required=False
                 )   
+
+class PIForm(forms.ModelForm):
+    class Meta:
+        model = PI
+
+        exclude = [
+            "created",
+            "rectification_status",
+            "close_person",
+            "completed_time",
+        ]    
+
+    # def clean_image_before(self):
+    #     if self.instance.get_image_url("image_before") and not self.cleaned_data["image_before"]:
+    #         return self.instance.get_image_url("image_before")
+    #     else:
+    #         return self.cleaned_data["image_before"]
+
+    def __init__(self, *args, **kwargs):
+        super(PIForm, self).__init__(*args, **kwargs)
+        self.fields['planned_complete_date'].widget.attrs['class'] ="calenda"
