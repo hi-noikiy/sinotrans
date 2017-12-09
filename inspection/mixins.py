@@ -111,30 +111,25 @@ class UpdateViewMixin(object):
         context["title"] = self.get_object()
         return context
 
-    # copy from base
-    # def post(self, request, *args, **kwargs):
-    #     form = self.get_form()  # read FormMixin::get_form
-    #     #form = self.form_class(self.request.POST or None, self.request.FILES or None)
-    #     self.object = self.get_object()
+    # HERE just for learning, it was implemented in base classed
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object() # must call in advace # called in  BaseUpdateView::post
 
-    #     if form.is_valid():
-    #         return self.form_valid(form)
-    #     else:            
-    #         return self.form_invalid(form)
+        form = self.get_form()  # called in FormMixin::get_form
+        #form = self.form_class(self.request.POST or None, self.request.FILES or None)        
 
-    #     return super(UpdateViewMixin, self).post(request, *args, **kwargs)  
+        if form.is_valid():
+            return self.form_valid(form)
+        else:            
+            return self.form_invalid(form)
+
+        return super(UpdateViewMixin, self).post(request, *args, **kwargs)  
         
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateViewMixin, self).get_context_data(*args, **kwargs) 
         return context
 
-    def dispatch(self, request, *args, **kwargs):
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (self.model._meta.verbose_name,self.model().get_absolute_url_list()),
-            (_("Create"),request.path_info),
-        ])
-        return super(CreateViewMixin, self).dispatch(request,args,kwargs)  
+
         
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
@@ -150,4 +145,10 @@ class CreateViewMixin(object):
         #return self.model().get_absolute_url_list()
         return self.object.get_absolute_url()  # default function
 
-              
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (self.model._meta.verbose_name,self.model().get_absolute_url_list()),
+            (_("Create"),request.path_info),
+        ])
+        return super(CreateViewMixin, self).dispatch(request,args,kwargs)                

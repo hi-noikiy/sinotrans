@@ -1276,8 +1276,6 @@ class ShelfGradientInspectionView(DetailView):
 
         context["formset_queryset"] = queryset
 
-        print queryset
-
         return context       
 
     def post(self, request, *args, **kwargs):
@@ -1350,6 +1348,18 @@ class PIListView(TableListViewMixin, ListView):
         ]
     fields_files = [""]
     fields_images = ["image_before","image_after",]
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PIListView, self).get_context_data(*args, **kwargs)
+        object_list = context["object_list"]
+
+        if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
+            object_list = self.model.objects.filter(rectification_status="uncompleted", planned_complete_date__lte=timezone.now())
+        elif self.request.GET.get('uncompleted'):
+            object_list = self.model.objects.filter(rectification_status="uncompleted")
+        context["object_list"] = object_list                   
+
+        return context 
 
 class PIDetailView(TableDetailViewMixin, DetailView): 
     model = PI
