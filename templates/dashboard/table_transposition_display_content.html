@@ -52,7 +52,7 @@
                         {% if object|my_get_field_value:column_key == column.0 %}
 
                             {% if object|my_get_field_value:row.0.name == True and object|my_isboolean:row.0.name %}                     
-                                <div class="Yes"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                <div class="Yes"><i style="color:#84d284;" class="fa fa-check" aria-hidden="true"></i></div>
                             {% elif object|my_get_field_value:row.0.name == False and object|my_isboolean:row.0.name %}   
                                 <div class="No"><i class="fa fa-close" aria-hidden="true"></i></div>
                             {% else %}

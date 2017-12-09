@@ -18,7 +18,15 @@ class SignUp(models.Model):
     def __unicode__(self): #Python 3.3 is __str__
         return self.email
 
+# class contact(models.Model):
+#     phone = models.CharField(verbose_name=_("phone"), max_length=120, blank=True, null=True)    
+#     address = models.CharField(verbose_name=_("address"), max_length=120, blank=True, null=True)
+#     poc = models.CharField(verbose_name=_("poc"), max_length=120, blank=True, null=True)
 
+#     class Meta:
+#         verbose_name = _("contact")  
+#         verbose_name_plural = _("contact")  
+        
 def image_upload_to_banner(instance, filename):
     title = instance.title
     slug = slugify(title)

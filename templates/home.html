@@ -73,7 +73,7 @@
             <div class="tab-content">
               {% for object in objects.0 %}
                 <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
-                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-2' %}
+                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-3' %}
                 </div>
                 {% endfor %}
             </div>
@@ -99,7 +99,7 @@
             <div class="tab-content">
               {% for object in objects.1 %}
                 <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
-                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-2' %}
+                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-3' %}
                 </div>
                 {% endfor %}
             </div>
@@ -127,7 +127,7 @@
             <div class="tab-content">
               {% for object in objects.2 %}
                 <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{object.0}}">
-                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-2' %}
+                  {% include "article/articles.html" with objects=object.1 img_width='col-sm-3' %}
                 </div>
                 {% endfor %}
             </div>

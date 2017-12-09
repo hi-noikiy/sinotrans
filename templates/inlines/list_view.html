@@ -2,6 +2,17 @@
 {% load myform %}
 {% load pagination_tags %}
 
+<!-- parameters:
+	title
+	object_foreign_set
+	fields_foreign
+	fields_foreign_display
+	field_display_links
+	table_class
+	thead_class
+	page_num  - not work for RelatedObjects
+	
+-->
 <div class="panel panel-info">
     <div class="panel-heading">
         <h3 class="panel-title">
@@ -11,7 +22,7 @@
     <div class="panel-body">
         {% if object_foreign_set.count > 0 %}
             
-            <table class="table table-striped table-hover table-responsive table-condensed"  style="width: 100%">
+            <table class="table table-striped table-hover table-responsive table-condensed {{table_class}}"  style="width: 100%">
                 <thead>
                     <tr class="{{thead_class}}">
                         {% for fieldname in fields_foreign %}
@@ -20,9 +31,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% comment %}
-                {% autopaginate object_foreign_set 15 %}
-                {% endcomment %}
+                
+                {% if page_num %}
+                	{% autopaginate object_foreign_set page_num %}
+                {% endif %}
+                
                 {% for object_foreign in object_foreign_set.all %}
                     <tr>
                         {% for fieldname in fields_foreign %}
@@ -37,17 +50,19 @@
                         </td>
                         {% endfor %}
                     </tr>
-                {% endfor %}     
-                {% comment %}
-                <div class="text-center">
-                {% paginate %}
-                </div>                   
-                {% endcomment %}
+                {% endfor %}      
                 </tbody>                            
             </table>
            
         {% else %}
            {% trans "Nothing found" %}
         {% endif %}
+        
+        {% if page_num %}
+        <div class="text-center">
+        {% paginate %}
+        </div>                   
+        {% endif %}       
+        
     </div>
 </div>  

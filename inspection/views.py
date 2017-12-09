@@ -49,6 +49,12 @@ from .models import image_upload_to_dailyinspection
 class StorageSecurityView(TemplateView):
     template_name = "storage_security.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(StorageSecurityView, self).get_context_data(*args, **kwargs)
+        context["year"] = timezone.now().year
+        
+        return context
+        
 class TableListMixin(object):
     field_display = []
 
@@ -102,7 +108,7 @@ class RehearsalListView(TableListMixin, ListView):
 class RehearsalDetailView(TableDetailMixin, DetailView): 
     model = Rehearsal
     template_name = "rehersal/rehearsal_detail.html"
-    fieldsets = [(_("Base Information"),{"fields":("title","date","attachment",)}), ]
+    fieldsets = [(_("Base Information"),{"fields":("title","date","attachment","image",)}), ]
     field_files = ["attachment"]
 
     def get_context_data(self, *args, **kwargs):
@@ -851,24 +857,24 @@ class ShelfInspectionListView(ListView):
         #context["object_list"] = queryset
         context["records"] = records
 
-        context["uncompleted_shelf_inspection_record"] = shelf_inspection_record.objects.filter(
-                Q(use_condition=2) |
-                Q(is_locked = True) |
-                Q(gradient__gt = 1.4)
-            ).distinct().order_by("shelf_inspection")
+        # context["uncompleted_shelf_inspection_record"] = shelf_inspection_record.objects.filter(
+        #         Q(use_condition=2) |
+        #         Q(is_locked = True) |
+        #         Q(gradient__gt = 1.4)
+        #     ).distinct().order_by("shelf_inspection")
 
-        from .admin import ShelfInspectionRecordAdmin
-        context["fields_shelf_inspection_record"] = [field.name for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
+        # from .admin import ShelfInspectionRecordAdmin
+        # context["fields_shelf_inspection_record"] = [field.name for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
 
-        context["fields_shelf_inspection_record_display"] = [
-            "use_condition",
-            "is_locked",
-        ]
-        context["field_display_links"] = ["shelf",]
-        context["title"] = _("abnormal") + _("shelf inspection record")
+        # context["fields_shelf_inspection_record_display"] = [
+        #     "use_condition",
+        #     "is_locked",
+        # ]
+        # context["field_display_links"] = ["shelf",]
+        # context["title"] = _("abnormal") + _("shelf inspection record")
 
-        if self.request.session.get("shelf_inspection_pk"):
-            del self.request.session["shelf_inspection_pk"]
+        # if self.request.session.get("shelf_inspection_pk"):
+        #     del self.request.session["shelf_inspection_pk"]
 
         return context       
 
@@ -1137,6 +1143,9 @@ class ShelfListView(ListView):
         if query:
             qs = qs.filter(
                 Q(type__icontains=query) |
+                Q(warehouse__icontains = query) |
+                Q(compartment__icontains = query) |
+                Q(warehouse_channel__icontains = query) |
                 Q(number__icontains = query)
             ).distinct()
         return qs
@@ -1204,6 +1213,43 @@ class ShelfInspectionRecordUpdateView(StaffRequiredMixin, UpdateView):
             (self.get_object(), request.path_info),
         ])
         return super(ShelfInspectionRecordUpdateView, self).dispatch(request,args,kwargs)  
+
+
+class ShelfInspectionRecordListView(ListView):
+    model = shelf_inspection_record
+    template_name = "shelf/shelf_inspection_record_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShelfInspectionRecordListView, self).get_context_data(*args, **kwargs)    
+        context["uncompleted_shelf_inspection_record"] = shelf_inspection_record.objects.filter(
+                Q(use_condition=2) |
+                Q(is_locked = True) |
+                Q(gradient__gt = 1.4)
+            ).distinct().order_by("shelf_inspection")
+
+        from .admin import ShelfInspectionRecordAdmin
+        context["fields_shelf_inspection_record"] = [field.name for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
+
+        context["fields_shelf_inspection_record_display"] = [
+            "use_condition",
+            "is_locked",
+        ]
+        context["field_display_links"] = ["shelf",]
+        context["title"] = _("abnormal") + _("shelf inspection record")
+
+        if self.request.session.get("shelf_inspection_pk"):
+            del self.request.session["shelf_inspection_pk"]
+
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
+            (_('Shelf Inspection Record List'), request.path_info),
+        ])
+        return super(ShelfInspectionRecordListView, self).dispatch(request,args,kwargs)       
+
 
 from itertools import chain
 

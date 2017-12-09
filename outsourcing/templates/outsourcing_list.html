@@ -38,7 +38,9 @@ table.table tbody tr td:last-child{
         </div>
     </div>
     <div class='col-sm-9 '>
-        
+        {% block links %}
+        {% endblock %}
+
         <div class="object_lists" style="clear: both;">
             {% autopaginate object_list 8 %}
             

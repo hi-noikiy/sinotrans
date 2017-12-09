@@ -216,10 +216,43 @@ class VehicleAdmin(admin.ModelAdmin):
 
 
 class VehicleInspectionAdmin(admin.ModelAdmin):
-    list_display = ["vehicle", "driver","date_of_inspection","inspector","carrier","rectification_qualified",]
-    search_fields = ("vehicle", "driver","date_of_inspection","inspector","carrier","rectification_qualified","disqualification_comments" )
-    list_filter = ("vehicle","driver","inspector", "carrier",  "rectification_qualified",)
-    ordering = ("vehicle","date_of_inspection",) 
+    list_display = [
+                "vehicle", 
+                "date_of_inspection",
+                "driver",                
+                "inspector",
+                "disqualification_comments",
+                "carrier",
+                "rectification_qualified",
+                "hardware_inspection_disqualification",
+                "no_driver_code_of_conduct",
+                "overload_or_LSR_violation",
+                "safety_policy_violation",
+                "no_journey_plan_or_log",
+                "vehichle_not_register",
+                "no_vehicle_inspection_record",
+                "no_DDC_certificate"
+        ]
+    search_fields = (
+                "vehicle", 
+                "driver",
+                "date_of_inspection",
+                "inspector",
+                "carrier",
+                "rectification_qualified",
+                "disqualification_comments" 
+                )
+    list_filter = (
+                "vehicle",
+                "driver",
+                "inspector", 
+                "carrier",  
+                "rectification_qualified",
+                )
+    ordering = (
+                "vehicle",
+                "date_of_inspection",
+                ) 
 
     view_on_site = False
 

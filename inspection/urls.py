@@ -26,6 +26,7 @@ from .views import (
     ShelfListView,
     ShelfInspectionRecordDetailView,
     ShelfInspectionRecordUpdateView,
+    ShelfInspectionRecordListView,
     RehearsalListView,
     RehearsalDetailView,
 
@@ -60,6 +61,7 @@ urlpatterns = [
 
     url(r'^shelfinspectionrecorddetail/(?P<pk>\d+)/$', ShelfInspectionRecordDetailView.as_view(), name='shelf_inspection_record_detail'),  
     url(r'^shelfinspectionrecordupdate/(?P<pk>\d+)/$', ShelfInspectionRecordUpdateView.as_view(), name='shelf_inspection_record_update'), 
+    url(r'^shelfinspectionrecorddlistabnormal/$', ShelfInspectionRecordListView.as_view(), name='shelf_inspection_record_list_abnormal'),  
 
     url(r'^shelfdetail/(?P<pk>\d+)/$', ShelfDetailView.as_view(), name='shelf_detail'),  
     url(r'^shelflist$', ShelfListView.as_view(), name='shelf_list'),

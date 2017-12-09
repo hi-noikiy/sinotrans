@@ -11,6 +11,7 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.contrib import messages
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
+from django.utils import timezone
 
 from .models import (
 	Forklift, ForkliftMaint, 
@@ -29,6 +30,12 @@ from trainings.models import TrainingTranscript
 class TransportSecurityView(TemplateView):
     template_name = "transport_security.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(TransportSecurityView, self).get_context_data(*args, **kwargs)
+        context["year"] = timezone.now().year
+        
+        return context
+        
 # Create your views here.
 class ForkliftListView(ListView): 
     model = Forklift
@@ -186,6 +193,18 @@ class VehicleDetailView(DetailView):
         if "vehicle" in fields_vehicle_inspection:
             fields_vehicle_inspection.remove("vehicle")
         context["fields_vehicle_inspection"] = fields_vehicle_inspection
+        fields_vehicle_inspection_display = [
+                    "rectification_qualified",
+                    "hardware_inspection_disqualification",        
+                    "no_driver_code_of_conduct",
+                    "overload_or_LSR_violation",
+                    "safety_policy_violation",
+                    "no_journey_plan_or_log",
+                    "vehichle_not_register",
+                    "no_vehicle_inspection_record",
+                    "no_DDC_certificate"
+            ]
+        context["fields_vehicle_inspection_display"] = fields_vehicle_inspection_display
         
         return context       
 

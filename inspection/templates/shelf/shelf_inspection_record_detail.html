@@ -12,7 +12,7 @@
             {% include "inlines/detail_view.html" with title=detail_view_title fields_display=field_display %}
 
             <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
-            <a href="{% if shelf_inspection_instance %}{{shelf_inspection_instance.get_absolute_url_display}}{% else %} {% url 'shelf_inspection_list' %}{% endif %}" class="btn btn-default" >{% trans 'Back' %}</a>
+            <a href="{% if shelf_inspection_instance %}{{shelf_inspection_instance.get_absolute_url_display}}{% else %} {% url 'shelf_inspection_record_list_abnormal' %}{% endif %}" class="btn btn-default" >{% trans 'Back' %}</a>
         </div>
     </div>
 
