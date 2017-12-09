@@ -11,7 +11,10 @@ def _add_thumb(s):
     parts.insert(-1, "thumb")
     if parts[-1].lower() not in ['jpeg', 'jpg']:
         parts[-1] = 'jpg'
-    return ".".join(parts)
+    new_path = ".".join(parts)
+    # if not os.path.exists(new_path):
+    #    new_path = None
+    return new_path
 
 class ThumbnailImageFieldFile(ImageFieldFile):
 
@@ -28,7 +31,7 @@ class ThumbnailImageFieldFile(ImageFieldFile):
     def save(self, name, content, save=True):
         super(ThumbnailImageFieldFile, self).save(name, content, save)
 
-        if ThumbnailImageFieldFile.create_additional_thumbnail:
+        if self.create_additional_thumbnail:
             img = Image.open(self.path)
             img.thumbnail(
                 (self.field.thumb_width, self.field.thumb_height),
@@ -42,6 +45,9 @@ class ThumbnailImageFieldFile(ImageFieldFile):
         super(ThumbnailImageFieldFile, self).delete(save)
 
 
+class ThumbnailImageFieldFile2(ThumbnailImageFieldFile):
+    create_additional_thumbnail = True
+    
 class ThumbnailImageField(ImageField):
     """
     Behaves like a regular ImageField, but stores an extra (JPEG) thumbnail
@@ -54,9 +60,11 @@ class ThumbnailImageField(ImageField):
     """
     attr_class = ThumbnailImageFieldFile
 
-    def __init__(self, thumb_width=128, thumb_height=128, *args, **kwargs):
+    def __init__(self, thumb_width=128, thumb_height=128, add_thumb=False, *args, **kwargs):
         self.thumb_width = thumb_width
         self.thumb_height = thumb_height
+        if add_thumb:
+            self.attr_class = ThumbnailImageFieldFile2
         super(ThumbnailImageField, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):

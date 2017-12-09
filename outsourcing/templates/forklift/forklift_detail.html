@@ -105,7 +105,8 @@
 									<th>{% trans "Accessories Number" %}</th>
 									<th style="width:40%;">{% trans "Breakdown Description" %}</th>
 									<th>{% trans "Repaired" %}</th>
-									<th>{% trans "Repaire Date" %}</th>										
+									<th>{% trans "Discovered Date" %}</th>										
+									<th>{% trans "Repaire Date" %}</th>	
 								</tr>
 							</thead>
 							<tbody>
@@ -116,7 +117,8 @@
 									<td>{{forkliftrepair.accessories_num}}</td>
 									<td>{{forkliftrepair.description}}</td>
 									<td>{{forkliftrepair.get_repaired_display}}</td>
-									<td>{{forkliftrepair.repaire_date}}</td>																		
+									<td>{{forkliftrepair.created}}</td>																		
+									<td>{{forkliftrepair.repaire_date}}</td>
 								</tr>
 							{% endfor %}
 							</tbody>							

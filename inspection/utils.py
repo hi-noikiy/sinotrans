@@ -41,6 +41,20 @@ def file_cleanup(sender, **kwargs):
                 except:
                     pass
 
+            if hasattr(f, 'thumb_path') and os.path.exists(f.thumb_path)\
+            and not m.filter(**{'%s__exact' % fieldname: getattr(inst, fieldname)})\
+            .exclude(pk=inst._get_pk_val()):
+                try:
+                    if settings.USE_SAE_BUCKET: #'SERVER_SOFTWARE' in os.environ: 
+                        from sae import storage
+                        from saewrapper.storage.bucket import SAEBucket
+                        raise RuntimeError('env setup' % f.thumb_path)
+                        SAEBucket().delete(f.thumb_path)
+                    else:
+                        default_storage.delete(f.thumb_path)
+                except:
+                    pass
+                    
 def file_cleanup2(sender, **kwargs):
     inst = kwargs['instance']
     try:

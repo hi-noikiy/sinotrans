@@ -4,6 +4,9 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.utils.translation import ugettext_lazy as _
+from inspection.fields import ThumbnailImageField
+from uuslug import slugify as uuslugify
+from django.db.models.signals import post_delete
 
 # Create your models here.
 class SignUp(models.Model):
@@ -39,7 +42,11 @@ class Banner(models.Model):
 
 def image_upload_to_article(instance, filename):
     title = instance.title
-    slug = slugify(title)
+    #slug = slugify(title) # it doesn't work for chinese
+    if settings.UUSLUGIFY == True:
+        slug = uuslugify(title)
+    else:
+        slug = title
     basename, file_extension = filename.split(".")
     new_filename = "%s.%s" %(slug, file_extension)
     basename = basename
@@ -62,7 +69,7 @@ class Article(models.Model):
     content = RichTextField(_('content'))
     publishtime = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name=_("publishtime"))
     abstract = models.TextField(_("abstract"), blank=False, null=False)
-    image = models.ImageField(verbose_name=_("image"), upload_to=image_upload_to_article)
+    image = ThumbnailImageField(verbose_name=_("image"), thumb_width=256, thumb_height=256, add_thumb=True, upload_to=image_upload_to_article)
 
     def get_absolute_url(self):
         return reverse("article_detail", kwargs={"pk": self.id })
@@ -71,4 +78,5 @@ class Article(models.Model):
         verbose_name = _("artical")  
         verbose_name_plural = _("artical")  
 
-
+from inspection.utils import file_cleanup
+post_delete.connect(file_cleanup, sender=Article)

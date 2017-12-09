@@ -123,7 +123,7 @@ class ForkliftRepair(models.Model):
     description = models.TextField(_('Breakdown Description'), max_length=130, blank=False)  
     repaired = models.CharField(_('Repaired'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')  
     repaire_date = models.DateField(_('Repaire Date'),auto_now_add=False, auto_now=False)
-    created = models.DateTimeField(auto_now_add=True, auto_now=False)
+    created = models.DateTimeField(_('Discovered Date'),auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     class Meta:

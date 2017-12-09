@@ -53,12 +53,12 @@ class ForkliftListView(ListView):
         ])
         return super(ForkliftListView, self).dispatch(request,args,kwargs)   
 
-class ForklifDetailView(DetailView): 
+class ForkliftDetailView(DetailView): 
     model = Forklift
     template_name = "forklift/forklift_detail.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ForklifDetailView, self).get_context_data(*args, **kwargs)
+        context = super(ForkliftDetailView, self).get_context_data(*args, **kwargs)
         context["object"] = self.get_object()
 
         exclude = {
@@ -67,7 +67,8 @@ class ForklifDetailView(DetailView):
         forklift_maint_objects = ForkliftMaint.objects.filter(forklift=self.get_object())
         for forklift_maint_object in forklift_maint_objects:
         	from .models import RESULT_OPTION
-        	forklift_maint_object.fields = dict((field.verbose_name, option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))) for field in forklift_maint_object._meta.fields if not field.name in exclude)
+        	forklift_maint_object.fields = dict((field.verbose_name, option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))) 
+                for field in forklift_maint_object._meta.fields if not field.name in exclude)
         context["forklift_maint_objects"] = forklift_maint_objects
         
         return context       
@@ -78,7 +79,7 @@ class ForklifDetailView(DetailView):
             (_("Forklift"),reverse("forklift_list", kwargs={})),            
             (self.get_object(), request.path_info),
         ])
-        return super(ForklifDetailView, self).dispatch(request,args,kwargs)           
+        return super(ForkliftDetailView, self).dispatch(request,args,kwargs)           
 
 class DriverListView(ListView): 
     model = Driver

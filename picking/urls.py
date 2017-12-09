@@ -15,11 +15,4 @@ urlpatterns = [
     url(r'^waybillcomplete$', WaybillCompleteView.as_view(), name='waybill_assign'),  
     url(r'^pickingbillstat$', PickingbillStatView.as_view(), name='pickingbill_stat'),  
     url(r'^linechartjason1$', LineChartJSONView.as_view(), name='line_chart_json1'),   
-    # url(r'^transportaionkpilistdisplay$', TransportationKPIListDisplayView.as_view(), name='transportationkpi_list_display'),  
-    # url(r'^transportaionkpilistedit$', TransportationKPIListEditView.as_view(), name='transportationkpi_list_edit'),      
-    # url(r'^transportaionkpidetail/(?P<pk>\d+)/$', TransportationKPIDetailView.as_view(), name='transportationkpi_detail'),   
-    # url(r'^transportaionkpiupdate/(?P<pk>\d+)/$', TransportationKPIUpdateView.as_view(), name='transportationkpi_update'),   
-    # url(r'^transportaionkpicreate/(?P<year>\d+)/(?P<month>\d+)/$', TransportationKPICreateView.as_view(), name='transportationkpi_create'),   
-    # url(r'^forkliftlist$', ForkliftListView.as_view(), name='forklift_list'),  
-    # url(r'^forkliftdetail/(?P<pk>\d+)/$', ForklifDetailView.as_view(), name='forklift_detail'),    
 ]

@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from .views import (
     ForkliftListView,
-    ForklifDetailView,
+    ForkliftDetailView,
     VehicleListView,
     VehicleDetailView,
     DriverListView,
@@ -32,5 +32,5 @@ urlpatterns = [
     url(r'^transportaionkpiupdate/(?P<pk>\d+)/$', TransportationKPIUpdateView.as_view(), name='transportationkpi_update'),   
     url(r'^transportaionkpicreate/(?P<year>\d+)/(?P<month>\d+)/$', TransportationKPICreateView.as_view(), name='transportationkpi_create'),   
     url(r'^forkliftlist$', ForkliftListView.as_view(), name='forklift_list'),  
-    url(r'^forkliftdetail/(?P<pk>\d+)/$', ForklifDetailView.as_view(), name='forklift_detail'),    
+    url(r'^forkliftdetail/(?P<pk>\d+)/$', ForkliftDetailView.as_view(), name='forklift_detail'),    
 ]
