@@ -56,14 +56,14 @@ class StorageSecurityView(TemplateView):
         return context
         
 class TableListMixin(object):
-    field_display = []
+    fields_display = []
 
     field_display_options = []
     field_files = []
 
     def get_context_data(self, *args, **kwargs):
         context = super(TableListMixin, self).get_context_data(*args, **kwargs)
-        context["fields"] = self.field_display
+        context["fields"] = self.fields_display
         context["fields_option"] = self.field_display_options
         context["field_files"] = self.field_files
         
@@ -90,7 +90,7 @@ class RehearsalListView(TableListMixin, ListView):
     model = Rehearsal
     template_name = "rehersal/rehearsal_list.html"
     from .admin import RehearsalAdmin
-    field_display = RehearsalAdmin.list_display
+    fields_display = RehearsalAdmin.list_display
     field_files = ["attachment"]
 
     def get_context_data(self, *args, **kwargs):
@@ -1171,7 +1171,7 @@ class ShelfInspectionRecordDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfInspectionRecordDetailView, self).get_context_data(*args, **kwargs)
-        context["field_display"] = ["use_condition","is_locked",]
+        context["fields_display"] = ["use_condition","is_locked",]
         context["detail_view_title"] = _("shelf inspection record")
         context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]   
 

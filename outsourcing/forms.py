@@ -60,5 +60,6 @@ class VehicleInspectionForm(forms.ModelForm):
 
         exclude = {
             "inspector",
+            "completed_time",
         }        
 

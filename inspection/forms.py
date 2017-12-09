@@ -318,7 +318,7 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             'shelf',        
         ]
 
-        field_display = [
+        fields_display = [
             'use_condition',
             'is_locked'
         ]        

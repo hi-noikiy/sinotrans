@@ -3,6 +3,7 @@ from django.contrib.admin import AdminSite
 from inspection.admin import my_admin_site
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 # Register your models here.
 from .models import (
@@ -229,6 +230,7 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
                 "owner",
                 "disqualification_comments",
                 "carrier",
+                "load_or_unload",
                 "rectification_qualified",
                 "hardware_inspection_disqualification",
                 "no_driver_code_of_conduct",
@@ -237,7 +239,9 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
                 "no_journey_plan_or_log",
                 "vehichle_not_register",
                 "no_vehicle_inspection_record",
-                "no_DDC_certificate"
+                "no_DDC_certificate",
+                "due_date",
+                "completed_time"
         ]
     search_fields = (
                 "vehicle", 
@@ -262,11 +266,14 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
 
     view_on_site = False
 
-    def save_model(self, request, obj, form, change):
+    def save_model(self, request, obj, form, change):        
+        if not change:
+            obj.inspector = request.user.get_full_name()
+        if obj.rectification_qualified == "yes" and VehicleInspection.objects.filter(pk=obj.pk).first().rectification_qualified == "no":
+            obj.completed_time = timezone.now()
+        obj.save()
 
         re = super(VehicleInspectionAdmin,self).save_model(request, obj, form, change)
-        obj.inspector = request.user.get_full_name()
-        obj.save()
         return re
 
     class Meta:

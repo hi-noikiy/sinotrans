@@ -194,6 +194,7 @@ class VehicleDetailView(DetailView):
             fields_vehicle_inspection.remove("vehicle")
         context["fields_vehicle_inspection"] = fields_vehicle_inspection
         fields_vehicle_inspection_display = [
+                    "load_or_unload",
                     "rectification_qualified",
                     "hardware_inspection_disqualification",        
                     "no_driver_code_of_conduct",
@@ -215,6 +216,73 @@ class VehicleDetailView(DetailView):
             (self.get_object(), request.path_info),
         ])
         return super(VehicleDetailView, self).dispatch(request,args,kwargs)    
+
+class VehicleInspectionListView(ListView): 
+    model = VehicleInspection
+    template_name = "transportation/vehicle_inspection_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VehicleInspectionListView, self).get_context_data(*args, **kwargs)
+
+        from .admin import VehicleInspectionAdmin
+        fields = VehicleInspectionAdmin.list_display
+
+        context["object_list"] = self.model.objects.filter(rectification_qualified='no')
+        context["fields"] = [field for field in self.model._meta.get_fields() if field.name in fields]
+        context["fields_display"] = [
+                    "load_or_unload",
+                    "rectification_qualified",
+                    "hardware_inspection_disqualification",        
+                    "no_driver_code_of_conduct",
+                    "overload_or_LSR_violation",
+                    "safety_policy_violation",
+                    "no_journey_plan_or_log",
+                    "vehichle_not_register",
+                    "no_vehicle_inspection_record",
+                    "no_DDC_certificate"
+            ]
+
+
+        return context       
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("vehicle"),reverse("vehicle_list", kwargs={})),    
+            (_('vehicle inspection'),request.path_info),
+        ])
+        return super(VehicleInspectionListView, self).dispatch(request,args,kwargs)   
+
+class VehicleInspectionDetailView(DetailView): 
+    model = VehicleInspection
+    template_name = "transportation/vehicle_inspection_detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VehicleInspectionDetailView, self).get_context_data(*args, **kwargs)
+        context["fields_display"] = [
+                    "load_or_unload",
+                    "rectification_qualified",
+                    "hardware_inspection_disqualification",        
+                    "no_driver_code_of_conduct",
+                    "overload_or_LSR_violation",
+                    "safety_policy_violation",
+                    "no_journey_plan_or_log",
+                    "vehichle_not_register",
+                    "no_vehicle_inspection_record",
+                    "no_DDC_certificate"
+            ]
+        context["detail_view_title"] = _("vehicle inspection")
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]   
+
+        return context    
+
+    def dispatch(self, request, *args, **kwargs):
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("vehicle"),reverse("vehicle_list", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
+        return super(VehicleInspectionDetailView, self).dispatch(request,args,kwargs)    
 
 class VehicleTransportationKPIFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)
@@ -323,7 +391,7 @@ class TransportationKPIListDisplayView(ListView):
             "0",
         ]
 
-        field_display = [
+        fields_display = [
             'transportation_project',
         ]    
         
@@ -337,7 +405,7 @@ class TransportationKPIListDisplayView(ListView):
         context["indicator"] = indicator
         context["rows"] = rows # row th display
         context["hidden_fields"] = excludes
-        context["field_display"] = field_display
+        context["fields_display"] = fields_display
         
         context["top_filter_form"] = VehicleTransportationKPIFilterForm(data=self.request.GET or None) 
 

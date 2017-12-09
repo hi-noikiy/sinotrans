@@ -460,7 +460,7 @@ class DashboardTableListDisplayView(ListView):
         'year',
     ]
 
-    field_display = [
+    fields_display = [
     ]
 
     column_key = 'month'  # default
@@ -491,7 +491,7 @@ class DashboardTableListDisplayView(ListView):
         context["indicator"] = self.indicator
         context["rows"] = rows # row th display
         context["hidden_fields"] = self.excludes
-        context["field_display"] = self.field_display
+        context["fields_display"] = self.fields_display
         context["top_filter_form"] = self.filter_form(data=self.request.GET or None) 
         context["project_name"] = self.model._meta.verbose_name
 
@@ -543,7 +543,7 @@ class SprayPumproomInspectionListDisplayView(DashboardTableListDisplayView):
         ('inspector', _("Inspector"),2),
     ]
 
-    field_display = [
+    fields_display = [
         'month',
     ]
 
@@ -569,7 +569,7 @@ class SprayWarehouseInspectionListDisplayView(DashboardTableListDisplayView):
         ('inspector', _("Inspector"),2),
     ]
 
-    field_display = [
+    fields_display = [
         'month',
     ]
 
@@ -608,7 +608,7 @@ class HSSEKPIListDisplayView(DashboardTableListDisplayView):
         'NA',
     ]
 
-    field_display = [
+    fields_display = [
         'month',
     ]    
 

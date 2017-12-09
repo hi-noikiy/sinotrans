@@ -15,4 +15,6 @@
 
 {% include "inlines/list_view.html" with object_foreign_set=uncompleted_shelf_inspection_record fields_foreign=fields_shelf_inspection_record fields_foreign_display=fields_shelf_inspection_record_display field_display_links=field_display_links title=title page_num=50 table_class='table-align-center' %}
 
+<a href="{% url 'shelf_inspection_list' %}" class="btn btn-default" >{% trans 'Back' %}</a>
+
 {% endblock %}

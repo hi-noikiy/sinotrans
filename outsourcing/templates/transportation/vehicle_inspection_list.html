@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+{% load i18n %}
+
+<style type="text/css">
+{% block style %}
+
+
+{% endblock%}
+</style>
+
+
+{% block content %}
+
+{% include "includes/list_view.html" with object_list=object_list fields=fields fields_display=fields_display title=title page_num=50 table_class='table-align-center' %}
+
+{% endblock %}

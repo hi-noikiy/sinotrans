@@ -67,7 +67,7 @@ a:hover {text-decoration: none;}
                         {% elif field.name in form.Meta.disabled %}                      
                             <p>{{form.instance|my_get_field_display:field.name}}</p>
                         {% else %}
-                            <p class="displayonly {% if field.name == 'gradient' and not form.instance.gradient|gradient_normal %} div-table-cell-highlight {% endif %}" style="display: block; ">{% if field.name in form.Meta.field_display %}{{form.instance|my_get_field_display:field.name}}{% else %}{{form.instance|my_get_field_value:field.name}}{% endif %}</p>
+                            <p class="displayonly {% if field.name == 'gradient' and not form.instance.gradient|gradient_normal %} div-table-cell-highlight {% endif %}" style="display: block; ">{% if field.name in form.Meta.fields_display %}{{form.instance|my_get_field_display:field.name}}{% else %}{{form.instance|my_get_field_value:field.name}}{% endif %}</p>
                             <p class="edit" style="display: none">{% if field.errors %}<span class="error" style="color:#b75f33">{{ field.errors }}</span>{% endif %}<!-- useless as we are ajax -->{{field}}</p>
                         {% endif%}  
                     </div>

@@ -56,7 +56,7 @@
                             {% elif object|my_get_field_value:row.0.name == False and object|my_isboolean:row.0.name %}   
                                 <div class="No"><i class="fa fa-close" aria-hidden="true"></i></div>
                             {% else %}
-                                {% if row.0.name in field_display %}
+                                {% if row.0.name in fields_display %}
                                     {{object|my_get_field_display:row.0.name }}
                                 {% else %}
                                     {{object|my_get_field_value:row.0.name }}

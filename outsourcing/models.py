@@ -227,11 +227,17 @@ class Driver(models.Model):
         return reverse("driver_detail", kwargs={"pk": self.pk })
 
 class VehicleInspection(models.Model):
+    load_or_unload = (
+        ('load', _('load cargo')),
+        ('unload', _('unload cargo')),
+    )
+
     vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle") )
     driver = models.ForeignKey(Driver, verbose_name=_("driver")) 
     date_of_inspection = models.DateField(_("Date of Inspection"), blank=False, null=False,auto_now=False, auto_now_add=True)
     inspector = models.CharField(_("Inspector"), blank=False, null=False, max_length=30)
     owner = models.CharField(_("Owner"), blank=False, null=False, max_length=30)
+    load_or_unload = models.CharField(_("load or unload"), choices = load_or_unload, blank=False, null=False, max_length=30, default='load')
     carrier = models.CharField(_("carrier"), blank=False, null=False,max_length=30)
     disqualification_comments = models.TextField(_("disqualification comments"), blank=False, null=False,max_length=300)
     rectification_qualified = models.CharField(_("Rectification qualified"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="yes")
@@ -243,6 +249,8 @@ class VehicleInspection(models.Model):
     vehichle_not_register = models.CharField(_("vehichle not register"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="yes")
     no_vehicle_inspection_record = models.CharField(_("no vehicle inspection record"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="yes")
     no_DDC_certificate = models.CharField(_("no DDC certificate"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="yes")
+    due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False)
+    completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
 
 
     class Meta:
@@ -260,6 +268,9 @@ class VehicleInspection(models.Model):
         
         field = self._meta.get_field(fieldname)
         return "%s" % self._get_FIELD_display(field)  
+
+    def get_absolute_url(self):
+        return reverse("vehicle_inspection_detail", kwargs={"pk": self.pk })
 
 class VehicleTransportationKPI(models.Model):
     TRANSPORTATION_PROJECT_OPTION = (

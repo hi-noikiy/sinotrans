@@ -8,7 +8,7 @@
     {% if object_list.count == 0 %}
         {% trans "Nothing found" %}
     {% else %}
-        <table class="table-align-center table-hover table table-striped table-hover table-responsive table-condensed">
+        <table class="table-align-center table-hover table table-striped table-hover table-responsive table-condensed {{table_class}}">
             <thead>
                 <tr class="table-primary">
                     {% for field in fields %}
@@ -21,7 +21,7 @@
                 <tr class="table-primary-hover">
                     {% for field in fields %}
                         {% if forloop.first %}
-                            {% if field.name in field_display %}
+                            {% if field.name in fields_display %}
                                 <th style="text-align: center;">
                                 {% if not field_display_links or field.name in field_display_links %}<a href="{{object.get_absolute_url}}">{% endif %}
                                     {{ object|my_get_field_display:field.name }}
@@ -33,7 +33,7 @@
                                 {% if not field_display_links or field.name in field_display_links %}</a>{% endif %}</th>
                             {% endif %}                                        
                         {% else %}                            
-                            {% if field.name in field_display %}
+                            {% if field.name in fields_display %}
                                 <td>{% if field.name in field_display_links %}<a href="{{object.get_absolute_url}}">{% endif %}{{ object|my_get_field_display:field.name }}{% if field.name in field_display_links %}</a>{% endif %}</td>
                             {% else %}
                                 <td>{% if field.name in field_display_links %}<a href="{{object.get_absolute_url}}">{% endif %}{{ object|my_get_field_value:field.name }}{% if field.name in field_display_links %}</a>{% endif %}</td>
