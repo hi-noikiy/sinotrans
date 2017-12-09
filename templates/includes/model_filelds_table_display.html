@@ -13,7 +13,7 @@
             {% for fieldset in fieldsets %}
             <div class="{% if fieldsets|length == 1 %}col-sm-12{% else %}col-sm-6{% endif %}">
                 <table class="transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
-                    <thead><th>{% trans fieldset.0 %}</th><th></th></thead>
+                    <thead><th>{% if fieldset.0 %}{% trans fieldset.0 %}{% endif %}</th><th></th></thead>
                     <tbody>                            
                     {% for fieldname in fieldset.1.fields %}
                         <tr>

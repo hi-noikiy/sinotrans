@@ -160,11 +160,7 @@ class DriverDetailView(DetailView):
         context = super(DriverDetailView, self).get_context_data(*args, **kwargs)
         context["object"] = self.get_object()
 
-        exclude = {
-            'id',
-        }
-
-        context["fields"] = [self.model._meta.get_field(field.name) for field in self.model._meta.fields  if not field.name in exclude]
+        context["fields"] = [self.model._meta.get_field(field.name) for field in self.model._meta.fields  if not field.name in [self.model._meta.pk.attname, ]]
         context["fields_safe_content"] = ["",]   
         context["fields_display"] = ["training_qualified",] 
 
@@ -208,21 +204,30 @@ class VehicleListView(ListView):
         ])
         return super(VehicleListView, self).dispatch(request,args,kwargs)   
 
-class VehicleDetailView(DetailView): 
+class VehicleDetailView(TableDetailMixin, DetailView): 
     model = Vehicle
     template_name = "transportation/vehicle_detail.html"
+
+    from admin import VehicleAdmin
+    fieldsets = VehicleAdmin.fieldsets
+    fields_display = [
+        "service_content",
+        "GPS",
+        "ABS",
+        "antiroll_protection",
+        "reversing_alarm",
+        "side_edge_and_low_location_collision_guard_bar",
+        "car_seat_headrest",
+        "three_point_belt",
+        "IVMS_or_VDR",
+        "anti_drop_equipment",
+    ]
 
     def get_context_data(self, *args, **kwargs):
         context = super(VehicleDetailView, self).get_context_data(*args, **kwargs)
         context["object"] = self.get_object()
 
-        exclude = {
-        'id','updated','created','forklift'
-        }
-
-        from admin import VehicleAdmin
-        fieldsets = VehicleAdmin.fieldsets
-        context["fieldsets"] = fieldsets
+        # context["fieldsets"] = fieldsets
 
         # from admin import DriverAdmin
         # fields_dirver = DriverAdmin.list_display

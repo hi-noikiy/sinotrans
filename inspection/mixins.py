@@ -54,17 +54,17 @@ class TableListMixin(object):
 
 class TableDetailMixin(object):
     fieldsets = [("title",{"fields":("",)}), ]
-    model_sets = [("model name", None, []),]  # model name, object_list, list_display
-
-    field_display_options = []
+    fields_display = []
     field_files = []
 
+    model_sets = [("model name", None, []),]  # model name, object_list, list_display
+    
     def get_context_data(self, *args, **kwargs):
         context = super(TableDetailMixin, self).get_context_data(*args, **kwargs)
         context["fieldsets"] = self.fieldsets
-        context["model_sets"] = self.model_sets
-
-        context["fields_option"] = self.field_display_options
+        context["fields_display"] = self.fields_display
         context["field_files"] = self.field_files
+        
+        context["model_sets"] = self.model_sets
         
         return context        
