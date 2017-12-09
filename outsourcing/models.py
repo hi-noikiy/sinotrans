@@ -122,8 +122,10 @@ class ForkliftRepair(models.Model):
     accessories_num = models.DecimalField(_('Accessories Number'), decimal_places=0, max_digits=20, blank=True)
     description = models.TextField(_('Breakdown Description'), max_length=130, blank=False)  
     repaired = models.CharField(_('Repaired'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')  
-    repaire_date = models.DateField(_('Repaire Date'),auto_now_add=False, auto_now=False)
+    repaire_date = models.DateField(_('Repaire Date'),auto_now_add=False, auto_now=False, null=True, blank=True)
     created = models.DateTimeField(_('Discovered Date'),auto_now_add=True, auto_now=False)
+    due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    owner = models.CharField(_("Owner"), blank=False, null=False, max_length=30)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     class Meta:
@@ -132,6 +134,9 @@ class ForkliftRepair(models.Model):
 
     def __unicode__(self): 
         return _("forklift repair") + " %s %s" % (self.forklift.internal_car_number, self.repaire_date)
+
+    def is_repaired(self):
+        return self.repaired == "yes"
 
     """
     replace by built-in function get_repaired_display
@@ -249,7 +254,7 @@ class VehicleInspection(models.Model):
     vehichle_not_register = models.CharField(_("vehichle not register"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="yes")
     no_vehicle_inspection_record = models.CharField(_("no vehicle inspection record"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="yes")
     no_DDC_certificate = models.CharField(_("no DDC certificate"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="yes")
-    due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False)
+    due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=True, blank=True)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
 
 
@@ -271,6 +276,9 @@ class VehicleInspection(models.Model):
 
     def get_absolute_url(self):
         return reverse("vehicle_inspection_detail", kwargs={"pk": self.pk })
+
+    def is_rectification_qualified(self):
+        return self.rectification_qualified == "yes"
 
 class VehicleTransportationKPI(models.Model):
     TRANSPORTATION_PROJECT_OPTION = (

@@ -13,6 +13,7 @@ from .models import (
 
 from .forms import (
     VehicleInspectionForm, 
+    ForkliftRepairForm,
     )
 class ForkliftImageInline(admin.TabularInline):
     model = ForkliftImage
@@ -63,12 +64,46 @@ class ForkliftAnnualInspectionAdmin(admin.ModelAdmin):
     ]
 
 class ForkliftRepairAdmin(admin.ModelAdmin):
-    list_display = ["forklift", "damage_reason", "accessories_name","accessories_num","repaired","repaire_date",]
-    search_fields = ("damage_reason", "accessories_name","accessories_num","repaired","repaire_date",)
+    list_display = [
+                    "forklift", 
+                    "created",
+                    "damage_reason", 
+                    "accessories_name",
+                    "accessories_num",
+                    "repaired",
+                    "repaire_date",
+                    "due_date",
+                    "owner",
+                ]
+    search_fields = (
+                    "damage_reason", 
+                    "accessories_name",
+                    "accessories_num",
+                    "repaired",
+                    "repaire_date",
+                )
     list_filter = ("damage_reason", "repaired","repaire_date",)
-    ordering = ('repaire_date',) 
+    ordering = ('forklift', "created",) 
 
     view_on_site = False
+
+    form = ForkliftRepairForm
+
+    def save_model(self, request, obj, form, change):        
+        if not change:
+            obj.inspector = request.user.get_full_name()
+        else:
+            instance = ForkliftRepair.objects.filter(pk=obj.pk).first()
+            if obj.is_repaired() and instance.is_repaired() == False:
+                obj.repaire_date = timezone.now()
+            elif obj.is_repaired() == False and instance.is_repaired():
+                obj.repaire_date = None
+            else:
+                obj.repaire_date = instance.repaire_date # this is disable (not exclude) field, so None value in form
+        obj.save()
+
+        re = super(ForkliftRepairAdmin,self).save_model(request, obj, form, change)
+        return re
 
 class ForkliftMaintAdmin(admin.ModelAdmin):
     list_display = ["created", "updated"]
@@ -269,8 +304,14 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):        
         if not change:
             obj.inspector = request.user.get_full_name()
-        if obj.rectification_qualified == "yes" and VehicleInspection.objects.filter(pk=obj.pk).first().rectification_qualified == "no":
-            obj.completed_time = timezone.now()
+        else:
+            instance = VehicleInspection.objects.filter(pk=obj.pk).first()
+            if obj.is_rectification_qualified() and instance.is_rectification_qualified() == False:
+                obj.completed_time = timezone.now()
+            elif obj.is_rectification_qualified() == False and instance.is_rectification_qualified():
+                obj.completed_time = None
+            else:
+                obj.completed_time = instance.completed_time
         obj.save()
 
         re = super(VehicleInspectionAdmin,self).save_model(request, obj, form, change)

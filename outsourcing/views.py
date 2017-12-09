@@ -27,6 +27,8 @@ from .forms import (
 
 from trainings.models import TrainingTranscript
 
+from inspection.mixins import TableDetailMixin
+
 class TransportSecurityView(TemplateView):
     template_name = "transport_security.html"
 
@@ -60,13 +62,44 @@ class ForkliftListView(ListView):
         ])
         return super(ForkliftListView, self).dispatch(request,args,kwargs)   
 
-class ForkliftDetailView(DetailView): 
+class ForkliftDetailView(TableDetailMixin, DetailView): 
     model = Forklift
     template_name = "forklift/forklift_detail.html"
+
+    fieldsets = [
+            ("",
+                {"fields":(
+                    "internal_car_number",
+                    "internal_plate_number",
+                    "model",
+                    "sn",
+                    "category",
+                    "manufacturer",
+                    )}), 
+            ("",
+                {"fields":(
+                    "tip_height",
+                    "carrying_capacity",
+                    "self_weight",
+                    "turning_radius",
+                    "front_tyre_size",
+                    "back_tyre_size",
+                    "width",
+                    "length",
+                    "forklift_length",
+                    "maximum_velocity",
+                    )}), 
+
+            ]
 
     def get_context_data(self, *args, **kwargs):
         context = super(ForkliftDetailView, self).get_context_data(*args, **kwargs)
         context["object"] = self.get_object()
+
+        context["fields"] = [self.model._meta.get_field(field.name) for field in self.model._meta.fields  if not field.name in [self.model._meta.pk.attname,]]
+
+        context["fields_safe_content"] = ["",]   
+        context["fields_display"] = ["training_qualified",] 
 
         exclude = {
         'id','updated','created','forklift'
@@ -78,6 +111,13 @@ class ForkliftDetailView(DetailView):
                 for field in forklift_maint_object._meta.fields if not field.name in exclude)
         context["forklift_maint_objects"] = forklift_maint_objects
         
+        from admin import ForkliftRepairAdmin
+        context["fields_foreign_forkliftrepair"] = ForkliftRepairAdmin.list_display
+        if "forklift" in context["fields_foreign_forkliftrepair"]:
+            context["fields_foreign_forkliftrepair"].remove("forklift")
+        context["fields_foreign_display_forkliftrepair"] = [
+            "repaired",
+        ]
         return context       
 
     def dispatch(self, request, *args, **kwargs):

@@ -20,7 +20,7 @@ from PIL import Image
 import os
 from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
-from .mixins import StaffRequiredMixin
+from .mixins import StaffRequiredMixin, TableListMixin, TableDetailMixin
 from django.db.models.fields.related import (
     ForeignObjectRel, ManyToOneRel, OneToOneField, add_lazy_relation,
 )
@@ -54,37 +54,6 @@ class StorageSecurityView(TemplateView):
         context["year"] = timezone.now().year
         
         return context
-        
-class TableListMixin(object):
-    fields_display = []
-
-    field_display_options = []
-    field_files = []
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(TableListMixin, self).get_context_data(*args, **kwargs)
-        context["fields"] = self.fields_display
-        context["fields_option"] = self.field_display_options
-        context["field_files"] = self.field_files
-        
-        return context
-
-class TableDetailMixin(object):
-    fieldsets = [("title",{"fields":("",)}), ]
-    model_sets = [("model name", None, []),]  # model name, object_list, list_display
-
-    field_display_options = []
-    field_files = []
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(TableDetailMixin, self).get_context_data(*args, **kwargs)
-        context["fieldsets"] = self.fieldsets
-        context["model_sets"] = self.model_sets
-
-        context["fields_option"] = self.field_display_options
-        context["field_files"] = self.field_files
-        
-        return context
 
 class RehearsalListView(TableListMixin, ListView): 
     model = Rehearsal
@@ -108,7 +77,7 @@ class RehearsalListView(TableListMixin, ListView):
 class RehearsalDetailView(TableDetailMixin, DetailView): 
     model = Rehearsal
     template_name = "rehersal/rehearsal_detail.html"
-    fieldsets = [(_("Base Information"),{"fields":("title","date","attachment","image",)}), ]
+    fieldsets = [("",{"fields":("title","date","attachment","image",)}), ]
     field_files = ["attachment"]
 
     def get_context_data(self, *args, **kwargs):
