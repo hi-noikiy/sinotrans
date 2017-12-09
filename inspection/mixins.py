@@ -42,15 +42,21 @@ class LoginRequiredMixin(object):
 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 class TableListMixin(object):
+    fields = []
     fields_display = []
     fields_files = []
     fields_images = []
 
+    foreign_fields_images = []
+
     def get_context_data(self, *args, **kwargs):
         context = super(TableListMixin, self).get_context_data(*args, **kwargs)
-        context["fields"] = self.fields_display
+        context["fields"] = self.fields
+        context["fields_display"] = self.fields_display
         context["fields_files"] = self.fields_files
         context["fields_images"] = self.fields_images
+
+        context["foreign_fields_images"] = self.foreign_fields_images
         
         return context
 

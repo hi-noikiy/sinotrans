@@ -39,20 +39,17 @@ class TransportSecurityView(TemplateView):
         return context
         
 # Create your views here.
-class ForkliftListView(ListView): 
+class ForkliftListView(TableListMixin, ListView): 
     model = Forklift
     template_name = "forklift/forklift_list.html"
 
+    from .admin import ForkliftAdmin
+    fields = [field for field in model._meta.get_fields() if field.name in ForkliftAdmin.list_display]
+    foreign_fields_images = ["forkliftimage_set",]
+
     def get_context_data(self, *args, **kwargs):
         context = super(ForkliftListView, self).get_context_data(*args, **kwargs)
-
-        from .admin import ForkliftAdmin
-
         context["object_list"] = self.model.objects.all()
-        context["fields"] = [field for field in self.model._meta.get_fields() if field.name in ForkliftAdmin.list_display]
-        context["fields_display"] = ["",] 
-        context["foreign_fields_images"] = ["forkliftimage_set",]
-
         return context       
 
     def dispatch(self, request, *args, **kwargs):

@@ -59,7 +59,7 @@ class RehearsalListView(TableListMixin, ListView):
     model = Rehearsal
     template_name = "rehersal/rehearsal_list.html"
     from .admin import RehearsalAdmin
-    fields_display = RehearsalAdmin.list_display
+    fields = RehearsalAdmin.list_display
     fields_files = ["attachment"]
     fields_images = ["image",]
 
