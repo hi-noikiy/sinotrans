@@ -210,6 +210,9 @@ class Vehicle(models.Model):
     def get_absolute_url(self):
         return reverse("vehicle_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_list(self):
+        return reverse("vehicle_list", kwargs={})
+        
 class Driver(models.Model):
     #vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle"), blank=True, null=True )
     name = models.CharField(_("name"), max_length=30, blank=False, null=False)
