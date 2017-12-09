@@ -2,8 +2,8 @@ from django import forms
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 
-from .models import VehicleTransportationKPI
-
+from .models import VehicleTransportationKPI, VehicleInspection
+from django.contrib.auth import get_user_model
 from inspection.models import month_choice
 
 class VehicleTransportationKPIForm(forms.ModelForm):
@@ -46,3 +46,19 @@ class VehicleTransportationKPIFilterForm(forms.Form):
             widget=forms.Select(),
             required=False
             ) 
+
+class VehicleInspectionForm(forms.ModelForm):
+    owner = forms.ChoiceField(
+            label=_('Owner'),
+            choices = set((ins, ins) for ins in get_user_model().objects.all()),
+            # widget=forms.RadioSelect(),
+            required=True
+            )           
+
+    class Meta:
+        model = VehicleInspection
+
+        exclude = {
+            "inspector",
+        }        
+

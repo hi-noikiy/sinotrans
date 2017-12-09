@@ -10,6 +10,9 @@ from .models import (
     Driver, Vehicle, VehicleInspection, VehicleTransportationKPI,
     )
 
+from .forms import (
+    VehicleInspectionForm, 
+    )
 class ForkliftImageInline(admin.TabularInline):
     model = ForkliftImage
     extra = 0
@@ -216,11 +219,14 @@ class VehicleAdmin(admin.ModelAdmin):
 
 
 class VehicleInspectionAdmin(admin.ModelAdmin):
+    form = VehicleInspectionForm
+
     list_display = [
                 "vehicle", 
                 "date_of_inspection",
                 "driver",                
                 "inspector",
+                "owner",
                 "disqualification_comments",
                 "carrier",
                 "rectification_qualified",
@@ -256,8 +262,15 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
 
     view_on_site = False
 
+    def save_model(self, request, obj, form, change):
+
+        re = super(VehicleInspectionAdmin,self).save_model(request, obj, form, change)
+        obj.inspector = request.user.get_full_name()
+        obj.save()
+        return re
+
     class Meta:
-        model = VehicleInspection    
+        model = VehicleInspection            
 
 class VehicleTransportationKPIAdmin(admin.ModelAdmin):
     list_display = [
@@ -306,6 +319,7 @@ class VehicleTransportationKPIAdmin(admin.ModelAdmin):
     ordering = ( "year","month", "transportation_project",) 
 
     view_on_site = False
+
 
     class Meta:
         model = VehicleTransportationKPI    
