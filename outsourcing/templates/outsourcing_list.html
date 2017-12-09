@@ -28,6 +28,7 @@ table.table tbody tr td:last-child{
 
 <div class='row'>
     <div class='col-sm-3 '>
+        {% block left_bar %}
         <div class="nav-bar" style="margin-right:20%;">
             <p class="nav-title">{% trans "Outsource Management" %}</p>
             <ul class="nav nav-pills nav-stacked">
@@ -36,11 +37,13 @@ table.table tbody tr td:last-child{
               <li><a href="{% url 'driver_list' %}">{% trans "driver" %}</a></li>
             </ul>
         </div>
+        {% endblock %}
     </div>
     <div class='col-sm-9 '>
         {% block links %}
         {% endblock %}
 
+        {% block lists %}
         <div class="object_lists" style="clear: both;">
             {% autopaginate object_list 8 %}
             
@@ -75,6 +78,7 @@ table.table tbody tr td:last-child{
             {% paginate %}
             </div>
         </div>
+        {% endblock %}
     </div>
 </div>
 

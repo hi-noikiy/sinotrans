@@ -60,7 +60,8 @@ class RehearsalListView(TableListMixin, ListView):
     template_name = "rehersal/rehearsal_list.html"
     from .admin import RehearsalAdmin
     fields_display = RehearsalAdmin.list_display
-    field_files = ["attachment"]
+    fields_files = ["attachment"]
+    fields_images = ["image",]
 
     def get_context_data(self, *args, **kwargs):
         context = super(RehearsalListView, self).get_context_data(*args, **kwargs)
@@ -78,7 +79,8 @@ class RehearsalDetailView(TableDetailMixin, DetailView):
     model = Rehearsal
     template_name = "rehersal/rehearsal_detail.html"
     fieldsets = [("",{"fields":("title","date","attachment","image",)}), ]
-    field_files = ["attachment"]
+    fields_files = ["attachment"]
+    fields_images = ["image",]
 
     def get_context_data(self, *args, **kwargs):
         context = super(RehearsalDetailView, self).get_context_data(*args, **kwargs)

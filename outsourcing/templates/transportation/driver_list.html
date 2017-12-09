@@ -1,3 +1,12 @@
 {% extends "outsourcing_list.html" %}
 {% load i18n %}
 
+{% block left_bar %}
+<div class="nav-bar" style="margin-right:20%;">
+    <p class="nav-title">{% trans "Outsource Management" %}</p>
+    <ul class="nav nav-pills nav-stacked">      
+      <li><a href="{% url 'vehicle_list' %}">{% trans "vehicle" %}</a></li>
+      <li><a href="{% url 'driver_list' %}">{% trans "driver" %}</a></li>
+    </ul>
+</div>
+{% endblock %}

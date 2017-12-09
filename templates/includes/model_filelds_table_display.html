@@ -19,8 +19,9 @@
                         <tr>
                             <th>{{ object|my_get_field_verbose_name:fieldname }}</th>
                             <td> 
-                            	{% if fieldname in field_files %}<a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a>
+                            	{% if fieldname in fields_files %}<a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a>
                             	{% elif fieldname in fields_display %}{{ object|my_get_field_display:fieldname }}
+                            	{% elif fieldname in fields_images %}<img src="{{ object|my_get_field_url:fieldname }}" class="img-responsive" style="width: 100%;">
                             	{% else %}{{ object|my_get_field_value:fieldname }}{% endif %}
                             </td>
                         </tr>

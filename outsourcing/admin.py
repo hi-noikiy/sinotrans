@@ -71,9 +71,9 @@ class ForkliftRepairAdmin(admin.ModelAdmin):
                     "accessories_name",
                     "accessories_num",
                     "repaired",
-                    "repaire_date",
+                    "owner",                    
                     "due_date",
-                    "owner",
+                    "repaire_date",
                 ]
     search_fields = (
                     "damage_reason", 
@@ -114,8 +114,19 @@ class ForkliftMaintAdmin(admin.ModelAdmin):
     view_on_site = False
 
 class ForkliftAdmin(admin.ModelAdmin):
-    list_display = ["internal_car_number", "internal_plate_number",'sn']
-    list_editable = ["internal_car_number","internal_plate_number",'sn',]
+    list_display = [
+                "internal_car_number", 
+                "internal_plate_number",
+                "model",
+                'sn',
+                "category",
+                "manufacturer",
+                ]
+    list_editable = [
+                "internal_car_number", 
+                "internal_plate_number",
+                'sn'
+                ]
     search_fields = ('internal_car_number',)
     list_filter = ('category',)
     ordering = ('sn',)

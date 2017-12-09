@@ -43,19 +43,22 @@ class LoginRequiredMixin(object):
 
 class TableListMixin(object):
     fields_display = []
-    field_files = []
+    fields_files = []
+    fields_images = []
 
     def get_context_data(self, *args, **kwargs):
         context = super(TableListMixin, self).get_context_data(*args, **kwargs)
         context["fields"] = self.fields_display
-        context["field_files"] = self.field_files
+        context["fields_files"] = self.fields_files
+        context["fields_images"] = self.fields_images
         
         return context
 
 class TableDetailMixin(object):
     fieldsets = [("title",{"fields":("",)}), ]
     fields_display = []
-    field_files = []
+    fields_files = []
+    fields_images = []
 
     model_sets = [("model name", None, []),]  # model name, object_list, list_display
     
@@ -63,7 +66,8 @@ class TableDetailMixin(object):
         context = super(TableDetailMixin, self).get_context_data(*args, **kwargs)
         context["fieldsets"] = self.fieldsets
         context["fields_display"] = self.fields_display
-        context["field_files"] = self.field_files
+        context["fields_files"] = self.fields_files
+        context["fields_images"] = self.fields_images
         
         context["model_sets"] = self.model_sets
         

@@ -2,6 +2,15 @@
 {% load i18n %}
 {% load myform %}
 
+<!-- parameter
+
+	page_num
+	object_list
+	fields
+	field_display_links
+	foreign_fields_images
+
+-->
 <div class="object_lists" style="clear: both;">
     {% autopaginate object_list page_num %}
     
@@ -14,7 +23,10 @@
                     {% for field in fields %}
                     <th>{{ field.verbose_name }}</th>
                     {% endfor %}
-                </tr>
+                    {% for field in foreign_fields_images %}
+                    	<th></th>
+                    {% endfor %}                            
+                </tr>        
             </thead>
             <tbody>
             {% for object in object_list %}
@@ -32,14 +44,18 @@
                                     {{ object|my_get_field_value:field.name }}
                                 {% if not field_display_links or field.name in field_display_links %}</a>{% endif %}</th>
                             {% endif %}                                        
-                        {% else %}                            
-                            {% if field.name in fields_display %}
-                                <td>{% if field.name in field_display_links %}<a href="{{object.get_absolute_url}}">{% endif %}{{ object|my_get_field_display:field.name }}{% if field.name in field_display_links %}</a>{% endif %}</td>
-                            {% else %}
-                                <td>{% if field.name in field_display_links %}<a href="{{object.get_absolute_url}}">{% endif %}{{ object|my_get_field_value:field.name }}{% if field.name in field_display_links %}</a>{% endif %}</td>
-                            {% endif %}                            
-                        {% endif %}
+                        {% else %}
+                        	<td>{% if field.name in field_display_links %}<a href="{{object.get_absolute_url}}">{% endif %}
+                        		{% if field.name in fields_display %}{{ object|my_get_field_display:field.name }}
+                        		{% elif field.name in foreign_fields_images %}<img src="{{object|my_get_foreign_field_url:field.name}}" class="img-responsive" style="width:100px;">
+                        		{% else %}{{ object|my_get_field_value:field.name }}{% endif %}                        		
+	                        	{% if field.name in field_display_links %}</a>{% endif %}</td>	                            
+                        {% endif %}                        
                     {% endfor %}
+                    
+                    {% for fieldname in foreign_fields_images %}
+                    	<td><img src="{{object|my_get_foreign_field_url:fieldname}}" class="img-responsive" style="width:100px;"></td>
+                    {% endfor %}                    
                 </tr>
             {% endfor %}
             </tbody>

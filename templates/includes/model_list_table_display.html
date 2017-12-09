@@ -24,8 +24,10 @@
                         {% if forloop.first %}
                             <th style="text-align: center;"><a href="{{ object.get_absolute_url }}">{{ object|my_get_field_display:fieldname }}</a></th>
                         {% else %}
-                            {% if fieldname in field_files %}
+                            {% if fieldname in fields_files %}
                                 <td><a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a></td>
+                            {% elif fieldname in fields_images %}
+                                <td><img class="img-responsive" style="width:100px;" src="{{object|my_get_field_url:fieldname}}"></td>
                             {% else %}
                                 <td>{{ object|my_get_field_value:fieldname }}</td>
                             {% endif %}

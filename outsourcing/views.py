@@ -27,7 +27,7 @@ from .forms import (
 
 from trainings.models import TrainingTranscript
 
-from inspection.mixins import TableDetailMixin
+from inspection.mixins import TableDetailMixin, TableListMixin
 
 class TransportSecurityView(TemplateView):
     template_name = "transport_security.html"
@@ -47,11 +47,11 @@ class ForkliftListView(ListView):
         context = super(ForkliftListView, self).get_context_data(*args, **kwargs)
 
         from .admin import ForkliftAdmin
-        fields = ForkliftAdmin.list_display
 
         context["object_list"] = self.model.objects.all()
-        context["fields"] = [field for field in self.model._meta.get_fields() if field.name in fields]
+        context["fields"] = [field for field in self.model._meta.get_fields() if field.name in ForkliftAdmin.list_display]
         context["fields_display"] = ["",] 
+        context["foreign_fields_images"] = ["forkliftimage_set",]
 
         return context       
 

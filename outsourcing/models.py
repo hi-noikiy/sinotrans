@@ -226,7 +226,8 @@ class Driver(models.Model):
         verbose_name_plural = _("drivers")
 
     def __unicode__(self): 
-        return _("driver") + " %s %s" % (self.name, self.driver_ID)
+        #return _("driver") + " %s %s" % (self.name, self.driver_ID)
+        return " %s %s" % (self.name, self.driver_ID)
 
     def get_absolute_url(self):
         return reverse("driver_detail", kwargs={"pk": self.pk })
