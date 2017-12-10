@@ -391,24 +391,14 @@ class shelf_inspection_record(models.Model):
             return "%s" % self._get_FIELD_display(field)
 
     def is_normal(self):
+        obj=self
         return '1' == obj.use_condition and False == obj.is_locked and obj.gradient < 1.5 and obj.gradient > -1.5
 
     def turn_normal(self, instance):
-        return instance.is_normal() == False and obj.is_normal()
+        return instance.is_normal() == False and self.is_normal()
 
-        was_abnormal = False
-        if '2' == instance.use_condition or True == instance.is_locked or instance.gradient > 1.4 or instance.gradient < -1.4:
-            was_abnormal = True
-
-        is_normal = False        
-        obj = self
-        if '1' == obj.use_condition and False == obj.is_locked and obj.gradient < 1.5 and obj.gradient > -1.5:
-            is_normal = True
-
-        if True == was_abnormal and is_normal == True:
-            return True
-
-        return False
+    def turn_abnormal(self, instance):
+        return instance.is_normal() and self.is_normal() == False
 
     class Meta:
         verbose_name = _("shelf inspection record")
@@ -498,6 +488,9 @@ class Rehearsal(models.Model):
     def get_absolute_url(self):
         return reverse("rehearsal_detail", kwargs={"pk": self.id })
 
+    def get_absolute_url_list(self):
+        return reverse("rehearsal_list", kwargs={})
+        
     def __unicode__(self): 
         return _("rehearsal") + " %s" % (self.title)
 

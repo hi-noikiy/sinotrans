@@ -7,9 +7,26 @@
 <script>
 {% block jquery %}
 
-
 {% endblock %}
 </script>
+
+<style type="text/css">
+{% block style %}
+
+.object_lists table>thead>tr>th:nth-child(1){
+    width: 15%;
+}
+
+.object_lists table>thead>tr>th:nth-child(n+2){
+    width: 8%;
+}
+
+.object_lists table>thead>tr>th:nth-child(n+7){
+    width: 15%;
+}
+
+{% endblock%}
+</style>
 
 
 {% block content %}

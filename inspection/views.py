@@ -1011,7 +1011,9 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
                     instance = shelf_inspection_record.objects.get(pk=instance_id)
                     obj = form.save(commit=False)
                     if obj.turn_normal(instance):
-                        instance.completed_time = timezone.now()                    
+                        instance.completed_time = timezone.now()       
+                    elif obj.turn_abnormal(instance):
+                        instance.completed_time = None                                  
                     #form.save()
                     json_data = {
                         'message': 'valid form!',
@@ -1178,7 +1180,13 @@ class ShelfInspectionRecordUpdateView(StaffRequiredMixin, UpdateView):
 
     def form_valid(self, form, *args, **kwargs):
         obj = form.save(commit = False)
-        obj.inspector = self.request.user
+        if not obj.check_person:
+            obj.check_person = self.request.user.get_full_name()
+        instance = self.model.objects.get(pk=obj.pk)
+        if obj.turn_normal(instance):
+            obj.completed_time = timezone.now()  
+        if obj.turn_abnormal(instance):
+            obj.completed_time = None     
         obj.save()
 
         return HttpResponseRedirect(self.get_success_url())    
