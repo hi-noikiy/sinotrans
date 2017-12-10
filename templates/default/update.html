@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<script type="text/javascript">
+{% block jquery %}
+    $('input.dateinput').datepicker({ dateFormat: "yy/mm/dd" });
+{% endblock %}
+</script>
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        {{title}}
+        <hr>
+        <form enctype="multipart/form-data" method="POST" action="">{% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-primary"  name="submit" value = "{% trans 'Submit' %}">
+            <a href="{{object.get_absolute_url}}" class="btn btn-default">{% trans "back" %}</a>
+        </form>
+    </div>
+</div>  
+{% endblock %}

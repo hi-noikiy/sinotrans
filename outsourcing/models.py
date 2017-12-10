@@ -53,6 +53,9 @@ class Forklift(models.Model):
     def get_absolute_url(self):
         return reverse("forklift_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_list(self):
+        return reverse("forklift_list", kwargs={ })
+        
     class Meta:
         verbose_name = _("forklift")
         verbose_name_plural = _("forklift")

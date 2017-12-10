@@ -1100,6 +1100,7 @@ class ShelfDetailView(DetailView):
         context = super(ShelfDetailView, self).get_context_data(*args, **kwargs)
         print self.model._meta.get_fields()
         context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname] and not isinstance(field, ManyToOneRel)]
+        context["fields_display"] = ["is_gradient_measurement_mandatory", ]
         # ManyToOneRel are in field.rel or field.remote_field, can be investigated later
         context["detail_view_title"] = _("Shelf")
         context["related_inspection"] = shelf_inspection_record.objects.filter(shelf=self.get_object())

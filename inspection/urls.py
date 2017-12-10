@@ -48,7 +48,7 @@ urlpatterns = [
     url(r'^dailyinspection/(?P<pk>\d+)/$', DailyInspectionDetailView.as_view(), name='dailyinspection_detail'),  
     url(r'^dailyinspection/update/(?P<pk>\d+)/$', DailyInspectionUpdateView.as_view(), name='dailyinspection_update'),
     url(r'^dailyinspection/(?P<pk>\d+)/delete/$', DailyInspectionDeleteView.as_view(), name='dailyinspection_delete'),
-    url(r'^dailyinspectionstat$', DailyInspectionStatView.as_view(), name='daily_inspection_stat'),   
+    url(r'^dailyinspection/stat$', DailyInspectionStatView.as_view(), name='daily_inspection_stat'),   
     url(r'^linechartjason/$', LineChartJSONView.as_view(), name='line_chart_json'),   
     url(r'^linechartjasonoverdue$', OverdueChartJSONView.as_view(), name='line_chart_json_overdue'),   
     url(r'^linechartjasonlasts$', LastsChartJSONView.as_view(), name='line_chart_json_lasts'),   
@@ -56,24 +56,24 @@ urlpatterns = [
 
     url(r'^storagesec$', StorageSecurityView.as_view(), name='storage_sec'),
 
-    url(r'^shelfinspectionlist$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),  
-    url(r'^shelfinspectiondetailedit/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListEditView.as_view(), name='shelf_inspection_detail_and_record_list_edit'),  
-    url(r'^shelfinspectiondetaildisplay/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListDisplayView.as_view(), name='shelf_inspection_detail_and_record_list_display'),
-    url(r'^shelfinspectioncreate$', ShelfInspectionCreateView.as_view(), name='shelf_inspection_create'),  
+    url(r'^shelfinspection$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),  
+    url(r'^shelfinspection/detailedit/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListEditView.as_view(), name='shelf_inspection_detail_and_record_list_edit'),  
+    url(r'^shelfinspection/detaildisplay/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListDisplayView.as_view(), name='shelf_inspection_detail_and_record_list_display'),
+    url(r'^shelfinspection/create$', ShelfInspectionCreateView.as_view(), name='shelf_inspection_create'),  
 
     url(r'^shelfgradientinspection/(?P<pk>\d+)/$', ShelfGradientInspectionView.as_view(), name='shelf_gradient_inspection'),  
 
-    url(r'^shelfinspectionrecorddetail/(?P<pk>\d+)/$', ShelfInspectionRecordDetailView.as_view(), name='shelf_inspection_record_detail'),  
-    url(r'^shelfinspectionrecordupdate/(?P<pk>\d+)/$', ShelfInspectionRecordUpdateView.as_view(), name='shelf_inspection_record_update'), 
-    url(r'^shelfinspectionrecorddlistabnormal/$', ShelfInspectionRecordListView.as_view(), name='shelf_inspection_record_list_abnormal'),  
+    url(r'^shelfinspectionrecord/detail/(?P<pk>\d+)/$', ShelfInspectionRecordDetailView.as_view(), name='shelf_inspection_record_detail'),  
+    url(r'^shelfinspectionrecord/update/(?P<pk>\d+)/$', ShelfInspectionRecordUpdateView.as_view(), name='shelf_inspection_record_update'), 
+    url(r'^shelfinspectionrecord/abnormal/$', ShelfInspectionRecordListView.as_view(), name='shelf_inspection_record_list_abnormal'),  
 
-    url(r'^shelfdetail/(?P<pk>\d+)/$', ShelfDetailView.as_view(), name='shelf_detail'),  
-    url(r'^shelflist$', ShelfListView.as_view(), name='shelf_list'),
+    url(r'^shelf/detail/(?P<pk>\d+)/$', ShelfDetailView.as_view(), name='shelf_detail'),  
+    url(r'^shelf$', ShelfListView.as_view(), name='shelf_list'),
 
-    url(r'^rehearsallist$', RehearsalListView.as_view(), name='rehearsal_list'),
-    url(r'^rehearsaldetail/(?P<pk>\d+)/$', RehearsalDetailView.as_view(), name='rehearsal_detail'),  
+    url(r'^rehearsal$', RehearsalListView.as_view(), name='rehearsal_list'),
+    url(r'^rehearsal/detail/(?P<pk>\d+)/$', RehearsalDetailView.as_view(), name='rehearsal_detail'),  
 
-    url(r'^pilist$', PIListView.as_view(), name='pi_list'),
+    url(r'^pi$', PIListView.as_view(), name='pi_list'),
     url(r'^pi/create$', PICreateView.as_view(), name='pi_create'),
     url(r'^pi/(?P<pk>\d+)/$', PIDetailView.as_view(), name='pi_detail'),  
     url(r'^pi/update/(?P<pk>\d+)/$', PIUpdateView.as_view(), name='pi_update'),

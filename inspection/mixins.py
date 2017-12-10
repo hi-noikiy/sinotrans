@@ -43,6 +43,8 @@ class LoginRequiredMixin(object):
 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 class TableListViewMixin(object):
+    template_name = "default/list.html"
+    
     fields = []
     fields_display = []
     fields_files = []
@@ -70,6 +72,8 @@ class TableListViewMixin(object):
         
 class TableDetailViewMixin(object):
 
+    template_name = "default/detail.html"
+    
     # fieldsets = [("title",{"fields":("",)}), ]
     fieldsets = []
     fields = []
@@ -102,7 +106,8 @@ class TableDetailViewMixin(object):
         return super(TableDetailViewMixin, self).dispatch(request,args,kwargs)    
 
 class UpdateViewMixin(object):
-
+    template_name = "default/update.html"
+    
     def get_success_url(self):
         return self.get_object().get_absolute_url() # default function
         
@@ -140,7 +145,8 @@ class UpdateViewMixin(object):
         return super(UpdateViewMixin, self).dispatch(request,args,kwargs)           
 
 class CreateViewMixin(object):
-
+    template_name = "default/create.html"
+    
     def get_success_url(self):
         #return self.model().get_absolute_url_list()
         return self.object.get_absolute_url()  # default function
