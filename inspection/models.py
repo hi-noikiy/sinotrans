@@ -420,6 +420,15 @@ class ShelfAnnualInspection(models.Model):
         verbose_name = _("shelf annual inspection")
         verbose_name_plural = _("shelf annual inspection")
 
+    def get_absolute_url(self):
+        return reverse("shelf_annualinspectin_detail", kwargs={"pk": self.pk })
+
+    def get_absolute_url_update(self):
+        return reverse("shelf_annualinspectin_update", kwargs={"pk": self.pk })
+
+    def get_absolute_url_list(self):
+        return reverse("shelf_annualinspectin_list", kwargs={})
+
 
     def __unicode__(self): 
         #return unicode(_("Shelf")) + self.shelf.__unicode__ + unicode(_("Annual Inspection Date"))
@@ -429,12 +438,14 @@ class ShelfAnnualInspection(models.Model):
 
 class ShelfAnnualInspectionImage(models.Model):
     shelf_annual_inspection = models.ForeignKey(ShelfAnnualInspection, verbose_name="shelf annual inspection")
-    image = models.ImageField(_('image'), upload_to='inspection/shelf_annual_inspection', blank=True, null=True)
+    image = models.ImageField(_('image'), upload_to='inspection/shelf_annual_inspection', blank=False, null=False)
 
     class Meta:
         verbose_name = _("shelf annual inspection image")
+        verbose_name_plural = _("shelf annual inspection image")
 
-
+    def __unicode__(self): 
+        return _("shelf annual inspection image") + " %s" % (self.id )
 
 """ to be delete """
 """

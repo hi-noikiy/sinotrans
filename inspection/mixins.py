@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
+from django.db import models
+from django.forms import models as model_forms
 
 class StaffRequiredMixin(object):
     @classmethod
@@ -69,7 +71,9 @@ class TableListViewMixin(object):
             (self.model._meta.verbose_name,request.path_info),
         ])
         return super(TableListViewMixin, self).dispatch(request,args,kwargs)   
-        
+
+# from django.db.models.fields import ManyToOneRel
+from django.db import models
 class TableDetailViewMixin(object):
 
     template_name = "default/detail.html"
@@ -87,13 +91,20 @@ class TableDetailViewMixin(object):
     
     def get_context_data(self, *args, **kwargs):
         context = super(TableDetailViewMixin, self).get_context_data(*args, **kwargs)
-        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,]] if not self.fields and not self.fieldsets else None
+        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)] \
+                if not self.fields and not self.fieldsets else None
+        # lookup_field
+        # _get_non_gfk_field
+        # need time to learning
+        # pagination :: items_for_result
         context["fieldsets"] = self.fieldsets
         context["fields_display"] = self.fields_display
         context["fields_files"] = self.fields_files
         context["fields_images"] = self.fields_images
         
         context["model_sets"] = self.model_sets
+
+        print context["fields"]
         
         return context        
 
@@ -105,15 +116,43 @@ class TableDetailViewMixin(object):
         ])
         return super(TableDetailViewMixin, self).dispatch(request,args,kwargs)    
 
+
+# fields = ModelFormMixin::fields 
+
+# form_class
+# form_class = ModelFormMixin::get_form_class << model_forms.modelform_factory(model, fields=self.fields)
+# form_class = FormMixin::get_form_class << self.form_class
+
+# form = FormMixin::get_form()
+
+# kwargs : ModelFormMixin::get_form_kwargs
+#       instance :  self.object
+# kwargs : FormMixin::get_form_kwargs
+#       initial :  self.get_initial()
+#       prefix :  self.get_prefix()
+#       data : self.request.POST
+#       files : self.request.FILES
+
+# success_url : 
+#       ModelFormMixin::get_success_url
+#       FormMixin::get_success_url
+
+# get_context_data
+#       form : FormMixin::get_context_data
 class UpdateViewMixin(object):
     template_name = "default/update.html"
-    
+
+    # model = models.Model
+    fields = None # is defined in ModelFormMixin
+    # fields = [field.name for field in model._meta.get_fields() if not field.name in [model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)]
+
     def get_success_url(self):
         return self.get_object().get_absolute_url() # default function
         
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateViewMixin, self).get_context_data(*args, **kwargs) 
         context["title"] = self.get_object()
+
         return context
 
     # HERE just for learning, it was implemented in base classed
@@ -121,7 +160,7 @@ class UpdateViewMixin(object):
         self.object = self.get_object() # must call in advace # called in  BaseUpdateView::post
 
         form = self.get_form()  # called in FormMixin::get_form
-        #form = self.form_class(self.request.POST or None, self.request.FILES or None)        
+        # form = self.form_class(self.request.POST or None, self.request.FILES or None)        
 
         if form.is_valid():
             return self.form_valid(form)
@@ -129,14 +168,22 @@ class UpdateViewMixin(object):
             return self.form_invalid(form)
 
         return super(UpdateViewMixin, self).post(request, *args, **kwargs)  
-        
-    def get_context_data(self, *args, **kwargs):
-        context = super(UpdateViewMixin, self).get_context_data(*args, **kwargs) 
-        return context
 
+    # copy from FormMixin
+    # def form_valid(self, form):
+    #     return HttpResponseRedirect(self.get_success_url())
+
+    # def form_invalid(self, form):
+    #     return self.render_to_response(self.get_context_data())
+
+    def get_fields(self, *args, **kwargs):
+        return self.fields
 
         
     def dispatch(self, request, *args, **kwargs):
+        if not self.fields and not self.get_fields():
+            self.fields = [field.name for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)]
+
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (self.model._meta.verbose_name,self.get_object().get_absolute_url_list()),

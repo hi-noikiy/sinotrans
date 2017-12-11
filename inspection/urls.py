@@ -27,6 +27,10 @@ from .views import (
     ShelfInspectionRecordDetailView,
     ShelfInspectionRecordUpdateView,
     ShelfInspectionRecordListView,
+    ShelfAnnualInspectionListView,
+    ShelfAnnualInspectionDetailView,
+    ShelfAnnualInspectionCreateView,
+    ShelfAnnualInspectionUpdateView,
     RehearsalListView,
     RehearsalDetailView,
     PIListView,
@@ -46,7 +50,7 @@ urlpatterns = [
     url(r'^dailyinspection$', DailyInspectionListView.as_view(), name='dailyinspection_list'),
     url(r'^dailyinspection/create$', DailyInspectionCreateView.as_view(), name='dailyinspection_create'),
     url(r'^dailyinspection/(?P<pk>\d+)/$', DailyInspectionDetailView.as_view(), name='dailyinspection_detail'),  
-    url(r'^dailyinspection/update/(?P<pk>\d+)/$', DailyInspectionUpdateView.as_view(), name='dailyinspection_update'),
+    url(r'^dailyinspection/(?P<pk>\d+)/update/$', DailyInspectionUpdateView.as_view(), name='dailyinspection_update'),
     url(r'^dailyinspection/(?P<pk>\d+)/delete/$', DailyInspectionDeleteView.as_view(), name='dailyinspection_delete'),
     url(r'^dailyinspection/stat$', DailyInspectionStatView.as_view(), name='daily_inspection_stat'),   
     url(r'^linechartjason/$', LineChartJSONView.as_view(), name='line_chart_json'),   
@@ -56,19 +60,23 @@ urlpatterns = [
 
     url(r'^storagesec$', StorageSecurityView.as_view(), name='storage_sec'),
 
-    url(r'^shelfinspection$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),  
-    url(r'^shelfinspection/detailedit/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListEditView.as_view(), name='shelf_inspection_detail_and_record_list_edit'),  
-    url(r'^shelfinspection/detaildisplay/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListDisplayView.as_view(), name='shelf_inspection_detail_and_record_list_display'),
+    url(r'^shelfinspection$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),      
+    url(r'^shelfinspection/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListDisplayView.as_view(), name='shelf_inspection_detail_and_record_list_display'),
+    url(r'^shelfinspection/(?P<pk>\d+)/edit/$', ShelfInspectionDetailAndRecordListEditView.as_view(), name='shelf_inspection_detail_and_record_list_edit'),  
     url(r'^shelfinspection/create$', ShelfInspectionCreateView.as_view(), name='shelf_inspection_create'),  
+    url(r'^shelfinspection/(?P<pk>\d+)/gradient/$', ShelfGradientInspectionView.as_view(), name='shelf_gradient_inspection'),  
 
-    url(r'^shelfgradientinspection/(?P<pk>\d+)/$', ShelfGradientInspectionView.as_view(), name='shelf_gradient_inspection'),  
-
-    url(r'^shelfinspectionrecord/detail/(?P<pk>\d+)/$', ShelfInspectionRecordDetailView.as_view(), name='shelf_inspection_record_detail'),  
-    url(r'^shelfinspectionrecord/update/(?P<pk>\d+)/$', ShelfInspectionRecordUpdateView.as_view(), name='shelf_inspection_record_update'), 
+    url(r'^shelfinspectionrecord/(?P<pk>\d+)/$', ShelfInspectionRecordDetailView.as_view(), name='shelf_inspection_record_detail'),  
+    url(r'^shelfinspectionrecord/(?P<pk>\d+)/update/$', ShelfInspectionRecordUpdateView.as_view(), name='shelf_inspection_record_update'), 
     url(r'^shelfinspectionrecord/abnormal/$', ShelfInspectionRecordListView.as_view(), name='shelf_inspection_record_list_abnormal'),  
 
-    url(r'^shelf/detail/(?P<pk>\d+)/$', ShelfDetailView.as_view(), name='shelf_detail'),  
     url(r'^shelf$', ShelfListView.as_view(), name='shelf_list'),
+    url(r'^shelf/(?P<pk>\d+)/$', ShelfDetailView.as_view(), name='shelf_detail'),  
+
+    url(r'^shelfannualinspection$', ShelfAnnualInspectionListView.as_view(), name='shelf_annualinspectin_list'),   
+    url(r'^shelfannualinspection/create$', ShelfAnnualInspectionCreateView.as_view(), name='shelf_annualinspectin_create'),  
+    url(r'^shelfannualinspection/(?P<pk>\d+)/$', ShelfAnnualInspectionDetailView.as_view(), name='shelf_annualinspectin_detail'),  
+    url(r'^shelfannualinspection/(?P<pk>\d+)/update/$', ShelfAnnualInspectionUpdateView.as_view(), name='shelf_annualinspectin_update'),  
 
     url(r'^rehearsal$', RehearsalListView.as_view(), name='rehearsal_list'),
     url(r'^rehearsal/detail/(?P<pk>\d+)/$', RehearsalDetailView.as_view(), name='rehearsal_detail'),  

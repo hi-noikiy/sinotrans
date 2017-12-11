@@ -41,11 +41,10 @@
                         {% for fieldname in fields_foreign %}
                         <td>
                         	{% if fieldname in field_display_links %}<a href="{{object_foreign.get_absolute_url}}">{% endif %}
-                            {% if fieldname in fields_foreign_display %}
-                                {{ object_foreign|my_get_field_display:fieldname }}
-                            {% else %}
-                                {{ object_foreign|my_get_field_value:fieldname }}
-                            {% endif %}
+                                {% if fieldname in fields_foreign_display %}{{ object_foreign|my_get_field_display:fieldname }}
+                                {% elif fieldname in fields_images %}<img src="{{object_foreign|my_get_field_url:fieldname}}" class="img-responsive" style="width:100%;">
+                                {% else %}{{ object_foreign|my_get_field_value:fieldname }}
+                                {% endif %}
                             {% if fieldname in field_display_links %}</a>{% endif %}
                         </td>
                         {% endfor %}

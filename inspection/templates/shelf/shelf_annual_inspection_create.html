@@ -1,0 +1,26 @@
+{% extends "default/create.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- {{block.super}} -->
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        {{title}}
+        <hr>
+        <form enctype="multipart/form-data" method="POST" action="">{% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-primary"  name="submit" value = "{% trans 'Submit' %}">
+            <a href="{{object.get_absolute_url}}" class="btn btn-default">{% trans "back" %}</a>
+        </form>
+    </div>
+    <div class="col-sm-3">
+        <form enctype="multipart/form-data" method="POST" action="">{% csrf_token %}
+            {{form_foreign_image|crispy}}
+        </form>
+    </div>    
+</div>  
+
+{% endblock%}

@@ -3,6 +3,16 @@
 {% load staticfiles %}
 {% load pagination_tags %}
 
+<!--  Parameter 
+    fields
+    object_list
+    field_display_links
+    fields_files
+    fields_images
+    fields_display
+
+ -->
+
 <div class="object_list" style="clear: both;">
     {% autopaginate object_list line_per_page %}
     
@@ -22,7 +32,13 @@
                 <tr class="table-primary-hover">
                     {% for fieldname in fields %}
                         {% if forloop.first %}
-                            <th style="text-align: center;"><a href="{{ object.get_absolute_url }}">{{ object|my_get_field_display:fieldname }}</a></th>
+                            <th style="text-align: center;"><a href="{{ object.get_absolute_url }}">
+                            {% if fieldname in fields_display %}
+                                {{ object|my_get_field_display:fieldname }}
+                            {% else %}
+                                {{ object|my_get_field_value:fieldname }}
+                            {% endif %}
+                            </a></th>
                         {% else %}
                             {% if fieldname in fields_files %}
                                 <td><a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a></td>

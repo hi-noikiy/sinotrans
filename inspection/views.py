@@ -24,33 +24,37 @@ from .mixins import StaffRequiredMixin, TableListViewMixin, TableDetailViewMixin
 from django.db.models.fields.related import (
     ForeignObjectRel, ManyToOneRel, OneToOneField, add_lazy_relation,
 )
+from django.forms import models as model_forms
+
 # Create your views here.
 from .models import (
-    OfficeInspection, 
-    
+    OfficeInspection,     
     DailyInspection, 
     DailyInspectionLog,
-
     shelf_inspection_record, 
     shelf_inspection, 
     shelf,
-
+    ShelfAnnualInspection,
     Rehearsal,
-
     PI,
+    ShelfAnnualInspectionImage,
+
+    image_upload_to_dailyinspection,
     )
 from .forms import (
     OfficeInspectionForm, 
-    DailyInspectionForm, InspectionFilterForm, 
-    ShelfInspectionRecordForm, ShelfFilterForm, ShelfInspectionForm, ShelfUploadForm,
+    DailyInspectionForm, 
+    InspectionFilterForm, 
+    ShelfInspectionRecordForm, 
+    ShelfFilterForm, 
+    ShelfInspectionForm, 
+    ShelfUploadForm,
     PIForm,
-    )
-from .forms import (
-    shelf_inspection_record_Formset, shelf_gradient_inspection_Formset,
+
+    shelf_inspection_record_Formset, 
+    shelf_gradient_inspection_Formset,
     )
 
-
-from .models import image_upload_to_dailyinspection
 
 # Create your views here.
 
@@ -1410,3 +1414,88 @@ class PIUpdateView(UpdateViewMixin, UpdateView):
 
         return super(PIUpdateView, self).form_valid(form, *args, **kwargs)
         return HttpResponseRedirect(self.get_success_url())    
+
+class ShelfAnnualInspectionListView(TableListViewMixin, ListView): 
+    model = ShelfAnnualInspection
+    template_name = "shelf/shelf_annual_inspection_list.html"
+    from .admin import ShelfAnnualInspectionAdmin
+    fields = ShelfAnnualInspectionAdmin.list_display
+
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(ShelfAnnualInspectionListView, self).get_context_data(*args, **kwargs)
+
+    #     object_list = context["object_list"]
+    #     if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
+    #         object_list = self.model.objects.filter(rectification_status="uncompleted", planned_complete_date__lte=timezone.now())
+    #     elif self.request.GET.get('uncompleted'):
+    #         object_list = self.model.objects.filter(rectification_status="uncompleted")
+    #     context["object_list"] = object_list                   
+
+    #     return context 
+
+class ShelfAnnualInspectionDetailView(TableDetailViewMixin, DetailView): 
+    model = ShelfAnnualInspection
+    template_name = "shelf/shelf_annual_inspection_detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShelfAnnualInspectionDetailView, self).get_context_data(*args, **kwargs) 
+        context["fields_foreign_shelfannualinspection"] = ["image",]
+        context["fields_foreign_shelfannualinspection_image"] = ["image",]
+        return context
+
+class ShelfAnnualInspectionCreateView(CreateViewMixin, CreateView): 
+    model = ShelfAnnualInspection
+    # form_class = ShelfAnnualInspectionForm
+    template_name = "shelf/shelf_annual_inspection_create.html"
+    from .admin import ShelfAnnualInspectionAdmin
+    fields = ShelfAnnualInspectionAdmin.list_display
+
+from django.forms.models import modelformset_factory
+from .forms import ShelfAnnualInspectionImageForm
+class ShelfAnnualInspectionUpdateView(UpdateViewMixin, UpdateView): 
+    model = ShelfAnnualInspection
+    template_name = "shelf/shelf_annual_inspection_update.html"
+
+    def get_foreign_form_class(self):
+        return model_forms.modelform_factory(ShelfAnnualInspectionImage, fields=["image",])
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShelfAnnualInspectionUpdateView, self).get_context_data(*args, **kwargs) 
+
+        # use formset if want to add more image, and tag can_delete
+        # context["form_foreign_image"] = self.get_foreign_form_class()(
+        #                         # self.request.GET or None, 
+        #                         self.request.POST or None, 
+        #                         self.request.FILES or None 
+        #                         #instance=
+        #                         #initial=
+        #                         #prefix=
+        #                         #data=self.request.POST or None, 
+        #                         #files=self.request.FIELS or None 
+        #                         )
+        context["form_foreign_image"] = ShelfAnnualInspectionImageForm(instance=ShelfAnnualInspectionImage.objects.first())        
+        # context["form_foreign_image"] = self.get_foreign_form_class()(instance=ShelfAnnualInspectionImage.objects.first())
+        # context["formset"] = modelformset_factory(ShelfAnnualInspectionImage, form=self.get_foreign_form_class(), can_delete=True)
+        # context["formset"] = modelformset_factory(ShelfAnnualInspectionImage, form=ShelfAnnualInspectionImageForm, can_delete=True)
+
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object() 
+
+        form = self.get_form() 
+        form_foreign_image = self.get_foreign_form_class()(self.request.POST, self.request.FILES )
+
+        if form.is_valid():
+            if form_foreign_image.is_valid():
+                image = form_foreign_image.save(commit=False)
+                image.shelf_annual_inspection = self.object
+                image.save()
+            form.save()
+
+            return HttpResponseRedirect(self.get_success_url())
+        else:            
+            return self.form_invalid(form)
+
+        return super(UpdateViewMixin, self).post(request, *args, **kwargs)       
