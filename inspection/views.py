@@ -1451,13 +1451,13 @@ class ShelfAnnualInspectionCreateView(CreateViewMixin, CreateView):
     fields = ShelfAnnualInspectionAdmin.list_display
 
 from django.forms.models import modelformset_factory
-from .forms import ShelfAnnualInspectionImageForm
+from .forms import ShelfAnnualInspectionImageForm, ImageFileInput
 class ShelfAnnualInspectionUpdateView(UpdateViewMixin, UpdateView): 
     model = ShelfAnnualInspection
     template_name = "shelf/shelf_annual_inspection_update.html"
 
     def get_foreign_form_class(self):
-        return model_forms.modelform_factory(ShelfAnnualInspectionImage, fields=["image",])
+        return model_forms.modelform_factory(ShelfAnnualInspectionImage, fields=["image",], widgets={"image":ImageFileInput(),})
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfAnnualInspectionUpdateView, self).get_context_data(*args, **kwargs) 
@@ -1473,8 +1473,8 @@ class ShelfAnnualInspectionUpdateView(UpdateViewMixin, UpdateView):
         #                         #data=self.request.POST or None, 
         #                         #files=self.request.FIELS or None 
         #                         )
-        context["form_foreign_image"] = ShelfAnnualInspectionImageForm(instance=ShelfAnnualInspectionImage.objects.first())        
-        # context["form_foreign_image"] = self.get_foreign_form_class()(instance=ShelfAnnualInspectionImage.objects.first())
+        # context["form_foreign_image"] = ShelfAnnualInspectionImageForm(instance=ShelfAnnualInspectionImage.objects.first())        
+        context["form_foreign_image"] = self.get_foreign_form_class()(self.request.GET or None,self.request.POST or None, self.request.FILES or None )
         # context["formset"] = modelformset_factory(ShelfAnnualInspectionImage, form=self.get_foreign_form_class(), can_delete=True)
         # context["formset"] = modelformset_factory(ShelfAnnualInspectionImage, form=ShelfAnnualInspectionImageForm, can_delete=True)
 
