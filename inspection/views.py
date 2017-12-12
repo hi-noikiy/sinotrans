@@ -1450,33 +1450,43 @@ class ShelfAnnualInspectionCreateView(CreateViewMixin, CreateView):
     from .admin import ShelfAnnualInspectionAdmin
     fields = ShelfAnnualInspectionAdmin.list_display
 
-from django.forms.models import modelformset_factory
+from django.forms.models import modelformset_factory, inlineformset_factory, BaseModelFormSet, BaseInlineFormSet
 from .forms import ShelfAnnualInspectionImageForm, ImageFileInput
 class ShelfAnnualInspectionUpdateView(UpdateViewMixin, UpdateView): 
     model = ShelfAnnualInspection
     template_name = "shelf/shelf_annual_inspection_update.html"
 
     def get_foreign_form_class(self):
+        # method #1
         return model_forms.modelform_factory(ShelfAnnualInspectionImage, fields=["image",], widgets={"image":ImageFileInput(),})
+        # method #2
+        return ShelfAnnualInspectionImage
+
+    def get_foreign_formset_class(self):
+        return modelformset_factory(
+                                    ShelfAnnualInspectionImage, 
+                                    formset=BaseModelFormSet, 
+                                    form=self.get_foreign_form_class(), 
+                                    can_delete=True,
+                                    extra=1)
+
+    def get_inine_foreign_formset_class(self):
+        return inlineformset_factory(
+                                    ShelfAnnualInspection, 
+                                    ShelfAnnualInspectionImage,  
+                                    form=self.get_foreign_form_class(), 
+                                    can_delete=True,
+                                    extra=1)
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfAnnualInspectionUpdateView, self).get_context_data(*args, **kwargs) 
 
-        # use formset if want to add more image, and tag can_delete
-        # context["form_foreign_image"] = self.get_foreign_form_class()(
-        #                         # self.request.GET or None, 
-        #                         self.request.POST or None, 
-        #                         self.request.FILES or None 
-        #                         #instance=
-        #                         #initial=
-        #                         #prefix=
-        #                         #data=self.request.POST or None, 
-        #                         #files=self.request.FIELS or None 
-        #                         )
-        # context["form_foreign_image"] = ShelfAnnualInspectionImageForm(instance=ShelfAnnualInspectionImage.objects.first())        
-        context["form_foreign_image"] = self.get_foreign_form_class()(self.request.GET or None,self.request.POST or None, self.request.FILES or None )
-        # context["formset"] = modelformset_factory(ShelfAnnualInspectionImage, form=self.get_foreign_form_class(), can_delete=True)
-        # context["formset"] = modelformset_factory(ShelfAnnualInspectionImage, form=ShelfAnnualInspectionImageForm, can_delete=True)
+        # context["form_foreign_image"] = self.get_foreign_form_class()(self.request.GET or None,self.request.POST or None, self.request.FILES or None )
+
+        # method #1
+        # context["formset"] = self.get_foreign_formset_class()(queryset=ShelfAnnualInspectionImage.objects.filter(shelf_annual_inspection=self.object))
+        # method #2
+        context["formset"] = self.get_inine_foreign_formset_class()(instance=self.object)
 
         return context
 
@@ -1486,12 +1496,15 @@ class ShelfAnnualInspectionUpdateView(UpdateViewMixin, UpdateView):
 
         form = self.get_form() 
         form_foreign_image = self.get_foreign_form_class()(self.request.POST, self.request.FILES )
+        formset = self.get_inine_foreign_formset_class()(self.request.POST, self.request.FILES, instance=self.object )
 
         if form.is_valid():
             if form_foreign_image.is_valid():
                 image = form_foreign_image.save(commit=False)
                 image.shelf_annual_inspection = self.object
                 image.save()
+            if formset.is_valid():
+                formset.save()             
             form.save()
 
             return HttpResponseRedirect(self.get_success_url())

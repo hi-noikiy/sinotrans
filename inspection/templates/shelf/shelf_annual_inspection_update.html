@@ -10,10 +10,29 @@
     <div class="col-sm-6 col-sm-offset-3">
         {{title}}
         <hr>
-        <form enctype="multipart/form-data" method="POST" action="">{% csrf_token %}
-            {{form|crispy}}
-            {{form_foreign_image|crispy}}
-            {{formset}}
+        <form enctype="multipart/form-data" method="POST" action="">{% csrf_token %}  
+            {{form|crispy}}          
+            <!-- {{form_foreign_image|crispy}} -->
+            {{ formset.management_form }}
+            <!-- {{formset}} -->
+            <div class="row">
+                {% for form in formset %}
+                    {% if not form.instance.pk %}                    
+                    <div class="col-sm-12" style="clear: both;">
+                        <hr>
+                        <h3>{% trans "Create New Item" %}</h3>
+                        {{form}} 
+                    </div>
+                    {% else %}
+                    <div class="col-sm-6">
+                        {{form}} 
+                    </div>                    
+                    {% endif %}
+                    {% cycle '' '</div><div class="row">'%}
+                {% endfor %}
+            </div>            
+            <hr>
+
             <input type="submit" class="btn btn-primary"  name="submit" value = "{% trans 'Submit' %}">
             <a href="{{object.get_absolute_url}}" class="btn btn-default">{% trans "back" %}</a>
         </form>
