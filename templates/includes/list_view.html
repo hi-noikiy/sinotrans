@@ -20,12 +20,12 @@
     {% else %}
         <table class="table-align-center table-hover table table-striped table-hover table-responsive table-condensed {{table_class}}">
             <thead>
-                <tr class="table-primary">
+                <tr class="{% if thead_class %}{{thead_class}}{% else %}table-primary{% endif %}">
                     {% for field in fields %}
                     <th>{{ field.verbose_name }}</th>
                     {% endfor %}
                     {% for field in foreign_fields_images %}
-                    	<th></th>
+                        <th></th>
                     {% endfor %}                            
                 </tr>        
             </thead>
@@ -55,7 +55,7 @@
                     {% endfor %}
                     
                     {% for fieldname in foreign_fields_images %}
-                    	<td><img src="{{object|my_get_foreign_field_url:fieldname}}" class="img-responsive" style="width:100px;"></td>
+                        <td><img src="{{object|my_get_foreign_field_url:fieldname}}" class="img-responsive" style="width:100px;"></td>
                     {% endfor %}                    
                 </tr>
             {% endfor %}

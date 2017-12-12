@@ -939,7 +939,8 @@ class ShelfInspectionDetailAndRecordListDisplayView(DetailView):  # Per Inspecti
         context = super(ShelfInspectionDetailAndRecordListDisplayView, self).get_context_data(*args, **kwargs)
         context["shelf_inspection_record_set"] = self.get_record_queryset(filter=True)
         from inspection.admin import ShelfInspectionRecordAdmin
-        context["fields_shelf_inspection_record"] = [field for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
+        #context["fields_shelf_inspection_record"] = [field for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
+        context["fields_shelf_inspection_record"] = ShelfInspectionRecordAdmin.list_display
 
         context["fields_shelf_inspection_record_display"] = [
             "use_condition",

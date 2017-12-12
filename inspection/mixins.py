@@ -109,9 +109,15 @@ class TableDetailViewMixin(object):
         return context        
 
     def dispatch(self, request, *args, **kwargs):
+        list_url=""
+        try:
+            list_url = self.get_object().get_absolute_url_list()
+        except:
+            pass
+            
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
-            (self.model._meta.verbose_name,self.get_object().get_absolute_url_list()),
+            (self.model._meta.verbose_name, list_url),
             (self.get_object(),request.path_info),
         ])
         return super(TableDetailViewMixin, self).dispatch(request,args,kwargs)    

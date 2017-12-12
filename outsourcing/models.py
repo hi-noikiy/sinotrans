@@ -145,6 +145,9 @@ class ForkliftRepair(models.Model):
     def get_absolute_url(self):
         return reverse("forklift_repair_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_list(self):
+        return reverse("forklift_repair_list", kwargs={})
+        
     """
     replace by built-in function get_repaired_display
     def get_repaired(self):

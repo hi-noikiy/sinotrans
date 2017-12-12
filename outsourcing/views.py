@@ -49,7 +49,8 @@ class ForkliftListView(TableListViewMixin, ListView):
     template_name = "forklift/forklift_list.html"
 
     from .admin import ForkliftAdmin
-    fields = [field for field in model._meta.get_fields() if field.name in ForkliftAdmin.list_display]
+    #fields = [field for field in model._meta.get_fields() if field.name in ForkliftAdmin.list_display]
+    fields = ForkliftAdmin.list_display
     foreign_fields_images = ["forkliftimage_set",]
 
     def get_context_data(self, *args, **kwargs):
@@ -135,7 +136,8 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
     template_name = "forklift/forklift_repair_list.html"
 
     from .admin import ForkliftRepairAdmin
-    fields = [model._meta.get_field(field) for field in ForkliftRepairAdmin.list_display]
+    #fields = [model._meta.get_field(field) for field in ForkliftRepairAdmin.list_display]
+    fields = ForkliftRepairAdmin.list_display
     fields_display = ["repaired",]
    
     def get_queryset(self, *args, **kwargs):
@@ -306,10 +308,10 @@ class VehicleInspectionListView(ListView):
         context = super(VehicleInspectionListView, self).get_context_data(*args, **kwargs)
 
         from .admin import VehicleInspectionAdmin
-        fields = VehicleInspectionAdmin.list_display
-
+        
         context["object_list"] = self.model.objects.filter(rectification_qualified='no')
-        context["fields"] = [field for field in self.model._meta.get_fields() if field.name in fields]
+        #context["fields"] = [field for field in self.model._meta.get_fields() if field.name in VehicleInspectionAdmin.list_display]
+        context["fields"] = VehicleInspectionAdmin.list_display
         context["fields_display"] = [
                     "load_or_unload",
                     "rectification_qualified",
