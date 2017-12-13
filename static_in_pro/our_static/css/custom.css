@@ -135,6 +135,7 @@ table-primary-hover : adapted primary color when hover, active, strip
 *********************/
 
 /* align */
+table.table-align-center tbody tr th,
 table.table-align-center tbody tr td,
 table.table-align-center thead tr th{
     text-align: center;

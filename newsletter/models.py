@@ -72,7 +72,7 @@ class Article(models.Model):
     ]
 
     """docstring for Article"""
-    category = models.CharField(verbose_name=_('category'), choices = article_category, max_length=150, blank=True, null=True, default="news")
+    category = models.CharField(verbose_name=_('category'), choices = article_category, max_length=150, blank=False, null=False, default="news")
     title = models.CharField(verbose_name=_('title'), max_length=150, blank=False, null=False)
     content = RichTextField(_('content'))
     publishtime = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name=_("publishtime"))

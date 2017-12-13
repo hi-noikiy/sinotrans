@@ -26,6 +26,7 @@
 {% block jquery %}
 $('.article-container img').each(function(){
 	$(this).addClass("img-responsive")
+	$(this).css("height",null)
 })
 
 {% endblock %}
