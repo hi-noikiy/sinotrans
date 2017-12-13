@@ -41,7 +41,7 @@
             {% for object in object_list %}
                 <tr class="table-primary-hover">
                     {% for fieldname in fields %}
-                        {% if forloop.first and fields|length %}
+                        {% if forloop.first and fields|length > 1 %}
                             <td><a href="{{object.get_absolute_url}}">
                             {% if fieldname in fields_display %}
                                 {{ object|my_get_field_display:fieldname }}

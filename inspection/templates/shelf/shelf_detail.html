@@ -31,16 +31,17 @@
                                 </tr>
                             </tbody>
                         </table>
+                        {% if shelfannualinspection.shelfannualinspectionimage_set.count > 0 %}
                         <h5>{% trans "shelf annual inspection image" %}</h5>
                         <div class="row">
-                            <div class="col-sm-6">
-                                {% if shelfannualinspection.shelfannualinspectionimage_set.count > 0 %}
-                                    {% for img in shelfannualinspection.shelfannualinspectionimage_set.all %}                        
-                                        <img class= 'img-responsive' src={{img.image.url}} />
-                                    {% endfor %}
-                                {% endif %}                                        
-                            </div>
+                        	{% for img in shelfannualinspection.shelfannualinspectionimage_set.all %}
+	                            <div class="col-sm-6">                                                        
+	                                <img class= 'img-responsive' src={{img.image.url}} />                                                                                                        
+	                            </div>
+	                            {% cycle '' '</div><div class="row">'%}
+                            {% endfor %}                            
                         </div> 
+                        {% endif %}
                     
                     {% endfor %}
                 {% else %}
