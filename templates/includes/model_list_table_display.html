@@ -68,8 +68,7 @@
                     
                     {% for fieldname in foreign_fields_images %}
                         <td><img src="{{object|my_get_foreign_field_url:fieldname}}" class="img-responsive" style="width:100px;"></td>
-                    {% endfor %}   
-                    
+                    {% endfor %}                       
                 </tr>
             {% endfor %}
             </tbody>

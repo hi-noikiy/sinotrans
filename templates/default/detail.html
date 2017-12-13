@@ -9,6 +9,9 @@
     <div class='col-sm-9 '>
     {% include "includes/model_filelds_table_display.html" %}
 
+    {% block inline_content %}
+    {% endblock %}    
+    
     <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
     <a href="{{ object.get_absolute_url_list }}" class="btn btn-default" >{% trans 'Back' %}</a>
 

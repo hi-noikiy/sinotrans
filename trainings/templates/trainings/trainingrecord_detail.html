@@ -1,10 +1,13 @@
-{% extends "base.html" %}
+{% extends "default/detail.html" %}
 {% load i18n %}
 {% load myform %}
 {% load staticfiles %}
 
+{% block inline_content %}
+        {% include "inlines/list_view.html" with title="training transcript"  object_foreign_set=object.trainingtranscript_set.all fields_foreign=fields_training_transcript fields_foreign_display=fields_training_transcript_display %}
+{% endblock %}
 
-{% block content %}
+{% block content1 %}
 
 <div class="row">
     <div class="col-sm-9">
