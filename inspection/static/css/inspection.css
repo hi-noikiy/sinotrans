@@ -30,7 +30,7 @@ body.model-shelf_inspection_record #changelist table tbody tr td:first-child {
 }
 body.model-shelf_inspection_record #changelist table tbody tr td:nth-child(n+2),
 body.model-shelf_inspection_record #changelist table tbody tr th {
-    width:16%!important;
+    width:11%!important;
 }
 
 
