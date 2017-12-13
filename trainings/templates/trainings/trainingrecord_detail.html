@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-sm-9">
 
-        {% include "inlines/detail_view.html" with object=object %}
+        {% include "includes/model_filelds_table_display.html." with object=object %}
         
         {% include "inlines/list_view.html" with title="training transcript"  object_foreign_set=object.trainingtranscript_set.all fields_foreign=fields_training_transcript fields_foreign_display=fields_training_transcript_display %}
 

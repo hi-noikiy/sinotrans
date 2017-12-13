@@ -104,8 +104,6 @@ class TableDetailViewMixin(object):
         context["fields_images"] = self.fields_images
         
         context["model_sets"] = self.model_sets
-
-        print context["fields"]
         
         return context        
 

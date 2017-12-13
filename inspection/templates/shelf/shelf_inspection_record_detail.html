@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
 
-            {% include "inlines/detail_view.html" with title=detail_view_title fields_display=fields_display %}
+            {% include "includes/model_filelds_table_display.html." with title=detail_view_title fields_display=fields_display %}
 
             <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
             <a href="{% if shelf_inspection_instance %}{{shelf_inspection_instance.get_absolute_url_display}}{% else %} {% url 'shelf_inspection_record_list_abnormal' %}{% endif %}" class="btn btn-default" >{% trans 'Back' %}</a>

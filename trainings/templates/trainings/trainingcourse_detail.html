@@ -28,7 +28,7 @@ table.transposition tr th{
     <div class="row">
         <div class="col-sm-9">
 
-            {% include "inlines/detail_view.html" with object=object fields=fields fields_safe_content=fields_safe_content %}
+            {% include "includes/model_filelds_table_display.html." with object=object fields=fields fields_safe_content=fields_safe_content %}
 
             {% include "inlines/list_view.html" with title="training record"  object_foreign_set=object.trainingrecord_set.all fields_foreign=fields_training_record fields_foreign_display=fields_training_record_display %}
 
