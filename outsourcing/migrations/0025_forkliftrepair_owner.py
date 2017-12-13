@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='forkliftrepair',
             name='owner',
-            field=models.CharField(default=datetime.datetime(2017, 12, 9, 6, 26, 41, 86000, tzinfo=utc), max_length=30, verbose_name='Owner'),
+            field=models.CharField(default="", max_length=30, verbose_name='Owner'),
             preserve_default=False,
         ),
     ]
