@@ -1078,7 +1078,8 @@ class ShelfInspectionCreateView(CreateView):
                 shelf_inspection_record_instance = shelf_inspection_record()
                 shelf_inspection_record_instance.shelf = shelf_instance
                 shelf_inspection_record_instance.shelf_inspection = obj
-                shelf_inspection_record_instance.use_condition = 1                
+                shelf_inspection_record_instance.use_condition = 1             
+                shelf_inspection_record_instance.inspector = self.request.user.get_full_name()
                 shelf_inspection_record_instance.is_locked = False
                 shelf_inspection_record_instance.gradient = 0
                 shelf_inspection_record_instance.create_date = timezone.now()
