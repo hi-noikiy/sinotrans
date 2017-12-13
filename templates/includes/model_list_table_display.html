@@ -41,32 +41,29 @@
             {% for object in object_list %}
                 <tr class="table-primary-hover">
                     {% for fieldname in fields %}
-                        {% if forloop.first and fields|length > 1 %}
-                            <td><a href="{{object.get_absolute_url}}">
+                    {% if forloop.first %}<th>{% else %}<td>{% endif %}
+                            {% if forloop.first and fields|length > 1 and object.get_absolute_url %}
+                                <a href="{{object.get_absolute_url}}">
+                            {% elif fieldname in field_display_links %}
+                                <a href="{{object.get_absolute_url}}">
+                            {% endif %}
+                            
                             {% if fieldname in fields_display %}
                                 {{ object|my_get_field_display:fieldname }}
+                            {% elif fieldname in fields_files %}
+                                <a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a>
+                            {% elif fieldname in fields_images %}
+                                <img class="img-responsive" style="width:100%;" src="{{object|my_get_field_url:fieldname}}">                            
                             {% else %}
                                 {{ object|my_get_field_value:fieldname }}
-                            {% endif %}
-                            </td>
-                        {% elif fieldname in field_display_links %}
-                            <td><a href="{{object.get_absolute_url}}">
-                            {% if fieldname in fields_display %}
-                                {{ object|my_get_field_display:fieldname }}
-                            {% else %}
-                                {{ object|my_get_field_value:fieldname }}
-                            {% endif %}
-                            </td>                                
-                        {% elif fieldname in fields_files %}
-                            <td><a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a></td>
-                        {% elif fieldname in fields_images %}
-                            <td><img class="img-responsive" style="width:100%;" src="{{object|my_get_field_url:fieldname}}"></td>
-                        {% elif fieldname in fields_display %}
-                            <td>{{ object|my_get_field_display:fieldname }}</td>                                
-                        {% else %}
-                            <td>{{ object|my_get_field_value:fieldname }}</td>                            
-                        {% endif %}
+                            {% endif %}                            
 
+                            {% if forloop.first and fields|length > 1 and allow_links%}
+                                </a>
+                            {% elif fieldname in field_display_links %}
+                                </a>
+                            {% endif %}                        
+                    {% if forloop.first %}</th>{% else %}</td>{% endif %}
                     {% endfor %}
                     
                     {% for fieldname in foreign_fields_images %}
