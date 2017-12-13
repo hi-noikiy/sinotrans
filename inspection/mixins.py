@@ -91,8 +91,9 @@ class TableDetailViewMixin(object):
     
     def get_context_data(self, *args, **kwargs):
         context = super(TableDetailViewMixin, self).get_context_data(*args, **kwargs)
-        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)] \
-                if not self.fields and not self.fieldsets else None
+        if not self.fieldsets:
+            context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)] \
+                    if not self.fields else self.fields
         # lookup_field
         # _get_non_gfk_field
         # need time to learning
@@ -187,7 +188,7 @@ class UpdateViewMixin(object):
 
         
     def dispatch(self, request, *args, **kwargs):
-        if not self.fields and not self.get_fields():
+        if not self.fields and not self.get_fields() and not self.form_class:
             self.fields = [field.name for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)]
 
         request.breadcrumbs([

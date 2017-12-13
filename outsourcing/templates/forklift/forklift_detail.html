@@ -77,16 +77,17 @@
                                 </tr>
                             </tbody>
                         </table>
+                        {% if forkliftannualinspection.forkliftannualinspectionimage_set.count > 0 %}
                         <h5>{% trans "forklift annual inspection image" %}</h5>
                         <div class="row">
-                            <div class="col-sm-6">
-                                {% if forkliftannualinspection.forkliftannualinspectionimage_set.count > 0 %}
-                                    {% for img in forkliftannualinspection.forkliftannualinspectionimage_set.all %}                        
-                                        <img class= 'img-responsive' src={{img.image.url}} />
-                                    {% endfor %}
-                                {% endif %}                                        
-                            </div>
+                        	{% for img in forkliftannualinspection.forkliftannualinspectionimage_set.all %}
+                                <div class="col-sm-6">                                                            
+                                    <img class= 'img-responsive' src={{img.image.url}} />                                                                        
+                                </div>
+                            {% endfor %}
+                            {% cycle '' '</div><div class="row">'%}
                         </div> 
+                        {% endif %}
                     
                     {% endfor %}
                 {% else %}
