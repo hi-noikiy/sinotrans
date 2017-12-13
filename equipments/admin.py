@@ -26,7 +26,7 @@ class EquipmentTypeAdmin(admin.ModelAdmin):
 
 class EquipmentAdmin(admin.ModelAdmin):
     list_display = ["name","type"]
-    list_editable = ["name", "type"]
+    list_editable = [ "type"]
     list_filter = [ "type"]
 
     view_on_site = False
