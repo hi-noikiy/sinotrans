@@ -299,14 +299,20 @@ class ShelfInspectionRecordForm(forms.ModelForm):
 
     def clean_forecast_complete_time(self):
         forecast_complete_time = self.cleaned_data['forecast_complete_time']
-        print self.data
-        print self.cleaned_data
         if not forecast_complete_time:
             if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
                 raise forms.ValidationError(_('required when shelf is abnormal!'))
 
         return forecast_complete_time
 
+    def clean_owner(self):
+        owner = self.cleaned_data['owner']
+        if not owner:
+            if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+                raise forms.ValidationError(_('required when shelf is abnormal!'))
+
+        return owner
+        
     class Meta:
         model = shelf_inspection_record
 
