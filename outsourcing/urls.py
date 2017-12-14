@@ -9,6 +9,7 @@ from .views import (
     VehicleListView,
     ForkliftRepairListView,
     ForkliftRepairDetailView,
+    ForkliftRepairUpdateView,
     VehicleDetailView,
     VehicleInspectionListView,
     VehicleInspectionDetailView,
@@ -41,4 +42,5 @@ urlpatterns = [
     url(r'^forklift/detail/(?P<pk>\d+)/$', ForkliftDetailView.as_view(), name='forklift_detail'),    
     url(r'^forkliftrepair$', ForkliftRepairListView.as_view(), name='forklift_repair_list'), 
     url(r'^forkliftrepair/detail/(?P<pk>\d+)/$', ForkliftRepairDetailView.as_view(), name='forklift_repair_detail'), 
+    url(r'^forkliftrepair/update/(?P<pk>\d+)/$', ForkliftRepairUpdateView.as_view(), name='forklift_repair_update'), 
 ]

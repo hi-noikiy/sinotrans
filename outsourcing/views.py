@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 from django.contrib import messages
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 from django.utils import timezone
+from django.forms import models as model_forms
 
 from .models import (
 	Forklift, 
@@ -32,7 +33,7 @@ from .forms import (
 
 from trainings.models import TrainingTranscript
 
-from inspection.mixins import TableDetailViewMixin, TableListViewMixin
+from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin
 
 class TransportSecurityView(TemplateView):
     template_name = "transport_security.html"
@@ -153,7 +154,7 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
 
 class ForkliftRepairDetailView(TableDetailViewMixin, DetailView): 
     model = ForkliftRepair
-    template_name = "forklift/forklift_repair_detail.html"
+    # template_name = "forklift/forklift_repair_detail.html"
 
     fields = [field for field in model._meta.get_fields() if not field.name in [model._meta.pk.attname,]]
     fields_display = ["repaired",]
@@ -166,6 +167,36 @@ class ForkliftRepairDetailView(TableDetailViewMixin, DetailView):
         ])
         return super(ForkliftRepairDetailView, self).dispatch(request,args,kwargs)  
 
+class ForkliftRepairUpdateView(UpdateViewMixin, UpdateView): 
+    model = ForkliftRepair
+
+    def get_form_class(self):
+        self.form_class = model_forms.modelform_factory(self.model, exclude=["created", "updated", "repaire_date"], )
+        return self.form_class
+        
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object() 
+
+        form = self.get_form() 
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            instance = ForkliftRepair.objects.filter(pk=obj.pk).first()
+            if obj.is_repaired() and instance.is_repaired() == False:
+                obj.repaire_date = timezone.now()
+            elif obj.is_repaired() == False and instance.is_repaired():
+                obj.repaire_date = None
+            else:
+                obj.repaire_date = instance.repaire_date
+                
+            obj.save()
+
+            return HttpResponseRedirect(self.get_success_url())
+        else:            
+            return self.form_invalid(form)
+
+        return super(UpdateViewMixin, self).post(request, *args, **kwargs)   
+        
 class DriverListView(ListView): 
     model = Driver
     template_name = "transportation/driver_list.html"
