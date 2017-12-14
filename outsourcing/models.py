@@ -296,13 +296,13 @@ class VehicleInspection(models.Model):
 
 class VehicleTransportationKPI(models.Model):
     TRANSPORTATION_PROJECT_OPTION = (
-        ('shuttle bus', _('shuttle bus')),
-        ('general cargo shanghai', _('general cargo shanghai')),
-        ('general cargo zhejiang', _('general cargo zhejiang')),
-        ('scattered oil (land-and-water coordinated transport)', _('scattered oil (land-and-water coordinated transport)')),        
-        ('scattered oil (road)', _('Scattered oil (road)')),        
-        ('hazardous article', _('hazardous article')),        
-        ('water transport', _('water transport')),        
+        ('01', _('shuttle bus')),
+        ('02', _('general cargo shanghai')),
+        ('03', _('general cargo zhejiang')),
+        ('04', _('scattered oil (land-and-water coordinated transport)')),        
+        ('05', _('Scattered oil (road)')),        
+        ('06', _('hazardous article')),        
+        ('07', _('water transport')),        
     )
 
     transportation_project = models.CharField(_("transportation project"), choices=TRANSPORTATION_PROJECT_OPTION, blank=False, null=False, max_length=130)
@@ -348,5 +348,8 @@ class VehicleTransportationKPI(models.Model):
     def get_absolute_url(self):
         return reverse("transportationkpi_detail", kwargs={"pk": self.pk })  
 
+    def get_create_url(self, year, month, project):
+        return reverse("transportationkpi_create", kwargs={'year': year, 'month':month, 'project': project })
+        
     def get_absolute_url_update(self): 
         return reverse("transportationkpi_update", kwargs={"pk": self.pk })          

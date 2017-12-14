@@ -428,7 +428,7 @@ class TransportationKPICreateView(CreateView):
         context = super(TransportationKPICreateView, self).get_context_data(*args, **kwargs)
         context["year"] = self.kwargs.get('year')
         context["month"] = self.kwargs.get('month')
-        context["form"] = self.form_class(self.request.POST or None, self.request.GET or None, initial={'year':self.kwargs.get('year'),'month': self.kwargs.get('month')})
+        context["form"] = self.form_class(self.request.POST or None, self.request.GET or None, initial={'year':self.kwargs.get('year'),'month': self.kwargs.get('month'),'transportation_project': self.kwargs.get('project')})
 
         return context
 
@@ -497,9 +497,15 @@ class TransportationKPIListDisplayView(ListView):
         self.request.session["transport_kpi_year"] = self.request.GET.get('year')
         self.request.session["transport_kpi_month"] = self.request.GET.get('month')
 
-        if self.request.GET.get('year') and self.request.GET.get('month'):
-            context["create_url"] = reverse("transportationkpi_create", kwargs={'year':self.request.GET.get('year'), 'month':self.request.GET.get('month')})
+        #if self.request.GET.get('year') and self.request.GET.get('month'):
+        #    context["create_url"] = reverse("transportationkpi_create", kwargs={'year':self.request.GET.get('year'), 'month':self.request.GET.get('month')})
 
+        if self.request.GET.get('year') and self.request.GET.get('month'):
+            temp_object = self.model.objects.first()
+            if not temp_object:
+                temp_object = self.model()
+            context["create_url"] = temp_object.get_create_url(self.request.GET.get('year'), self.request.GET.get('month'), "01")[:-3]
+            
         return context       
 
     def post(self, request, *args, **kwargs):
