@@ -467,6 +467,12 @@ class PIForm(forms.ModelForm):
         super(PIForm, self).__init__(*args, **kwargs)
         self.fields['planned_complete_date'].widget.attrs['class'] ="calenda"
 
+    def clean_image_after(self):
+        if not self.instance.id and self.cleaned_data['image_after']:
+            raise forms.ValidationError(_('picture after rectification should not be exist during creation'))
+
+        return self.cleaned_data["image_after"]
+
 from django.forms.widgets import ClearableFileInput, CheckboxInput, Input
 from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape, format_html, html_safe
