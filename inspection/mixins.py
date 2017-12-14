@@ -151,6 +151,14 @@ class UpdateViewMixin(object):
     fields = None # is defined in ModelFormMixin
     # fields = [field.name for field in model._meta.get_fields() if not field.name in [model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)]
 
+    def get_form_class(self):
+        if not self.form_class:
+            if self.fields:
+                self.form_class = model_forms.modelform_factory(self.model, fields=self.fields, )
+            else:
+                self.form_class = model_forms.modelform_factory(self.model, exclude=["",], )
+        return self.form_class
+            
     def get_success_url(self):
         return self.get_object().get_absolute_url() # default function
         
@@ -198,7 +206,15 @@ class UpdateViewMixin(object):
 
 class CreateViewMixin(object):
     template_name = "default/create.html"
-    
+
+    def get_form_class(self):
+        if not self.form_class:
+            if self.fields:
+                self.form_class = model_forms.modelform_factory(self.model, fields=self.fields, )
+            else:
+                self.form_class = model_forms.modelform_factory(self.model, exclude=["",], )
+        return self.form_class
+        
     def get_success_url(self):
         #return self.model().get_absolute_url_list()
         return self.object.get_absolute_url()  # default function
