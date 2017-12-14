@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 <style type="text/css">
 {% block style %}
@@ -14,5 +15,12 @@
 </style>
 
 {% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pull-right">
+            <a href='{% url "rehearsal_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "rehearsal" %}</i></a>                          
+        </div>
+    </div>
+</div>
 {% include "includes/model_list_table_display.html" with line_per_page=3 %}
 {% endblock %}

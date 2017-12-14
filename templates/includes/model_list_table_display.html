@@ -53,7 +53,7 @@
                             {% elif fieldname in fields_files %}
                                 <a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a>
                             {% elif fieldname in fields_images %}
-                                <img class="img-responsive" style="width:100%;" src="{{object|my_get_field_url:fieldname}}">                            
+                                {% if object|my_get_field_url:fieldname %}<img class="img-responsive" style="width:100%;" src="{{object|my_get_field_url:fieldname}}">{% endif %}
                             {% else %}
                                 {{ object|my_get_field_value:fieldname }}
                             {% endif %}                            

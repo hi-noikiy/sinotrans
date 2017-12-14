@@ -21,7 +21,7 @@
                             <td> 
                             	{% if fieldname in fields_files %}<a href="/media/{{ object|my_get_field_value:fieldname }}">{{object|my_get_field_value:fieldname}}</a>
                             	{% elif fieldname in fields_display %}{{ object|my_get_field_display:fieldname }}
-                            	{% elif fieldname in fields_images %}<img src="{{ object|my_get_field_url:fieldname }}" class="img-responsive" style="width: 100%;">
+                            	{% elif fieldname in fields_images %}{% if object|my_get_field_url:fieldname %}<img src="{{ object|my_get_field_url:fieldname }}" class="img-responsive" style="width: 100%;">{% endif %}
                             	{% else %}{{ object|my_get_field_value:fieldname }}{% endif %}
                             </td>
                         </tr>
@@ -40,9 +40,7 @@
                         <th>{{field.verbose_name}}</th>
                         <td>
                             {% if field.name in fields_images %}
-                                {% if object|my_get_field_url:field.name %}
-                                <img class="img-responsive" style="width:100%;" src="{{object|my_get_field_url:field.name}}">
-                                {% endif %}
+                                {% if object|my_get_field_url:field.name %}<img class="img-responsive" style="width:100%;" src="{{object|my_get_field_url:field.name}}">{% endif %}
                             {% elif field.name in fields_display %}
                                 {{object|my_get_field_display:field.name}}
                             {% elif field.name in fields_safe_content %}

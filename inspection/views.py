@@ -108,7 +108,13 @@ class RehearsalDetailView(TableDetailViewMixin, DetailView):
         ])
         return super(RehearsalDetailView, self).dispatch(request,args,kwargs)   
 
+class RehearsalUpdateView(UpdateViewMixin, UpdateView): 
+    model = Rehearsal
+    form_class = model_forms.modelform_factory(Rehearsal, exclude=["",], )
 
+class RehearsalCreateView(CreateViewMixin, CreateView): 
+    model = Rehearsal
+    form_class = model_forms.modelform_factory(Rehearsal, exclude=["",], )
 
 
 def gen_qrcode(link):

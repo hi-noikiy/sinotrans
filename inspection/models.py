@@ -497,10 +497,13 @@ class Rehearsal(models.Model):
         verbose_name_plural = _("rehearsal")
 
     def get_absolute_url(self):
-        return reverse("rehearsal_detail", kwargs={"pk": self.id })
+        return reverse("rehearsal_detail", kwargs={"pk": self.pk })
 
     def get_absolute_url_list(self):
         return reverse("rehearsal_list", kwargs={})
+
+    def get_absolute_url_update(self):
+        return reverse("rehearsal_update", kwargs={"pk": self.pk })
         
     def __unicode__(self): 
         return _("rehearsal") + " %s" % (self.title)

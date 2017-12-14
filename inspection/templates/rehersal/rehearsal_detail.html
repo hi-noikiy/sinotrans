@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 <style type="text/css">
 {% block style %}
@@ -7,5 +8,12 @@
 </style>
 
 {% block content %}
-{% include "includes/model_filelds_table_display.html" %}
+<div class="row" >
+    <div class="col-sm-9" >
+        {% include "includes/model_filelds_table_display.html" %}
+
+        <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+        <a href="{{ object.get_absolute_url_list }}" class="btn btn-default" >{% trans 'Back' %}</a>
+    </div>
+</div>
 {% endblock %}
