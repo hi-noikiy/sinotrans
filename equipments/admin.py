@@ -36,7 +36,7 @@ class EquipmentAdmin(admin.ModelAdmin):
 
 class EquipmentInspectionAdmin(admin.ModelAdmin):
     list_display = ["equipment","use_condition","inspector","date_of_inspection","updated","owner","due_date","completed_time"]
-    list_editable = ["use_condition","inspector"]
+    list_editable = ["use_condition","owner","due_date"]
     list_filter = ["equipment","use_condition","inspector","date_of_inspection"]
     form = EquipmentInspectionForm
 

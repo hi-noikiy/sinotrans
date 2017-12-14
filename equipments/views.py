@@ -12,6 +12,7 @@ from django.views.generic.edit import FormMixin, ModelFormMixin
 from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
+from django.utils.encoding import force_str, force_text
 import csv
 import codecs
 from django.utils import timezone
@@ -149,16 +150,20 @@ class EquipmentInspectionListView(FilterMixin, ListView):
 
         return context
 
+
     def post(self, *args, **kwargs):
         qs = self.get_queryset()
         f = EquipmentInsepctionFilter(self.request.GET, queryset=qs)
 
         response = HttpResponse(content_type='text/csv')        
-        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+        response['Content-Disposition'] = 'attachment; filename="equipment_export.csv"'
         response.write(codecs.BOM_UTF8) # add bom header
         writer = csv.writer(response)
 
         row = []
+        fields_display = [ "use_condition", ]
+        fields_fk = ["equipment",  ]
+        fields_datetime = ["updated","completed_time", ]
         for field in self.model._meta.get_fields():
             print field.verbose_name
             row.append(field.verbose_name)
@@ -168,8 +173,18 @@ class EquipmentInspectionListView(FilterMixin, ListView):
             row = []
             for field in self.model._meta.get_fields():
                 #row.append(field.value_to_string(obj).encode('utf8'))
-                value = "%s" %  (obj._get_FIELD_display(field))
-                row.append(value.encode('utf8'))
+                value = getattr(obj, field.name) 
+                if value:
+                    if field.name in fields_datetime:
+                        value = value.strftime('%Y-%m-%d %H:%M:%S')             
+                    elif field.name in fields_display:
+                        value = obj._get_FIELD_display(field)
+                    elif field.name in fields_fk:
+                        value = force_text(value, strings_only=True)
+                    value = "%s" %  (value)
+                    row.append(value.encode('utf8'))
+                else:
+                    row.append("")
             writer.writerow(row)    
 
         return response
