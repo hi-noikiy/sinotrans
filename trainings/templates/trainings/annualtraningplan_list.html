@@ -67,7 +67,7 @@
             			</td>
             			{% else %}
             			<td {% if column.1 == "A"%} style="background-color:green; " {%endif%} >
-            				<a {% if column.1 == "A"%} style="color:white;"{%endif%} href="{{ column.0.get_absolute_url }}" >{{column.1}}</a>
+            				{% if column.1 == "A"%}<a style="color:white;" href="{{ column.0.get_absolute_url }}" >{{column.1}}</a>{% else %}{{ column.1 }}{% endif %}
             			</td>
             			{% endif %}            		
             		{% endfor %}
