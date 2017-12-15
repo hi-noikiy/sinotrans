@@ -66,7 +66,7 @@ class TableListViewMixin(object):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        # self.request.session["current_url"] = request.get_full_path()	
+        self.request.session["list_url"] = request.get_full_path()	
     
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
@@ -106,12 +106,6 @@ class TableDetailViewMixin(object):
         context["fields_images"] = self.fields_images
         
         context["model_sets"] = self.model_sets
-
-        """
-        view_stack = self.request.session.get("url_stack")
-        if view_stack and len(view_stack)>1:
-            context["back_url"] = self.request.session["url_stack"][-2]
-        """
         
         return context        
 
@@ -122,15 +116,8 @@ class TableDetailViewMixin(object):
         except:
             pass
 
-        """
-        view_stack = self.request.session.get("url_stack")
-        if view_stack and len(view_stack):
-            if view_stack[-1] is not request.get_full_path():
-                self.request.session["url_stack"].append(request.get_full_path()	)
-        else:
-            self.request.session["url_stack"]= [request.get_full_path(),]
-        """
-        
+        self.request.session["detail_url"] = request.get_full_path()	
+            
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (self.model._meta.verbose_name, list_url),
@@ -183,15 +170,6 @@ class UpdateViewMixin(object):
         context = super(UpdateViewMixin, self).get_context_data(*args, **kwargs) 
         context["title"] = self.get_object()
 
-        """
-        back_url = None
-        if self.request.session.get("current_url", None):
-            back_url = self.request.session["current_url"]
-        elif hasattr(self.object, "get_absolute_url"):
-            back_url = self.get_object().get_absolute_url()
-        context["back_url"] = back_url
-        """
-        
         return context
 
     # HERE just for learning, it was implemented in base classed
@@ -223,9 +201,15 @@ class UpdateViewMixin(object):
         if not self.fields and not self.get_fields() and not self.form_class:
             self.fields = [field.name for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)]
 
+        list_url=""
+        try:
+            list_url = self.get_object().get_absolute_url_list()
+        except:
+            pass
+            
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
-            (self.model._meta.verbose_name,self.get_object().get_absolute_url_list()),
+            (self.model._meta.verbose_name, list_url),
             (self.get_object(),request.path_info),
         ])
         return super(UpdateViewMixin, self).dispatch(request,args,kwargs)           

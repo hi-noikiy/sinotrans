@@ -128,6 +128,10 @@ class ForkliftDetailView(TableDetailViewMixin, DetailView):
         return context       
 
     def dispatch(self, request, *args, **kwargs):
+        self.request.session["related_back"] = request.get_full_path()
+        if self.request.session.get("list_url", None):
+            del self.request.session["list_url"]
+
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_("Forklift"),reverse("forklift_list", kwargs={})),            
@@ -264,7 +268,7 @@ class ForkliftMaintListView(TableListViewMixin, ListView):
 
 class ForkliftMaintCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = ForkliftMaint
-    
+
 class ForkliftAnnualInspectionListView(TableListViewMixin, ListView): 
     model = ForkliftAnnualInspection
     template_name = "forklift/forklift_annual_inspection_list.html"
@@ -388,6 +392,7 @@ class DriverDetailView(DetailView):
         ])
         return super(DriverDetailView, self).dispatch(request,args,kwargs)           
 
+
 class VehicleListView(ListView): 
     model = Vehicle
     template_name = "transportation/vehicle_list.html"
@@ -506,13 +511,11 @@ class VehicleInspectionListView(ListView):
         ])
         return super(VehicleInspectionListView, self).dispatch(request,args,kwargs)   
 
-class VehicleInspectionDetailView(DetailView): 
+class VehicleInspectionDetailView(TableDetailViewMixin, DetailView): 
     model = VehicleInspection
-    template_name = "transportation/vehicle_inspection_detail.html"
+    # template_name = "transportation/vehicle_inspection_detail.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(VehicleInspectionDetailView, self).get_context_data(*args, **kwargs)
-        context["fields_display"] = [
+    fields_display = [
                     "load_or_unload",
                     "rectification_qualified",
                     "hardware_inspection_disqualification",        
@@ -524,18 +527,89 @@ class VehicleInspectionDetailView(DetailView):
                     "no_vehicle_inspection_record",
                     "no_DDC_certificate"
             ]
-        context["detail_view_title"] = _("vehicle inspection")
-        context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]   
 
-        return context    
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(VehicleInspectionDetailView, self).get_context_data(*args, **kwargs)
+    #     context["fields_display"] = [
+    #                 "load_or_unload",
+    #                 "rectification_qualified",
+    #                 "hardware_inspection_disqualification",        
+    #                 "no_driver_code_of_conduct",
+    #                 "overload_or_LSR_violation",
+    #                 "safety_policy_violation",
+    #                 "no_journey_plan_or_log",
+    #                 "vehichle_not_register",
+    #                 "no_vehicle_inspection_record",
+    #                 "no_DDC_certificate"
+    #         ]
+    #     context["detail_view_title"] = _("vehicle inspection")
+    #     context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]   
 
-    def dispatch(self, request, *args, **kwargs):
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_("vehicle"),reverse("vehicle_list", kwargs={})),            
-            (self.get_object(), request.path_info),
-        ])
-        return super(VehicleInspectionDetailView, self).dispatch(request,args,kwargs)    
+    #     return context    
+
+    # def dispatch(self, request, *args, **kwargs):
+    #     request.breadcrumbs([
+    #         (_("Home"),reverse("home", kwargs={})),
+    #         (_("vehicle"),reverse("vehicle_list", kwargs={})),            
+    #         (self.get_object(), request.path_info),
+    #     ])
+    #     return super(VehicleInspectionDetailView, self).dispatch(request,args,kwargs)    
+
+class VehicleInspectionUpdateView(UpdateViewMixin, UpdateView): 
+    model = VehicleInspection
+
+    def get_form_class(self):
+        self.form_class = model_forms.modelform_factory(self.model, exclude=["completed_time",], )
+        return self.form_class
+
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object() 
+
+        form = self.get_form() 
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            instance = VehicleInspection.objects.filter(pk=obj.pk).first()
+            if obj.is_rectification_qualified() and instance.is_rectification_qualified() == False:
+                obj.completed_time = timezone.now()
+            elif obj.is_rectification_qualified() == False and instance.is_rectification_qualified():
+                obj.completed_time = None
+            else:
+                obj.completed_time = instance.completed_time
+            obj.save()
+
+            return HttpResponseRedirect(self.get_success_url())
+        else:            
+            return self.form_invalid(form)
+
+        return super(UpdateViewMixin, self).post(request, *args, **kwargs)  
+
+class VehicleInspectionCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
+    model = VehicleInspection
+
+    def get_form_class(self):
+        self.form_class = model_forms.modelform_factory(self.model, exclude=["completed_time",], )
+        return self.form_class
+
+    def post(self, request, *args, **kwargs):
+
+        form = self.get_form() 
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.inspector = self.request.user.get_full_name()
+            obj.save()
+
+            self.object = obj
+
+            return HttpResponseRedirect(self.get_success_url())
+        else:            
+            return self.form_invalid(form)
+
+        return super(CreateViewMixin, self).post(request, *args, **kwargs)  
+
+            
 
 class VehicleTransportationKPIFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)

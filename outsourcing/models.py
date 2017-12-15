@@ -309,6 +309,12 @@ class VehicleInspection(models.Model):
     def get_absolute_url(self):
         return reverse("vehicle_inspection_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_update(self):
+        return reverse("vehicle_inspection_update", kwargs={"pk": self.pk })
+
+    def get_absolute_url_list(self):
+        return reverse("vehicle_inspection_list", kwargs={})
+        
     def is_rectification_qualified(self):
         return self.rectification_qualified == "yes"
 

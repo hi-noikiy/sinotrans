@@ -1,17 +1,33 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% load pagination_tags %}
+{% extends "outsourcing_list.html" %}
 {% load i18n %}
+
+{% block left_bar %}
+<div class="nav-bar" style="margin-right:20%;">
+    <p class="nav-title">{% trans "Outsource Management" %}</p>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="{% url 'vehicle_list' %}">{% trans "vehicle" %}</a></li>
+      <li><a href="{% url 'driver_list' %}">{% trans "driver" %}</a></li>
+      <li><a href="{% url 'vehicle_inspection_list' %}">{% trans "abnormal" %}{% trans "vehicle inspection" %}</a></li>
+    </ul>
+</div>
+{% endblock %}
 
 <style type="text/css">
 {% block style %}
+.object_list table tr th:nth-child(1n+5){
+    width: 1px;
+}
+
+.object_list table tr th:nth-child(1n+17){
+    width: 10%;
+}
 
 
 {% endblock%}
 </style>
 
 
-{% block content %}
+{% block lists %}
 
 {% include "includes/model_list_table_display.html" with object_list=object_list fields=fields fields_display=fields_display title=title page_num=50 table_class='table-align-center' %}
 
