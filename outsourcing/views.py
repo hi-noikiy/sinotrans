@@ -33,7 +33,8 @@ from .forms import (
 
 from trainings.models import TrainingTranscript
 
-from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin
+from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
+
 
 class TransportSecurityView(TemplateView):
     template_name = "transport_security.html"
@@ -132,6 +133,12 @@ class ForkliftDetailView(TableDetailViewMixin, DetailView):
         ])
         return super(ForkliftDetailView, self).dispatch(request,args,kwargs)  
 
+class ForkliftUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
+    model = Forklift
+
+class ForkliftCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
+    model = Forklift
+    
 class ForkliftRepairListView(TableListViewMixin, ListView): 
     model = ForkliftRepair
     template_name = "forklift/forklift_repair_list.html"

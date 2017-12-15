@@ -13,4 +13,15 @@
     </ul>
 </div>    
 {% endblock %}
+
+{% block links %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pull-right">
+            <a  href="{% url 'forklift_repair_list'  %}"><i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"><span style="color:#428bca;">{% trans "abnormal" %}{% trans "forklift repair" %}</span></i></a>
+            <a href='{% url "forklift_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "forklift" %}</i></a>
+        </div>
+    </div>
+</div>
+{% endblock %}
                 
