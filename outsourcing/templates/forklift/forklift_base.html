@@ -9,6 +9,8 @@
     <p class="nav-title">{% trans "Outsource Management" %}</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="{% url 'forklift_list' %}">{% trans "forklift" %}</a></li>
+      <li><a href="{% url 'forklift_maint_list' %}">{% trans "forklift maintenance" %}</a></li>
+      <li><a href="{% url 'forklift_annual_inspection_list' %}">{% trans "forklift annual inspection" %}</a></li>
       <li><a href="{% url 'forklift_repair_list' %}"><span style="color:#428bca;">{% trans "Uncompleted" %}{% trans "forklift repair" %}</span> <i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"></i></a></li>
     </ul>
 </div>    
@@ -19,7 +21,9 @@
     <div class="col-sm-12">
         <div class="pull-right">
             <a  href="{% url 'forklift_repair_list'  %}"><i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"><span style="color:#428bca;">{% trans "abnormal" %}{% trans "forklift repair" %}</span></i></a>
+            {% comment %}
             <a href='{% url "forklift_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "forklift" %}</i></a>
+            {% endcomment %}
         </div>
     </div>
 </div>

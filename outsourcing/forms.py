@@ -2,9 +2,10 @@ from django import forms
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 
-from .models import VehicleTransportationKPI, VehicleInspection, ForkliftRepair
+from .models import VehicleTransportationKPI, VehicleInspection, ForkliftRepair, ForkliftAnnualInspectionImage
 from django.contrib.auth import get_user_model
 from inspection.models import month_choice
+from inspection.forms import ImageFileInput
 
 class VehicleTransportationKPIForm(forms.ModelForm):
 
@@ -113,3 +114,14 @@ class ForkliftRepairForm(forms.ModelForm):
         exclude = {
             "inspector",
         }     
+
+class ForkliftAnnualInspectionImageForm(forms.ModelForm):
+
+    class Meta:
+        model = ForkliftAnnualInspectionImage
+
+        fields = ["image",]
+
+        widgets = {
+            'image': ImageFileInput(),
+        }        

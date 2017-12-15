@@ -18,6 +18,8 @@ from .models import (
 	Forklift, 
     ForkliftMaint, 
     ForkliftRepair,
+    ForkliftAnnualInspection,
+    ForkliftAnnualInspectionImage,
 
     Vehicle, 
     Driver, 
@@ -203,7 +205,137 @@ class ForkliftRepairUpdateView(UpdateViewMixin, UpdateView):
             return self.form_invalid(form)
 
         return super(UpdateViewMixin, self).post(request, *args, **kwargs)   
-        
+
+class ForkliftRepairCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
+    model = ForkliftRepair
+
+
+    
+
+class ForkliftMaintDetailView(TableDetailViewMixin, DetailView): 
+    model = ForkliftMaint
+
+    fields_display = [
+        "clean_forklift",
+        "clean_and_lubricate_chain",
+        "lubricate_gateshelf_and_lean_cylinder_bearing",
+        "lubricate_sideswayfork_and_check_work_status",
+        "fastening_tyre_nut",
+        "check_tyre_status",
+        "check_gear_oil_level_and_leak",
+        "check_hydraulic_oil_level",
+        "clean_all_motor_and_accessories",
+        "check_and_clean_motor_cooling_fan",
+        "check_all_cable_and_connection_status",
+        "check_battery_electrolyte_liquidometer_ratio",
+        "check_charger_status",
+        "check_pipeline_fastening_and_leak",
+        "check_pallet_fork_and_pin_lock",
+        "check_lubricate_pedal_and_control_linkage",
+        "check_braking_device",
+        "check_all_motor_carbon_brush",
+        "check_overhead_guard_and_counter_weight",
+        "check_steering_axle_and_drive_axle",
+        "check_gateshelf_and_chain",
+        "check_hub_bearing",
+        "check_steering_axle_bearing",
+        "check_gateshlf_bearing",
+        "change_gear_oil",
+        "change_oil_suction_filter",
+        "change_ventilate_filter",
+        "change_hydraulic_oil",
+
+    ]
+
+class ForkliftMaintUpdateView(UpdateViewMixin, UpdateView): 
+    model = ForkliftMaint
+
+    def get_form_class(self):
+        self.form_class = model_forms.modelform_factory(self.model, exclude=["created", "updated",], )
+        return self.form_class
+
+
+class ForkliftMaintListView(TableListViewMixin, ListView): 
+    model = ForkliftMaint
+    template_name = "forklift/forklift_maint_list.html"
+
+    from .admin import ForkliftMaintAdmin
+    fields = ForkliftMaintAdmin.list_display
+
+class ForkliftMaintCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
+    model = ForkliftMaint
+    
+class ForkliftAnnualInspectionListView(TableListViewMixin, ListView): 
+    model = ForkliftAnnualInspection
+    template_name = "forklift/forklift_annual_inspection_list.html"
+    from .admin import ForkliftAnnualInspectionAdmin
+    fields = ForkliftAnnualInspectionAdmin.list_display
+
+class ForkliftAnnualInspectionDetailView(TableDetailViewMixin, DetailView): 
+    model = ForkliftAnnualInspection
+    template_name = "forklift/forklift_annual_inspection_detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ForkliftAnnualInspectionDetailView, self).get_context_data(*args, **kwargs) 
+        context["fields_foreign_forkliftannualinspection"] = ["image",]
+        context["fields_foreign_forkliftannualinspection_image"] = ["image",]
+        return context
+
+class ForkliftAnnualInspectionCreateView(CreateViewMixin, CreateView): 
+    model = ForkliftAnnualInspection
+
+    # template_name = "shelf/shelf_annual_inspection_create.html"
+    # from .admin import ShelfAnnualInspectionAdmin
+    # fields = ShelfAnnualInspectionAdmin.list_display
+
+from django.forms.models import modelformset_factory, inlineformset_factory, BaseModelFormSet, BaseInlineFormSet
+from .forms import ForkliftAnnualInspectionImageForm, ImageFileInput
+class ForkliftAnnualInspectionUpdateView(UpdateViewMixin, UpdateView): 
+    model = ForkliftAnnualInspection
+    template_name = "forklift/forklift_annual_inspection_update.html"
+
+    def get_foreign_form_class(self):
+        return model_forms.modelform_factory(ForkliftAnnualInspectionImage, fields=["image",], widgets={"image":ImageFileInput(),})
+
+    def get_inine_foreign_formset_class(self):
+        return inlineformset_factory(
+                                    ForkliftAnnualInspection, 
+                                    ForkliftAnnualInspectionImage,  
+                                    form=self.get_foreign_form_class(), 
+                                    can_delete=True,
+                                    extra=1)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ForkliftAnnualInspectionUpdateView, self).get_context_data(*args, **kwargs) 
+
+        context["formset"] = self.get_inine_foreign_formset_class()(instance=self.object)
+
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object() 
+
+        form = self.get_form() 
+        form_foreign_image = self.get_foreign_form_class()(self.request.POST, self.request.FILES )
+        formset = self.get_inine_foreign_formset_class()(self.request.POST, self.request.FILES, instance=self.object )
+
+        if form.is_valid():
+            if form_foreign_image.is_valid():
+                image = form_foreign_image.save(commit=False)
+                image.forklift_annual_inspection = self.object
+                image.save()
+            if formset.is_valid():
+                formset.save()             
+            form.save()
+
+            return HttpResponseRedirect(self.get_success_url())
+        else:            
+            return self.form_invalid(form)
+
+        return super(UpdateViewMixin, self).post(request, *args, **kwargs)       
+
+    
 class DriverListView(ListView): 
     model = Driver
     template_name = "transportation/driver_list.html"

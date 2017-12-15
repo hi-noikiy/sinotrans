@@ -1,4 +1,4 @@
-
+{% load i18n %}
 
 <button type="button" class="btn btn-info" data-toggle="collapse" 
     data-target="#collapse{{object.id}}">
@@ -12,6 +12,8 @@
 		{% endfor %}
 		</tbody>
 	</table>	
+	<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+	<hr>
 </div>
 
 

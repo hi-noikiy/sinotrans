@@ -106,18 +106,21 @@ class ForkliftMaint(models.Model):
     change_oil_suction_filter = models.CharField(_('change oil suction filter'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')
     change_ventilate_filter = models.CharField(_('change ventilate filter'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')
     change_hydraulic_oil = models.CharField(_('change hydraulic oil'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')
-    created = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    created = models.DateTimeField(_('Create Date'),auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(_('Latest Update'),auto_now_add=False, auto_now=True)
 
     def __unicode__(self): 
         return " %s %s %s" % (_("forklift"), self.forklift.internal_car_number , _("Maintenance"))
 
-    """
-    def __init__(self, arg):
-        super(ForkliftMaint, self).__init__()
-        self.arg = arg
-    """
+    def get_absolute_url(self):
+        return reverse("forklift_maint_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_update(self):
+        return reverse("forklift_maint_update", kwargs={"pk": self.pk })
+
+    def get_absolute_url_list(self):
+        return reverse("forklift_maint_list", kwargs={})
+        
     class Meta:
         verbose_name = _("forklift maintenance")
         verbose_name_plural = _("forklift maintenance")
@@ -170,7 +173,15 @@ class ForkliftAnnualInspection(models.Model):
         verbose_name = _("forklift annual inspection")
         verbose_name_plural = _("forklift annual inspection")
 
+    def get_absolute_url(self):
+        return reverse("forklift_annual_inspection_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_update(self):
+        return reverse("forklift_annual_inspection_update", kwargs={"pk": self.pk })
+        
+    def get_absolute_url_list(self):
+        return reverse("forklift_annual_inspection_list", kwargs={})
+        
     def __unicode__(self): 
         return " %s %s %s" % (_("forklift"), self.forklift.internal_car_number , _("Annual Inspection Date"))
 

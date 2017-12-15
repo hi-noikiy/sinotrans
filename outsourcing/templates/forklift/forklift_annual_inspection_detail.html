@@ -1,0 +1,20 @@
+{% extends "default/detail.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content %}
+{{object.forkliftannualinspection_set}}
+<div class='row'>
+    <div class='col-sm-9 '>
+    {% include "includes/model_filelds_table_display.html" %}
+
+    {% include "inlines/list_view.html" with object_foreign_set=object.forkliftannualinspectionimage_set.all fields_foreign=fields_foreign_forkliftannualinspection  fields_images=fields_foreign_forkliftannualinspection_image title="forklift annual inspection image" table_class="table-align-center" %}
+
+    <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+    <a href="{{ object.get_absolute_url_list }}" class="btn btn-default" >{% trans 'Back' %}</a>
+
+    </div>
+
+</div>
+
+{% endblock %}  

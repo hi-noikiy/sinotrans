@@ -14,6 +14,7 @@
     fields_images
     fields_display
     foreign_fields_images
+    no_links
 
  -->
 
@@ -33,7 +34,8 @@
                     {% endfor %}
                     {% for field in foreign_fields_images %}
                         <th></th>
-                    {% endfor %}                      
+                    {% endfor %}
+                    {% if allow_edit %}<th></th>{% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -42,7 +44,7 @@
                 <tr class="table-primary-hover">
                     {% for fieldname in fields %}
                     {% if forloop.first %}<th>{% else %}<td>{% endif %}
-                            {% if forloop.first and fields|length > 1 and object.get_absolute_url %}
+                            {% if forloop.first and fields|length > 1 and object.get_absolute_url and not allow_edit %}
                                 <a href="{{object.get_absolute_url}}">
                             {% elif fieldname in field_display_links %}
                                 <a href="{{object.get_absolute_url}}">
@@ -68,7 +70,10 @@
                     
                     {% for fieldname in foreign_fields_images %}
                         <td>{% if object|my_get_foreign_field_url:fieldname %}<img src="{{object|my_get_foreign_field_url:fieldname}}" class="img-responsive" style="width:100px;">{% endif %}</td>
-                    {% endfor %}                       
+                    {% endfor %}
+
+                    {% if allow_edit %}<td><a class="fa fa-pencil" href="{{ object.get_absolute_url_update }}"></a></td>{% endif %}
+                    
                 </tr>
             {% endfor %}
             </tbody>
