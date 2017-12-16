@@ -29,8 +29,10 @@ from .models import (
     option_value_convertion
 	)
 from .forms import (
-    vehicle_transportation_kpi_model_formset, VehicleTransportationKPIForm,
+    vehicle_transportation_kpi_model_formset, 
+    VehicleTransportationKPIForm,
     VehicleTransportationKPIFilterForm,
+    ForkliftRepairForm,
     )
 
 from trainings.models import TrainingTranscript
@@ -183,7 +185,7 @@ class ForkliftRepairUpdateView(UpdateViewMixin, UpdateView):
     model = ForkliftRepair
 
     def get_form_class(self):
-        self.form_class = model_forms.modelform_factory(self.model, exclude=["created", "updated", "repaire_date"], )
+        self.form_class = model_forms.modelform_factory(self.model, exclude=["created", "updated", ], form=ForkliftRepairForm )
         return self.form_class
         
     def post(self, request, *args, **kwargs):
@@ -212,6 +214,10 @@ class ForkliftRepairUpdateView(UpdateViewMixin, UpdateView):
 class ForkliftRepairCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = ForkliftRepair
 
+    def get_form_class(self):
+        self.form_class = model_forms.modelform_factory(self.model, exclude=["created", "updated", ], form=ForkliftRepairForm)
+        return self.form_class
+        
     def get_context_data(self, *args, **kwargs):
         context = super(ForkliftRepairCreateView, self).get_context_data(*args, **kwargs)
 

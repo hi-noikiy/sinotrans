@@ -127,10 +127,10 @@ class ForkliftMaint(models.Model):
 
 class ForkliftRepair(models.Model):
     forklift = models.ForeignKey(Forklift, verbose_name=_("forklift"))
-    damage_reason = models.CharField(_('Damage Reason'), max_length=30, blank=True)
-    accessories_name = models.CharField(_('Accessories Name'), max_length=30, blank=True)
-    accessories_num = models.DecimalField(_('Accessories Number'), decimal_places=0, max_digits=20, blank=True)
-    description = models.TextField(_('Breakdown Description'), max_length=130, blank=False)  
+    damage_reason = models.CharField(_('Damage Reason'), max_length=30, blank=False, null=False)
+    accessories_name = models.CharField(_('Accessories Name'), max_length=30, blank=False, null=False)
+    accessories_num = models.DecimalField(_('Accessories Number'), decimal_places=0, max_digits=20, blank=False, null=False)
+    description = models.TextField(_('Breakdown Description'), max_length=130, blank=False, null=False)  
     repaired = models.CharField(_('Repaired'), max_length=30, choices = RESULT_OPTION, blank=False, null=False, default = 'no')  
     repaire_date = models.DateField(_('Repaire Date'),auto_now_add=False, auto_now=False, null=True, blank=True)
     created = models.DateTimeField(_('Discovered Date'),auto_now_add=True, auto_now=False)
