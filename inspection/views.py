@@ -108,10 +108,10 @@ class RehearsalDetailView(TableDetailViewMixin, DetailView):
         ])
         return super(RehearsalDetailView, self).dispatch(request,args,kwargs)   
 
-class RehearsalUpdateView(UpdateViewMixin, UpdateView): 
+class RehearsalUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = Rehearsal
 
-class RehearsalCreateView(CreateViewMixin, CreateView): 
+class RehearsalCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = Rehearsal
 
 def gen_qrcode(link):
@@ -791,7 +791,8 @@ class CompareChartJSONView(LineChartColorMixin, BaseLineChartView):
         data =  [[DailyInspection.objects.filter(category=category[0], created__startswith="{0}-{1}".format(year,month)).count() for category in DailyInspection.daily_insepction_category] \
                     for month, year in self.get_last_times()]
         # data =  [[DailyInspection.objects.filter(category=category[0], created__year=year, created__month=month).count() for category in DailyInspection.daily_insepction_category] \
-        #             for month, year in self.get_last_times()]                    
+        #             for month, year in self.get_last_times()]     
+        # issue for filter "created__month=month" # https://segmentfault.com/q/1010000009037684
         return data
 
 
@@ -1054,7 +1055,7 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
         else:
             raise Http404
 
-class ShelfInspectionCreateView(CreateView):
+class ShelfInspectionCreateView(StaffRequiredMixin, CreateView):
     #model = shelf
     template_name = "shelf/shelf_inspection_create.html"
     form_class = ShelfInspectionForm
@@ -1396,12 +1397,12 @@ class PIDetailView(TableDetailViewMixin, DetailView):
         "rectification_status",
         ]
 
-class PICreateView(CreateViewMixin, CreateView): 
+class PICreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = PI
     form_class = PIForm
     template_name = "pi/pi_create.html"
 
-class PIUpdateView(UpdateViewMixin, UpdateView): 
+class PIUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = PI
     form_class = PIForm 
     template_name = "pi/pi_update.html"
@@ -1451,7 +1452,7 @@ class ShelfAnnualInspectionDetailView(TableDetailViewMixin, DetailView):
         context["fields_foreign_shelfannualinspection_image"] = ["image",]
         return context
 
-class ShelfAnnualInspectionCreateView(CreateViewMixin, CreateView): 
+class ShelfAnnualInspectionCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = ShelfAnnualInspection
     # form_class = ShelfAnnualInspectionForm
     template_name = "shelf/shelf_annual_inspection_create.html"
@@ -1460,7 +1461,7 @@ class ShelfAnnualInspectionCreateView(CreateViewMixin, CreateView):
 
 from django.forms.models import modelformset_factory, inlineformset_factory, BaseModelFormSet, BaseInlineFormSet
 from .forms import ShelfAnnualInspectionImageForm, ImageFileInput
-class ShelfAnnualInspectionUpdateView(UpdateViewMixin, UpdateView): 
+class ShelfAnnualInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = ShelfAnnualInspection
     template_name = "shelf/shelf_annual_inspection_update.html"
 
