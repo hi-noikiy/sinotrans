@@ -59,6 +59,7 @@ class VehicleInspectionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(VehicleInspectionForm, self).__init__(*args, **kwargs)
         self.fields['completed_time'].widget.attrs['disabled'] = True
+        self.fields['inspector'].widget.attrs['readonly'] = True
 
     class Meta:
         model = VehicleInspection
@@ -71,7 +72,7 @@ class VehicleInspectionForm(forms.ModelForm):
         rectification_qualified = self.data['rectification_qualified']
 
         if "yes" == rectification_qualified and not self.data["disqualification_comments"]:
-            raise forms.ValidationError('comments requierd to change it to yes!')
+            raise forms.ValidationError(_('comments requierd to change it to yes!'))
             return rectification_qualified
         elif "no" == rectification_qualified:
             fields = [

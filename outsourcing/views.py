@@ -32,6 +32,7 @@ from .forms import (
     vehicle_transportation_kpi_model_formset, 
     VehicleTransportationKPIForm,
     VehicleTransportationKPIFilterForm,
+    VehicleInspectionForm,
     ForkliftRepairForm,
     )
 
@@ -596,7 +597,7 @@ class VehicleInspectionUpdateView(UpdateViewMixin, UpdateView):
     model = VehicleInspection
 
     def get_form_class(self):
-        self.form_class = model_forms.modelform_factory(self.model, exclude=["completed_time",], )
+        self.form_class = model_forms.modelform_factory(self.model, exclude=[], form=VehicleInspectionForm)
         return self.form_class
 
 
@@ -626,7 +627,7 @@ class VehicleInspectionCreateView(StaffRequiredMixin, CreateViewMixin, CreateVie
     model = VehicleInspection
 
     def get_form_class(self):
-        self.form_class = model_forms.modelform_factory(self.model, exclude=["completed_time",], )
+        self.form_class = model_forms.modelform_factory(self.model, exclude=[],  form=VehicleInspectionForm)
         return self.form_class
 
     def post(self, request, *args, **kwargs):
