@@ -66,7 +66,8 @@ class TableListViewMixin(object):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        self.request.session["list_url"] = request.get_full_path()	
+        if  self.request.session.get("shortcut_back_url"):
+            del self.request.session["shortcut_back_url"]
     
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
@@ -106,7 +107,10 @@ class TableDetailViewMixin(object):
         context["fields_images"] = self.fields_images
         
         context["model_sets"] = self.model_sets
-        
+
+        if  self.request.session.get("shortcut_back_url"):
+            context["back_url"] = self.request.session.get("shortcut_back_url")
+            
         return context        
 
     def dispatch(self, request, *args, **kwargs):
@@ -115,8 +119,6 @@ class TableDetailViewMixin(object):
             list_url = self.get_object().get_absolute_url_list()
         except:
             pass
-
-        self.request.session["detail_url"] = request.get_full_path()	
             
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
@@ -164,11 +166,14 @@ class UpdateViewMixin(object):
         return self.form_class
             
     def get_success_url(self):
-        return self.get_object().get_absolute_url() # if not self.request.session.get("current_url", None) else self.request.session["current_url"]
+        return self.get_object().get_absolute_url()  if not self.request.session.get("shortcut_back_url", None) else self.request.session["shortcut_back_url"]
         
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateViewMixin, self).get_context_data(*args, **kwargs) 
         context["title"] = self.get_object()
+
+        if  self.request.session.get("shortcut_back_url"):
+            context["back_url"] = self.request.session.get("shortcut_back_url")
 
         return context
 

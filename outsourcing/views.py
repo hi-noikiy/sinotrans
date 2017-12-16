@@ -128,10 +128,8 @@ class ForkliftDetailView(TableDetailViewMixin, DetailView):
         return context       
 
     def dispatch(self, request, *args, **kwargs):
-        self.request.session["related_back"] = request.get_full_path()
-        if self.request.session.get("list_url", None):
-            del self.request.session["list_url"]
-
+        self.request.session["shortcut_back_url"] = request.get_full_path()
+            
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_("Forklift"),reverse("forklift_list", kwargs={})),            
