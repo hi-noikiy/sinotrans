@@ -1520,6 +1520,9 @@ msgstr "车宽"
 msgid "Forklift Length"
 msgstr "车长"
 
+msgid "Fork Length"
+msgstr "货叉长度"
+
 #: .\outsourcing\models.py:48
 msgid "Maximum Velocity"
 msgstr "最高行驶速度"

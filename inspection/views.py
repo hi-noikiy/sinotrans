@@ -1117,6 +1117,7 @@ class ShelfDetailView(DetailView):
         return context    
 
     def dispatch(self, request, *args, **kwargs):
+        self.request.session["shortcut_back_url"] = request.get_full_path()
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_('Shelf List'),reverse("shelf_list", kwargs={})),
@@ -1500,14 +1501,16 @@ class ShelfAnnualInspectionUpdateView(UpdateViewMixin, UpdateView):
         self.object = self.get_object() 
 
         form = self.get_form() 
-        form_foreign_image = self.get_foreign_form_class()(self.request.POST, self.request.FILES )
+        # form_foreign_image = self.get_foreign_form_class()(self.request.POST, self.request.FILES )
         formset = self.get_inine_foreign_formset_class()(self.request.POST, self.request.FILES, instance=self.object )
 
         if form.is_valid():
+            '''
             if form_foreign_image.is_valid():
                 image = form_foreign_image.save(commit=False)
                 image.shelf_annual_inspection = self.object
                 image.save()
+            '''
             if formset.is_valid():
                 formset.save()             
             form.save()

@@ -44,7 +44,7 @@ class Forklift(models.Model):
     back_tyre_size = models.CharField(_('Back Tyre Size'), max_length=30, blank=False)
     width = models.CharField(_('Forklift Width'), max_length=30, blank=False)
     length = models.CharField(_('Forklift Length'), max_length=30, blank=False)
-    forklift_length = models.CharField(_('Forklift Length'), max_length=30, blank=False)
+    forklift_length = models.CharField(_('Fork Length'), max_length=30, blank=False)
     maximum_velocity = models.CharField(_('Maximum Velocity'), max_length=30, blank=False)
 
     def __unicode__(self): 
@@ -187,7 +187,7 @@ class ForkliftAnnualInspection(models.Model):
 
 class ForkliftAnnualInspectionImage(models.Model):
     forklift_annual_inspection = models.ForeignKey(ForkliftAnnualInspection)
-    image = models.ImageField(_('image'), upload_to='inspection/forklift_annual_inspection', blank=True, null=True)
+    image = models.ImageField(_('image'), upload_to='inspection/forklift_annual_inspection', blank=False, null=False)
 
     class Meta:
         verbose_name = _("forklift annual inspection image")
