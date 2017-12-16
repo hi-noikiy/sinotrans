@@ -70,13 +70,13 @@
 <div class="page-header">
     <h3>{% trans "COMPARE PAST 3 MONTHS" %} <small></small></h3>
 </div>
+<!-- // http://www.chartjs.org/docs/latest/axes/cartesian/linear.html -->
 <canvas id="myChartCompare" width="500" height="200"></canvas>
 <script type="text/javascript">
 
-    
-// http://www.chartjs.org/docs/latest/axes/cartesian/linear.html
     $.get('{% url "line_chart_json_compare" %}', function(data) {
         var ctx = $("#myChartCompare").get(0).getContext("2d");
+        console.log(data);
 
         new Chart(ctx, {
             type: 'bar', 
@@ -108,7 +108,7 @@
 <canvas id="myChartLast" width="500" height="200"></canvas>
 <script type="text/javascript">    
 // http://www.chartjs.org/docs/latest/axes/cartesian/linear.html
-    $.get('{% url "line_chart_json_lasts" %}', function(data) {
+    $.get('{% url "line_chart_json_lasts" %}', function(data) {        
         var ctx = $("#myChartLast").get(0).getContext("2d");
 
         new Chart(ctx, {
