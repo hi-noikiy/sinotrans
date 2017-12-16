@@ -788,9 +788,10 @@ class CompareChartJSONView(LineChartColorMixin, BaseLineChartView):
         ]
 
     def get_data(self):
-        data =  [[DailyInspection.objects.filter(category=category[0], created__year=year, created__month=month).count() for category in DailyInspection.daily_insepction_category] \
+        data =  [[DailyInspection.objects.filter(category=category[0], created__startswith="{0}-{1}".format(year,month)).count() for category in DailyInspection.daily_insepction_category] \
                     for month, year in self.get_last_times()]
-        print data
+        # data =  [[DailyInspection.objects.filter(category=category[0], created__year=year, created__month=month).count() for category in DailyInspection.daily_insepction_category] \
+        #             for month, year in self.get_last_times()]                    
         return data
 
 
