@@ -223,6 +223,10 @@ class UpdateViewMixin(object):
         ])
         return super(UpdateViewMixin, self).dispatch(request,args,kwargs)           
 
+"""
+self.object : ModelFormMixin::form_valid
+"""
+
 class CreateViewMixin(object):
     template_name = "default/create.html"
 
@@ -247,7 +251,19 @@ class CreateViewMixin(object):
             context["back_url"] = self.model().get_absolute_url_list()
 
         return context
+
+    def form_invalid(self, form):
+        self.object = None
+        return super(CreateViewMixin, self).form_invalid(form)
+
+    # copy from "ModelFormMixin::form_valid"
+    """
+    def form_valid(self, form):
+        self.object = form.save()
+        return super(CreateViewMixin, self).form_valid(form)
+    """
         
+
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),

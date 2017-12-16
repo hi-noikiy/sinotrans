@@ -505,6 +505,7 @@ class VehicleDetailView(TableDetailViewMixin, DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         self.request.session["shortcut_back_url"] = request.get_full_path()
+        self.request.session["shortcut_create_pk"] = self.get_object().pk
         
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
@@ -651,15 +652,25 @@ class VehicleInspectionCreateView(StaffRequiredMixin, CreateViewMixin, CreateVie
             obj.inspector = self.request.user.get_full_name()
             obj.save()
 
+            return self.form_valid(form) # equal to the two lines below in ModelFormMixin::form_invalid
             self.object = obj
-
             return HttpResponseRedirect(self.get_success_url())
-        else:            
+        else:
+            self.object = None
             return self.form_invalid(form)
 
         return super(CreateViewMixin, self).post(request, *args, **kwargs)  
 
-            
+    def get_context_data(self, *args, **kwargs):
+        context = super(VehicleInspectionCreateView, self).get_context_data(*args, **kwargs)
+
+        if  self.request.session.get("shortcut_create_pk"):
+            if self.request.method == "GET":
+                context["form"] = self.get_form_class()(self.request.GET or None, initial={
+                                                                                    "vehicle": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first(),
+                                                                                    "inspector": self.request.user.get_full_name()})
+
+        return context            
 
 class VehicleTransportationKPIFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)

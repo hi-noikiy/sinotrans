@@ -65,7 +65,7 @@ class VehicleInspectionForm(forms.ModelForm):
         model = VehicleInspection
 
         exclude = {
-            "inspector",
+            #"inspector",
         }        
 
     def clean_rectification_qualified(self):
