@@ -30,7 +30,7 @@ def option_value_convertion(tuple_enum,key):
 class Forklift(models.Model):
     """docstring for Forklift"""
 
-    internal_car_number = models.CharField(_('Inner Car Number'), max_length=30, blank=False)
+    internal_car_number = models.CharField(_('Inner Car Number'), max_length=30, blank=False, unique=True)
     internal_plate_number = models.CharField(_('Inner Plate Number'), max_length=30, blank=False)
     model = models.CharField(_('Forklift Model'), max_length=30, blank=False)
     sn = models.CharField(_('SN'), max_length=30, blank=False)
@@ -131,7 +131,7 @@ class ForkliftRepair(models.Model):
     accessories_name = models.CharField(_('Accessories Name'), max_length=30, blank=True)
     accessories_num = models.DecimalField(_('Accessories Number'), decimal_places=0, max_digits=20, blank=True)
     description = models.TextField(_('Breakdown Description'), max_length=130, blank=False)  
-    repaired = models.CharField(_('Repaired'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')  
+    repaired = models.CharField(_('Repaired'), max_length=30, choices = RESULT_OPTION, blank=False, null=False, default = 'no')  
     repaire_date = models.DateField(_('Repaire Date'),auto_now_add=False, auto_now=False, null=True, blank=True)
     created = models.DateTimeField(_('Discovered Date'),auto_now_add=True, auto_now=False)
     due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=True, blank=True)

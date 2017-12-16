@@ -129,6 +129,7 @@ class ForkliftDetailView(TableDetailViewMixin, DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         self.request.session["shortcut_back_url"] = request.get_full_path()
+        self.request.session["shortcut_create_pk"] = self.get_object().pk
             
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
@@ -211,7 +212,15 @@ class ForkliftRepairUpdateView(UpdateViewMixin, UpdateView):
 class ForkliftRepairCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = ForkliftRepair
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ForkliftRepairCreateView, self).get_context_data(*args, **kwargs)
 
+        if  self.request.session.get("shortcut_create_pk"):
+            if self.request.method == "GET":
+                context["form"] = self.get_form_class()(self.request.GET or None, initial={"forklift": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+            # del self.request.session["shortcut_create_pk"]    
+
+        return context
     
 
 class ForkliftMaintDetailView(TableDetailViewMixin, DetailView): 
@@ -267,6 +276,16 @@ class ForkliftMaintListView(TableListViewMixin, ListView):
 class ForkliftMaintCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = ForkliftMaint
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ForkliftMaintCreateView, self).get_context_data(*args, **kwargs)
+
+        if  self.request.session.get("shortcut_create_pk"):
+            if self.request.method == "GET":
+                context["form"] = self.get_form_class()(self.request.GET or None, initial={"forklift": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+            # del self.request.session["shortcut_create_pk"]    
+
+        return context
+        
 class ForkliftAnnualInspectionListView(TableListViewMixin, ListView): 
     model = ForkliftAnnualInspection
     template_name = "forklift/forklift_annual_inspection_list.html"
@@ -290,6 +309,16 @@ class ForkliftAnnualInspectionCreateView(CreateViewMixin, CreateView):
     # from .admin import ShelfAnnualInspectionAdmin
     # fields = ShelfAnnualInspectionAdmin.list_display
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ForkliftAnnualInspectionCreateView, self).get_context_data(*args, **kwargs)
+
+        if  self.request.session.get("shortcut_create_pk"):
+            if self.request.method == "GET":
+                context["form"] = self.get_form_class()(self.request.GET or None, initial={"forklift": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+            # del self.request.session["shortcut_create_pk"]    
+
+        return context
+        
 from django.forms.models import modelformset_factory, inlineformset_factory, BaseModelFormSet, BaseInlineFormSet
 from .forms import ForkliftAnnualInspectionImageForm, ImageFileInput
 class ForkliftAnnualInspectionUpdateView(UpdateViewMixin, UpdateView): 
@@ -477,7 +506,7 @@ class VehicleDetailView(TableDetailViewMixin, DetailView):
         ])
         return super(VehicleDetailView, self).dispatch(request,args,kwargs)    
 
-class VehicleInspectionListView(ListView): 
+class VehicleInspectionListView(TableListViewMixin, ListView): 
     model = VehicleInspection
     template_name = "transportation/vehicle_inspection_list.html"
 

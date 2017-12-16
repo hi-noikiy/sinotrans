@@ -33,6 +33,14 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <a href='{% url "forklift_maint_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "forklift maintenance" %}</i></a>
+                </div>
+            </div>
+        </div>
+
          <!-- Forklift Maintenance-->
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -52,10 +60,25 @@
         </div>
 
 
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <a href='{% url "forklift_repair_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "forklift repair" %}</i></a>
+                </div>
+            </div>
+        </div>
+        
         <!-- Forklift Repair-->
         {% include "inlines/list_view.html" with object_foreign_set=object.forkliftrepair_set.all fields_foreign=fields_foreign_forkliftrepair fields_foreign_display=fields_foreign_display_forkliftrepair title="forklift repair" table_class="table-align-center" allow_edit=True %}
 
-
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <a href='{% url "forklift_annual_inspection_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "forklift annual inspection" %}</i></a>
+                </div>
+            </div>
+        </div>
+        
         <!-- Forklift Annual Inspection-->
         <div class="panel panel-primary">
             <div class="panel-heading">

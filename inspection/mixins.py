@@ -68,6 +68,9 @@ class TableListViewMixin(object):
     def dispatch(self, request, *args, **kwargs):
         if  self.request.session.get("shortcut_back_url"):
             del self.request.session["shortcut_back_url"]
+
+        if  self.request.session.get("shortcut_create_pk"):
+            del self.request.session["shortcut_create_pk"]            
     
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
@@ -114,6 +117,7 @@ class TableDetailViewMixin(object):
         return context        
 
     def dispatch(self, request, *args, **kwargs):
+            
         list_url=""
         try:
             list_url = self.get_object().get_absolute_url_list()
@@ -234,6 +238,16 @@ class CreateViewMixin(object):
         #return self.model().get_absolute_url_list()
         return self.object.get_absolute_url()  # default function
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(CreateViewMixin, self).get_context_data(*args, **kwargs) 
+
+        if  self.request.session.get("shortcut_back_url"):
+            context["back_url"] = self.request.session.get("shortcut_back_url")
+        elif self.model().get_absolute_url_list():
+            context["back_url"] = self.model().get_absolute_url_list()
+
+        return context
+        
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),

@@ -8,7 +8,7 @@
 	<table class="forkliftmaint-detail transposition table-striped table-hover table-responsive table-condensed"  style="width: 100%">
 		<tbody>
 		{% for field, value in object.fields.iteritems %}
-			<tr><th style="width:80%;">{{field}}</th><td>{{value}}</td></tr>
+			<tr><th style="width:80%;">{{field}}</th><td>{% if value %}{{value}}{% endif %}</td></tr>
 		{% endfor %}
 		</tbody>
 	</table>	
