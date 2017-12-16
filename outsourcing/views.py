@@ -523,8 +523,20 @@ class VehicleInspectionListView(TableListViewMixin, ListView):
         from .admin import VehicleInspectionAdmin
         
         context["object_list"] = self.model.objects.filter(rectification_qualified='no')
-        #context["fields"] = [field for field in self.model._meta.get_fields() if field.name in VehicleInspectionAdmin.list_display]
         context["fields"] = VehicleInspectionAdmin.list_display
+        context["fields"] = [
+                "vehicle", 
+                "driver",                
+                "inspector",
+                "owner",
+                "carrier",
+                "load_or_unload",
+                "rectification_qualified",
+                "date_of_inspection",                
+                "due_date",
+                # "completed_time"
+        ]
+        
         context["fields_display"] = [
                     "load_or_unload",
                     "rectification_qualified",
