@@ -132,7 +132,7 @@ class MyAbstractUser(AbstractBaseUser, PermissionsMixin):
             'unique': _("A user with that username already exists."),
         })
 
-    phone = PhoneNumberNullField(_('phone'), max_length=30, blank=True, unique=True,
+    phone = PhoneNumberNullField(_('phone'), max_length=30, blank=True, null=True, unique=True,
         help_text=_('Required. digits and + only.'),
         error_messages={
             'unique': _("A user with that phone number already exists."),

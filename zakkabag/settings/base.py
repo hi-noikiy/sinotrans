@@ -322,7 +322,7 @@ else:
     APP_ID = 'wx168434ba37e8c17b' #
     APP_SECRET = 'd4624c36b6795d1d99dcf0547af5443d'
 
-ACCOUNT_REGISTER_TYPE =  'phone' #phone, 'mail',
+ACCOUNT_REGISTER_TYPE =  'mail' #phone, 'mail',
 ACCOUNT_ALLOW_MIX_TYPE_LOGIN = True
 
 PHONE_LOGIN_ATTEMPTS = 100

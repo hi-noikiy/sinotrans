@@ -4,12 +4,38 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from .views import (
-    AnnualTrainingPlanListView, TrainingRecordDetailView,TrainingCourseDetailView,
+    AnnualTrainingPlanListView, 
+    AnnualTraningPlanCreateView,
+    AnnualTraningPlanUpdateView,
+
+    TrainingRecordDetailView,
+    TrainingRecordCreateView,
+    TrainingRecordUpdateView,
+
+    TrainingCourseDetailView,
+    TrainingCourseCreateView,
+    TrainingCourseUpdateView,
+
+    TrainingTranscriptCreateView,
+    TrainingTranscriptUpdateView,
+    TrainingTranscriptDetailView,
 )
 
 urlpatterns = [
-    url(r'^annualtrainingplan/list/$', AnnualTrainingPlanListView.as_view(), name='annualtrainingplan_list'),
+    url(r'^annualtrainingplan/$', AnnualTrainingPlanListView.as_view(), name='annualtrainingplan_list'),
+    url(r'^annualtrainingplan/create$', AnnualTraningPlanCreateView.as_view(), name='annualtrainingplan_create'),
+    url(r'^annualtrainingplan/update/(?P<pk>\d+)/$', AnnualTraningPlanUpdateView.as_view(), name='annualtrainingplan_update'),
+    
+    url(r'^trainingrecord/create', TrainingRecordCreateView.as_view(), name='trainingrecord_create'),
     url(r'^trainingrecord/detail/(?P<pk>\d+)/$', TrainingRecordDetailView.as_view(), name='trainingrecord_detail'),
+    url(r'^trainingrecord/update/(?P<pk>\d+)/$', TrainingRecordUpdateView.as_view(), name='trainingrecord_update'),
+
+    # url(r'^trainingcourse/create', TrainingCourseCreateView.as_view(), name='trainingcourse_list'),
     url(r'^trainingcourse/detail/(?P<pk>\d+)/$', TrainingCourseDetailView.as_view(), name='trainingcourse_detail'),
-    # url(r'^electronicalequipmentinspection/create/$', ElectricalEquipmentInspectionCreateView.as_view(), name='electronialequipmentinsepction_create'),
+    url(r'^trainingcourse/update/(?P<pk>\d+)/$', TrainingCourseUpdateView.as_view(), name='trainingcourse_update'),
+    
+    url(r'^trainingtranscript/create', TrainingTranscriptCreateView.as_view(), name='trainingtranscript_create'),
+    url(r'^trainingtranscript/detail/(?P<pk>\d+)/$', TrainingTranscriptDetailView.as_view(), name='trainingtranscript_detail'),
+    url(r'^trainingtranscript/update/(?P<pk>\d+)/$', TrainingTranscriptUpdateView.as_view(), name='trainingtranscript_update'),
+    
 ]

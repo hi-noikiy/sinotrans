@@ -182,7 +182,7 @@ class ForkliftRepairDetailView(TableDetailViewMixin, DetailView):
         ])
         return super(ForkliftRepairDetailView, self).dispatch(request,args,kwargs)  
 
-class ForkliftRepairUpdateView(UpdateViewMixin, UpdateView): 
+class ForkliftRepairUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = ForkliftRepair
 
     def get_form_class(self):
@@ -265,7 +265,7 @@ class ForkliftMaintDetailView(TableDetailViewMixin, DetailView):
 
     ]
 
-class ForkliftMaintUpdateView(UpdateViewMixin, UpdateView): 
+class ForkliftMaintUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = ForkliftMaint
 
     def get_form_class(self):
@@ -309,7 +309,7 @@ class ForkliftAnnualInspectionDetailView(TableDetailViewMixin, DetailView):
         context["fields_foreign_forkliftannualinspection_image"] = ["image",]
         return context
 
-class ForkliftAnnualInspectionCreateView(CreateViewMixin, CreateView): 
+class ForkliftAnnualInspectionCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = ForkliftAnnualInspection
 
     # template_name = "shelf/shelf_annual_inspection_create.html"
@@ -328,7 +328,7 @@ class ForkliftAnnualInspectionCreateView(CreateViewMixin, CreateView):
         
 from django.forms.models import modelformset_factory, inlineformset_factory, BaseModelFormSet, BaseInlineFormSet
 from .forms import ForkliftAnnualInspectionImageForm, ImageFileInput
-class ForkliftAnnualInspectionUpdateView(UpdateViewMixin, UpdateView): 
+class ForkliftAnnualInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = ForkliftAnnualInspection
     template_name = "forklift/forklift_annual_inspection_update.html"
 
@@ -606,7 +606,7 @@ class VehicleInspectionDetailView(TableDetailViewMixin, DetailView):
     #     ])
     #     return super(VehicleInspectionDetailView, self).dispatch(request,args,kwargs)    
 
-class VehicleInspectionUpdateView(UpdateViewMixin, UpdateView): 
+class VehicleInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = VehicleInspection
 
     def get_form_class(self):
@@ -708,7 +708,7 @@ class TransportationKPIDetailView(DetailView):
         ])
         return super(TransportationKPIDetailView, self).dispatch(request,args,kwargs)      
 
-class TransportationKPIUpdateView(UpdateView):
+class TransportationKPIUpdateView(StaffRequiredMixin, UpdateView):
     model = VehicleTransportationKPI
     template_name = "kpi/transportationkpi_update.html"
     form_class = VehicleTransportationKPIForm
@@ -724,7 +724,7 @@ class TransportationKPIUpdateView(UpdateView):
         ])
         return super(TransportationKPIUpdateView, self).dispatch(request,args,kwargs)      
 
-class TransportationKPICreateView(CreateView):
+class TransportationKPICreateView(StaffRequiredMixin, CreateView):
     model = VehicleTransportationKPI
     template_name = "kpi/transportationkpi_create.html"
     form_class = VehicleTransportationKPIForm

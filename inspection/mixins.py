@@ -118,15 +118,9 @@ class TableDetailViewMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
             
-        list_url=""
-        try:
-            list_url = self.get_object().get_absolute_url_list()
-        except:
-            pass
-            
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
-            (self.model._meta.verbose_name, list_url),
+            (self.model._meta.verbose_name, self.get_object().get_absolute_url_list() if hasattr(self.get_object(),"get_absolute_url_list") else ""),            
             (self.get_object(),request.path_info),
         ])
         return super(TableDetailViewMixin, self).dispatch(request,args,kwargs)    
@@ -210,15 +204,9 @@ class UpdateViewMixin(object):
         if not self.fields and not self.get_fields() and not self.form_class:
             self.fields = [field.name for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)]
 
-        list_url=""
-        try:
-            list_url = self.get_object().get_absolute_url_list()
-        except:
-            pass
-            
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
-            (self.model._meta.verbose_name, list_url),
+            (self.model._meta.verbose_name, self.get_object().get_absolute_url_list() if hasattr(self.get_object(),"get_absolute_url_list") else ""),            
             (self.get_object(),request.path_info),
         ])
         return super(UpdateViewMixin, self).dispatch(request,args,kwargs)           
@@ -247,7 +235,7 @@ class CreateViewMixin(object):
 
         if  self.request.session.get("shortcut_back_url"):
             context["back_url"] = self.request.session.get("shortcut_back_url")
-        elif self.model().get_absolute_url_list():
+        elif hasattr(self.model(),"get_absolute_url_list"):
             context["back_url"] = self.model().get_absolute_url_list()
 
         return context
@@ -265,9 +253,10 @@ class CreateViewMixin(object):
         
 
     def dispatch(self, request, *args, **kwargs):
+
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
-            (self.model._meta.verbose_name,self.model().get_absolute_url_list()),
+            (self.model._meta.verbose_name, self.model().get_absolute_url_list() if hasattr(self.model(),"get_absolute_url_list") else ""),
             (_("Create"),request.path_info),
         ])
         return super(CreateViewMixin, self).dispatch(request,args,kwargs)                

@@ -58,6 +58,9 @@ class TrainingRecord(models.Model):
     def get_absolute_url(self):
         return reverse("trainingrecord_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_update(self):
+        return reverse("trainingrecord_update", kwargs={"pk": self.pk })
+        
 class TrainingTranscript(models.Model):
     POSITION_OPTION = (
         ('driver',_('driver')),
@@ -77,6 +80,13 @@ class TrainingTranscript(models.Model):
     def __unicode__(self): 
         return _("training transcript") + self.trainee    
 
+    def get_absolute_url(self):
+        return reverse("trainingtranscript_detail", kwargs={"pk": self.pk })
+
+    def get_absolute_url_update(self):
+        return reverse("trainingtranscript_update", kwargs={"pk": self.pk })
+
+
 class AnnualTraningPlan(models.Model):
     year = models.PositiveIntegerField(_("year"),
         validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year)],
@@ -93,6 +103,9 @@ class AnnualTraningPlan(models.Model):
     def __unicode__(self): 
         return _("annual training plan") + " %s %s" % (self.training_course.topic, self.planned_date)        
 
+    def get_absolute_url_update(self):
+        return reverse("annualtrainingplan_update", kwargs={"pk": self.pk })
+        
 def update_actual_date(sender, instance, *args, **kwargs):
 
     if instance.training_record and instance.training_record.date and not instance.actual_date:

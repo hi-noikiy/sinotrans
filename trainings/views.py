@@ -6,8 +6,14 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 from django.views.generic.detail import DetailView
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 
-from .models import AnnualTraningPlan, TrainingRecord, TrainingCourse
+from .models import (
+        AnnualTraningPlan, 
+        TrainingRecord, 
+        TrainingCourse,
+        TrainingTranscript
+        )
 from .forms import AnnualTrainingPlanFilterForm
+from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
 
 
 
@@ -80,13 +86,15 @@ class TrainingCourseDetailView(DetailView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
+        self.request.session["shortcut_back_url"] = request.get_full_path()
+        self.request.session["shortcut_create_pk"] = self.get_object().pk
+    
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
             (self.get_object(), request.path_info),
         ])
         return super(TrainingCourseDetailView, self).dispatch(request,args,kwargs)    
-
 
 class AnnualTrainingPlanFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)
@@ -156,3 +164,67 @@ class AnnualTrainingPlanListView(ListView):
             (_('annual training plan'),request.path_info),
         ])
         return super(AnnualTrainingPlanListView, self).dispatch(request,args,kwargs)   
+
+class TrainingCourseCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
+    model = TrainingCourse
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TrainingCourseCreateView, self).get_context_data(*args, **kwargs)
+
+        if  self.request.session.get("shortcut_create_pk"):
+            if self.request.method == "GET":
+                context["form"] = self.get_form_class()(self.request.GET or None, initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+
+        return context
+        
+class TrainingRecordCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
+    model = TrainingRecord
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TrainingRecordCreateView, self).get_context_data(*args, **kwargs)
+
+        if  self.request.session.get("shortcut_create_pk"):
+            if self.request.method == "GET":
+                context["form"] = self.get_form_class()(self.request.GET or None, initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+
+        return context
+        
+class TrainingTranscriptCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
+    model = TrainingTranscript    
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TrainingTranscriptCreateView, self).get_context_data(*args, **kwargs)
+
+        if  self.request.session.get("shortcut_create_pk"):
+            if self.request.method == "GET":
+                context["form"] = self.get_form_class()(self.request.GET or None, initial={"training_record": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+
+        return context
+        
+class AnnualTraningPlanCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
+    model = AnnualTraningPlan    
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AnnualTraningPlanCreateView, self).get_context_data(*args, **kwargs)
+
+        if  self.request.session.get("shortcut_create_pk"):
+            if self.request.method == "GET":
+                context["form"] = self.get_form_class()(self.request.GET or None, initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+
+        return context
+        
+class TrainingCourseUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
+    model = TrainingCourse
+
+class TrainingRecordUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
+    model = TrainingRecord
+
+class TrainingTranscriptUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
+    model = TrainingTranscript    
+
+class AnnualTraningPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
+    model = AnnualTraningPlan        
+
+class TrainingTranscriptDetailView(StaffRequiredMixin, TableDetailViewMixin, DetailView): 
+    model = TrainingTranscript    
+    

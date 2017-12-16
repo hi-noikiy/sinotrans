@@ -25,17 +25,34 @@ table.transposition tr th{
 
 {% block content %}
 
-    <div class="row">
-        <div class="col-sm-9">
+<div class="row">
+    <div class="col-sm-9">
 
-            {% include "includes/model_filelds_table_display.html." with object=object fields=fields fields_safe_content=fields_safe_content %}
+        {% include "includes/model_filelds_table_display.html." with object=object fields=fields fields_safe_content=fields_safe_content %}
 
-            {% include "inlines/list_view.html" with title="training record"  object_foreign_set=object.trainingrecord_set.all fields_foreign=fields_training_record fields_foreign_display=fields_training_record_display %}
-
-            {% include "inlines/list_view.html" with title="annual training plan"  object_foreign_set=object.annualtraningplan_set.all fields_foreign=fields_annual_training_plan fields_foreign_display=fields_annual_training_plan_display %} 
-
-
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <a href='{% url "trainingrecord_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "training record" %}</i></a>
+                </div>
+            </div>
         </div>
+        
+        {% include "inlines/list_view.html" with title="training record"  object_foreign_set=object.trainingrecord_set.all fields_foreign=fields_training_record fields_foreign_display=fields_training_record_display  allow_edit=True %}
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <a href='{% url "annualtrainingplan_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "annual training plan" %}</i></a>
+                </div>
+            </div>
+        </div>
+        
+        {% include "inlines/list_view.html" with title="annual training plan"  object_foreign_set=object.annualtraningplan_set.all fields_foreign=fields_annual_training_plan fields_foreign_display=fields_annual_training_plan_display  allow_edit=True %} 
+
+        <a href="{% url 'annualtrainingplan_list' %}" class="btn btn-default" >{% trans 'Back' %}</a>
+
     </div>
+</div>
 
 {% endblock %}

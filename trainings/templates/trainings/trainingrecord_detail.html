@@ -4,7 +4,15 @@
 {% load staticfiles %}
 
 {% block inline_content %}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <a href='{% url "trainingtranscript_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "training transcript" %}</i></a>
+                </div>
+            </div>
+        </div>
         {% include "inlines/list_view.html" with title="training transcript"  object_foreign_set=object.trainingtranscript_set.all fields_foreign=fields_training_transcript fields_foreign_display=fields_training_transcript_display %}
+        
 {% endblock %}
 
 {% block content1 %}
