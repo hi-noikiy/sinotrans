@@ -28,6 +28,14 @@
 
 {% block content %}
 
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pull-right">
+            <a href='{% url "trainingcourse_list" %}'><i class="fa fa-list" aria-hidden="true"> {% trans "training course" %}</i></a>                        
+        </div>
+    </div>
+</div>
+
 <div class="page-header">
     <h3>{% trans project_name %} {{ request.GET.year }} {% trans "year" %}
         <small>{% trans "Project Review" %}</small>

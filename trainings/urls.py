@@ -15,6 +15,7 @@ from .views import (
     TrainingCourseDetailView,
     TrainingCourseCreateView,
     TrainingCourseUpdateView,
+    TrainingCourseListView,
 
     TrainingTranscriptCreateView,
     TrainingTranscriptUpdateView,
@@ -30,7 +31,7 @@ urlpatterns = [
     url(r'^trainingrecord/detail/(?P<pk>\d+)/$', TrainingRecordDetailView.as_view(), name='trainingrecord_detail'),
     url(r'^trainingrecord/update/(?P<pk>\d+)/$', TrainingRecordUpdateView.as_view(), name='trainingrecord_update'),
 
-    # url(r'^trainingcourse/create', TrainingCourseCreateView.as_view(), name='trainingcourse_list'),
+    url(r'^trainingcourse', TrainingCourseListView.as_view(), name='trainingcourse_list'),
     url(r'^trainingcourse/detail/(?P<pk>\d+)/$', TrainingCourseDetailView.as_view(), name='trainingcourse_detail'),
     url(r'^trainingcourse/update/(?P<pk>\d+)/$', TrainingCourseUpdateView.as_view(), name='trainingcourse_update'),
     

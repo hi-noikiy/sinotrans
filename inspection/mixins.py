@@ -56,7 +56,8 @@ class TableListViewMixin(object):
 
     def get_context_data(self, *args, **kwargs):
         context = super(TableListViewMixin, self).get_context_data(*args, **kwargs)
-        context["fields"] = self.fields
+        context["fields"] = [field.name for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)] \
+                    if not self.fields else self.fields
         context["fields_display"] = self.fields_display
         context["fields_files"] = self.fields_files
         context["fields_images"] = self.fields_images

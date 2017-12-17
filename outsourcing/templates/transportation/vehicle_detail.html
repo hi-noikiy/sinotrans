@@ -44,7 +44,7 @@ table.table-align-center thead tr th{
                 </div>
             </div>
         </div>	
-        {% include "inlines/list_view.html" with title="vehicle inspection"  object_foreign_set=object.vehicleinspection_set.all fields_foreign=fields_vehicle_inspection fields_foreign_display=fields_vehicle_inspection_display table_class="table-align-center" %}
+        {% include "inlines/list_view.html" with title="vehicle inspection"  object_foreign_set=object.vehicleinspection_set.all fields_foreign=fields_vehicle_inspection fields_foreign_display=fields_vehicle_inspection_display table_class="table-align-center" allow_edit=True %}
 
 
         {% comment %}

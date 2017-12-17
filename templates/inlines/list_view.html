@@ -21,51 +21,5 @@
     </div>
     <div class="panel-body">
         {% include "includes/model_list_table_display.html" with table_class=" " thead_class=" " fields=fields_foreign object_list=object_foreign_set page_num=0 fields_display=fields_foreign_display %}
-        
-        {% comment %}
-        <!-- {% if object_foreign_set.count > 0 %}
-            
-            <table class="table table-striped table-hover table-responsive table-condensed {{table_class}}"  style="width: 100%">
-                <thead>
-                    <tr class="{{thead_class}}">
-                        {% for fieldname in fields_foreign %}
-                        <th>{{ object_foreign_set.first|my_get_field_verbose_name:fieldname }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                
-                {% if page_num %}
-                	{% autopaginate object_foreign_set page_num %}
-                {% endif %}
-                
-                {% for object_foreign in object_foreign_set.all %}
-                    <tr>
-                        {% for fieldname in fields_foreign %}
-                        <td>
-                        	{% if fieldname in field_display_links %}<a href="{{object_foreign.get_absolute_url}}">{% endif %}
-                                {% if fieldname in fields_foreign_display %}{{ object_foreign|my_get_field_display:fieldname }}
-                                {% elif fieldname in fields_images %}<img src="{{object_foreign|my_get_field_url:fieldname}}" class="img-responsive" style="width:100%;">
-                                {% else %}{{ object_foreign|my_get_field_value:fieldname }}
-                                {% endif %}
-                            {% if fieldname in field_display_links %}</a>{% endif %}
-                        </td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}      
-                </tbody>                            
-            </table>
-           
-        {% else %}
-           {% trans "Nothing found" %}
-        {% endif %}
-        
-        {% if page_num %}
-        <div class="text-center">
-        {% paginate %}
-        </div>                   
-        {% endif %} -->
-        {% endcomment %}
-        
     </div>
 </div>  

@@ -227,4 +227,7 @@ class AnnualTraningPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateVie
 
 class TrainingTranscriptDetailView(StaffRequiredMixin, TableDetailViewMixin, DetailView): 
     model = TrainingTranscript    
+
+class TrainingCourseListView(TableListViewMixin, ListView): 
+    model = TrainingCourse
     
