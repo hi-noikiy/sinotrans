@@ -41,8 +41,10 @@ class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
         context["fields_training_transcript"] = fields_training_transcript
         context["fields_training_transcript_display"] = ["work_position",] 
 
-        if self.request.session.get("shortcut_back_url_saved"):
+        if self.request.session.get("shortcut_back_url_saved"): # navigate from Annual Training Plan
             context["back_url"] = self.request.session["shortcut_back_url_saved"]
+        else:
+            context["back_url"] = None
         
         return context
 
@@ -52,11 +54,11 @@ class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
         self.request.session["shortcut_back_url"] = request.get_full_path()    
         self.request.session["shortcut_create_pk"] = self.get_object().pk
         
-        # request.breadcrumbs([
-        #     (_("Home"),reverse("home", kwargs={})),
-        #     (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
-        #     (self.get_object(), request.path_info),
-        # ])
+        request.breadcrumbs([
+            (_("Home"),reverse("home", kwargs={})),
+            (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
+            (self.get_object(), request.path_info),
+        ])
         return super(TrainingRecordDetailView, self).dispatch(request,args,kwargs)    
 
 class TrainingCourseDetailView(TableDetailViewMixin, DetailView):
@@ -144,7 +146,7 @@ class AnnualTrainingPlanListView(ListView):
             
         context["top_filter_form"] = AnnualTrainingPlanFilterForm(data=self.request.GET or None) 
 
-        context["course_class"] = course_class
+        context["course_class"] = course_class if course_class else ""
         
         context["project_name"] = _("training")
 
@@ -184,6 +186,7 @@ class AnnualTrainingPlanListView(ListView):
         return context       
 
     def dispatch(self, request, *args, **kwargs):
+               
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_('annual training plan'),request.path_info),
