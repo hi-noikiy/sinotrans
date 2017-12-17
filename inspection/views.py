@@ -788,7 +788,7 @@ class CompareChartJSONView(LineChartColorMixin, BaseLineChartView):
         ]
 
     def get_data(self):
-        data =  [[DailyInspection.objects.filter(category=category[0], created__startswith="{0}-{1}".format(year,month)).count() for category in DailyInspection.daily_insepction_category] \
+        data =  [[DailyInspection.objects.filter(category=category[0], created__startswith="{0}-{1}-".format(year,month)).count() for category in DailyInspection.daily_insepction_category] \
                     for month, year in self.get_last_times()]
         # data =  [[DailyInspection.objects.filter(category=category[0], created__year=year, created__month=month).count() for category in DailyInspection.daily_insepction_category] \
         #             for month, year in self.get_last_times()]     
@@ -1051,7 +1051,7 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
                 except:
                     raise Http404
             
-            return HttpResponse(json.dumps({'message': form.errors,'valid':False,'form_id': form_id}))
+            return HttpResponse(json.dumps({'message': "form invalid",'valid':False,'form_id': form_id}))
         else:
             raise Http404
 

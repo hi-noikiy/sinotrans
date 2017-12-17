@@ -133,6 +133,9 @@ table-primary : color css
 table-primary-hover : adapted primary color when hover, active, strip
            
 *********************/
+table thead tr th.inline-modify{
+    width:20px;
+}
 
 /* align */
 table.table-align-center tbody tr th,

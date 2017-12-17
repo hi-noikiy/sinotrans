@@ -91,7 +91,7 @@
                     {% for forkliftannualinspection in object.forkliftannualinspection_set.all %}                        
                         <table class="table table-striped table-hover table-responsive table-condensed"  style="width: 100%">
                             <thead>
-                                <tr><th>{% trans "Annual Inspection Date" %}</th><th>{% trans "Next Inspection Date" %}</th><th></th></tr>
+                                <tr><th>{% trans "Annual Inspection Date" %}</th><th>{% trans "Next Inspection Date" %}</th><th class="inline-modify"></th></tr>
                             </thead>
                             <tbody>
                                 <tr>
@@ -120,7 +120,7 @@
             </div>
         </div>
 
-        <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+        {% if object.get_absolute_url_update %}<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>{% endif %}
         <a href="{% url 'forklift_list' %}" class="btn btn-default" >{% trans 'Back' %}</a>
     </div>
 

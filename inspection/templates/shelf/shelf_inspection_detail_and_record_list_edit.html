@@ -93,8 +93,14 @@
 
     function showResponse(responseText, statusText, xhr, $form)  {
         if(statusText === "success"){
+            console.log('showResponse :: success');
             console.log(responseText.message);
-        } 
+        }
+
+        if(false == responseText.valid){
+            alert(responseText.message);
+            return true;
+        }
 
         //replaceWith method
         /* 
@@ -160,7 +166,7 @@
         var is_locked = responseText.form_id + '-' + 'is_locked'        
         var elem_is_locked = $("#" + is_locked);        
         elem_is_locked.parent().prev().text(responseText.is_locked);
-        // is_locked
+        // owner
         var owner = responseText.form_id + '-' + 'owner'        
         var elem_owner = $("#" + owner);        
         elem_owner.parent().prev().text(responseText.owner);        
@@ -174,7 +180,7 @@
     }
 
     function showError(response){
-        console.log(response.responseText);
+        console.log('showError');
     }
 
     var options = {
