@@ -33,7 +33,8 @@ class TrainingCourse(models.Model):
         verbose_name_plural = _("training courses")
 
     def __unicode__(self): 
-        return _("training course") + self.topic
+        return self.topic
+        # return _("training course") + self.topic
 
     def get_absolute_url(self):
         print self.pk
@@ -102,6 +103,9 @@ class AnnualTraningPlan(models.Model):
 
     def __unicode__(self): 
         return _("annual training plan") + " %s %s" % (self.training_course.topic, self.planned_date)        
+
+    def get_absolute_url(self):
+        return reverse("annualtrainingplan_detail", kwargs={"pk": self.pk })
 
     def get_absolute_url_update(self):
         return reverse("annualtrainingplan_update", kwargs={"pk": self.pk })

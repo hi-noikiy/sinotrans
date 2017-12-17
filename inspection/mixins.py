@@ -10,6 +10,26 @@ from django.utils.translation import ugettext as _
 from django.db import models
 from django.forms import models as model_forms
 
+model_map = {
+    'DailyInspection': ['daily_inspection_stat','Daily Inspection'],
+    'Forklift': ['storage_sec','Storage Security'],
+    'Vehicle': ['transport_security','Transport Security'],    
+    #'Artical', reverse("article_list", kwargs={}),    
+    #'DailyInspection', reverse("transport_security", kwargs={}),        
+    #'DailyInspection', reverse("storage_sec", kwargs={}),
+    #'DailyInspection', reverse("rehearsal_list", kwargs={}),    
+}
+
+submodel_map = {
+    'ShelfAnnualInspection': ['shelf_inspection_list','shelf inspection'], # add Model homepage
+    'shelf': ['shelf_inspection_list','shelf inspection'],
+    'shelf_inspection_record': ['shelf_inspection_list','shelf inspection'],
+    'ForkliftRepair': ['forklift_list','Forklift'],
+    'ForkliftMaint': ['forklift_list','Forklift'],
+    'ForkliftAnnualInspection': ['forklift_list','Forklift'],
+}
+
+
 class StaffRequiredMixin(object):
     @classmethod
     def as_view(self, *args, **kwargs):
@@ -72,11 +92,20 @@ class TableListViewMixin(object):
 
         if  self.request.session.get("shortcut_create_pk"):
             del self.request.session["shortcut_create_pk"]            
-    
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
+
+        list = [
+            (_("Home"),reverse("home", kwargs={})), 
             (self.model._meta.verbose_name,request.path_info),
-        ])
+        ]
+        # if model_map.get(self.model._meta.object_name, None):
+        #     value = model_map.get(self.model._meta.object_name, None)
+        #     list.insert(1, [_(value[1]), reverse(value[0], kwargs={})])
+
+        if submodel_map.get(self.model._meta.object_name, None):
+            value = submodel_map.get(self.model._meta.object_name, None)
+            list.insert(1, [_(value[1]), reverse(value[0], kwargs={})])
+
+        request.breadcrumbs(list)
         return super(TableListViewMixin, self).dispatch(request,args,kwargs)   
 
 # from django.db.models.fields import ManyToOneRel
@@ -118,12 +147,19 @@ class TableDetailViewMixin(object):
         return context        
 
     def dispatch(self, request, *args, **kwargs):
-            
-        request.breadcrumbs([
+
+        list = [
             (_("Home"),reverse("home", kwargs={})),
             (self.model._meta.verbose_name, self.get_object().get_absolute_url_list() if hasattr(self.get_object(),"get_absolute_url_list") else ""),            
             (self.get_object(),request.path_info),
-        ])
+        ]
+
+        if submodel_map.get(self.model._meta.object_name, None):
+            value = submodel_map.get(self.model._meta.object_name, None)
+            list.insert(1, [_(value[1]), reverse(value[0], kwargs={})])
+
+        request.breadcrumbs(list)
+
         return super(TableDetailViewMixin, self).dispatch(request,args,kwargs)    
 
 
@@ -205,11 +241,18 @@ class UpdateViewMixin(object):
         if not self.fields and not self.get_fields() and not self.form_class:
             self.fields = [field.name for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname,] and not isinstance(field, models.ManyToOneRel)]
 
-        request.breadcrumbs([
+        list = [
             (_("Home"),reverse("home", kwargs={})),
             (self.model._meta.verbose_name, self.get_object().get_absolute_url_list() if hasattr(self.get_object(),"get_absolute_url_list") else ""),            
             (self.get_object(),request.path_info),
-        ])
+        ]
+
+        if submodel_map.get(self.model._meta.object_name, None):
+            value = submodel_map.get(self.model._meta.object_name, None)
+            list.insert(1, [_(value[1]), reverse(value[0], kwargs={})])
+
+        request.breadcrumbs(list)
+
         return super(UpdateViewMixin, self).dispatch(request,args,kwargs)           
 
 """
@@ -255,9 +298,16 @@ class CreateViewMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
 
-        request.breadcrumbs([
+        list = [
             (_("Home"),reverse("home", kwargs={})),
             (self.model._meta.verbose_name, self.model().get_absolute_url_list() if hasattr(self.model(),"get_absolute_url_list") else ""),
             (_("Create"),request.path_info),
-        ])
+        ]
+
+        if submodel_map.get(self.model._meta.object_name, None):
+            value = submodel_map.get(self.model._meta.object_name, None)
+            list.insert(1, [_(value[1]), reverse(value[0], kwargs={})])
+
+        request.breadcrumbs(list)
+
         return super(CreateViewMixin, self).dispatch(request,args,kwargs)                

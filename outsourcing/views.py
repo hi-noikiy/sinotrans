@@ -60,17 +60,17 @@ class ForkliftListView(TableListViewMixin, ListView):
     fields = ForkliftAdmin.list_display
     foreign_fields_images = ["forkliftimage_set",]
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(ForkliftListView, self).get_context_data(*args, **kwargs)
-        context["object_list"] = self.model.objects.all()
-        return context       
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(ForkliftListView, self).get_context_data(*args, **kwargs)
+    #     context["object_list"] = self.model.objects.all()
+    #     return context       
 
-    def dispatch(self, request, *args, **kwargs):
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_('Forklift'),request.path_info),
-        ])
-        return super(ForkliftListView, self).dispatch(request,args,kwargs)   
+    # def dispatch(self, request, *args, **kwargs):
+    #     request.breadcrumbs([
+    #         (_("Home"),reverse("home", kwargs={})),
+    #         (_('Forklift'),request.path_info),
+    #     ])
+    #     return super(ForkliftListView, self).dispatch(request,args,kwargs)   
 
 class ForkliftDetailView(TableDetailViewMixin, DetailView): 
     model = Forklift

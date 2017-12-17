@@ -17,7 +17,7 @@ from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateVi
 
 
 
-class TrainingRecordDetailView(DetailView):
+class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
     model = TrainingRecord
     template_name = "trainings/trainingrecord_detail.html"
 
@@ -44,6 +44,9 @@ class TrainingRecordDetailView(DetailView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
+        self.request.session["shortcut_back_url"] = request.get_full_path()    
+        self.request.session["shortcut_create_pk"] = self.get_object().pk
+        
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
@@ -225,9 +228,23 @@ class TrainingTranscriptUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateVi
 class AnnualTraningPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = AnnualTraningPlan        
 
-class TrainingTranscriptDetailView(StaffRequiredMixin, TableDetailViewMixin, DetailView): 
+class TrainingTranscriptDetailView(TableDetailViewMixin, DetailView): 
     model = TrainingTranscript    
 
+class AnnualTraningPlanDetailView(TableDetailViewMixin, DetailView): 
+    model = AnnualTraningPlan    
+    
 class TrainingCourseListView(TableListViewMixin, ListView): 
     model = TrainingCourse
+
+    from .admin import TrainingCourseAdmin
+    fields = TrainingCourseAdmin.list_display
+    fields_display = ["training_class","category", ]
+
+class TrainingRecordListView(TableListViewMixin, ListView): 
+    model = TrainingRecord
+
+    from .admin import TrainingRecordAdmin
+    fields = TrainingRecordAdmin.list_display
+    # fields_display = ["training_class","category", ]    
     

@@ -816,7 +816,7 @@ class CompareChartJSONView(LineChartColorMixin, BaseLineChartView):
 
     #     return data
 
-class ShelfInspectionListView(ListView): 
+class ShelfInspectionListView(TableListViewMixin, ListView): 
     model = shelf_inspection
     template_name = "shelf/shelf_inspection_list.html"
 
@@ -869,12 +869,12 @@ class ShelfInspectionListView(ListView):
         return context       
 
 
-    def dispatch(self, request, *args, **kwargs):
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_('Shelf Inspection List'),request.path_info),
-        ])
-        return super(ShelfInspectionListView, self).dispatch(request,args,kwargs)       
+    # def dispatch(self, request, *args, **kwargs):
+    #     request.breadcrumbs([
+    #         (_("Home"),reverse("home", kwargs={})),
+    #         (_('Shelf Inspection List'),request.path_info),
+    #     ])
+    #     return super(ShelfInspectionListView, self).dispatch(request,args,kwargs)       
 
 class ShelfInspectionRecordFilter(FilterSet):
     #is_gradient_measurement_mandatory = BooleanFilter(name='shelf__is_gradient_measurement_mandatory', method='gradient_custom_filter', distinct=True) # this is for latest version
@@ -1104,7 +1104,7 @@ class ShelfInspectionCreateView(StaffRequiredMixin, CreateView):
         ])
         return super(ShelfInspectionCreateView, self).dispatch(request,args,kwargs)    
 
-class ShelfDetailView(DetailView):
+class ShelfDetailView(TableDetailViewMixin, DetailView):
     model = shelf
     template_name = "shelf/shelf_detail.html"
 
@@ -1119,16 +1119,16 @@ class ShelfDetailView(DetailView):
 
         return context    
 
-    def dispatch(self, request, *args, **kwargs):
-        self.request.session["shortcut_back_url"] = request.get_full_path()
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_('Shelf List'),reverse("shelf_list", kwargs={})),
-            (self.get_object(),request.path_info),
-        ])
-        return super(ShelfDetailView, self).dispatch(request,args,kwargs)    
+    # def dispatch(self, request, *args, **kwargs):
+    #     self.request.session["shortcut_back_url"] = request.get_full_path()
+    #     request.breadcrumbs([
+    #         (_("Home"),reverse("home", kwargs={})),
+    #         (_('Shelf List'),reverse("shelf_list", kwargs={})),
+    #         (self.get_object(),request.path_info),
+    #     ])
+    #     return super(ShelfDetailView, self).dispatch(request,args,kwargs)    
 
-class ShelfListView(ListView):
+class ShelfListView(TableListViewMixin, ListView):
     model = shelf
     template_name = "shelf/shelf_list.html"
 
@@ -1154,12 +1154,12 @@ class ShelfListView(ListView):
 
         return context    
 
-    def dispatch(self, request, *args, **kwargs):
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_('Shelf List'),request.path_info),
-        ])
-        return super(ShelfListView, self).dispatch(request,args,kwargs)     
+    # def dispatch(self, request, *args, **kwargs):
+    #     request.breadcrumbs([
+    #         (_("Home"),reverse("home", kwargs={})),
+    #         (_('Shelf List'),request.path_info),
+    #     ])
+    #     return super(ShelfListView, self).dispatch(request,args,kwargs)     
 
 class ShelfInspectionRecordDetailView(DetailView):
     model = shelf_inspection_record
@@ -1217,7 +1217,7 @@ class ShelfInspectionRecordUpdateView(StaffRequiredMixin, UpdateView):
         return super(ShelfInspectionRecordUpdateView, self).dispatch(request,args,kwargs)  
 
 
-class ShelfInspectionRecordListView(ListView):
+class ShelfInspectionRecordListView(TableListViewMixin, ListView):
     model = shelf_inspection_record
     template_name = "shelf/shelf_inspection_record_list.html"
 
@@ -1244,13 +1244,13 @@ class ShelfInspectionRecordListView(ListView):
 
         return context
 
-    def dispatch(self, request, *args, **kwargs):
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
-            (_('Shelf Inspection Record List'), request.path_info),
-        ])
-        return super(ShelfInspectionRecordListView, self).dispatch(request,args,kwargs)       
+    # def dispatch(self, request, *args, **kwargs):
+    #     request.breadcrumbs([
+    #         (_("Home"),reverse("home", kwargs={})),
+    #         (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
+    #         (_('Shelf Inspection Record List'), request.path_info),
+    #     ])
+    #     return super(ShelfInspectionRecordListView, self).dispatch(request,args,kwargs)       
 
 
 from itertools import chain

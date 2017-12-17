@@ -31,7 +31,8 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="pull-right">
-            <a href='{% url "trainingcourse_list" %}'><i class="fa fa-list" aria-hidden="true"> {% trans "training course" %}</i></a>                        
+            <a href='{% url "trainingcourse_list" %}'><i class="fa fa-list" aria-hidden="true"> {% trans "training course" %}</i></a>
+            <a href='{% url "trainingrecord_list" %}'><i class="fa fa-list" aria-hidden="true"> {% trans "training record" %}</i></a>
         </div>
     </div>
 </div>
@@ -56,32 +57,32 @@
     <div style="overflow-x:auto;">
         <table class="table-plan-actual-display table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
             <thead>    
-            	{% for header in headers %}
-            		<tr class="header{{forloop.counter}}">
-            		{% for cell in header %}
-            		{{cell.3}}
-            		<th rowspan={{cell.1}} colspan={{cell.2}}>{{cell.0}}</th>
-            		{% endfor %}
-            		 </tr>
-            	{% endfor %}                      
+                {% for header in headers %}
+                    <tr class="header{{forloop.counter}}">
+                    {% for cell in header %}
+                    {{cell.3}}
+                    <th rowspan={{cell.1}} colspan={{cell.2}}>{{cell.0}}</th>
+                    {% endfor %}
+                     </tr>
+                {% endfor %}                      
             </thead>
-            <tbody>            	
-            	{% for row in objects %}
-            	<tr>
-            		{% for column in row %}            		
-            			{% if forloop.counter == 1 %}
-            			<td>
-            				<a href="{{ column.get_absolute_url }}" >{{column}}</a>
-            			</td>
-            			{% else %}
-            			<td {% if column.1 == "A"%} style="background-color:green; " {%endif%} >
-            				{% if column.1 == "A"%}<a style="color:white;" href="{{ column.0.get_absolute_url }}" >{{column.1}}</a>{% else %}{{ column.1 }}{% endif %}
-            			</td>
-            			{% endif %}            		
-            		{% endfor %}
-            	</tr>
-            	{% endfor %}
-            	
+            <tbody>                
+                {% for row in objects %}
+                <tr>
+                    {% for column in row %}                    
+                        {% if forloop.counter == 1 %}
+                        <td>
+                            <a href="{{ column.get_absolute_url }}" >{{column}}</a>
+                        </td>
+                        {% else %}
+                        <td {% if column.1 == "A"%} style="background-color:green; " {%endif%} >
+                            {% if column.1 == "A"%}<a style="color:white;" href="{{ column.0.get_absolute_url }}" >{{column.1}}</a>{% else %}{{ column.1 }}{% endif %}
+                        </td>
+                        {% endif %}                    
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                
             </tbody>
         </table>   
     </div>

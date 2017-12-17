@@ -70,7 +70,7 @@ class AnnualTraningPlanAdmin(admin.ModelAdmin):
         
 
 class TrainingCourseAdmin(admin.ModelAdmin):
-    list_display = [ "training_class","topic", "category", "content"]
+    list_display = [ "training_class","topic", "category"]
     #list_editable = [ "topic", 'category', ]
     list_filter = [ "training_class","category", ]
     search_fields = ["topic", 'content', ]
