@@ -1051,7 +1051,7 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
                 except:
                     raise Http404
             
-            return HttpResponse(json.dumps({'message': "form invalid",'valid':False,'form_id': form_id}))
+            return HttpResponse(json.dumps({'message': _("form invalid"),'valid':False,'form_id': form_id}))
         else:
             raise Http404
 
