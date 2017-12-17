@@ -1,6 +1,6 @@
 # Create your views here.
 from django.views.generic.list import ListView
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
@@ -41,20 +41,25 @@ class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
         context["fields_training_transcript"] = fields_training_transcript
         context["fields_training_transcript_display"] = ["work_position",] 
 
+        if self.request.session.get("shortcut_back_url_saved"):
+            context["back_url"] = self.request.session["shortcut_back_url_saved"]
+        
         return context
 
     def dispatch(self, request, *args, **kwargs):
+        if self.request.session.get("shortcut_back_url") and not self.request.session.get("shortcut_back_url_saved", None): # navigate from training course
+            self.request.session["shortcut_back_url_saved"] = self.request.session["shortcut_back_url"]
         self.request.session["shortcut_back_url"] = request.get_full_path()    
         self.request.session["shortcut_create_pk"] = self.get_object().pk
         
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
-            (self.get_object(), request.path_info),
-        ])
+        # request.breadcrumbs([
+        #     (_("Home"),reverse("home", kwargs={})),
+        #     (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
+        #     (self.get_object(), request.path_info),
+        # ])
         return super(TrainingRecordDetailView, self).dispatch(request,args,kwargs)    
 
-class TrainingCourseDetailView(DetailView):
+class TrainingCourseDetailView(TableDetailViewMixin, DetailView):
     model = TrainingCourse
     template_name = "trainings/trainingcourse_detail.html"
 
@@ -86,17 +91,22 @@ class TrainingCourseDetailView(DetailView):
         context["fields_annual_training_plan"] = fields_annual_training_plan
         context["fields_annual_training_plan_display"] = ["",] 
 
+        context["course_class"] = self.request.GET.get("class") or self.request.session.get("course_class")
+
         return context
 
     def dispatch(self, request, *args, **kwargs):
         self.request.session["shortcut_back_url"] = request.get_full_path()
         self.request.session["shortcut_create_pk"] = self.get_object().pk
+
+        if self.request.session.get("shortcut_back_url_saved"):
+            del self.request.session["shortcut_back_url_saved"]
     
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
-            (self.get_object(), request.path_info),
-        ])
+        # request.breadcrumbs([
+        #     (_("Home"),reverse("home", kwargs={})),
+        #     (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
+        #     (self.get_object(), request.path_info),
+        # ])
         return super(TrainingCourseDetailView, self).dispatch(request,args,kwargs)    
 
 class AnnualTrainingPlanFilter(FilterSet):
@@ -119,14 +129,26 @@ class AnnualTrainingPlanListView(ListView):
 
         qs = self.get_queryset()
         queryset = self.filter_class(self.request.GET, queryset=qs)
+        
+        course_class = None
         if self.request.GET.get("class"):
-            queryset = queryset.qs.filter(training_course__training_class=self.request.GET.get("class"))
-        context["object_list"] = queryset if self.request.GET else None
+            course_class = self.request.GET.get("class")
+            self.request.session["course_class"] = course_class
+        elif self.request.session.get("course_class"):
+            course_class = self.request.session.get("course_class")
 
+        if course_class:
+            queryset = queryset.qs.filter(training_course__training_class=course_class)
+            
+        context["object_list"] = queryset if self.request.GET or course_class else None
+            
         context["top_filter_form"] = AnnualTrainingPlanFilterForm(data=self.request.GET or None) 
 
+        context["course_class"] = course_class
+        
         context["project_name"] = _("training")
 
+        
         from inspection.models import month_choice
 
         header1 = [
@@ -241,10 +263,24 @@ class TrainingCourseListView(TableListViewMixin, ListView):
     fields = TrainingCourseAdmin.list_display
     fields_display = ["training_class","category", ]
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(TrainingCourseListView, self).get_context_data(*args, **kwargs)
+
+        if self.request.session.get("course_class"):
+            context["object_list"] = self.model.objects.filter(training_class=self.request.session.get("course_class"))
+        return context
+        
 class TrainingRecordListView(TableListViewMixin, ListView): 
     model = TrainingRecord
 
     from .admin import TrainingRecordAdmin
     fields = TrainingRecordAdmin.list_display
     # fields_display = ["training_class","category", ]    
-    
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TrainingRecordListView, self).get_context_data(*args, **kwargs)
+
+        if self.request.session.get("course_class"):
+            context["object_list"] = self.model.objects.filter(training_course__training_class=self.request.session.get("course_class"))
+        return context
+        

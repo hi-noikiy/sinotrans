@@ -50,7 +50,7 @@ table.transposition tr th{
         
         {% include "inlines/list_view.html" with title="annual training plan"  object_foreign_set=object.annualtraningplan_set.all fields_foreign=fields_annual_training_plan fields_foreign_display=fields_annual_training_plan_display  allow_edit=True %} 
 
-        <a href="{% url 'annualtrainingplan_list' %}" class="btn btn-default" >{% trans 'Back' %}</a>
+        <a href="{% url 'annualtrainingplan_list' %}?class={{course_class}}" class="btn btn-default" >{% trans 'Back' %}</a>
 
     </div>
 </div>

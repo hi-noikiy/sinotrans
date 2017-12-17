@@ -53,11 +53,11 @@ class AnnualTraningPlanInline(admin.TabularInline):
     extra = 0
 
 class AnnualTraningPlanAdmin(admin.ModelAdmin):
-    list_display = ['training_course', "planned_date", "actual_date",]
+    list_display = ["year",'training_course',"planned_date", "actual_date",]
     list_filter = [ 'training_course', "planned_date", "actual_date", ]
     search_fields = ['training_course__content', "planned_date", "actual_date", ]
-    list_display_links = ['training_course']
-    ordering = ['training_course']
+    # list_display_links = ['training_course']
+    ordering = ["year",'training_course']
     list_per_page = 10
     list_max_show_all = 80
 

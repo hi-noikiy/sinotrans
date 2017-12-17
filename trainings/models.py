@@ -37,9 +37,11 @@ class TrainingCourse(models.Model):
         # return _("training course") + self.topic
 
     def get_absolute_url(self):
-        print self.pk
         return reverse("trainingcourse_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_list(self):
+        return reverse("trainingcourse_list", kwargs={})
+        
 class TrainingRecord(models.Model):
 
     training_course = models.ForeignKey(TrainingCourse, verbose_name=_("training course"))
@@ -61,6 +63,9 @@ class TrainingRecord(models.Model):
 
     def get_absolute_url_update(self):
         return reverse("trainingrecord_update", kwargs={"pk": self.pk })
+
+    def get_absolute_url_list(self):
+        return reverse("trainingrecord_list", kwargs={})
         
 class TrainingTranscript(models.Model):
     POSITION_OPTION = (

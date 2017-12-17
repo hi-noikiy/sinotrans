@@ -27,6 +27,8 @@ submodel_map = {
     'ForkliftRepair': ['forklift_list','Forklift'],
     'ForkliftMaint': ['forklift_list','Forklift'],
     'ForkliftAnnualInspection': ['forklift_list','Forklift'],
+    'TrainingCourse': ['annualtrainingplan_list','annual training plan'],
+    'TrainingRecord': ['annualtrainingplan_list','annual training plan'],
 }
 
 
@@ -90,6 +92,9 @@ class TableListViewMixin(object):
         if  self.request.session.get("shortcut_back_url"):
             del self.request.session["shortcut_back_url"]
 
+        if  self.request.session.get("shortcut_back_url_saved"):
+            del self.request.session["shortcut_back_url_saved"]
+            
         if  self.request.session.get("shortcut_create_pk"):
             del self.request.session["shortcut_create_pk"]            
 
