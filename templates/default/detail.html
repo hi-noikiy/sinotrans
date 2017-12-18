@@ -11,9 +11,14 @@
 
     {% block inline_content %}
     {% endblock %}    
+
+    {% block nav_update %}
+        {% if object.get_absolute_url_update %}<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>{% endif %}
+    {% endblock %}
     
-    {% if object.get_absolute_url_update %}<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>{% endif %}
-    {% if back_url or object.get_absolute_url_list %}<a href="{% if back_url %}{{back_url}}{% else %}{{ object.get_absolute_url_list }}{% endif %}" class="btn btn-default" >{% trans "Back" %}</a>{% endif %}    
+    {% block nav_back %}
+        {% if back_url or object.get_absolute_url_list %}<a href="{% if back_url %}{{back_url}}{% else %}{{ object.get_absolute_url_list }}{% endif %}" class="btn btn-default" >{% trans "Back" %}</a>{% endif %}    
+    {% endblock %}
     
     </div>
 

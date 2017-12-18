@@ -62,7 +62,8 @@ a:hover {text-decoration: none;}
                         {% if field.name in form.Meta.hidden %}
                             <p style="display:none" type='hidden'>{{field}}</p>                        
                             {% if field.name in form.Meta.display_with_field_hiden %}
-                                {% if 'shelf' == field.name %}<a href="{% url 'shelf_detail' form.instance.shelf.id %}" >{{form.instance.shelf}}</a>{% endif %}
+                                {% comment %}{% if 'shelf' == field.name %}<a href="{% url 'shelf_detail' form.instance.shelf.id %}" >{{form.instance.shelf}}</a>{% endif %}{% endcomment %}
+                                {% if 'shelf' == field.name %}<a href="{{ form.instance.get_absolute_url }}" >{{form.instance.shelf}}</a>{% endif %}
                             {% endif%}  
                         {% elif field.name in form.Meta.disabled %}                      
                             <p>{{form.instance|my_get_field_display:field.name}}</p>
