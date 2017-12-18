@@ -376,7 +376,7 @@ class ForkliftAnnualInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, Up
         return super(UpdateViewMixin, self).post(request, *args, **kwargs)       
 
     
-class DriverListView(ListView): 
+class DriverListView(TableListViewMixin, ListView): 
     model = Driver
     template_name = "transportation/driver_list.html"
 
@@ -393,12 +393,12 @@ class DriverListView(ListView):
 
         return context       
 
-    def dispatch(self, request, *args, **kwargs):
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_('driver'),request.path_info),
-        ])
-        return super(DriverListView, self).dispatch(request,args,kwargs)   
+    # def dispatch(self, request, *args, **kwargs):
+    #     request.breadcrumbs([
+    #         (_("Home"),reverse("home", kwargs={})),
+    #         (_('driver'),request.path_info),
+    #     ])
+    #     return super(DriverListView, self).dispatch(request,args,kwargs)   
 
 class DriverDetailView(DetailView): 
     model = Driver
