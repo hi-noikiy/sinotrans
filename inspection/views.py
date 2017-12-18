@@ -933,7 +933,7 @@ class ShelfInspectionDetailAndRecordListDisplayView(DetailView):  # Per Inspecti
     def get_record_queryset(self, *args, **kwargs):
         pk = self.kwargs.get('pk', None)
         if pk:
-            shelf_inspection_instance = get_object_or_404(shelf_inspection, pk=pk)
+            # shelf_inspection_instance = get_object_or_404(shelf_inspection, pk=pk)
             queryset =  shelf_inspection_record.objects.filter(shelf_inspection__id = pk).order_by('shelf__id')
             filter_class = self.filter_class
             if filter_class and kwargs.get('filter'):
@@ -956,12 +956,12 @@ class ShelfInspectionDetailAndRecordListDisplayView(DetailView):  # Per Inspecti
         context["title"] = _("shelf inspection record")
         context["shelfFilterForm"] = ShelfFilterForm(data=self.request.GET or None) 
 
-        self.request.session["shelf_inspection_pk"] = self.get_object().pk
-
         return context       
 
 
     def dispatch(self, request, *args, **kwargs):
+        self.request.session["shortcut_back_url"] = request.get_full_path()
+    
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
@@ -979,7 +979,7 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
     def get_record_queryset(self, *args, **kwargs):
         pk = self.kwargs.get('pk', None)
         if pk:
-            shelf_inspection_instance = get_object_or_404(shelf_inspection, pk=pk)
+            # shelf_inspection_instance = get_object_or_404(shelf_inspection, pk=pk)
             queryset =  shelf_inspection_record.objects.filter(shelf_inspection__id = pk).order_by('shelf__id')
             filter_class = self.filter_class
             if filter_class and kwargs.get('filter'):
@@ -995,12 +995,12 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
             initial=[{'use_condition': _('Normal'),}])    
         context["formset"] = formset
 
-        self.request.session["shelf_inspection_pk"] = self.request.GET.get(self.get_object().pk)  
-
         return context       
 
 
     def dispatch(self, request, *args, **kwargs):
+        self.request.session["shortcut_back_url"] = request.get_full_path()
+    
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
             (_('Shelf Inspection List'),reverse("shelf_inspection_list", kwargs={})),
@@ -1161,7 +1161,7 @@ class ShelfListView(TableListViewMixin, ListView):
     #     ])
     #     return super(ShelfListView, self).dispatch(request,args,kwargs)     
 
-class ShelfInspectionRecordDetailView(DetailView):
+class ShelfInspectionRecordDetailView(TableDetailViewMixin, DetailView):
     model = shelf_inspection_record
     template_name = "shelf/shelf_inspection_record_detail.html"    
 
@@ -1171,10 +1171,8 @@ class ShelfInspectionRecordDetailView(DetailView):
         context["detail_view_title"] = _("shelf inspection record")
         context["fields"] = [field for field in self.model._meta.get_fields() if not field.name in [self.model._meta.pk.attname, ]]   
 
-        shelf_inspection_pk = self.request.session.get("shelf_inspection_pk")        
-        shelf_inspection_instance = shelf_inspection.objects.get(pk=shelf_inspection_pk) if shelf_inspection_pk else None
-        if shelf_inspection_instance:
-            context["shelf_inspection_instance"] = shelf_inspection_instance
+        if self.request.session.get("shortcut_back_url"):
+            context["back_url"] = self.request.session.get("shortcut_back_url")
 
         return context    
 
@@ -1238,9 +1236,6 @@ class ShelfInspectionRecordListView(TableListViewMixin, ListView):
         ]
         context["field_display_links"] = ["shelf",]
         context["title"] = _("abnormal") + _("shelf inspection record")
-
-        if self.request.session.get("shelf_inspection_pk"):
-            del self.request.session["shelf_inspection_pk"]
 
         return context
 
