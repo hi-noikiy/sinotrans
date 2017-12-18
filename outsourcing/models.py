@@ -264,6 +264,9 @@ class Driver(models.Model):
     def get_absolute_url(self):
         return reverse("driver_detail", kwargs={"pk": self.pk })
 
+    def get_absolute_url_list(self):
+        return reverse("driver_list", kwargs={})
+        
 class VehicleInspection(models.Model):
     load_or_unload = (
         ('load', _('load cargo')),

@@ -44,7 +44,7 @@
                 <tr class="table-primary-hover">
                     {% for fieldname in fields %}
                     {% if forloop.first %}<th>{% else %}<td>{% endif %}
-                            {% if forloop.first and fields|length > 1 and object.get_absolute_url and not allow_edit %}
+                            {% if forloop.first and fields|length > 1 and object.get_absolute_url and not allow_edit and not forbidden_links %}
                                 <a href="{{object.get_absolute_url}}">
                             {% elif fieldname in field_display_links %}
                                 <a href="{{object.get_absolute_url}}">

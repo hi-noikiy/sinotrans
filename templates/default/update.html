@@ -18,7 +18,7 @@
         <form enctype="multipart/form-data" method="POST" action="">{% csrf_token %}
             {{form|crispy}}
             <input type="submit" class="btn btn-primary"  name="submit" value = "{% trans 'Submit' %}">
-            {% if back_url or object.get_absolute_url_list %}<a href="{% if back_url%}{{back_url}}{% else %}{{ object.get_absolute_url_list }}{% endif %}" class="btn btn-default">{% trans "back" %}</a>{% endif %}
+            {% if back_url or object.get_absolute_url %}<a href="{% if back_url%}{{back_url}}{% else %}{{ object.get_absolute_url }}{% endif %}" class="btn btn-default">{% trans "back" %}</a>{% endif %}
         </form>
     </div>
 </div>  
