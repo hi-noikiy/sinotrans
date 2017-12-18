@@ -31,6 +31,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="pull-right">
+            <a href='{% url "annualtrainingplan_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Add" %}{% trans "annual training plan" %}</i></a>
             <a href='{% url "trainingcourse_list" %}'><i class="fa fa-list" aria-hidden="true"> {% trans "training course" %}</i></a>
             <a href='{% url "trainingrecord_list" %}'><i class="fa fa-list" aria-hidden="true"> {% trans "training record" %}</i></a>
         </div>
@@ -76,7 +77,7 @@
                         </td>
                         {% else %}
                         <td {% if column.1 == "A"%} style="background-color:green; " {%endif%} >
-                            {% if column.1 == "A"%}<a style="color:white;" href="{{ column.0.get_absolute_url }}" >{{column.1}}</a>{% else %}{{ column.1 }}{% endif %}
+                            {% if column.1 == "A"%}<a style="color:white;" href="{{ column.0.get_absolute_url }}" >{{column.1}}</a>{% else %}<a href="{{ column.2.get_absolute_url }}" >{{column.1}}</a>{% endif %}
                         </td>
                         {% endif %}                    
                     {% endfor %}

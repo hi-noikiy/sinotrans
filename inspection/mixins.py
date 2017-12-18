@@ -66,6 +66,31 @@ class LoginRequiredMixin(object):
 	def dispatch(self, request, *args, **kwargs):
 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
+# can combine with DashboardTableListDisplayView
+class DashboardListViewMixin(object):
+
+    def dispatch(self, request, *args, **kwargs):
+        if  self.request.session.get("shortcut_back_url"):
+            del self.request.session["shortcut_back_url"]
+
+        if  self.request.session.get("shortcut_back_url_saved"):
+            del self.request.session["shortcut_back_url_saved"]
+            
+        if  self.request.session.get("shortcut_create_pk"):
+            del self.request.session["shortcut_create_pk"]            
+
+        list = [
+            (_("Home"),reverse("home", kwargs={})), 
+            (self.model._meta.verbose_name,request.path_info),
+        ]
+
+        if submodel_map.get(self.model._meta.object_name, None):
+            value = submodel_map.get(self.model._meta.object_name, None)
+            list.insert(1, [_(value[1]), reverse(value[0], kwargs={})])
+
+        request.breadcrumbs(list)
+        return super(DashboardListViewMixin, self).dispatch(request,args,kwargs)   
+        
 class TableListViewMixin(object):
     template_name = "default/list.html"
     

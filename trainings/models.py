@@ -114,6 +114,9 @@ class AnnualTraningPlan(models.Model):
 
     def get_absolute_url_update(self):
         return reverse("annualtrainingplan_update", kwargs={"pk": self.pk })
+
+    def get_absolute_url_list(self):
+        return reverse("annualtrainingplan_list", kwargs={})
         
 def update_actual_date(sender, instance, *args, **kwargs):
 

@@ -13,7 +13,7 @@ from .models import (
         TrainingTranscript
         )
 from .forms import AnnualTrainingPlanFilterForm
-from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
+from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin, DashboardListViewMixin
 
 
 
@@ -121,7 +121,7 @@ class AnnualTrainingPlanFilter(FilterSet):
         ]
 
 
-class AnnualTrainingPlanListView(ListView): 
+class AnnualTrainingPlanListView(DashboardListViewMixin, ListView): 
     model = AnnualTraningPlan
     #template_name = "trainings/annualtrainingplan_list.html"
     filter_class = AnnualTrainingPlanFilter
@@ -176,9 +176,9 @@ class AnnualTrainingPlanListView(ListView):
         initial = ["",""]*12
         for object in queryset:
         	row = [object.training_course] + initial
-        	row[object.planned_date.month * 2 - 1] = (object.training_record,"P") #object.planned_date
+        	row[object.planned_date.month * 2 - 1] = (object.training_record,"P",object) #object.planned_date
         	if object.actual_date:
-        		row[object.actual_date.month * 2] = (object.training_record,"A") #object.actual_date
+        		row[object.actual_date.month * 2] = (object.training_record,"A",object) #object.actual_date
         	objects.append(row)
 
         context["objects"] = objects
