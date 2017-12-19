@@ -13,7 +13,7 @@ from .models import (
         TrainingTranscript
         )
 from .forms import AnnualTrainingPlanFilterForm
-from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin, DashboardListViewMixin
+from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
 
 
 
@@ -49,16 +49,18 @@ class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        if self.request.session.get("shortcut_back_url") and not self.request.session.get("shortcut_back_url_saved", None): # navigate from training course
+        # navigate from training course, not navigate from training transcription
+        if self.request.session.get("shortcut_back_url") and not self.request.session.get("shortcut_back_url") == request.get_full_path() and \
+                not self.request.session.get("shortcut_back_url_saved", None): 
             self.request.session["shortcut_back_url_saved"] = self.request.session["shortcut_back_url"]
         self.request.session["shortcut_back_url"] = request.get_full_path()    
         self.request.session["shortcut_create_pk"] = self.get_object().pk
         
-        request.breadcrumbs([
-            (_("Home"),reverse("home", kwargs={})),
-            (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
-            (self.get_object(), request.path_info),
-        ])
+        # request.breadcrumbs([
+        #     (_("Home"),reverse("home", kwargs={})),
+        #     (_("annual training plan"), reverse("annualtrainingplan_list", kwargs={})),            
+        #     (self.get_object(), request.path_info),
+        # ])
         return super(TrainingRecordDetailView, self).dispatch(request,args,kwargs)    
 
 class TrainingCourseDetailView(TableDetailViewMixin, DetailView):
@@ -121,7 +123,7 @@ class AnnualTrainingPlanFilter(FilterSet):
         ]
 
 
-class AnnualTrainingPlanListView(DashboardListViewMixin, ListView): 
+class AnnualTrainingPlanListView(ListView): 
     model = AnnualTraningPlan
     #template_name = "trainings/annualtrainingplan_list.html"
     filter_class = AnnualTrainingPlanFilter
@@ -255,6 +257,8 @@ class AnnualTraningPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateVie
 
 class TrainingTranscriptDetailView(TableDetailViewMixin, DetailView): 
     model = TrainingTranscript    
+
+    fields_display = ["work_position",]
 
 class AnnualTraningPlanDetailView(TableDetailViewMixin, DetailView): 
     model = AnnualTraningPlan    

@@ -66,30 +66,16 @@ class LoginRequiredMixin(object):
 	def dispatch(self, request, *args, **kwargs):
 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
-# can combine with DashboardTableListDisplayView
-class DashboardListViewMixin(object):
 
+class ShortcutURLMixin(object):
     def dispatch(self, request, *args, **kwargs):
-        if  self.request.session.get("shortcut_back_url"):
-            del self.request.session["shortcut_back_url"]
-
-        if  self.request.session.get("shortcut_back_url_saved"):
-            del self.request.session["shortcut_back_url_saved"]
+        #if self.request.session.get("shortcut_back_url") and not self.request.session.get("shortcut_back_url_saved", None): 
+        #    self.request.session["shortcut_back_url_saved"] = self.request.session["shortcut_back_url"]
             
-        if  self.request.session.get("shortcut_create_pk"):
-            del self.request.session["shortcut_create_pk"]            
+        self.request.session["shortcut_back_url"] = self.request.get_full_path()    
+        self.request.session["shortcut_create_pk"] = self.get_object().pk   
 
-        list = [
-            (_("Home"),reverse("home", kwargs={})), 
-            (self.model._meta.verbose_name,request.path_info),
-        ]
-
-        if submodel_map.get(self.model._meta.object_name, None):
-            value = submodel_map.get(self.model._meta.object_name, None)
-            list.insert(1, [_(value[1]), reverse(value[0], kwargs={})])
-
-        request.breadcrumbs(list)
-        return super(DashboardListViewMixin, self).dispatch(request,args,kwargs)   
+        return super(ShortcutURLMixin, self).dispatch(request,args,kwargs)   
         
 class TableListViewMixin(object):
     template_name = "default/list.html"
@@ -171,7 +157,7 @@ class TableDetailViewMixin(object):
         
         context["model_sets"] = self.model_sets
 
-        if  self.request.session.get("shortcut_back_url"):
+        if  self.request.session.get("shortcut_back_url") and not self.request.get_full_path() == self.request.session.get("shortcut_back_url"):
             context["back_url"] = self.request.session.get("shortcut_back_url")
             
         return context        
@@ -302,12 +288,14 @@ class CreateViewMixin(object):
         
     def get_success_url(self):
         #return self.model().get_absolute_url_list()
-        return self.object.get_absolute_url()  # default function
+        # return self.object.get_absolute_url()  # default function
+        return self.object.get_absolute_url()  if not self.request.session.get("shortcut_back_url", None) else self.request.session["shortcut_back_url"]
+        
 
     def get_context_data(self, *args, **kwargs):
         context = super(CreateViewMixin, self).get_context_data(*args, **kwargs) 
 
-        if  self.request.session.get("shortcut_back_url"):
+        if  self.request.session.get("shortcut_back_url") and not self.request.get_full_path() == self.request.session.get("shortcut_back_url"):
             context["back_url"] = self.request.session.get("shortcut_back_url")
         elif hasattr(self.model(),"get_absolute_url_list"):
             context["back_url"] = self.model().get_absolute_url_list()
