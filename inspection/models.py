@@ -487,7 +487,7 @@ class hydrant_inspection(models.Model):
 
 
 class Rehearsal(models.Model):
-    title = models.CharField(_('Title'), max_length=30, blank=True)   
+    title = models.CharField(_('Title'), max_length=30, blank=False, null=False)   
     date = models.DateField(_('Date'),auto_now_add=False, auto_now=False)
     attachment = models.FileField(_('Attachment'), blank=True, upload_to='rehearsal') 
     image = models.FileField(_('image'), blank=True, upload_to='rehearsal') 

@@ -14,7 +14,7 @@ from .models import (
         )
 from .forms import AnnualTrainingPlanFilterForm
 from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
-
+from django.forms import models as model_forms
 
 
 class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
@@ -234,6 +234,8 @@ class TrainingTranscriptCreateView(StaffRequiredMixin, CreateViewMixin, CreateVi
 class AnnualTraningPlanCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = AnnualTraningPlan    
 
+    form_class = model_forms.modelform_factory(AnnualTraningPlan, exclude=["actual_date",])
+        
     def get_context_data(self, *args, **kwargs):
         context = super(AnnualTraningPlanCreateView, self).get_context_data(*args, **kwargs)
 
@@ -254,6 +256,8 @@ class TrainingTranscriptUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateVi
 
 class AnnualTraningPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = AnnualTraningPlan        
+
+    form_class = model_forms.modelform_factory(AnnualTraningPlan, exclude=["actual_date",])
 
 class TrainingTranscriptDetailView(TableDetailViewMixin, DetailView): 
     model = TrainingTranscript    

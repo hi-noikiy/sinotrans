@@ -290,7 +290,7 @@ class VehicleInspection(models.Model):
     vehichle_not_register = models.CharField(_("vehichle not register"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="no")
     no_vehicle_inspection_record = models.CharField(_("no vehicle inspection record"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="no")
     no_DDC_certificate = models.CharField(_("no DDC certificate"), choices = RESULT_OPTION, blank=False, null=False,max_length=30, default="no")
-    due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=False, blank=False)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
 
 

@@ -108,6 +108,12 @@ class DailyInspectionForm(forms.ModelForm):
             return "on"
         return None
 
+    def clean_image_after(self):
+        if not self.instance.id and self.cleaned_data['image_after']:
+            raise forms.ValidationError(_('picture after rectification should not be exist during creation'))
+
+        return self.cleaned_data["image_after"]
+
     class Meta:
         model = DailyInspection
 
