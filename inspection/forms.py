@@ -81,9 +81,7 @@ class DailyInspectionForm(forms.ModelForm):
                 queryset=get_user_model().objects.all(),
                 empty_label = None, #not show enmpty
                 required=True
-                )         
-        
-   
+                )
     except:
         pass
 
@@ -108,11 +106,23 @@ class DailyInspectionForm(forms.ModelForm):
             return "on"
         return None
 
+    def clean_image_before(self):
+        if not self.cleaned_data['image_before']:
+            raise forms.ValidationError(_('Picture before Rectification can not be deleted'))
+
+        return self.cleaned_data["image_before"]
+
     def clean_image_after(self):
         if not self.instance.id and self.cleaned_data['image_after']:
             raise forms.ValidationError(_('picture after rectification should not be exist during creation'))
 
         return self.cleaned_data["image_after"]
+
+    def clean(self):
+        if self.clear_image_before() == 'on':
+            raise forms.ValidationError(_('Picture before Rectification can not be deleted'))
+
+        return super(DailyInspectionForm, self).clean()
 
     class Meta:
         model = DailyInspection

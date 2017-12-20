@@ -102,7 +102,7 @@ $(document).ready(function(){
 
         <div class="object_create pull-right">
             {% if request.user.is_staff or request.user.is_superuser %}
-            <a class="fa fa-plus-square fa-1x" href="{% url 'dailyinspection_create' %}" title='{% trans "Create New Item" %}' > {% trans "Create New Item" %}</a>
+            <a class="fa fa-plus-square fa-1x" href="{% url 'dailyinspection_create' %}" title='{% trans "Create New Item" %}' > {% trans "Create" %}</a>
             {% endif %}
             <a class="fa fa-area-chart fa-1x"  href="{% url 'daily_inspection_stat' %}"  title='{% trans "Inspection Statistic" %}' > {% trans "Inspection Statistic" %}</a>
             <a class="fa fa-warning fa-1x"  style="color: red;" href="{% url 'dailyinspection_list' %}?overdue=1"  title='{% trans "Inspection Overdue" %}' > <span style="color: #428bd3;">{% trans "Inspection Overdue" %}</span></a>

@@ -17,7 +17,7 @@
             		<img  class= 'img-responsive' src="{{request.media}}{{field.value}}"/>
             	{% endif %}
             </div>
-            {% if field.value %}
+            {% if field.value and not field.field.required %}
             <div>
             	<label for="{{field.name}}-clear_id" >清除</label>
             	<input id="{{field.name}}-clear_id" name="{{field.name}}-clear" type="checkbox">

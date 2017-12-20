@@ -195,7 +195,22 @@ class DailyInspection(models.Model):
             return None
         
         field = DailyInspection._meta.get_field(fieldname)
-        return "%s" % self._get_FIELD_display(field)        
+        return "%s" % self._get_FIELD_display(field)  
+
+    def is_rectification_completed(self)      :
+        return self.image_after and hasattr(self.image_after, "url") and self.image_after.url
+
+    def turn_completed(self, instance):
+        if self.is_rectification_completed():
+            if not instance or not instance.is_rectification_completed():
+                return True
+        return False
+
+    def rectification_completed_updated(self, instance):
+        if self.is_rectification_completed() and instance.is_rectification_completed():
+            if not self.image_after.url == instance.image_after.url:
+                return True
+        return False
 
     class Meta:
         verbose_name = _("Daily Inspection")

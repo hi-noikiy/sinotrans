@@ -282,19 +282,23 @@ class ThumbnailMixin(object):
             obj.created = instance.created
             obj.inspector = instance.inspector
             inspection_completed = False
-            if obj.image_after and obj.image_after.url:
+            if obj.is_rectification_completed():
                 inspection_completed = True
-                if not instance.image_after or instance.image_after.url is None or not instance.image_after.url == obj.image_after.url:                    
+                if obj.rectification_completed_updated(instance) or obj.turn_completed(instance):
                     log = '{0}-{1} {2}'.format(datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S'),self.request.user,_("uploaded image to complete the inspector").encode("utf-8")) 
                     DailyInspectionLog(dailyinspection=instance,log=log).save()
 
 
             if inspection_completed:
-                obj.completed_time = timezone.now()
-                obj.rectification_status = 'completed'
+                if obj.rectification_completed_updated(instance) or obj.turn_completed(instance):
+                    obj.completed_time = timezone.now()
+                    obj.rectification_status = 'completed'
+                else:
+                    obj.completed_time = instance.completed_time
+                    obj.rectification_status = instance.rectification_status                    
             else:
-                obj.completed_time = instance.completed_time
-                obj.rectification_status = instance.rectification_status
+                obj.completed_time = None #instance.completed_time
+                obj.rectification_status = 'uncompleted' #instance.rectification_status
 
 
         save_and_get_image(form, 'image_before', instance, obj, required=True)
