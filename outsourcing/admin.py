@@ -202,6 +202,8 @@ class VehicleInspectionInline(admin.TabularInline):
     extra = 0
     #max_num = 10    
 
+    view_on_site = False
+
 class VehicleAdmin(admin.ModelAdmin):
     list_display = [
                         "service_content",                         
