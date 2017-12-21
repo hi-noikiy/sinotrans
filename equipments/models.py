@@ -189,7 +189,7 @@ class SprayWarehouseInspection(models.Model):
 
 class HSSEKPI(models.Model):
     year = models.PositiveIntegerField(_("year"),
-        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year)],
+        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year+1)],
         blank=False,null=False, help_text=_("Use the following format: < YYYY >"))
     month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False, null=False)
     LTI = models.PositiveIntegerField(_('LTI'), blank=False, null=False, default=0)
