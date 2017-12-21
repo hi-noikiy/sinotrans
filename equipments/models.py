@@ -146,7 +146,7 @@ class SprayPumpRoomInspection(models.Model):
 
 class SprayWarehouseInspection(models.Model):
     year = models.PositiveIntegerField(_("year"),
-        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year)],
+        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year+1)],
         blank=False,null=False, help_text=_("Use the following format: < YYYY >"))
     month = models.CharField(_('Month'), choices=month_choice, max_length=30, blank=False,null=False)
     valve_normal = models.BooleanField(_('valve normal'), blank=True, default=False)
