@@ -32,13 +32,15 @@ class ForkliftMaintInline(admin.TabularInline):
     extra = 0
     max_num = 10    
 
+    view_on_site = False
+
 class ForkliftAnnualInspectionInline(admin.StackedInline):
     model = ForkliftAnnualInspection
     extra = 0
     max_num = 10
 
     view_on_site = False
-    
+
     # pk_field = ForkliftAnnualInspectionImage
 
     fieldsets= [
