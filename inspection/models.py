@@ -462,6 +462,8 @@ class ShelfAnnualInspectionImage(models.Model):
     def __unicode__(self): 
         return _("shelf annual inspection image") + " %s" % (self.id )
 
+post_delete.connect(file_cleanup, sender=ShelfAnnualInspectionImage)
+
 """ to be delete """
 """
 class extinguisher(models.Model):
