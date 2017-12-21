@@ -183,6 +183,10 @@
         $(this).parent().parent().addClass('edit-item');
     });
 
-    $('input.calenda').datepicker({ dateFormat: "yy/mm/dd" });
+    if("{{LANGUAGE_CODE}}" == "en"){
+        $('input.calenda').datepicker({ dateFormat: "yy-mm-dd" });
+    }else{
+        $('input.calenda').datepicker({ dateFormat: "yy/mm/dd" });
+    }    
 {% endblock %}
 </script>

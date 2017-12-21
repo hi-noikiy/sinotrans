@@ -36,7 +36,11 @@ table.table-formset thead tr th:nth-child(1){
 
 <script type="text/javascript">
 {% block jquery %}
-    $('.calenda input').datepicker({ dateFormat: "yy/mm/dd" });
+    if("{{LANGUAGE_CODE}}" == "en"){
+        $('.calenda input').datepicker({ dateFormat: "yy-mm-dd" });
+    }else{
+        $('.calenda input').datepicker({ dateFormat: "yy/mm/dd" });
+    }        
 {% endblock %}
 </script>
 

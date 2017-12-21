@@ -33,7 +33,7 @@ table.transposition tr th{
         <div class="row">
             <div class="col-sm-12">
                 <div class="pull-right">
-                    <a href='{% url "trainingrecord_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "training record" %}</i></a>
+                    <a href='{% url "trainingrecord_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% if LANGUAGE_CODE == "en" %}&nbsp{% endif %}{% trans "training record" %}</i></a>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@ table.transposition tr th{
         <div class="row">
             <div class="col-sm-12">
                 <div class="pull-right">
-                    <a href='{% url "annualtrainingplan_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "annual training plan" %}</i></a>
+                    <a href='{% url "annualtrainingplan_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% if LANGUAGE_CODE == "en" %}&nbsp{% endif %}{% trans "annual training plan" %}</i></a>
                 </div>
             </div>
         </div>
