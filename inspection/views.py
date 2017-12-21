@@ -521,7 +521,7 @@ class ChartMixin(object):
             }],
 
             # These labels appear in the legend and in the tooltips when hovering different arcs
-            'labels': [_(category[1]) for category in DailyInspection.daily_insepction_category_view], # why ugettext in models.py didn't work?
+            'labels': [_(category[1]) for category in DailyInspection.daily_insepction_category], # why ugettext in models.py didn't work?
         };
         context["data"] = json.dumps(data)
         
