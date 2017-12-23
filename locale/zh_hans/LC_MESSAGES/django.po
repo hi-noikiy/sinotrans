@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-23 09:46+0800\n"
+"POT-Creation-Date: 2017-12-23 09:55+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1323,7 +1323,6 @@ msgid "Spray Warehouse"
 msgstr "喷淋库房"
 
 #: .\inspection\templates\storage_security.html:61
-#| msgid "Equipment"
 msgid "Other Equipment"
 msgstr "其他设备"
 
@@ -3637,8 +3636,8 @@ msgid "Follow Us"
 msgstr "关注我们"
 
 #: .\templates\footer.html:62
-msgid "Contact Us"
-msgstr "联系我们"
+msgid "Tech Support"
+msgstr "技术支持"
 
 #: .\templates\navbar.html:25
 msgid "About"
@@ -4009,6 +4008,9 @@ msgstr "计划"
 #: .\trainings\views.py:172
 msgid "actual"
 msgstr "实际"
+
+#~ msgid "Contact Us"
+#~ msgstr "联系我们"
 
 #~ msgid "LAST 5 ACTUAL DAYS"
 #~ msgstr "最近5天分布"
