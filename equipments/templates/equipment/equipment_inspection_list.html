@@ -73,7 +73,10 @@
                         <!-- <button type="submit" class="btn btn-primary"><i class="fa fa-2x fa-download"></i></button> -->
                     </form>
                     <a class="fa fa-plus-square fa-2x" style="padding-right: 5px;" data-toggle="modal" href="{% url 'equipmentinsepction_create' cat=current_category|add:"0" %}" data-target="#modal" title="create item" data-tooltip></a>
+                    {% comment %}
+                    <!-- not required by customrer -->
                     <a href="{%url 'equipmentinsepction_quickupdate' %}"><i class="fa fa-flash fa-2x" aria-hidden="true"></i></a>
+                    {% endcomment %}
                 </div>
             </div>
         </div>
@@ -140,7 +143,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-header">
-            <h3>{% trans "Inspection Overdue" %} <small>OVEDUE</small></h3> 
+            <h3>{% trans "Inspection Overdue" %} <small>OVERDUE</small></h3> 
         </div>
         {% if object_list_overdue.count > 0 %}
             <table class="table table-striped table-hover table-responsive table-condensed table-align-center"  style="width: 100%">
