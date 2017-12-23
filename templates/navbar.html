@@ -38,6 +38,7 @@
 
           <ul class="nav navbar-nav navbar-right">
             <li><a href='{% url "dailyinspection_list" %}?q=&rectification_status=uncompleted'><i class="fa fa-hand-o-up fa-navbar-cart"></i> <span id="cart-count-badge" class='badge'>{% if request.user.is_authenticated %}{{request.session.cart_item_count}}{% else %}0{% endif %}</span></a></li>
+{% comment %}            
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'Projects' %} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">                
@@ -49,7 +50,8 @@
                 <li><a href="{% url 'forklift_list' %}">{% trans 'Forklift' %}</a></li>                
                 <li><a href="{% url 'spraypumproominspection_list_edit' %}">{% trans 'Spray Pump' %}</a></li>
               </ul>
-            </li>                
+            </li>
+{% endcomment %}                 
             {% if request.user.is_authenticated %}              
               {% if request.user.is_wechatuser %}
               <li><a href='{{request.user.get_absolute_url}}'}>{{request.user.get_wechatprofile}}</a></li> 
