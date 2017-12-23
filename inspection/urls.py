@@ -48,6 +48,16 @@ from .views import (
     RTPIDetailView,
     RTPIUpdateView,
 
+    ExtinguisherInspectionListView,
+    ExtinguisherInspectionCreateView,
+    ExtinguisherInspectionDetailView,
+    ExtinguisherInspectionUpdateView,
+
+    HydrantInspectionListView,
+    HydrantInspectionCreateView,
+    HydrantInspectionDetailView,
+    HydrantInspectionUpdateView,
+
     StorageSecurityView,
 
 )
@@ -106,5 +116,16 @@ urlpatterns = [
     url(r'^rtpi$', RTPIListView.as_view(), name='rtpi_list'),
     url(r'^rtpi/create$', RTPICreateView.as_view(), name='rtpi_create'),
     url(r'^rtpi/(?P<pk>\d+)/$', RTPIDetailView.as_view(), name='rtpi_detail'),  
-    url(r'^rtpi/update/(?P<pk>\d+)/$', RTPIUpdateView.as_view(), name='rtpi_update'),        
+    url(r'^rtpi/update/(?P<pk>\d+)/$', RTPIUpdateView.as_view(), name='rtpi_update'),   
+
+    url(r'^extinguisherinspection$', ExtinguisherInspectionListView.as_view(), name='extinguisherinspection_list'),
+    url(r'^extinguisherinspection/create$', ExtinguisherInspectionCreateView.as_view(), name='extinguisherinspection_create'),
+    url(r'^extinguisherinspection/(?P<pk>\d+)/$', ExtinguisherInspectionDetailView.as_view(), name='extinguisherinspection_detail'),  
+    url(r'^extinguisherinspection/(?P<pk>\d+)/update/$', ExtinguisherInspectionUpdateView.as_view(), name='extinguisherinspection_update'),
+
+    url(r'^hydrantinspection$', HydrantInspectionListView.as_view(), name='hydrantinspection_list'),
+    url(r'^hydrantinspection/create$', HydrantInspectionCreateView.as_view(), name='hydrantinspection_create'),
+    url(r'^hydrantinspection/(?P<pk>\d+)/$', HydrantInspectionDetailView.as_view(), name='hydrantinspection_detail'),  
+    url(r'^hydrantinspection/(?P<pk>\d+)/update/$', HydrantInspectionUpdateView.as_view(), name='hydrantinspection_update'),  
+
 ]

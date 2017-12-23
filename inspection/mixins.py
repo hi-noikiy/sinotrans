@@ -29,6 +29,8 @@ submodel_map = {
     'ForkliftAnnualInspection': ['forklift_list','Forklift'],
     'TrainingCourse': ['annualtrainingplan_list','annual training plan'],
     'TrainingRecord': ['annualtrainingplan_list','annual training plan'],
+    'ExtinguisherInspection': ['extinguisherinspection_list','extinguisher inspection'],
+    'HydrantInspection': ['hydrantinspection_list','hydrant inspection'],    
 }
 
 

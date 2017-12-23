@@ -14,11 +14,12 @@ from .models import (
     shelf_inspection_record, 
     shelf, 
     shelf_inspection,
+    ShelfAnnualInspectionImage,
     PI,
     WHPI,
     RTPI,
-    ShelfAnnualInspectionImage,
-    
+    ExtinguisherInspection,
+    HydrantInspection,       
 )
 
 RESULT_OPTION = (
@@ -587,3 +588,96 @@ class ShelfAnnualInspectionImageForm(forms.ModelForm):
     #     kwargs['initial'] = initial        
     #     super(ShelfAnnualInspectionImageForm, self).__init__(*args, **kwargs)
     #     self.fields['image'].initial = '/media/'        
+
+class ExtinguisherInspectionForm(forms.ModelForm):
+    try:
+        owner = forms.ChoiceField(
+                label=_('Owner'),
+                choices = set((ins, ins) for ins in get_user_model().objects.all()),
+                # empty_label = None, #not show enmpty
+                required=False
+                )   
+
+        # check_person = forms.ChoiceField(
+        #         label=_('Check Person'),
+        #         choices=set((ins, ins) for ins in get_user_model().objects.all()),
+        #         empty_label = None, #not show enmpty
+        #         required=True
+        #         )                    
+    except:
+        pass
+
+    def __init__(self, *args, **kwargs):
+        super(ExtinguisherInspectionForm, self).__init__(*args, **kwargs)
+        # self.fields['check_person'].widget.attrs['readonly'] = True
+
+    def clean_forecast_complete_time(self):
+        forecast_complete_time = self.cleaned_data['forecast_complete_time']
+        if not forecast_complete_time:
+            if 'breakdown' == self.cleaned_data.get("check_result") :
+                raise forms.ValidationError(_('required when equipment is abnormal!'))
+
+        return forecast_complete_time
+
+    def clean_owner(self):
+        owner = self.cleaned_data['owner']
+        if not owner:
+            if 'breakdown' == self.cleaned_data.get("check_result") :
+                raise forms.ValidationError(_('required when equipment is abnormal!'))
+
+        return owner
+
+    class Meta:    
+        model = ExtinguisherInspection
+
+        exclude = [
+            "completed_time",
+            "check_person",
+        ]
+
+
+class HydrantInspectionForm(forms.ModelForm):
+    try:
+        owner = forms.ChoiceField(
+                label=_('Owner'),
+                choices = set((ins, ins) for ins in get_user_model().objects.all()),
+                # empty_label = None, #not show enmpty
+                required=False
+                )   
+
+        # check_person = forms.ChoiceField(
+        #         label=_('Check Person'),
+        #         choices=set((ins, ins) for ins in get_user_model().objects.all()),
+        #         empty_label = None, #not show enmpty
+        #         required=True
+        #         )            
+    except:
+        pass
+
+    def __init__(self, *args, **kwargs):
+        super(HydrantInspectionForm, self).__init__(*args, **kwargs)
+        # self.fields['check_person'].widget.attrs['readonly'] = True
+
+    def clean_forecast_complete_time(self):
+        forecast_complete_time = self.cleaned_data['forecast_complete_time']
+        if not forecast_complete_time:
+            if 'breakdown' == self.cleaned_data.get("check_result") :
+                raise forms.ValidationError(_('required when equipment is abnormal!'))
+
+        return forecast_complete_time
+
+    def clean_owner(self):
+        owner = self.cleaned_data['owner']
+        if not owner:
+            if 'breakdown' == self.cleaned_data.get("check_result") :
+                raise forms.ValidationError(_('required when equipment is abnormal!'))
+
+        return owner
+
+    class Meta:     
+        model = HydrantInspection
+
+        exclude = [
+            "completed_time",
+            "check_person",
+        ]    

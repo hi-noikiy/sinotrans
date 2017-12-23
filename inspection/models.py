@@ -15,6 +15,22 @@ from django.conf import settings
 from uuslug import slugify as uuslugify
 
 # Create your models here.
+class InspectionMixin(models.Model):
+    equipment_use_condition = [
+        ('normal', _('Normal')),
+        ('breakdown', _('Breakdown')),
+    ]
+
+    check_person = models.CharField(_('Check Person'), max_length=30, blank=True) 
+    owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
+    forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)    
+    check_result = models.CharField(_('Check Result'), choices=equipment_use_condition, max_length=30, blank=True) 
+    check_date = models.DateField(_('Check Date'),auto_now_add=True, auto_now=False)
+
+    class Meta:
+        abstract=True
+
 
 RESULT_OPTION = (
     ('yes', 'Yes'),
@@ -456,44 +472,100 @@ class ShelfAnnualInspectionImage(models.Model):
 
 post_delete.connect(file_cleanup, sender=ShelfAnnualInspectionImage)
 
-""" to be delete """
-"""
-class extinguisher(models.Model):
+class Extinguisher(models.Model):
     name = models.CharField(_('Name'), max_length=30, blank=True)   
-    capacity = models.CharField(_('Capacity'), max_length=30, blank=True)   
 
     class Meta:
         verbose_name = _("extinguisher")
+        verbose_name_plural = _("extinguisher")
 
-class extinguisher_inspection(models.Model):
-    extinguisher = models.ForeignKey(extinguisher)
+    def __unicode__(self): 
+        return " %s" % (self.name )
+
+# class ExtinguisherInspection(InspectionMixin):
+class ExtinguisherInspection(models.Model):
+    equipment_use_condition = [
+        ('normal', _('Normal')),
+        ('breakdown', _('Breakdown')),
+    ]
+
+    extinguisher = models.ForeignKey(Extinguisher, verbose_name=_("extinguisher"))
+    capacity = models.CharField(_('Capacity'), max_length=30, blank=True)   
+    check_result = models.CharField(_('Check Result'), choices=equipment_use_condition, max_length=30, blank=False, null=False, default="normal")      
     check_person = models.CharField(_('Check Person'), max_length=30, blank=True) 
-    check_result = models.CharField(_('Check Result'), max_length=30, blank=True) 
-    check_date = models.DateField(_('Check Date'),auto_now_add=False, auto_now=False)
+    owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
+    forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)    
+    check_date = models.DateField(_('Check Date'),auto_now_add=True, auto_now=False)
+
 
     class Meta:
         verbose_name = _("extinguisher inspection")
+        verbose_name_plural = _("extinguisher inspection")
+        abstract=False
 
+    def __unicode__(self): 
+        return " %s %s" % (self.extinguisher.name, self.check_date )
 
-class hydrant(models.Model):
+    def get_absolute_url(self):
+        return reverse("extinguisherinspection_detail", kwargs={"pk": self.pk })
+
+    def get_absolute_url_update(self):
+        return reverse("extinguisherinspection_update", kwargs={"pk": self.pk })
+
+    def get_absolute_url_list(self):
+        return reverse("extinguisherinspection_list", kwargs={})
+
+class Hydrant(models.Model):
     name = models.CharField(_('Name'), max_length=30, blank=True) 
     accessories = models.CharField(_('Accessories'), max_length=30, blank=True)   
 
     class Meta:
         verbose_name = _("hydrant")
+        verbose_name_plural = _("hydrant")
 
-class hydrant_inspection(models.Model):
-    extinguisher = models.ForeignKey(hydrant)
+    def __unicode__(self): 
+        return " %s" % (self.name )
+
+class AbstractEquipment(models.Model):
+    hydrant = models.ForeignKey(Hydrant, verbose_name=_("hydrant"))
+
+    class Meta:
+        abstract=True
+
+# class HydrantInspection(AbstractEquipment, InspectionMixin):
+class HydrantInspection(models.Model):
+
+    equipment_use_condition = [
+        ('normal', _('Normal')),
+        ('breakdown', _('Breakdown')),
+    ]
+        
+    hydrant = models.ForeignKey(Hydrant, verbose_name=_("hydrant")) 
+    check_result = models.CharField(_('Check Result'), choices=equipment_use_condition, max_length=30, blank=False, null=False, default="normal")     
     check_person = models.CharField(_('Check Person'), max_length=30, blank=True) 
-    check_result = models.CharField(_('Check Result'), max_length=30, blank=True) 
-    check_date = models.DateField(_('Check Date'),auto_now_add=False, auto_now=False)
+    owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
+    forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)    
+    check_date = models.DateField(_('Check Date'),auto_now_add=True, auto_now=False)
+
 
     class Meta:
         verbose_name = _("hydrant inspection")
+        verbose_name_plural = _("hydrant inspection")
+        abstract=False
 
-"""
-""" to be delete """
+    def __unicode__(self): 
+        return " %s %s" % (self.hydrant.name, self.check_date )
 
+    def get_absolute_url(self):
+        return reverse("hydrantinspection_detail", kwargs={"pk": self.pk })
+
+    def get_absolute_url_update(self):
+        return reverse("hydrantinspection_update", kwargs={"pk": self.pk })
+
+    def get_absolute_url_list(self):
+        return reverse("hydrantinspection_list", kwargs={})
 
 class Rehearsal(models.Model):
     title = models.CharField(_('Title'), max_length=30, blank=False, null=False)   

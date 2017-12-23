@@ -35,14 +35,17 @@ from .models import (
     shelf_inspection, 
     shelf,
     ShelfAnnualInspection,
+    ShelfAnnualInspectionImage,
     Rehearsal,
     PI,
     WHPI,
-    RTPI,
-    ShelfAnnualInspectionImage,
+    RTPI,    
+    ExtinguisherInspection,
+    HydrantInspection,
 
     image_upload_to_dailyinspection,
     )
+
 from .forms import (
     OfficeInspectionForm, 
     DailyInspectionForm, 
@@ -54,6 +57,8 @@ from .forms import (
     PIForm,
     WHPIForm,
     RTPIForm,
+    ExtinguisherInspectionForm,
+    HydrantInspectionForm,
 
     shelf_inspection_record_Formset, 
     shelf_gradient_inspection_Formset,
@@ -1557,3 +1562,111 @@ class ShelfAnnualInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, Updat
             return self.form_invalid(form)
 
         return super(UpdateViewMixin, self).post(request, *args, **kwargs)       
+
+
+class ExtinguisherInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
+    model = ExtinguisherInspection
+    form_class = ExtinguisherInspectionForm
+
+    def form_valid(self, form):
+        obj = self.get_object()
+        instance = form.save(commit=False)
+        if obj.check_result == "breakdown" and instance.check_result == "normal":
+            instance.completed_time = timezone.now() #.strftime('%Y-%m-%d %H:%M:%S')
+        elif obj.check_result == "normal" and instance.check_result == "breakdown":
+            instance.completed_time = None
+        instance.save()
+        return super(ExtinguisherInspectionUpdateView, self).form_valid(form)  
+
+class ExtinguisherInspectionCreateView(StaffRequiredMixin, CreateViewMixin, CreateView):
+    model = ExtinguisherInspection  
+    form_class = ExtinguisherInspectionForm  
+
+    def form_valid(self, form):
+        instance = form.save(commit = False)
+        instance.check_person = self.request.user.get_full_name()
+        instance.save()
+        return super(ExtinguisherInspectionCreateView, self).form_valid(form)  
+
+class ExtinguisherInspectionDetailView(TableDetailViewMixin, DetailView):
+    model = ExtinguisherInspection
+
+    fields_display = [
+        "check_result",
+    ]
+
+class ExtinguisherInspectionListView(TableListViewMixin, ListView): 
+    model = ExtinguisherInspection         
+    template_name = "firefighting/extinguisherinspection_list.html"
+
+    from .admin import ExtinguisherInspectionAdmin
+    fields = ExtinguisherInspectionAdmin.list_display
+    fields_display = [
+        "check_result",
+    ]
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExtinguisherInspectionListView, self).get_context_data(*args, **kwargs)
+        object_list = context["object_list"]
+
+        if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
+            object_list = self.model.objects.filter(check_result="breakdown", forecast_complete_time__lte=timezone.now())
+        elif self.request.GET.get('uncompleted'):
+            object_list = self.model.objects.filter(check_result="breakdown")
+        context["object_list"] = object_list                   
+
+        return context 
+
+class HydrantInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
+    model = HydrantInspection
+    form_class = HydrantInspectionForm
+
+    def form_valid(self, form):
+        obj = self.get_object()
+        instance = form.save(commit=False)
+        if obj.check_result == "breakdown" and instance.check_result == "normal":
+            instance.completed_time = timezone.now() #.strftime('%Y-%m-%d %H:%M:%S')
+        elif obj.check_result == "normal" and instance.check_result == "breakdown":
+            instance.completed_time = None
+        instance.save()
+        return super(HydrantInspectionUpdateView, self).form_valid(form)  
+
+
+class HydrantInspectionCreateView(StaffRequiredMixin, CreateViewMixin, CreateView):
+    model = HydrantInspection   
+    form_class = HydrantInspectionForm 
+
+    def form_valid(self, form):
+        instance = form.save(commit = False)
+        instance.check_person = self.request.user.get_full_name()
+        instance.save()
+        return super(HydrantInspectionCreateView, self).form_valid(form)  
+
+class HydrantInspectionDetailView(TableDetailViewMixin, DetailView):
+    model = HydrantInspection        
+
+    fields_display = [
+        "check_result",
+    ]
+
+class HydrantInspectionListView(TableListViewMixin, ListView): 
+    model = HydrantInspection      
+    template_name = "firefighting/hydrantinspection_list.html"
+
+    from .admin import HydrantInspectionAdmin
+    fields = HydrantInspectionAdmin.list_display
+    fields_display = [
+        "check_result",
+    ]
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HydrantInspectionListView, self).get_context_data(*args, **kwargs)
+        object_list = context["object_list"]
+
+        if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
+            object_list = self.model.objects.filter(check_result="breakdown", forecast_complete_time__lte=timezone.now())
+        elif self.request.GET.get('uncompleted'):
+            object_list = self.model.objects.filter(check_result="breakdown")
+        context["object_list"] = object_list                   
+
+        return context 

@@ -2,8 +2,25 @@ from django.contrib import admin
 from .models import (
     OfficeInspection,
     DailyInspection,
-    shelf, shelf_inspection, shelf_inspection_record, ShelfAnnualInspection, ShelfAnnualInspectionImage, ShelfImport,
-    Rehearsal, PI, WHPI, RTPI,
+
+    shelf, 
+    shelf_inspection, 
+    shelf_inspection_record, 
+    ShelfAnnualInspection, 
+    ShelfAnnualInspectionImage, 
+    ShelfImport,
+
+    Rehearsal, 
+
+    PI, 
+    WHPI, 
+    RTPI,
+
+    Extinguisher,
+    ExtinguisherInspection,
+    Hydrant,
+    HydrantInspection,
+
     )
     
 from .forms import (
@@ -266,6 +283,45 @@ class RTPIAdmin(PIAdmin):
     class Meta:
         model = RTPI
 
+
+class ExtinguisherAdmin(admin.ModelAdmin):
+    list_display = ['name',]
+    list_search = ['name',]
+
+    view_on_site = False
+
+    class Meta:
+        model = Extinguisher
+
+class ExtinguisherInspectionAdmin(admin.ModelAdmin):
+    list_display = ['extinguisher',"capacity","check_person","check_result","check_date","forecast_complete_time","completed_time"]
+    list_search = ['extinguisher',"capacity","check_person","check_result","check_date"]
+    list_filter = ["extinguisher","check_person","check_result","check_date","forecast_complete_time","completed_time"]
+
+    view_on_site = False
+
+    class Meta:
+        model = ExtinguisherInspection
+
+class HydrantAdmin(admin.ModelAdmin):
+    list_display = ['name',"accessories"]
+    list_search = ['name',"accessories",]
+
+    view_on_site = False
+
+    class Meta:
+        model = Hydrant
+
+class HydrantInspectionAdmin(admin.ModelAdmin):
+    list_display = ['hydrant',"check_person","check_result","check_date","forecast_complete_time","completed_time"]
+    list_search = ['hydrant',"check_person","check_result","check_date"]
+    list_filter = ["hydrant","check_person","check_result","check_date","forecast_complete_time","completed_time"]
+
+    view_on_site = False
+
+    class Meta:
+        model = HydrantInspection 
+
 admin.site.register(DailyInspection, DailyInspectionAdmin)
 # admin.site.register(OfficeInspection, OfficeInspectionAdmin)
 admin.site.register(shelf, ShelfAdmin)
@@ -276,6 +332,10 @@ admin.site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 admin.site.register(Rehearsal, RehearsalAdmin)
 admin.site.register(WHPI, PIAdmin)
 admin.site.register(RTPI, RTPIAdmin)
+admin.site.register(Extinguisher, ExtinguisherAdmin)
+admin.site.register(ExtinguisherInspection, ExtinguisherInspectionAdmin)
+admin.site.register(Hydrant, HydrantAdmin)
+admin.site.register(HydrantInspection, HydrantInspectionAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 # my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
@@ -287,4 +347,8 @@ my_admin_site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 my_admin_site.register(Rehearsal, RehearsalAdmin)
 my_admin_site.register(WHPI, PIAdmin)
 my_admin_site.register(RTPI, RTPIAdmin)
+my_admin_site.register(Extinguisher, ExtinguisherAdmin)
+my_admin_site.register(ExtinguisherInspection, ExtinguisherInspectionAdmin)
+my_admin_site.register(Hydrant, HydrantAdmin)
+my_admin_site.register(HydrantInspection, HydrantInspectionAdmin)
 
