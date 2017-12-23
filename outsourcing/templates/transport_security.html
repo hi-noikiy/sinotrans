@@ -38,7 +38,7 @@
       <a href="{% url 'vehicle_list' %}"><i class="fa fa-camera fa-3x"></i></a>
       <h2>{% trans 'vehicle' %}</h2>
       <p class='lead'>
-      Shelf Inspection.
+      Vehicle.
       </p>
     </div>
     <div class='col-sm-3'>
@@ -52,9 +52,16 @@
       <a href="{% url 'transportationkpi_list_display' %}"><i class="fa fa-camera fa-3x"></i></a>
       <h2>{% trans 'vehicle tranportation KPI' %}</h2>
       <p class='lead'>
-      Device.
+      RT HSSE KPI.
       </p>
     </div>
+    <div class='col-sm-3'>
+      <a href="{% url 'pi_list' %}"><i class="fa fa-camera fa-3x"></i></a>
+      <h2>{% trans 'RT PI/NM' %}</h2>
+      <p class='lead'>
+      PI/NM.
+      </p>
+    </div>         
     <div class='col-sm-3'>
       <a href="{% url 'annualtrainingplan_list' %}?class=transportation&year={{year}}"><i class="fa fa-camera fa-3x"></i></a>
       <h2>{% trans 'annual training plan' %}</h2>
