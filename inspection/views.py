@@ -37,6 +37,8 @@ from .models import (
     ShelfAnnualInspection,
     Rehearsal,
     PI,
+    WHPI,
+    RTPI,
     ShelfAnnualInspectionImage,
 
     image_upload_to_dailyinspection,
@@ -50,6 +52,8 @@ from .forms import (
     ShelfInspectionForm, 
     ShelfUploadForm,
     PIForm,
+    WHPIForm,
+    RTPIForm,
 
     shelf_inspection_record_Formset, 
     shelf_gradient_inspection_Formset,
@@ -1422,6 +1426,37 @@ class PIUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView):
 
         return super(PIUpdateView, self).form_valid(form, *args, **kwargs)
         return HttpResponseRedirect(self.get_success_url())    
+
+class WHPIListView(PIListView): 
+    model = WHPI
+    template_name = "pi/whpi_list.html"
+
+class WHPIDetailView(PIDetailView): 
+    model = WHPI
+
+class WHPICreateView(PICreateView): 
+    model = WHPI
+    form_class = WHPIForm
+
+class WHPIUpdateView(PIUpdateView): 
+    model = WHPI
+    form_class = WHPIForm
+
+class RTPIListView(PIListView): 
+    model = RTPI
+    template_name = "pi/rtpi_list.html"
+
+class RTPIDetailView(PIDetailView): 
+    model = RTPI
+
+class RTPICreateView(PICreateView): 
+    model = RTPI
+    form_class = RTPIForm
+
+class RTPIUpdateView(PIUpdateView): 
+    model = RTPI
+    form_class = RTPIForm
+                
 
 class ShelfAnnualInspectionListView(TableListViewMixin, ListView): 
     model = ShelfAnnualInspection

@@ -39,6 +39,14 @@ from .views import (
     PICreateView,
     PIDetailView,
     PIUpdateView,
+    WHPIListView,
+    WHPICreateView,
+    WHPIDetailView,
+    WHPIUpdateView,
+    RTPIListView,
+    RTPICreateView,
+    RTPIDetailView,
+    RTPIUpdateView,
 
     StorageSecurityView,
 
@@ -89,4 +97,14 @@ urlpatterns = [
     url(r'^pi/create$', PICreateView.as_view(), name='pi_create'),
     url(r'^pi/(?P<pk>\d+)/$', PIDetailView.as_view(), name='pi_detail'),  
     url(r'^pi/update/(?P<pk>\d+)/$', PIUpdateView.as_view(), name='pi_update'),
+
+    url(r'^whpi$', WHPIListView.as_view(), name='whpi_list'),
+    url(r'^whpi/create$', WHPICreateView.as_view(), name='whpi_create'),
+    url(r'^whpi/(?P<pk>\d+)/$', WHPIDetailView.as_view(), name='whpi_detail'),  
+    url(r'^whpi/update/(?P<pk>\d+)/$', WHPIUpdateView.as_view(), name='whpi_update'),
+
+    url(r'^rtpi$', RTPIListView.as_view(), name='rtpi_list'),
+    url(r'^rtpi/create$', RTPICreateView.as_view(), name='rtpi_create'),
+    url(r'^rtpi/(?P<pk>\d+)/$', RTPIDetailView.as_view(), name='rtpi_detail'),  
+    url(r'^rtpi/update/(?P<pk>\d+)/$', RTPIUpdateView.as_view(), name='rtpi_update'),        
 ]

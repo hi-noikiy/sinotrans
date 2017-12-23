@@ -15,6 +15,8 @@ from .models import (
     shelf, 
     shelf_inspection,
     PI,
+    WHPI,
+    RTPI,
     ShelfAnnualInspectionImage,
     
 )
@@ -484,10 +486,33 @@ class PIForm(forms.ModelForm):
         self.fields['planned_complete_date'].widget.attrs['class'] ="calenda"
 
     def clean_image_after(self):
-        if not self.instance.id and self.cleaned_data['image_after']:
-            raise forms.ValidationError(_('picture after rectification should not be exist during creation'))
+        if not hasattr(self,'instance') or not hasattr(self.instance, 'pk') or not self.instance.pk:
+            if self.cleaned_data['image_after']:
+                raise forms.ValidationError(_('picture after rectification should not be exist during creation'))
 
         return self.cleaned_data["image_after"]
+
+class WHPIForm(PIForm):
+    class Meta:
+        model = WHPI
+
+        exclude = [
+            "created",
+            "rectification_status",
+            "close_person",
+            "completed_time",
+        ]    
+
+class RTPIForm(PIForm):
+    class Meta:
+        model = RTPI
+
+        exclude = [
+            "created",
+            "rectification_status",
+            "close_person",
+            "completed_time",
+        ]    
 
 from django.forms.widgets import ClearableFileInput, CheckboxInput, Input
 from django.utils.safestring import mark_safe

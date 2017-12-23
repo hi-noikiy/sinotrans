@@ -3,7 +3,7 @@ from .models import (
     OfficeInspection,
     DailyInspection,
     shelf, shelf_inspection, shelf_inspection_record, ShelfAnnualInspection, ShelfAnnualInspectionImage, ShelfImport,
-    Rehearsal, PI,
+    Rehearsal, PI, WHPI, RTPI,
     )
     
 from .forms import (
@@ -260,8 +260,11 @@ class PIAdmin(admin.ModelAdmin):
     view_on_site = False
 
     class Meta:
-        model = PI
+        model = WHPI
 
+class RTPIAdmin(PIAdmin):
+    class Meta:
+        model = RTPI
 
 admin.site.register(DailyInspection, DailyInspectionAdmin)
 # admin.site.register(OfficeInspection, OfficeInspectionAdmin)
@@ -271,7 +274,8 @@ admin.site.register(shelf_inspection, ShelfInspectionAdmin)
 admin.site.register(shelf_inspection_record, ShelfInspectionRecordAdmin)
 admin.site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 admin.site.register(Rehearsal, RehearsalAdmin)
-admin.site.register(PI, PIAdmin)
+admin.site.register(WHPI, PIAdmin)
+admin.site.register(RTPI, RTPIAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 # my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
@@ -281,5 +285,6 @@ my_admin_site.register(shelf_inspection, ShelfInspectionAdmin)
 my_admin_site.register(shelf_inspection_record, ShelfInspectionRecordAdmin)
 my_admin_site.register(ShelfAnnualInspection, ShelfAnnualInspectionAdmin)
 my_admin_site.register(Rehearsal, RehearsalAdmin)
-my_admin_site.register(PI, PIAdmin)
+my_admin_site.register(WHPI, PIAdmin)
+my_admin_site.register(RTPI, RTPIAdmin)
 

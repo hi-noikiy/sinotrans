@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-23 09:55+0800\n"
+"POT-Creation-Date: 2017-12-23 10:41+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -653,6 +653,7 @@ msgstr "过期未完成"
 #: .\templates\includes\__list_view.html.py:19
 #: .\templates\includes\__modelset_filelds_table_display.html:33
 #: .\templates\includes\model_list_table_display.html:27
+#: .\trainings\templates\trainings\annualtraningplan_list.html:125
 msgid "Nothing found"
 msgstr "无记录"
 
@@ -676,7 +677,7 @@ msgstr "无记录"
 #: .\outsourcing\views.py:705 .\outsourcing\views.py:721
 #: .\outsourcing\views.py:823 .\outsourcing\views.py:879
 #: .\site-packages\breadcrumbs\breadcrumbs.py:81 .\templates\navbar.html.py:20
-#: .\trainings\views.py:193
+#: .\trainings\views.py:197
 msgid "Home"
 msgstr "主页"
 
@@ -1342,7 +1343,7 @@ msgstr ""
 #: .\trainings\models.py:110
 #: .\trainings\templates\trainings\annualtraningplan_list.html:34
 #: .\trainings\templates\trainings\trainingcourse_detail.html:46
-#: .\trainings\views.py:194
+#: .\trainings\views.py:198
 msgid "annual training plan"
 msgstr "年度培训计划"
 
@@ -3873,8 +3874,8 @@ msgstr ""
 msgid "Please check your email to complete the registration process."
 msgstr ""
 
-#: .\trainings\apps.py:6 .\trainings\models.py:100 .\trainings\views.py:153
-#: .\trainings\views.py:160
+#: .\trainings\apps.py:6 .\trainings\models.py:100 .\trainings\views.py:157
+#: .\trainings\views.py:164
 msgid "training"
 msgstr "培训"
 
@@ -3985,27 +3986,32 @@ msgstr "完成时间"
 msgid "Add"
 msgstr "地址"
 
-#: .\trainings\views.py:161
+#: .\trainings\templates\trainings\annualtraningplan_list.html:97
+#| msgid "annual training plan"
+msgid "Annual Training Plan Overdue"
+msgstr "过期未完成年度培训计划"
+
+#: .\trainings\views.py:165
 msgid "Q1"
 msgstr "第一季度"
 
-#: .\trainings\views.py:162
+#: .\trainings\views.py:166
 msgid "Q2"
 msgstr "第二季度"
 
-#: .\trainings\views.py:163
+#: .\trainings\views.py:167
 msgid "Q3"
 msgstr "第三季度"
 
-#: .\trainings\views.py:164
+#: .\trainings\views.py:168
 msgid "Q4"
 msgstr "第四季度"
 
-#: .\trainings\views.py:171
+#: .\trainings\views.py:175
 msgid "plan"
 msgstr "计划"
 
-#: .\trainings\views.py:172
+#: .\trainings\views.py:176
 msgid "actual"
 msgstr "实际"
 

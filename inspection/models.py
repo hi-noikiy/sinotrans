@@ -646,6 +646,36 @@ class PI(models.Model):
         verbose_name_plural = _("PI")
         ordering = ['-created']
 
-
+        abstract=True
 
 post_delete.connect(file_cleanup, sender=PI)
+
+class WHPI(PI):
+    def get_absolute_url(self):
+        return reverse("whpi_detail", kwargs={"pk": self.id })    
+
+    def get_absolute_url_update(self):
+        return reverse("whpi_update", kwargs={"pk": self.id })    
+
+    def get_absolute_url_list(self):
+        return reverse("whpi_list", kwargs={})
+
+    class Meta:
+        verbose_name = _("WHPI")
+        verbose_name_plural = _("WHPI")        
+        abstract=False
+
+class RTPI(PI):
+    def get_absolute_url(self):
+        return reverse("rtpi_detail", kwargs={"pk": self.id })    
+
+    def get_absolute_url_update(self):
+        return reverse("rtpi_update", kwargs={"pk": self.id })    
+
+    def get_absolute_url_list(self):
+        return reverse("rtpi_list", kwargs={})
+
+    class Meta:
+        verbose_name = _("RTPI")
+        verbose_name_plural = _("RTPI")        
+        abstract=False        

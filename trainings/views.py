@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
+from django.utils import timezone
 
 from .models import (
         AnnualTraningPlan, 
@@ -12,7 +13,7 @@ from .models import (
         TrainingCourse,
         TrainingTranscript
         )
-from .forms import AnnualTrainingPlanFilterForm
+from .forms import AnnualTrainingPlanFilterForm, AnnualTraningPlanForm, TransportationAnnualTraningPlanForm, WarehouseAnnualTraningPlanForm
 from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
 from django.forms import models as model_forms
 
@@ -134,6 +135,7 @@ class AnnualTrainingPlanListView(ListView):
         qs = self.get_queryset()
         queryset = self.filter_class(self.request.GET, queryset=qs)
         
+        # retrieve course class
         course_class = None
         if self.request.GET.get("class"):
             course_class = self.request.GET.get("class")
@@ -145,6 +147,8 @@ class AnnualTrainingPlanListView(ListView):
             queryset = queryset.qs.filter(training_course__training_class=course_class)
             
         context["object_list"] = queryset if self.request.GET or course_class else None
+
+        context["object_list_overdue"] = queryset.filter(actual_date=None,planned_date__lte=timezone.now())
             
         context["top_filter_form"] = AnnualTrainingPlanFilterForm(data=self.request.GET or None) 
 
@@ -152,7 +156,10 @@ class AnnualTrainingPlanListView(ListView):
         
         context["project_name"] = _("training")
 
-        
+        from .admin import AnnualTraningPlanAdmin
+        fields = AnnualTraningPlanAdmin.list_display
+        context["fields"] = [field.name for field in self.model._meta.get_fields() if field.name in fields]
+
         from inspection.models import month_choice
 
         header1 = [
@@ -234,7 +241,7 @@ class TrainingTranscriptCreateView(StaffRequiredMixin, CreateViewMixin, CreateVi
 class AnnualTraningPlanCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = AnnualTraningPlan    
 
-    form_class = model_forms.modelform_factory(AnnualTraningPlan, exclude=["actual_date",])
+    form_class = AnnualTraningPlanForm #model_forms.modelform_factory(AnnualTraningPlan, exclude=["actual_date",], queryset)
         
     def get_context_data(self, *args, **kwargs):
         context = super(AnnualTraningPlanCreateView, self).get_context_data(*args, **kwargs)
@@ -257,7 +264,7 @@ class TrainingTranscriptUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateVi
 class AnnualTraningPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = AnnualTraningPlan        
 
-    form_class = model_forms.modelform_factory(AnnualTraningPlan, exclude=["actual_date",])
+    form_class = AnnualTraningPlanForm #model_forms.modelform_factory(AnnualTraningPlan, exclude=["actual_date",])
 
 class TrainingTranscriptDetailView(TableDetailViewMixin, DetailView): 
     model = TrainingTranscript    
