@@ -13,7 +13,7 @@ from .models import (
         TrainingCourse,
         TrainingTranscript
         )
-from .forms import AnnualTrainingPlanFilterForm, AnnualTraningPlanForm, TransportationAnnualTraningPlanForm, WarehouseAnnualTraningPlanForm
+from .forms import AnnualTrainingPlanFilterForm, AnnualTraningPlanForm,TrainingRecordForm #, TransportationAnnualTraningPlanForm, WarehouseAnnualTraningPlanForm
 from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
 from django.forms import models as model_forms
 
@@ -210,19 +210,32 @@ class TrainingCourseCreateView(StaffRequiredMixin, CreateViewMixin, CreateView):
 
         if  self.request.session.get("shortcut_create_pk"):
             if self.request.method == "GET":
-                context["form"] = self.get_form_class()(self.request.GET or None, initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+                context["form"] = self.get_form_class()(
+                    self.request.GET or None, 
+                    initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
 
         return context
         
 class TrainingRecordCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = TrainingRecord
+    form_class = TrainingRecordForm
+
+    def get_form_kwargs(self):
+        kwargs = super(TrainingRecordCreateView, self).get_form_kwargs()
+        kwargs.update({
+                'request': self.request,
+            })
+        return kwargs
 
     def get_context_data(self, *args, **kwargs):
         context = super(TrainingRecordCreateView, self).get_context_data(*args, **kwargs)
 
         if  self.request.session.get("shortcut_create_pk"):
             if self.request.method == "GET":
-                context["form"] = self.get_form_class()(self.request.GET or None, initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+                context["form"] = self.get_form_class()(
+                    self.request.GET or None, 
+                    request = self.request,                    
+                    initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
 
         return context
         
@@ -267,6 +280,14 @@ class TrainingCourseUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView):
 
 class TrainingRecordUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = TrainingRecord
+    form_class = TrainingRecordForm
+
+    def get_form_kwargs(self):
+        kwargs = super(TrainingRecordUpdateView, self).get_form_kwargs()
+        kwargs.update({
+                'request': self.request,
+            })
+        return kwargs
 
 class TrainingTranscriptUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = TrainingTranscript    
@@ -282,7 +303,7 @@ class AnnualTraningPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateVie
                 'request': self.request,
             })
         return kwargs
-        
+
 class TrainingTranscriptDetailView(TableDetailViewMixin, DetailView): 
     model = TrainingTranscript    
 
