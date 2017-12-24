@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from .models import AnnualTraningPlan, TrainingRecord
+from .models import AnnualTraningPlan, TrainingRecord, TrainingCourse
 import datetime
 from django.utils import timezone
 
@@ -12,12 +12,17 @@ class AnnualTraningPlanForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+
         super(AnnualTraningPlanForm, self).__init__(*args, **kwargs)
         self.fields['actual_date'].widget.attrs['disabled'] = True
+        
+        if self.request:
+            course_class = self.request.GET.get("class") or self.request.session.get("course_class")
+            self.fields['training_record'].queryset = TrainingRecord.objects.filter(training_course__training_class=course_class) if course_class else TrainingRecord.objects.all()
+            self.fields['training_course'].queryset = TrainingCourse.objects.filter(training_class=course_class) if course_class else TrainingCourse.objects.all()
 
-        # self.request = kwargs.pop('request', None)
-        # course_class = self.request.GET.get("class") or self.request.session.get("course_class")
-        # self.fields['training_record'].widget.queryset =TrainingRecord.objects.filter(training_course__training_class=course_class) if course_class else TrainingRecord.objects.all()
+            self.fields['training_course'].empty_label = None
 
 class TransportationAnnualTraningPlanForm(AnnualTraningPlanForm):
     course_class = "transportation"

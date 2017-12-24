@@ -124,9 +124,9 @@ class AnnualTrainingPlanFilter(FilterSet):
         ]
 
 
-class AnnualTrainingPlanListView(ListView): 
+class AnnualTrainingPlanListView(TableListViewMixin, ListView): 
     model = AnnualTraningPlan
-    #template_name = "trainings/annualtrainingplan_list.html"
+    template_name = "trainings/annualtrainingplan_list.html"
     filter_class = AnnualTrainingPlanFilter
 
     def get_context_data(self, *args, **kwargs):
@@ -242,13 +242,23 @@ class AnnualTraningPlanCreateView(StaffRequiredMixin, CreateViewMixin, CreateVie
     model = AnnualTraningPlan    
 
     form_class = AnnualTraningPlanForm #model_forms.modelform_factory(AnnualTraningPlan, exclude=["actual_date",], queryset)
-        
+
+    def get_form_kwargs(self):
+        kwargs = super(AnnualTraningPlanCreateView, self).get_form_kwargs()
+        kwargs.update({
+                'request': self.request,
+            })
+        return kwargs
+
     def get_context_data(self, *args, **kwargs):
         context = super(AnnualTraningPlanCreateView, self).get_context_data(*args, **kwargs)
 
         if  self.request.session.get("shortcut_create_pk"):
             if self.request.method == "GET":
-                context["form"] = self.get_form_class()(self.request.GET or None, initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+                context["form"] = self.get_form_class()(
+                    self.request.GET or None, 
+                    request=self.request,
+                    initial={"training_course": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
 
         return context
         
@@ -266,6 +276,13 @@ class AnnualTraningPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateVie
 
     form_class = AnnualTraningPlanForm #model_forms.modelform_factory(AnnualTraningPlan, exclude=["actual_date",])
 
+    def get_form_kwargs(self):
+        kwargs = super(AnnualTraningPlanUpdateView, self).get_form_kwargs()
+        kwargs.update({
+                'request': self.request,
+            })
+        return kwargs
+        
 class TrainingTranscriptDetailView(TableDetailViewMixin, DetailView): 
     model = TrainingTranscript    
 
