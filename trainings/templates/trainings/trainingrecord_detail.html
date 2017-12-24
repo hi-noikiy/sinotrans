@@ -11,6 +11,6 @@
                 </div>
             </div>
         </div>
-        {% include "inlines/list_view.html" with title="training transcript"  object_foreign_set=object.trainingtranscript_set.all fields_foreign=fields_training_transcript fields_foreign_display=fields_training_transcript_display %}
+        {% include "inlines/list_view.html" with title="training transcript"  object_foreign_set=object.trainingtranscript_set.all fields_foreign=fields_training_transcript fields_foreign_display=fields_training_transcript_display allow_edit=True%}
         
 {% endblock %}

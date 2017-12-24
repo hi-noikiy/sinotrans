@@ -247,7 +247,9 @@ class TrainingTranscriptCreateView(StaffRequiredMixin, CreateViewMixin, CreateVi
 
         if  self.request.session.get("shortcut_create_pk"):
             if self.request.method == "GET":
-                context["form"] = self.get_form_class()(self.request.GET or None, initial={"training_record": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
+                context["form"] = self.get_form_class()(
+                    self.request.GET or None, 
+                    initial={"training_record": self.model.objects.filter(pk=self.request.session.get("shortcut_create_pk")).first()})
 
         return context
         
