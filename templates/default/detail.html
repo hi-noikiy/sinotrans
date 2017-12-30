@@ -13,7 +13,7 @@
     {% endblock %}    
 
     {% block nav_update %}
-        {% if object.get_absolute_url_update %}<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>{% endif %}
+        {% if object.get_absolute_url_update and request.user.is_staff %}<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>{% endif %}
     {% endblock %}
     
     {% block nav_back %}

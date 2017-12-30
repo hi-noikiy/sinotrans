@@ -13,14 +13,20 @@
 
 
 {% block lists %}
+{% if object_list and object_list.count %}
     {% include "includes/model_list_table_display.html" with page_num=20 %}
+{% else %}
+    {% trans "Nothing found" %}
+{% endif %}
 {% endblock %}
 
 {% block links %}
 <div class="row">
     <div class="col-sm-12">
         <div class="pull-right">
+            {% if request.user.is_staff %}
             <a href='{% url "forklift_repair_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% if LANGUAGE_CODE == "en" %}&nbsp{% endif %}{% trans "forklift repair" %}</i></a>
+            {% endif %}
         </div>
     </div>
 </div>

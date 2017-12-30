@@ -39,7 +39,9 @@
             <input type='submit' value="{% trans 'Apply Filter' %}" class='btn btn-primary'> <a class="btn btn-default" href="{{object.get_absolute_url_display}}"  >{% trans 'Clear Filters' %}</a>
         </form>
         <br>
+        {% if request.user.is_staff %}
         <a href="{% url 'shelf_inspection_detail_and_record_list_edit' pk=object.pk %}" class="btn btn-primary" style="min-width: 70px;">{% trans 'Edit' %}</a>
+        {% endif %}
                    
         <hr>
     </div>

@@ -12,7 +12,9 @@
     <div class="col-sm-9" >
         {% include "includes/model_filelds_table_display.html" %}
 
+        {% if request.user.is_staff %}
         <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+        {% endif %}
         <a href="{{ object.get_absolute_url_list }}" class="btn btn-default" >{% trans 'Back' %}</a>
     </div>
 </div>

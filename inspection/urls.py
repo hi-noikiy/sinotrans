@@ -4,19 +4,23 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from .views import (
-    OfficeInspectionListView,
+    OfficeInspectionListView, 
     OfficeInspectionDetailView,
     OfficeInspectionCreateView,
+
     DailyInspectionListView,
     DailyInspectionUpdateView,
     DailyInspectionDetailView,
     DailyInspectionCreateView,
     DailyInspectionDeleteView,
     DailyInspectionStatView,
+
     LineChartJSONView,
     OverdueChartJSONView,
     LastsChartJSONView,
     CompareChartJSONView,
+    DashboardViewDailyInspection,
+
     ShelfInspectionListView,
     ShelfInspectionDetailAndRecordListDisplayView,
     ShelfInspectionDetailAndRecordListEditView,
@@ -31,10 +35,12 @@ from .views import (
     ShelfAnnualInspectionDetailView,
     ShelfAnnualInspectionCreateView,
     ShelfAnnualInspectionUpdateView,
+
     RehearsalListView,
     RehearsalDetailView,
     RehearsalUpdateView,
     RehearsalCreateView,
+
     PIListView,
     PICreateView,
     PIDetailView,
@@ -77,6 +83,7 @@ urlpatterns = [
     url(r'^linechartjasonoverdue$', OverdueChartJSONView.as_view(), name='line_chart_json_overdue'),   
     url(r'^linechartjasonlasts$', LastsChartJSONView.as_view(), name='line_chart_json_lasts'),   
     url(r'^linechartjasoncompare$', CompareChartJSONView.as_view(), name='line_chart_json_compare'),   
+    url(r'^dashboardview/api/dailyinspection/$', DashboardViewDailyInspection.as_view()),   
 
     url(r'^storagesec$', StorageSecurityView.as_view(), name='storage_sec'),
 

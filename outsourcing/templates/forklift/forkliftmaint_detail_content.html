@@ -11,7 +11,7 @@
 		{% endfor %}
 		</tbody>
 	</table>	
-	<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>
+	{% if request.user.is_staff %}<a href="{{ object.get_absolute_url_update }}" class="btn btn-primary" >{% trans "Update" %}</a>{% endif %}
 	<hr>
 </div>
 

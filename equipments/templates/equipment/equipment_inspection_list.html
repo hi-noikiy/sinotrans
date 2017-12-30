@@ -72,7 +72,9 @@
                         <a href="javascript:;" onclick="document.getElementById('export').submit();"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
                         <!-- <button type="submit" class="btn btn-primary"><i class="fa fa-2x fa-download"></i></button> -->
                     </form>
+                    {% if request.user.is_staff %}
                     <a class="fa fa-plus-square fa-2x" style="padding-right: 5px;" data-toggle="modal" href="{% url 'equipmentinsepction_create' cat=current_category|add:"0" %}" data-target="#modal" title="create item" data-tooltip></a>
+                    {% endif %}
                     {% comment %}
                     <!-- not required by customrer -->
                     <a href="{%url 'equipmentinsepction_quickupdate' %}"><i class="fa fa-flash fa-2x" aria-hidden="true"></i></a>
@@ -107,7 +109,9 @@
                                 <td> {{object.inspector}}</td>
                                 <td> {{object.date_of_inspection}}</td>
                                 <td>
+                                    {% if request.user.is_staff %}
                                     <a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

@@ -2,7 +2,9 @@
 {% load i18n %}
 
 {% block pi_header %}
+{% if request.user.is_staff %}
 <a href='{% url "whpi_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create PI" %}</i></a>
+{% endif %}
 <a href='{% url "whpi_list" %}'><i class="fa fa-list" aria-hidden="true"> {% trans "All" %}{% trans "PI" %}</i></a>
 <a href="{% url 'whpi_list'  %}?uncompleted=1"><i style="color:#b94a48;" class="fa fa-warning fa-1x" aria-hidden="true"><span style="color:#428bca;">{% trans "abnormal" %}{% trans "PI" %}</span></i></a>
 <a href="{% url 'whpi_list'  %}?uncompleted=1&overdue=1"><i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"><span style="color:#428bca;">{% trans "abnormal" %}{% trans "overdue" %}{% trans "PI" %}</span></i></a>   

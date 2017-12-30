@@ -27,6 +27,9 @@
 
 {% block lists %}
 
-{% include "includes/model_list_table_display.html" with object_list=object_list fields=fields fields_display=fields_display title=title page_num=50 table_class='table-align-center' %}
-
+{% if object_list and object_list.count %}
+    {% include "includes/model_list_table_display.html" with object_list=object_list fields=fields fields_display=fields_display title=title page_num=50 table_class='table-align-center' %}
+{% else %}
+    {% trans "Nothing found" %}
+{% endif %}
 {% endblock %}

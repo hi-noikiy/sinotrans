@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+<script>
+{% block jquery %}
+var endpoint = '/inspection/dashboardview/api/dailyinspection/'
+var defaultData = []
+var labels = [];
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        console.log(data)
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+{% endblock %}
+</script>
+
+{% block content %}
+
+<div class='row'>
+    <div class='col-sm-12'>
+        <h1>Hello World</h1>
+
+        <div class='col-sm-6'>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        <div class='col-sm-6'>
+            <canvas id="myChart2" width="400" height="400"></canvas>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}

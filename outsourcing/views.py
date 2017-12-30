@@ -162,7 +162,7 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
     fields_display = ["repaired",]
    
     def get_queryset(self, *args, **kwargs):
-        return self.model.objects.filter(repaired="no")
+        return self.model.objects.filter(repaired="no") if self.request.user.is_staff else None
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
@@ -528,7 +528,7 @@ class VehicleInspectionListView(TableListViewMixin, ListView):
 
         from .admin import VehicleInspectionAdmin
         
-        context["object_list"] = self.model.objects.filter(rectification_qualified='no')
+        context["object_list"] = self.model.objects.filter(rectification_qualified='no') if self.request.user.is_staff else None
         context["fields"] = VehicleInspectionAdmin.list_display
         context["fields"] = [
                 "vehicle", 

@@ -6,6 +6,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormMixin, ModelFormMixin
 from chartjs.views.lines import (JSONView, BaseLineChartView)
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -748,7 +750,9 @@ class OverdueChartJSONView(JSONView):
         data = { 
             'datasets': [{
                 # 'label': '# of Votes',
-                'data': [DailyInspection.objects.filter(rectification_status="uncompleted", due_date__lt=timezone.now(), category=category[0]).count() for category in DailyInspection.daily_insepction_category],
+                'data': [DailyInspection.objects.filter(rectification_status="uncompleted", due_date__lt=timezone.now(), category=category[0]).count() for category in DailyInspection.daily_insepction_category]\
+                if self.request.user.is_staff else \
+                    [0 for category in DailyInspection.daily_insepction_category],
                 'backgroundColor': [
                     'rgba(255, 0, 0, 0.2)',
                     'rgba(0, 255, 0, 0.2)',
@@ -780,6 +784,8 @@ class LastsChartJSONView(LineChartColorMixin, BaseLineChartView):
 
     def get_data(self):
         data =  [[DailyInspection.objects.filter(category=category[0], created__gte=self.get_time_range()[1]).count()\
+                if self.request.user.is_staff else \
+                DailyInspection.objects.filter(rectification_status="completed", category=category[0], created__gte=self.get_time_range()[1]).count()\
                      for category in DailyInspection.daily_insepction_category],]
         return data
 
@@ -801,8 +807,11 @@ class CompareChartJSONView(LineChartColorMixin, BaseLineChartView):
         ]
 
     def get_data(self):
-        data =  [[DailyInspection.objects.filter(category=category[0], created__startswith="{0}-{1}-".format(year,month)).count() for category in DailyInspection.daily_insepction_category] \
-                    for month, year in self.get_last_times()]
+        data =  [[DailyInspection.objects.filter(category=category[0], created__startswith="{0}-{1}-".format(year,month)).count() \
+                if self.request.user.is_staff else \
+                DailyInspection.objects.filter(rectification_status="completed", category=category[0], created__startswith="{0}-{1}-".format(year,month)).count()\
+                    for category in DailyInspection.daily_insepction_category] \
+                        for month, year in self.get_last_times()]
         # data =  [[DailyInspection.objects.filter(category=category[0], created__year=year, created__month=month).count() for category in DailyInspection.daily_insepction_category] \
         #             for month, year in self.get_last_times()]     
         # issue for filter "created__month=month" # https://segmentfault.com/q/1010000009037684
@@ -828,6 +837,25 @@ class CompareChartJSONView(LineChartColorMixin, BaseLineChartView):
     #         data['datasets'][i]['borderColor'] = borderColors[i]
 
     #     return data
+
+from inspection.models import month_choice
+class DashboardViewDailyInspection(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get_last_times(self):
+        year = timezone.now().year #time.localtime()[0]
+        return [[i, year] for i in range(1,13)]
+
+    def get(self, request, format=None):
+        rows = [[DailyInspection.objects.filter(category=category[0], created__startswith="{0}-{1}-".format(year,month)).count() for category in DailyInspection.daily_insepction_category] \
+                    for month, year in self.get_last_times()]
+        columns = [ (month[0], month[1]) for month in month_choice]
+        data = {
+                "columns": columns,
+                "rows": rows,
+        }
+        return Response(data)    
 
 class ShelfInspectionListView(TableListViewMixin, ListView): 
     model = shelf_inspection
@@ -1238,7 +1266,7 @@ class ShelfInspectionRecordListView(TableListViewMixin, ListView):
                 Q(use_condition=2) |
                 Q(is_locked = True) |
                 Q(gradient__gt = 1.4)
-            ).distinct().order_by("shelf_inspection")
+            ).distinct().order_by("shelf_inspection") if self.request.user.is_staff else None
 
         from .admin import ShelfInspectionRecordAdmin
         context["fields_shelf_inspection_record"] = [field.name for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
@@ -1613,6 +1641,10 @@ class ExtinguisherInspectionListView(TableListViewMixin, ListView):
             object_list = self.model.objects.filter(check_result="breakdown", forecast_complete_time__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(check_result="breakdown")
+
+        if object_list and not self.request.user.is_staff:
+            object_list = object_list.filter(check_result='normal')
+
         context["object_list"] = object_list                   
 
         return context 
@@ -1663,10 +1695,15 @@ class HydrantInspectionListView(TableListViewMixin, ListView):
         context = super(HydrantInspectionListView, self).get_context_data(*args, **kwargs)
         object_list = context["object_list"]
 
+
         if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
             object_list = self.model.objects.filter(check_result="breakdown", forecast_complete_time__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(check_result="breakdown")
+
+        if object_list and not self.request.user.is_staff:
+            object_list = object_list.filter(check_result='normal')
+
         context["object_list"] = object_list                   
 
         return context 

@@ -72,7 +72,7 @@
                         <td>{% if object|my_get_foreign_field_url:fieldname %}<img src="{{object|my_get_foreign_field_url:fieldname}}" class="img-responsive" style="width:100px;">{% endif %}</td>
                     {% endfor %}
 
-                    {% if allow_edit %}<td><a class="fa fa-pencil" href="{{ object.get_absolute_url_update }}"></a></td>{% endif %}
+                    {% if allow_edit %}<td>{% if request.user.is_staff %}<a class="fa fa-pencil" href="{{ object.get_absolute_url_update }}"></a>{% endif %}</td>{% endif %}
                     
                 </tr>
             {% endfor %}

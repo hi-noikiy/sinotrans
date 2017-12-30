@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'chartjs',
     'phone_login',
+    'rest_framework',
 
 ]
 
@@ -93,7 +94,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, "templates"), 
                 os.path.join(BASE_DIR, "equipments","templates"),
-                os.path.join(BASE_DIR, "authwrapper","templates"),
+                os.path.join(BASE_DIR, "site-packages","rest_framework","templates"),
+                os.path.join(BASE_DIR, "authwrapper","templates"), # to double check whethet the api.html is used or not
                 os.path.join(BASE_DIR, "wechat","templates"),
                 os.path.join(BASE_DIR, "fileuploadwrapper","templates"),
                 os.path.join(BASE_DIR, "inspection","templates"),

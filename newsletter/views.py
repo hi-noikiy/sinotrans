@@ -3,22 +3,22 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
-from .forms import SignUpForm,ContactForm
-from .models import Banner, Article
 from django.utils.translation import ugettext as _
-
-
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView
-from django.core.urlresolvers import reverse
-# from django.contrib.auth.forms import AuthenticationForm
 # from django.utils.http import is_safe_url
-# from django.http import HttpResponseRedirect
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from inspection.models import DailyInspection, shelf_inspection
+from .forms import SignUpForm,ContactForm
+from .models import Banner, Article
 
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
+                    
 def home(request):    
 
     title = 'Sign Up now'
@@ -191,4 +191,24 @@ class ArticleListView(ListView):
         return super(ArticleListView, self).dispatch(request,args,kwargs)   
 
 
+from django.http import JsonResponse
+def statistic_test(request):
+    data = {
+        "sales": 100,
+        "customers": 10,
+    }    
+    return JsonResponse(data)
 
+class ChartData(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        qs_count = User.objects.all().count()
+        labels = ["Users", "Blue", "Yellow", "Green", "Purple", "Orange"]
+        default_items = [qs_count, 23, 2, 3, 12, 2]
+        data = {
+                "labels": labels,
+                "default": default_items,
+        }
+        return Response(data)    

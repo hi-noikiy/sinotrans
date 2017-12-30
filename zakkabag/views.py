@@ -53,3 +53,6 @@ def sitemap(request):
 #         return HttpResponse(res)  
 #     else:  
 #         raise Http404()  
+
+def DashboardViewSINO(request):
+    return render(request,"dashboard_statistic.html")

@@ -103,7 +103,7 @@ class EquipmentInspectionListView(FilterMixin, ListView):
 
     def get_queryset(self, *args, **kwargs):
         #qs = super(EquipmentInspectionListView, self).get_queryset(*args, **kwargs)
-        qs  = self.model.objects.all()
+        qs  = self.model.objects.all() if self.request.user.is_staff else self.model.objects.filter(use_condition='normal')
         return qs
 
     def get_context_data(self, *args, **kwargs):
@@ -132,7 +132,7 @@ class EquipmentInspectionListView(FilterMixin, ListView):
         context["categories"] = EquipmentType.objects.all()
         context["current_category"] = category_id
         context["object_list"] = qs
-        context["object_list_overdue"] = queryset.filter(use_condition="breakdown", due_date__lt=timezone.now()) if queryset else None 
+        context["object_list_overdue"] = queryset.filter(use_condition="breakdown", due_date__lt=timezone.now()) if queryset and self.request.user.is_staff else None 
         from .admin import EquipmentInspectionAdmin
         fields = EquipmentInspectionAdmin.list_display
         context["fields"] = [field.name for field in self.model._meta.get_fields() if field.name in fields]
