@@ -109,6 +109,7 @@ class ForkliftMaint(models.Model):
     change_hydraulic_oil = models.CharField(_('change hydraulic oil'), max_length=30, choices = RESULT_OPTION, blank=True, default = 'no')
     created = models.DateTimeField(_('Create Date'),auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(_('Latest Update'),auto_now_add=False, auto_now=True)
+    expense = models.DecimalField(_('Expense'), decimal_places=2, max_digits=20, blank=False, null=False, default=0)
 
     def __unicode__(self): 
         return " %s %s %s" % (_("forklift"), self.forklift.internal_car_number , _("Maintenance"))
@@ -138,6 +139,7 @@ class ForkliftRepair(models.Model):
     due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=True, blank=True)
     owner = models.CharField(_("Owner"), blank=False, null=False, max_length=30)
     updated = models.DateTimeField(_('updated'),auto_now_add=False, auto_now=True)
+    expense = models.DecimalField(_('Expense'), decimal_places=2, max_digits=20, blank=False, null=False, default=0)
 
     class Meta:
         verbose_name = _("forklift repair")

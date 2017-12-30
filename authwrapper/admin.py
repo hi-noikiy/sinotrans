@@ -30,7 +30,8 @@ class UserAdmin(BaseUserAdmin):
         	{'fields': 
         	('username','phone','email', 'password')}),
         ('Personal info', 
-        	{'fields': ('first_name','last_name', 'sex','birthday','nickname','account_type','image')}),
+        	# {'fields': ('first_name','last_name', 'sex','birthday','nickname','account_type','image')}),
+            {'fields': ('first_name','last_name', 'sex','birthday','nickname',)}),
         ('Permissions', 
         	{'fields': ('is_staff','is_active', 'is_superuser','groups', 'user_permissions')}),
         ('Important dates', 

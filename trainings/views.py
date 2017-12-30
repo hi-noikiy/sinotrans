@@ -22,18 +22,23 @@ class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
     model = TrainingRecord
     template_name = "trainings/trainingrecord_detail.html"
 
+    fields_files = ["sign_sheet", ]
+
     def get_context_data(self, *args, **kwargs):
         context = super(TrainingRecordDetailView, self).get_context_data(*args, **kwargs)
 
-        field = [
+        """ 
+        fields = [
             "training_course",
             "date",
             "location",
             "trainer",
             "audiences",
+            "sign_sheet",
         ]
 
-        context["fields"] = [self.model._meta.get_field(fieldname) for fieldname in field]
+        context["fields"] = [self.model._meta.get_field(fieldname) for fieldname in fields]
+        """
 
         from .admin import TrainingTranscriptAdmin
         fields_training_transcript = TrainingTranscriptAdmin.list_display
@@ -333,7 +338,7 @@ class TrainingRecordListView(TableListViewMixin, ListView):
 
     from .admin import TrainingRecordAdmin
     fields = TrainingRecordAdmin.list_display
-    # fields_display = ["training_class","category", ]    
+    fields_files = ["sign_sheet", ]    
 
     def get_context_data(self, *args, **kwargs):
         context = super(TrainingRecordListView, self).get_context_data(*args, **kwargs)

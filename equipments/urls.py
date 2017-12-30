@@ -44,7 +44,7 @@ urlpatterns = [
     url(r'^spraypumproominspection/update/(?P<pk>\d+)/$', SprayPumproomInspectionUpdateView.as_view(), name='spraypumproominspection_update'),
     url(r'^spraypumproominspection/create/(?P<year>\d+)/(?P<month>\d+)/$', SprayPumproomInspectionCreateView.as_view(), name='spraypumproominspection_create'),   
 
-    url(r'^spraywarehouseinspection/listedit/$', SprayWarehouseInspectionListEditView.as_view(), name='spraywarehouseinspection_list_edit'),
+    url(r'^spraywarehouseinspection/listedit/$', SprayWarehouseInspectionListEditView.as_view(),name='spraywarehouseinspection_list_edit'),
     url(r'^spraywarehouseinspection/listdisplay/$', SprayWarehouseInspectionListDisplayView.as_view(), name='spraywarehouseinspection_list_display'),
     url(r'^spraywarehouseinspection/detail/(?P<pk>\d+)/$', SprayWarehouseInspectionDetailView.as_view(), name='spraywarehouseinspection_detail'),
     url(r'^spraywarehouseinspection/update/(?P<pk>\d+)/$', SprayWarehouseInspectionUpdateView.as_view(), name='spraywarehouseinspection_update'),

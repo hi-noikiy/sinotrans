@@ -1,11 +1,15 @@
-from django import forms
 
 from django.utils.translation import ugettext_lazy as _
+from django import forms
+from django.forms.extras.widgets import SelectDateWidget
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.admin import widgets
 from django.contrib.auth.forms import UserCreationForm
+from django.conf import settings
 from phonenumber_field.formfields import PhoneNumberField as FormPhoneNumberField
 from phone_login.models import PhoneToken
 import datetime
-from django.conf import settings
+
 
 #from .models import MyUser
 from .users import UserModel, UsernameField
@@ -66,9 +70,6 @@ class RegistrationForm(forms.Form):
         phone_token.save()                    
 
 
-from django.forms.extras.widgets import SelectDateWidget
-from django.contrib.admin import widgets
-
 class UserUpdateForm(forms.ModelForm):
     """ actual step to update user information after verification pass"""
     required_css_class = 'required'
@@ -125,7 +126,7 @@ class RegistrationForgetForm(RegistrationForm):
 
         return phone
 
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password.
@@ -164,7 +165,8 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = '__all__' #('email', 'password', 'first_name', 'last_name', 'is_active', 'is_staff', 'account_type')
+        fields = '__all__' 
+        # fields = ('email', 'password', 'first_name', 'last_name', 'is_active', 'is_staff', 'image')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

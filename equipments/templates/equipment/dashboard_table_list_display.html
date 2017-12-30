@@ -26,11 +26,17 @@
 
 {% block content %}
 
+{% block nav %}
+{% endblock %} 
+
+
+{% block content_header %}
 <div class="page-header">
     <h3>{% trans project_name %} {{ request.GET.year }} {% trans "year" %} 
         <small>{% trans "Project Review" %}</small>
     </h3>
 </div>
+{% endblock %} 
 
 <div class="row display">
 	<div class="col-sm-12">
@@ -46,6 +52,8 @@
 	</div>
 </div>
 
+{% block content_footer %}
 <a href="{{ object_list.0.get_list_edit}}?year={{request.GET.year}}" class="btn btn-primary" style="min-width: 70px;">{% trans "Edit" %}</a>
+{% endblock %} 
 
 {% endblock %} 

@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'outsourcing',        
     'authwrapper',
     'newsletter',
-    'personalcenter',
+    # 'personalcenter',
     'inspection', # (1) 'inspection.apps.InspectionConfig', (2) or use default_app_config = 'inspection.apps.InspectionConfig' in inspection/__init__.py
     'trainings',    
     'zakkabag',

@@ -188,7 +188,7 @@ class MyAbstractUser(AbstractBaseUser, PermissionsMixin):
         # else:
         #     full_name = '%s %s' % (self.first_name, self.last_name)
 
-        full_name = '%s%s' % (self.last_name, self.first_name)
+        full_name = '%s%s' % (self.last_name, self.first_name) if self.last_name or self.first_name else self.username
         return full_name.strip()
  
     def get_short_name(self):
@@ -212,8 +212,11 @@ class MyAbstractUser(AbstractBaseUser, PermissionsMixin):
         return super(MyAbstractUser, self).has_module_perms(app_label)
 
     def get_absolute_url(self):
-        return reverse("personalcenter", kwargs={"id": self.id })  
-
+        try:    
+            return reverse("personalcenter", kwargs={"id": self.id })  
+        except:
+            return None
+            
     def get_image_url(self):
         if self.image:
             return self.image.url

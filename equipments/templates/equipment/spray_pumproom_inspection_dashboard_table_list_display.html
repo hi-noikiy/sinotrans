@@ -1,0 +1,47 @@
+{% extends "equipment/dashboard_table_list_display.html" %}
+{% load i18n %}
+
+<style type="text/css">
+{% block style %}
+{{ block.super }}
+
+.navbar-header>a.navbar-brand{
+    color:#428bca!important;
+}
+
+.navbar-header>a.navbar-brand.active{
+    background-color:#428bca!important;
+    color:white!important;
+}
+
+.navbar-header>a.navbar-brand:hover{
+    color:#c09853!important;
+}
+
+{% endblock %}  
+</style>
+
+{% block nav%}
+<div class="row">
+    <div class="col-sm-12">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand {% if 'SprayPumpRoomInspection' == model_name %} active {% endif %}" href="{% url 'spraypumproominspection_list_display' %}">{% trans "Spray Pump Room Inspection" %}</a>
+                    <a class="navbar-brand {% if 'SprayWarehouseInspection' == model_name %} active {% endif %}" href="{% url 'spraywarehouseinspection_list_display' %}">{% trans "Spray Warehouse Inspection" %}</a>
+                </div>                
+            </div>
+        </nav>
+    </div>
+</div>    
+{% endblock %}
+
+<!-- <script type="text/javascript">
+{% block jquery %}
+    $(function(){
+        $('.navbar-brand').on('click', function () {
+            $(this).addClass('active').siblings('.active').removeClass('active');
+        });      
+    });
+    {% endblock %}    
+</script> -->

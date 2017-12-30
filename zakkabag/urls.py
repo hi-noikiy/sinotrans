@@ -31,7 +31,7 @@ urlpatterns = [
 #    url(r'^sino/', my_admin_site.urls, namespace='sino'),
 	
 
-    url(r'^personalcenter/', include('personalcenter.urls')),
+    # url(r'^personalcenter/', include('personalcenter.urls')),
     # url(r'^crowdfundings/', include('crowdfundings.urls')),
     url(r'^newsletter/', include('newsletter.urls')),
     url(r'^auth/', include('authwrapper.urls')),

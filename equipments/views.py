@@ -509,6 +509,7 @@ class DashboardTableListDisplayView(ListView):
         context["fields_display"] = self.fields_display
         context["top_filter_form"] = self.filter_form(data=self.request.GET or None) 
         context["project_name"] = self.model._meta.verbose_name
+        context["model_name"] = str(self.model.__name__)
 
         self.request.session["filter_key"] = self.request.GET.get(self.filter_key_name)        
 
@@ -545,6 +546,8 @@ class SprayPumproomInspectionFilter(FilterSet):
 
 class SprayPumproomInspectionListDisplayView(DashboardTableListDisplayView):
     model = SprayPumpRoomInspection
+    template_name = "equipment/spray_pumproom_inspection_dashboard_table_list_display.html"    
+    
     filter_class = SprayPumproomInspectionFilter
     filter_form = SprayInspectionFilterForm
 
@@ -574,6 +577,8 @@ class SprayWarehouseInspectionFilter(FilterSet):
 
 class SprayWarehouseInspectionListDisplayView(DashboardTableListDisplayView):
     model = SprayWarehouseInspection
+    template_name = "equipment/spray_pumproom_inspection_dashboard_table_list_display.html"    
+    
     filter_class = SprayWarehouseInspectionFilter
     filter_form = SprayInspectionFilterForm
 

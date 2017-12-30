@@ -81,6 +81,7 @@ class ForkliftRepairAdmin(admin.ModelAdmin):
                     "owner",                    
                     "due_date",
                     "repaire_date",
+                    "expense",
                 ]
     search_fields = (
                     "damage_reason", 

@@ -49,6 +49,7 @@ class TrainingRecord(models.Model):
     location = models.CharField(_('training location'),max_length=30, blank=False, null=False)    
     trainer = models.CharField(_("trainer"), max_length=30,  blank=False, null=False)
     audiences = models.CharField(_("audiences"), max_length=30,  blank=False, null=False)
+    sign_sheet = models.FileField(_('sign sheet'), blank=True, upload_to='training') 
 
     class Meta:
         verbose_name = _("training record")

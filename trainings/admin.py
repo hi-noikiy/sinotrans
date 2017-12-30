@@ -28,7 +28,7 @@ class TrainingRecordInline(admin.TabularInline):
     extra = 0
 
 class TrainingRecordAdmin(admin.ModelAdmin):
-    list_display = ["training_course", "date", "location", "trainer", 'audiences']
+    list_display = ["training_course", "date", "location", "trainer", 'audiences','sign_sheet']
     list_filter = [ "training_course",'location' ]
     search_fields = ["training_course", "date", "location", "trainer", 'audiences']
     list_display_links = ["training_course",]

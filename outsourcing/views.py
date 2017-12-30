@@ -13,6 +13,7 @@ from django.contrib import messages
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 from django.utils import timezone
 from django.forms import models as model_forms
+import collections
 
 from .models import (
 	Forklift, 
@@ -117,8 +118,12 @@ class ForkliftDetailView(TableDetailViewMixin, DetailView):
         forklift_maint_objects = ForkliftMaint.objects.filter(forklift=self.get_object())
         for forklift_maint_object in forklift_maint_objects:
             from .models import RESULT_OPTION
-            forklift_maint_object.fields = dict((field.verbose_name, option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))) 
-                for field in forklift_maint_object._meta.fields if not field.name in exclude)
+            # forklift_maint_object.fields = dict((field.verbose_name, option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))) 
+            #     for field in forklift_maint_object._meta.get_fields() if not field.name in exclude)            
+            forklift_maint_object.fields =collections.OrderedDict()
+            for field in forklift_maint_object._meta.get_fields():
+                if not field.name in exclude:
+                    forklift_maint_object.fields[field.verbose_name] = option_value_convertion(RESULT_OPTION, field.value_to_string(forklift_maint_object))
         context["forklift_maint_objects"] = forklift_maint_objects
         
         from admin import ForkliftRepairAdmin
