@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-30 13:40+0800\n"
+"POT-Creation-Date: 2017-12-30 15:38+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,7 +178,7 @@ msgstr "分类"
 #: .\equipments\models.py:119 .\equipments\models.py:162
 #: .\equipments\models.py:211
 #: .\equipments\templates\equipment\equipment_inspection_list.html:96
-#: .\equipments\views.py:558 .\equipments\views.py:584
+#: .\equipments\views.py:561 .\equipments\views.py:589
 #: .\inspection\models.py:118 .\outsourcing\models.py:281
 msgid "Inspector"
 msgstr "检查人"
@@ -194,7 +194,7 @@ msgstr "结束检查日期"
 #: .\equipments\forms.py:195 .\equipments\models.py:99
 #: .\equipments\models.py:148 .\equipments\models.py:191
 #: .\equipments\templates\equipment\dashboard_table_create.html:18
-#: .\equipments\templates\equipment\dashboard_table_list_display.html:30
+#: .\equipments\templates\equipment\dashboard_table_list_display.html:35
 #: .\equipments\templates\equipment\dashboard_table_update.html:18
 #: .\equipments\templates\equipment\table_transposition_list_display.html:29
 #: .\outsourcing\forms.py:39 .\outsourcing\models.py:339
@@ -349,6 +349,7 @@ msgstr "泵房地面干净、整洁"
 
 #: .\equipments\models.py:124 .\equipments\models.py:128
 #: .\equipments\models.py:129
+#: .\equipments\templates\equipment\spray_pumproom_inspection_dashboard_table_list_display.html:30
 msgid "Spray Pump Room Inspection"
 msgstr "喷淋泵房检查"
 
@@ -390,6 +391,7 @@ msgstr "喷淋头无漏水"
 
 #: .\equipments\models.py:166 .\equipments\models.py:170
 #: .\equipments\models.py:171
+#: .\equipments\templates\equipment\spray_pumproom_inspection_dashboard_table_list_display.html:31
 msgid "Spray Warehouse Inspection"
 msgstr "喷淋库房检查"
 
@@ -511,14 +513,14 @@ msgstr "更新"
 msgid "Back"
 msgstr "后退"
 
-#: .\equipments\templates\equipment\dashboard_table_list_display.html:31
+#: .\equipments\templates\equipment\dashboard_table_list_display.html:36
 #: .\equipments\templates\equipment\table_transposition_list_display.html:30
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:27
 #: .\trainings\templates\trainings\annualtraningplan_list.html:43
 msgid "Project Review"
 msgstr "项目回顾"
 
-#: .\equipments\templates\equipment\dashboard_table_list_display.html:40
+#: .\equipments\templates\equipment\dashboard_table_list_display.html:46
 #: .\equipments\templates\equipment\dashboard_table_list_edit.html:53
 #: .\equipments\templates\equipment\equipment_inspection_list.html:64
 #: .\equipments\templates\equipment\table_transposition_list_display.html:39
@@ -532,7 +534,7 @@ msgstr "项目回顾"
 msgid "Apply Filter"
 msgstr "过滤"
 
-#: .\equipments\templates\equipment\dashboard_table_list_display.html:41
+#: .\equipments\templates\equipment\dashboard_table_list_display.html:47
 #: .\equipments\templates\equipment\dashboard_table_list_edit.html:54
 #: .\equipments\templates\equipment\equipment_inspection_list.html:65
 #: .\equipments\templates\equipment\table_transposition_list_display.html:40
@@ -546,7 +548,7 @@ msgstr "过滤"
 msgid "Clear Filters"
 msgstr "清除过滤"
 
-#: .\equipments\templates\equipment\dashboard_table_list_display.html:49
+#: .\equipments\templates\equipment\dashboard_table_list_display.html:56
 #: .\equipments\templates\equipment\table_transposition_list_display.html:48
 #: .\inspection\templates\shelf\shelf_inspection_detail_and_record_list_display.html:42
 #: .\outsourcing\templates\kpi\transportationkpi_list_display.html:45
@@ -671,7 +673,7 @@ msgstr "无记录"
 
 #: .\equipments\views.py:198 .\equipments\views.py:269
 #: .\equipments\views.py:325 .\equipments\views.py:405
-#: .\equipments\views.py:530 .\equipments\views.py:702
+#: .\equipments\views.py:531 .\equipments\views.py:707
 #: .\inspection\mixins.py:115 .\inspection\mixins.py:170
 #: .\inspection\mixins.py:263 .\inspection\mixins.py:322
 #: .\inspection\views.py:95 .\inspection\views.py:114
@@ -701,35 +703,35 @@ msgstr "设备列表"
 msgid "Quick Update"
 msgstr "快速更新"
 
-#: .\equipments\views.py:553
+#: .\equipments\views.py:556
 msgid "power distribution cabinet"
 msgstr "配电柜"
 
-#: .\equipments\views.py:554
+#: .\equipments\views.py:557
 msgid "spray pump"
 msgstr "喷淋泵"
 
-#: .\equipments\views.py:555
+#: .\equipments\views.py:558
 msgid "valve"
 msgstr "阀门"
 
-#: .\equipments\views.py:556
+#: .\equipments\views.py:559
 msgid "pool"
 msgstr "水池"
 
-#: .\equipments\views.py:557
+#: .\equipments\views.py:560
 msgid "sanitation"
 msgstr "卫生"
 
-#: .\equipments\views.py:582
+#: .\equipments\views.py:587
 msgid "The end test device"
 msgstr "末端试水装置"
 
-#: .\equipments\views.py:583
+#: .\equipments\views.py:588
 msgid "spray header and pipe network"
 msgstr "喷淋头及管网"
 
-#: .\equipments\views.py:688 .\inspection\views.py:1347
+#: .\equipments\views.py:693 .\inspection\views.py:1347
 msgid "Your list has been updated."
 msgstr "内容已更新"
 
@@ -1412,15 +1414,15 @@ msgid "facility and device"
 msgstr "设施设备"
 
 #: .\inspection\templates\storage_security.html:47
-msgid "Spray Pump Room"
-msgstr "喷淋泵房"
+#| msgid "Equipment"
+msgid "Spray Equipment"
+msgstr "喷淋设备"
 
 #: .\inspection\templates\storage_security.html:54
 msgid "Spray Warehouse"
 msgstr "喷淋库房"
 
 #: .\inspection\templates\storage_security.html:61
-#| msgid "Other Equipment"
 msgid "hydrant Equipment"
 msgstr "消防设备"
 
@@ -4118,6 +4120,9 @@ msgstr "计划"
 #: .\trainings\views.py:184
 msgid "actual"
 msgstr "实际"
+
+#~ msgid "Spray Pump Room"
+#~ msgstr "喷淋泵房"
 
 #~ msgid "Projects"
 #~ msgstr "项目"
