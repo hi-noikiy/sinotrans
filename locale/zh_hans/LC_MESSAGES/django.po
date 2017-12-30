@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-30 15:38+0800\n"
+"POT-Creation-Date: 2017-12-30 19:44+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,106 +17,129 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\authwrapper\models.py:87 .\authwrapper\models.py:118
+#: .\authwrapper\models.py:88 .\authwrapper\models.py:129
 msgid "username"
 msgstr "用户名"
 
-#: .\authwrapper\models.py:88
+#: .\authwrapper\models.py:89
 msgid "mail"
 msgstr "邮箱"
 
-#: .\authwrapper\models.py:89 .\authwrapper\models.py:135
+#: .\authwrapper\models.py:90 .\authwrapper\models.py:146
 msgid "phone"
 msgstr "电话"
 
-#: .\authwrapper\models.py:94
+#: .\authwrapper\models.py:95
+msgid "administrator"
+msgstr "管理员"
+
+#: .\authwrapper\models.py:96
+msgid "guest"
+msgstr "访客"
+
+#: .\authwrapper\models.py:97 .\outsourcing\models.py:259
+#: .\outsourcing\models.py:279
+#: .\outsourcing\templates\outsourcing_list.html:37
+#: .\outsourcing\templates\transport_security.html:46
+#: .\outsourcing\templates\transportation\driver_list.html:9
+#: .\outsourcing\templates\transportation\vehicle_inspection_list.html:9
+#: .\outsourcing\templates\transportation\vehicle_list.html:9
+#: .\outsourcing\views.py:431 .\trainings\models.py:73
+msgid "driver"
+msgstr "司机"
+
+#: .\authwrapper\models.py:101
 msgid "Male"
 msgstr "男"
 
-#: .\authwrapper\models.py:95
+#: .\authwrapper\models.py:102
 msgid "Female"
 msgstr "女"
 
-#: .\authwrapper\models.py:121
+#: .\authwrapper\models.py:132
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "必填项。不超过20个字符，包括字母，数字和@/./+/-/_"
 
-#: .\authwrapper\models.py:132
+#: .\authwrapper\models.py:143
 msgid "A user with that username already exists."
 msgstr "用户已存在"
 
-#: .\authwrapper\models.py:136
+#: .\authwrapper\models.py:147
 msgid "Required. digits and + only."
 msgstr "必填项。仅支持数字和+"
 
-#: .\authwrapper\models.py:138
+#: .\authwrapper\models.py:149
 msgid "A user with that phone number already exists."
 msgstr "该电话号码已存在"
 
-#: .\authwrapper\models.py:152
+#: .\authwrapper\models.py:163
 msgid "first name"
 msgstr "名"
 
-#: .\authwrapper\models.py:153
+#: .\authwrapper\models.py:164
 msgid "last name"
 msgstr "姓"
 
-#: .\authwrapper\models.py:154
+#: .\authwrapper\models.py:165
 msgid "email address"
 msgstr "邮件地址"
 
-#: .\authwrapper\models.py:155
+#: .\authwrapper\models.py:166
 msgid "sex"
 msgstr "性别"
 
-#: .\authwrapper\models.py:156 .\myusers\models.py:14
+#: .\authwrapper\models.py:167 .\myusers\models.py:14
 msgid "birthday"
 msgstr "生日"
 
-#: .\authwrapper\models.py:157
+#: .\authwrapper\models.py:168
 msgid "nickname"
 msgstr "昵称"
 
-#: .\authwrapper\models.py:158
+#: .\authwrapper\models.py:169
 msgid "staff status"
 msgstr "职员状态"
 
-#: .\authwrapper\models.py:159
+#: .\authwrapper\models.py:170
 msgid "Designates whether the user can log into this admin site."
 msgstr ""
 
-#: .\authwrapper\models.py:161 .\newsletter\models.py:42
+#: .\authwrapper\models.py:172 .\newsletter\models.py:42
 msgid "active"
 msgstr "激活"
 
-#: .\authwrapper\models.py:162
+#: .\authwrapper\models.py:173
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
 
-#: .\authwrapper\models.py:164
+#: .\authwrapper\models.py:175
 msgid "date joined"
 msgstr "加入时间"
 
-#: .\authwrapper\models.py:167
+#: .\authwrapper\models.py:178
 msgid "account type"
 msgstr "账户类型"
 
-#: .\authwrapper\models.py:169 .\inspection\models.py:464
+#: .\authwrapper\models.py:180
+msgid "user role"
+msgstr "用户角色"
+
+#: .\authwrapper\models.py:182 .\inspection\models.py:464
 #: .\inspection\models.py:574 .\newsletter\models.py:39
 #: .\newsletter\models.py:80 .\outsourcing\models.py:70
 #: .\outsourcing\models.py:193
 msgid "image"
 msgstr "图片"
 
-#: .\authwrapper\models.py:178
+#: .\authwrapper\models.py:191
 #: .\site-packages-pip-fail\phone_login\models.py:64
 #: .\site-packages\phone_login\models.py:64
 msgid "user"
 msgstr "用户"
 
-#: .\authwrapper\models.py:179
+#: .\authwrapper\models.py:192
 #: .\site-packages-pip-fail\phone_login\models.py:65
 #: .\site-packages\phone_login\models.py:65
 msgid "users"
@@ -1414,7 +1437,6 @@ msgid "facility and device"
 msgstr "设施设备"
 
 #: .\inspection\templates\storage_security.html:47
-#| msgid "Equipment"
 msgid "Spray Equipment"
 msgstr "喷淋设备"
 
@@ -2018,16 +2040,6 @@ msgstr "培训合格"
 #: .\outsourcing\models.py:256
 msgid "motorcade"
 msgstr "所属车队"
-
-#: .\outsourcing\models.py:259 .\outsourcing\models.py:279
-#: .\outsourcing\templates\outsourcing_list.html:37
-#: .\outsourcing\templates\transport_security.html:46
-#: .\outsourcing\templates\transportation\driver_list.html:9
-#: .\outsourcing\templates\transportation\vehicle_inspection_list.html:9
-#: .\outsourcing\templates\transportation\vehicle_list.html:9
-#: .\outsourcing\views.py:431 .\trainings\models.py:73
-msgid "driver"
-msgstr "司机"
 
 #: .\outsourcing\models.py:260
 msgid "drivers"
@@ -3776,6 +3788,10 @@ msgstr "仓储安全"
 #: .\templates\navbar_2nd.html:11
 msgid "Transport Security"
 msgstr "运输安全"
+
+#: .\templates\navbar_2nd.html:13
+msgid "statistic and analysis"
+msgstr "统计分析"
 
 #: .\templates\registration\activate.html:5
 msgid "Account activation failed."

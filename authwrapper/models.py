@@ -9,6 +9,7 @@ from django.utils import six, timezone
 from django.core import validators
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from uuslug import slugify as uuslugify
 from django.db.models.signals import pre_save
 
 from authwrapper.fields import EmailNullField, PhoneNumberNullField
@@ -90,6 +91,12 @@ USER_TYPE = (
     #('wechat', 'Wechat'),
 )
 
+USER_ROLE = (
+    ('admin', _('administrator')),
+    ('guest', _('guest')), 
+    ('driver', _('driver')),
+)
+
 SEX_OPTION = (
     ('male', _('Male')),
     ('female', _('Female')),
@@ -98,7 +105,11 @@ SEX_OPTION = (
 def image_upload_to(instance, filename):
     name = instance.username
     title, file_extension = filename.split(".")
-    new_filename = "%s-%s.%s" %(slugify(title), instance.id,  file_extension)
+    if settings.UUSLUGIFY == True:
+        title = uuslugify(title)
+    else:
+        title = slugify(title)
+    new_filename = "%s-%s.%s" %(title, instance.id,  file_extension)
     return "profile/%s/%s" %(name, new_filename)
 
 #Copy from AbstractUser => inherit from AbstractUser directly 
@@ -165,6 +176,8 @@ class MyAbstractUser(AbstractBaseUser, PermissionsMixin):
     
     # identifier = models.CharField(max_length=50, unique=True, db_index=True, verbose_name='username')
     account_type = models.CharField(_('account type'),max_length=50, blank=True, null=True, choices=USER_TYPE, default = 'username') #login account type
+
+    user_role = models.CharField(_('user role'),max_length=50, blank=False, null=False, choices=USER_ROLE, default = 'guest')
 
     image = models.ImageField(_('image'),upload_to=image_upload_to, blank=True, null=True)
 
