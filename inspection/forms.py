@@ -251,19 +251,22 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             required=True
             )
 
-    owner = forms.ChoiceField(
-            label=_('Owner'),
-            choices = set((ins, ins) for ins in UserModel.objects.all()),
-            # widget=forms.RadioSelect(),
-            required=True
-            )   
-     
-    use_condition = forms.ChoiceField(
-            label=_('Use Condition'),
-            choices = list(shelf_inspection_record.shelf_inspection_record_use_condition),
-            required=True
-            )   
-
+    try:
+        owner = forms.ChoiceField(
+                label=_('Owner'),
+                choices = set((ins, ins) for ins in UserModel.objects.all()),
+                # widget=forms.RadioSelect(),
+                required=True
+                )   
+         
+        use_condition = forms.ChoiceField(
+                label=_('Use Condition'),
+                choices = list(shelf_inspection_record.shelf_inspection_record_use_condition),
+                required=True
+                )   
+    except:
+        pass
+        
     def __init__(self, *args, **kwargs):
         super(ShelfInspectionRecordForm, self).__init__(*args, **kwargs)
         

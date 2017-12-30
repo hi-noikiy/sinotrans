@@ -49,12 +49,15 @@ class VehicleTransportationKPIFilterForm(forms.Form):
             ) 
 
 class VehicleInspectionForm(forms.ModelForm):
-    owner = forms.ChoiceField(
-            label=_('Owner'),
-            choices = set((ins, ins) for ins in get_user_model().objects.all()),
-            # widget=forms.RadioSelect(),
-            required=True
-            )           
+    try:
+        owner = forms.ChoiceField(
+                label=_('Owner'),
+                choices = set((ins, ins) for ins in get_user_model().objects.all()),
+                # widget=forms.RadioSelect(),
+                required=True
+                )
+    except:
+        pass           
 
     def __init__(self, *args, **kwargs):
         super(VehicleInspectionForm, self).__init__(*args, **kwargs)
@@ -106,12 +109,15 @@ class VehicleInspectionForm(forms.ModelForm):
         return forecast_complete_time
 
 class ForkliftRepairForm(forms.ModelForm):
-    owner = forms.ChoiceField(
-            label=_('Owner'),
-            choices = set((ins, ins) for ins in get_user_model().objects.all()),
-            # widget=forms.RadioSelect(),
-            required=True
-            )           
+    try:
+        owner = forms.ChoiceField(
+                label=_('Owner'),
+                choices = set((ins, ins) for ins in get_user_model().objects.all()),
+                # widget=forms.RadioSelect(),
+                required=True
+                )           
+    except:
+        pass
 
     def __init__(self, *args, **kwargs):
         super(ForkliftRepairForm, self).__init__(*args, **kwargs)

@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
-from authwrapper.models import WechatUserProfile
+# from authwrapper.models import WechatUserProfile
 from django.conf import settings
 
 UserModel = get_user_model()
@@ -24,14 +24,9 @@ class openidmiddleware():
 			request.media = settings.MEDIA_URL
 		    		    
 		if request.user.is_anonymous:
-		       from django.utils.module_loading import import_string
-		       backend = import_string('authwrapper.backends.auth.WechatBackend')()
-		       request.wechat = backend.get_wechat_user(request)
-		       '''
-			wechat_id = request.session.get("wechat_id")
-			if wechat_id:
-				try:
-				    request.user = UserModel.objects.get(pk=wechat_id)				    
-				except  UserModel.DoesNotExist:
-					pass
-		       '''
+			    try:
+			        from django.utils.module_loading import import_string
+			        backend = import_string('authwrapper.backends.auth.WechatBackend')()
+			        request.wechat = backend.get_wechat_user(request)
+			    except:
+			    	pass
