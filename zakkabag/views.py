@@ -82,8 +82,15 @@ def DashboardViewSINO(request):
 
     # (display, rowspan, columnspan)
     column_header1 = [
-        [ [month[1],1,3] for month in month_choice ]
+        [ [month[1],1,3] for month in month_choice + (('', _('total number')),) ]
     ]
+
+    column_header2 = [[
+        (_("total number"),1,1),
+        (_("Uncompleted"),1,1),
+        (_("efficiency"),1,1),
+        ]*len(column_header1[0])]
+
     if row_groups:
         column_header1.insert(0,[_("category"),2,1])
 
@@ -92,16 +99,10 @@ def DashboardViewSINO(request):
 
     column_header1[0].insert(0,[_("category"),2,1])
 
-    column_header2 = [[
-        (_("total number"),1,1),
-        (_("Uncompleted"),1,1),
-        (_("efficiency"),1,1),
-        ]*12]
-
     context = {}   
     context["headers"] = column_header1 + column_header2 
 
-    # print context["headers"]
+    print context["headers"]
 
     data1 = get_daily_inspection_total()
     data2 = get_daily_inspection_uncompleted()
