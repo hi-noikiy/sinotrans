@@ -310,7 +310,12 @@ class ForkliftAnnualInspectionListView(TableListViewMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(ForkliftAnnualInspectionListView, self).get_context_data(*args, **kwargs)
 
-        context["comming_inspection"] = self.model.objects.filter(next_date__lte=timezone.now() + timedelta(days=30)).order_by("-next_date")[0:10]
+        comming_inspection = []
+        annual_inspections = self.model.objects.filter(next_date__lte=timezone.now() + timedelta(days=30)).order_by("-next_date")
+        for annual_inspection in annual_inspections:
+            if not ForkliftAnnualInspection.objects.filter(forklift=annual_inspection.forklift, date__startswith="{0}-".format(annual_inspection.next_date.year)).count():
+                comming_inspection.append(annual_inspection)
+        context["comming_inspection"] = comming_inspection
 
         return context
 

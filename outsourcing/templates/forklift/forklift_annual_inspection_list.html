@@ -19,7 +19,9 @@ marquee{
 <div class="row" >
     <div class="col-sm-12" style="color:red;">
         <marquee style="width: 80%; height: 20px;" direction="left" behavior="scroll" scrollamount="5" scrolldelay="0" loop="-1" width="1000" height="50" bgcolor="white" hspace="10" vspace="10">
-            Comming Annaul Inspection : {% for object in comming_inspection %}  &nbsp&nbsp&nbsp{{object.forklift}} {% trans "Next Inspection Date" %}:{{object.next_date}}{% endfor %}
+        {% if comming_inspection %}
+            {% trans "Uncompleted" %} {% trans "forklift annual inspection" %} : {% for object in comming_inspection %}  &nbsp&nbsp&nbsp{{object.forklift}} {% trans "Next Inspection Date" %}:{{object.next_date}}{% endfor %}
+        {% endif %}
         </marquee>
     </div>
 </div>
