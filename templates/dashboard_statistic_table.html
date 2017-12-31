@@ -81,8 +81,10 @@ a:hover {text-decoration: none;}
                     {% for column in columns %}
                     {% if forloop.counter0  < 3 %}
                         <td class="cell {% if forloop.first %} table-total {% elif forloop.counter0 == 1 and column > 0%} table-warning {% endif %}" >
-                        {% if forloop.counter0 == 1 %}
-                            <a href="{{columns.3}}">{{column}}</a>
+                        {% if forloop.counter0 == 0 %}
+                            <a href="{{columns.4}}">{{column}}</a>
+                        {% elif forloop.counter0 == 1 %}
+                            <a href="{{columns.3}}">{{column}}</a>                            
                         {% else %}
                             {{column}}
                         {% endif %}                  

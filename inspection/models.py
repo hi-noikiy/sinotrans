@@ -221,7 +221,6 @@ class DailyInspection(models.Model):
         return False
 
     def time_consuming(self):
-        print type(self.updated)
         return (self.updated-self.created).days
 
     class Meta:

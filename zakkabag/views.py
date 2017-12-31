@@ -64,6 +64,7 @@ from inspection.api import (get_daily_inspection_total,
     get_daily_inspection_uncompleted, 
     get_daily_inspection_efficiency, 
     get_daily_inspection_uncompleted_url,
+    get_daily_inspection_total_url,
     get_rows
     )
 
@@ -106,10 +107,11 @@ def DashboardViewSINO(request):
     data2 = get_daily_inspection_uncompleted()
     data3 = get_daily_inspection_efficiency()
     data4 = get_daily_inspection_uncompleted_url()
+    data5 = get_daily_inspection_total_url()
 
-    data = [ zip(a,b,c,d) for a,b,c,d in zip(data1,data2,data3,data4)]
+    data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]
 
-    print data
+    # print data
                                                        
     rows = get_rows()
     indicator = ["na"]*len(rows)
