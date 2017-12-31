@@ -191,13 +191,7 @@ class ArticleListView(ListView):
         return super(ArticleListView, self).dispatch(request,args,kwargs)   
 
 
-from django.http import JsonResponse
-def statistic_test(request):
-    data = {
-        "sales": 100,
-        "customers": 10,
-    }    
-    return JsonResponse(data)
+
 
 class ChartData(APIView):
     authentication_classes = []

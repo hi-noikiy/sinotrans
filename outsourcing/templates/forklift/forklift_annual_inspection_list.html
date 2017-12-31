@@ -6,13 +6,29 @@
 
 <style type="text/css">
 {% block style %}
-
+marquee{
+    margin-left: 20px;
+    margin-right: 50px;
+}
 
 {% endblock %}
 </style>
 
+{% block marquee %}
+
+<div class="row" >
+    <div class="col-sm-12" style="color:red;">
+        <marquee style="width: 80%; height: 20px;" direction="left" behavior="scroll" scrollamount="5" scrolldelay="0" loop="-1" width="1000" height="50" bgcolor="white" hspace="10" vspace="10">
+            Comming Annaul Inspection : {% for object in comming_inspection %}  &nbsp&nbsp&nbsp{{object.forklift}} {% trans "Next Inspection Date" %}:{{object.next_date}}{% endfor %}
+        </marquee>
+    </div>
+</div>
+
+{% endblock %}
 
 {% block lists %}
+
+
     {% include "includes/model_list_table_display.html" with page_num=20 %}
 {% endblock %}
 
@@ -20,7 +36,9 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="pull-right">
+            {% if request.user.is_staff %}
             <a href='{% url "forklift_annual_inspection_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% if LANGUAGE_CODE == "en" %}&nbsp{% endif %}{% trans "forklift annual inspection" %}</i></a>
+            {% endif %}
         </div>
     </div>
 </div>

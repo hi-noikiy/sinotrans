@@ -56,3 +56,6 @@ def sitemap(request):
 
 def DashboardViewSINO(request):
     return render(request,"dashboard_statistic.html")
+
+def test(request):
+    return render(request, "test.html", {})  

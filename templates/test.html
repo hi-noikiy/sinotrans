@@ -1,0 +1,93 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>间断滚动</title>
+<style>
+#Marquee{ height:88px; overflow:hidden;}
+#Marquee div{ border:1px solid #DDD3FE; background:#EEECF4; height:88px;}
+
+.marquee1 {
+　　white-space: nowrap;　　/* 文字不折行 */
+　　overflow:-webkit-marquee;　　/* 只有设置为marquee才有滚动效果 */
+　　width: 170px;　　/* 不是必须的 */
+　　-webkit-marquee-direction:left;　　/* 文字滚动方向 可选值为left | right | up | down */
+　　-webkit-marquee-speed:normal;　　/* 文字滚动速度 可选值为slow | normal | fast */
+　　-webkit-marquee-style:scroll;　　/* 文字滚动方式 可选值为scroll | slide | alternate */
+　　-webkit-marquee-repetition:1; 　　/* 文字滚动次数 number | infinite ， infinite即无限次循环滚动 */
+}
+
+</style>
+</head>
+<body>
+<div id='Marquee' style='top:0px;'>
+<div class='top_def'>
+<span class='mr20 pl20 u bc'>用户数量达到 23132 位</span>
+<span class='mr20 pl20 t'>教师使用数量 23123 位</span>
+<span class='mr20 pl20 s'>学生使用数量 2131232 位</span>
+<span class='mr20 pl20 d'>资料总数 2313214224 道题</span>
+</div>
+<div >
+<span class='mr20 pl20 u'>新的内容</span>
+<span class='mr20 pl20 t'>新的内容</span>
+<span class='mr20 pl20 s'>新的内容</span>
+<span class='mr20 pl20 d'>新的内容</span>
+</div>
+<div>
+<span class='mr20 pl20 u'>可以不断增加</span>
+<span class='mr20 pl20 t'>可以不断增加</span>
+<span class='mr20 pl20 s'>可以不断增加</span>
+<span class='mr20 pl20 d'>可以不断增加</span>
+</div> 
+</div>
+
+<marquee direction="left" behavior="scroll" scrollamount="5" scrolldelay="0" loop="-1" width="1000" height="50" bgcolor="#0099FF" hspace="10" vspace="10">
+指整个Marquee对齐方式; (2)behavior:设置滚动的方式: scroll:表示由一端滚动到另一端,会重复,缺陷是不能无缝滚动。 slide:表示由一段滚动到另一端,不会重复...
+</marquee>
+</div>
+
+<script>
+var Mar = document.getElementById("Marquee");
+var child_div=Mar.getElementsByTagName("div")
+var picH = 90;//移动高度
+var scrollstep=3;//移动步幅,越大越快
+var scrolltime=20;//移动频度(毫秒)越大越慢
+var stoptime=3000;//间断时间(毫秒)
+var tmpH = 0;
+Mar.innerHTML += Mar.innerHTML;
+function start(){
+    if(tmpH < picH){
+        tmpH += scrollstep;
+        if(tmpH > picH )tmpH = picH ;
+        Mar.scrollTop = tmpH;
+        setTimeout(start,scrolltime);
+    }else{
+        tmpH = 0;
+        Mar.appendChild(child_div[0]);
+        Mar.scrollTop = 0;
+        setTimeout(start,stoptime);
+    }
+}
+onload=function(){setTimeout(start,stoptime)};var Mar = document.getElementById("Marquee");
+var child_div=Mar.getElementsByTagName("div")
+var picH = 90;//移动高度
+var scrollstep=3;//移动步幅,越大越快
+var scrolltime=20;//移动频度(毫秒)越大越慢
+var stoptime=3000;//间断时间(毫秒)
+var tmpH = 0;
+Mar.innerHTML += Mar.innerHTML;
+function start(){
+    if(tmpH < picH){
+        tmpH += scrollstep;
+        if(tmpH > picH )tmpH = picH ;
+        Mar.scrollTop = tmpH;
+        setTimeout(start,scrolltime);
+    }else{
+        tmpH = 0;
+        Mar.appendChild(child_div[0]);
+        Mar.scrollTop = 0;
+        setTimeout(start,stoptime);
+    }
+}
+onload=function(){setTimeout(start,stoptime)};
+</script></body>
+</html>

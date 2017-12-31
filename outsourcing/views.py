@@ -13,6 +13,9 @@ from django.contrib import messages
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 from django.utils import timezone
 from django.forms import models as model_forms
+from django.utils import timezone
+from datetime import datetime, timedelta
+
 import collections
 
 from .models import (
@@ -303,6 +306,13 @@ class ForkliftAnnualInspectionListView(TableListViewMixin, ListView):
     template_name = "forklift/forklift_annual_inspection_list.html"
     from .admin import ForkliftAnnualInspectionAdmin
     fields = ForkliftAnnualInspectionAdmin.list_display
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ForkliftAnnualInspectionListView, self).get_context_data(*args, **kwargs)
+
+        context["comming_inspection"] = self.model.objects.filter(next_date__lte=timezone.now() + timedelta(days=30)).order_by("-next_date")[0:10]
+
+        return context
 
 class ForkliftAnnualInspectionDetailView(TableDetailViewMixin, DetailView): 
     model = ForkliftAnnualInspection

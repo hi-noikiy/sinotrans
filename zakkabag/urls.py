@@ -9,8 +9,8 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 
-from newsletter.views import home, contact, statistic_test
-from zakkabag.views import about, sitemap, set_language, DashboardViewSINO
+from newsletter.views import home, contact
+from zakkabag.views import about, sitemap, set_language, DashboardViewSINO, test
 # from .views import CKEditorImageUpload
 
 admin.autodiscover()
@@ -21,7 +21,7 @@ def i18n_javascript(request):
 urlpatterns = [
     url(r'^$', home, name='home'),
     url(r'^home$', home, name='home'),
-    url(r'^stattest$', statistic_test, name='statistic_test'),
+    url(r'^test$', test, name='test'),
     url(r'^dashboard/$', DashboardViewSINO),
     url(r'^contact/$', contact, name='contact'),   
     url(r'^about/$', about, name='about'),    
