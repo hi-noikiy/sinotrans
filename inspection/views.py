@@ -1415,6 +1415,25 @@ class PIListView(TableListViewMixin, ListView):
             object_list = self.model.objects.filter(rectification_status="uncompleted", planned_complete_date__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(rectification_status="uncompleted")
+        else:
+            rectification_status = self.request.GET.get('rectification_status', None)
+            start = self.request.GET.get('start', None)
+            end = self.request.GET.get('end', None)
+
+            query = None
+            if start:
+                query = Q(created__gte=start)
+            if end:
+                query = query & Q(created__lte=end) if query else Q(created__lte=end)
+            if rectification_status:
+                query = query & Q(rectification_status__exact=rectification_status) if query else Q(rectification_status__exact=rectification_status)
+
+            print query
+                
+            if query:
+                object_list = object_list.filter(query)
+
+        print object_list
         context["object_list"] = object_list                   
 
         return context 

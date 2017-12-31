@@ -60,12 +60,20 @@ import time, datetime
 from datetime import timedelta
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from inspection.api import (get_daily_inspection_total,
+from inspection.api import (
+    get_daily_inspection_total,
     get_daily_inspection_uncompleted, 
     get_daily_inspection_efficiency, 
     get_daily_inspection_uncompleted_url,
     get_daily_inspection_total_url,
-    get_daily_inspection_rows
+    get_daily_inspection_rows,
+
+    get_whpi_total,
+    get_whpi_uncompleted, 
+    get_whpi_efficiency, 
+    get_pi_uncompleted_url,
+    get_pi_total_url,
+    get_pi_rows    
     )
 
 def get_last_times():
@@ -102,8 +110,6 @@ def DashboardViewSINO(request):
     context = {}   
     context["headers"] = column_header1 + column_header2 
 
-    print context["headers"]
-
     data1 = get_daily_inspection_total()
     data2 = get_daily_inspection_uncompleted()
     data3 = get_daily_inspection_efficiency()
@@ -111,14 +117,23 @@ def DashboardViewSINO(request):
     data5 = get_daily_inspection_total_url()
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]
-
-    # print data
                                                        
     rows = get_daily_inspection_rows()
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
     context["rows_dailyinspection"] = zip(rows,indicator,group,data)
 
+
+    #
+    rows = get_pi_rows()
+    data1 = get_whpi_total()
+    data2 = get_whpi_uncompleted()
+    data3 = get_whpi_efficiency()
+    data4 = get_pi_uncompleted_url()
+    data5 = get_pi_total_url()
+
+    data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
+    context["rows_pi"] = zip(rows,indicator,group,data)
 
     return render(request,"dashboard_statistic.html",context)
 

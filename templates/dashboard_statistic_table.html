@@ -5,6 +5,7 @@
 <!--
     category
     indicator
+    row_subtoal
     
     thead_css
     column_key
@@ -59,7 +60,7 @@ a:hover {text-decoration: none;}
         </thead>
         <tbody>
             {% for row in rows %}
-            <tr class="{% if forloop.last %}table-subtotal{% endif %}">
+            <tr class="{% if forloop.last and not no_row_subtoal %}table-subtotal{% endif %}">
                 {% if groups %}           
                     {% for group in groups %}
                         {% if group.0 == row.0.0 %}
@@ -77,7 +78,7 @@ a:hover {text-decoration: none;}
                 {% for columns in row.3 %}
                     {% for column in columns %}
                     {% if forloop.counter0  < 3 %}
-                        <td class="cell {% if forloop.first %} table-total {% elif forloop.counter0 == 1 and column > 0%} table-warning {% endif %} {% if forloop.parentloop.last%}table-subtotal{% endif %}" >
+                        <td class="cell {% if forloop.first %} table-total {% elif forloop.counter0 == 1 and column > 0%} table-warning {% endif %} {% if forloop.parentloop.last %}table-subtotal{% endif %}" >
                         {% if forloop.counter0 == 0 %}
                             <a href="{{columns.4}}">{{column}}</a>
                         {% elif forloop.counter0 == 1 %}

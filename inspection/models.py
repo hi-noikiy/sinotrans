@@ -221,7 +221,7 @@ class DailyInspection(models.Model):
         return False
 
     def time_consuming(self):
-        return (self.updated-self.created).days
+        return (self.completed_time-self.created).days
 
     class Meta:
         verbose_name = _("Daily Inspection")
@@ -715,6 +715,9 @@ class PI(models.Model):
 
     def is_rectification_completed(self):
           return self.get_image_url("image_after")
+
+    def time_consuming(self):
+        return (self.completed_time-self.created).days
 
     class Meta:
         verbose_name = _("PI")

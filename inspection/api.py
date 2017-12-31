@@ -1,4 +1,4 @@
-from .models import DailyInspection
+from .models import DailyInspection, PI, WHPI, RTPI
 
 import time, datetime
 from datetime import timedelta
@@ -110,3 +110,83 @@ def get_daily_inspection_efficiency():
             efficiency_array[i][j]= time_consumings / completed_qs.count() if completed_qs.count() else '-'
     return efficiency_array
 
+# >>>>>>>>>>>>>>>
+def get_pi_rows():
+    # return (('WH PI/NM', _('WH PI/NM')),) + (('RT PI/NM', _('RT PI/NM')),) + (('', _('Total')),)
+    return (('WHPI', _('WH PI/NM')),) + (('RTPI', _('RT PI/NM')),) #+ (('', _('Total')),)
+
+def get_pi_model_queryset(category,rectification_status, year,month):
+
+    model = PI
+    if category == "WHPI":
+        model = WHPI
+    elif category == "RTPI":
+        model = RTPI
+
+    q = None
+
+    if year and month:
+        q = q & Q(created__startswith="{0}-{1}-".format(year,month)) if q else Q(created__startswith="{0}-{1}-".format(year,month))
+    else:
+        q = q & Q(created__startswith="{0}-".format(year)) if q else Q(created__startswith="{0}-".format(year))
+
+    if rectification_status:
+        q = q & Q(rectification_status__exact=rectification_status) if q else Q(rectification_status__exact=rectification_status)
+
+    qs = model.objects.filter(q) if q else model.objects.all()
+
+    return qs
+
+def get_whpi_total():
+    return [[get_pi_model_queryset(category[0],"",year,month).count()\
+                for month, year in get_last_times()] \
+                    for category in get_pi_rows()]
+
+def get_whpi_uncompleted():
+    return [[get_pi_model_queryset(category[0],"uncompleted",year,month).count()\
+                for month, year in get_last_times()] \
+                    for category in get_pi_rows()]
+
+def get_whpi_efficiency():
+    efficiency_array = get_whpi_uncompleted()
+
+    for i, category in enumerate(get_pi_rows()):
+        for j, [month, year] in enumerate(get_last_times()):            
+            time_consumings = 0
+            completed_qs = get_pi_model_queryset(category[0],"completed",year,month)
+            for instance in completed_qs:
+                time_consumings = time_consumings + instance.time_consuming()
+            efficiency_array[i][j]= time_consumings / completed_qs.count() if completed_qs.count() else '-'
+    return efficiency_array
+
+def get_pi_model_url(category,rectification_status, year,month):
+    url = reverse("pi_list", kwargs={}) 
+    if category == "WHPI":
+        url = reverse("whpi_list", kwargs={}) 
+    elif category == "RTPI":
+        url = reverse("rtpi_list", kwargs={}) 
+
+    q = None
+
+    if year and month:
+        q = "{0}&start={1}-{2}-01&end={1}-{2}-{3}".format(q,year,month,calendar.monthrange(year, month)[1]) if q else\
+            "?start={0}-{1}-01&end={0}-{1}-{2}".format(year,month,calendar.monthrange(year, month)[1])
+    else:
+        q = "{0}&start={1}-01-01&end={1}-12-31".format(q,year) if q else\
+            "?start={0}-01-01&end={0}-12-31".format(year)        
+    if rectification_status:
+        q = "{0}&rectification_status={1}".format(q,rectification_status) if q else\
+            "?rectification_status={0}".format(rectification_status)
+
+    return "{0}{1}".format(url, q)
+
+def get_pi_total_url():
+    return [[get_pi_model_url(category[0],'',year,month) \
+                for month, year in get_last_times()] \
+                    for category in get_pi_rows()]       
+
+def get_pi_uncompleted_url():
+
+    return [[get_pi_model_url(category[0],'uncompleted',year,month) \
+                for month, year in get_last_times()] \
+                    for category in get_pi_rows()]                      
