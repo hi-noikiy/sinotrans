@@ -65,7 +65,7 @@ from inspection.api import (get_daily_inspection_total,
     get_daily_inspection_efficiency, 
     get_daily_inspection_uncompleted_url,
     get_daily_inspection_total_url,
-    get_rows
+    get_daily_inspection_rows
     )
 
 def get_last_times():
@@ -114,14 +114,12 @@ def DashboardViewSINO(request):
 
     # print data
                                                        
-    rows = get_rows()
+    rows = get_daily_inspection_rows()
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
-    context["columns_dailyinspection"] = month_choice
     context["rows_dailyinspection"] = zip(rows,indicator,group,data)
-    context["project_name_dailyinspection"] = "Daily Inspection"
-    context["object_list_dailyinspection"] = data
-    # print context["rows_dailyinspection"]
+
+
     return render(request,"dashboard_statistic.html",context)
 
 def test(request):

@@ -15,22 +15,24 @@ def get_last_times():
     times = times + [["",year],]
     return times
 
-def get_daily_insepction_queryset(category,rectification_status, year,month):
+def get_model_queryset(model, category,rectification_status, year,month):
 
     q = None
 
     if year and month:
         q = q & Q(created__startswith="{0}-{1}-".format(year,month)) if q else Q(created__startswith="{0}-{1}-".format(year,month))
+    else:
+        q = q & Q(created__startswith="{0}-".format(year)) if q else Q(created__startswith="{0}-".format(year))
     if category:
         q = q & Q(category__exact=category) if q else Q(category__exact=category)
     if rectification_status:
         q = q & Q(rectification_status__exact=rectification_status) if q else Q(rectification_status__exact=rectification_status)
 
-    qs = DailyInspection.objects.filter(q) if q else DailyInspection.objects.all()
+    qs = model.objects.filter(q) if q else model.objects.all()
 
     return qs
 
-def get_daily_insepction_url(category,rectification_status, year,month):
+def get_model_url(category,rectification_status, year,month):
     url = reverse("dailyinspection_list", kwargs={}) 
     q = None
     if category[0]:
@@ -47,61 +49,62 @@ def get_daily_insepction_url(category,rectification_status, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_rows():
+def get_daily_inspection_rows():
     return DailyInspection.daily_insepction_category + (('', _('Total')),)
 
 
 def get_daily_inspection_total():
-    return [[get_daily_insepction_queryset(category[0],"",year,month).count()\
+    return [[get_model_queryset(DailyInspection, category[0],"",year,month).count()\
                 for month, year in get_last_times()] \
-                    for category in get_rows()]
+                    for category in get_daily_inspection_rows()]
 
 def get_daily_inspection_uncompleted():
-    return [[get_daily_insepction_queryset(category[0],"uncompleted",year,month).count()\
+    return [[get_model_queryset(DailyInspection, category[0],"uncompleted",year,month).count()\
                 for month, year in get_last_times()] \
-                    for category in get_rows()]
+                    for category in get_daily_inspection_rows()]
 
     return [[DailyInspection.objects.filter(category=category[0], rectification_status="uncompleted",created__startswith="{0}-{1}-".format(year,month)).count() if category[0] else\
             DailyInspection.objects.filter(rectification_status="uncompleted",created__startswith="{0}-{1}-".format(year,month)).count()\
                 for month, year in get_last_times()] \
-                    for category in get_rows()]             
+                    for category in get_daily_inspection_rows()]             
 
 def get_daily_inspection_total_url():
-    return [[get_daily_insepction_url(category,'',year,month) \
+    return [[get_model_url(category,'',year,month) \
                 for month, year in get_last_times()] \
-                    for category in get_rows()]   
+                    for category in get_daily_inspection_rows()]   
 
     url = reverse("dailyinspection_list", kwargs={}) 
     return [["{0}?category={1}&start={2}-{3}-01&end={2}-{3}-{4}".format(url, category[0],year,month,calendar.monthrange(year, month)[1]) if category[0] else\
             "{0}?start={1}-{2}-01&end={1}-{2}-{3}".format(url, year,month,calendar.monthrange(year, month)[1])\
                 for month, year in get_last_times()] \
-                    for category in get_rows()]    
+                    for category in get_daily_inspection_rows()]    
 
 def get_daily_inspection_completed():
-    return [[get_daily_insepction_queryset(category[0],"completed",year,month).count()\
+    return [[get_model_queryset(DailyInspection, category[0],"completed",year,month).count()\
                 for month, year in get_last_times()] \
-                    for category in get_rows()]
+                    for category in get_daily_inspection_rows()]
 
 def get_daily_inspection_uncompleted_url():
 
-    return [[get_daily_insepction_url(category,'uncompleted',year,month) \
+    return [[get_model_url(category,'uncompleted',year,month) \
                 for month, year in get_last_times()] \
-                    for category in get_rows()]   
+                    for category in get_daily_inspection_rows()]   
 
     url = reverse("dailyinspection_list", kwargs={}) 
     return [["%s?q=&category=%s&rectification_status=uncompleted&start=%s-%s-01&end=%s-%s-%s" % (url, category[0],year,month,year,month,calendar.monthrange(year, month)[1]) if category[0] else\
             "%s?q=&rectification_status=uncompleted&start=%s-%s-01&end=%s-%s-%s" % (url,year,month,year,month,calendar.monthrange(year, month)[1]) \
                 for month, year in get_last_times()] \
-                    for category in get_rows()]    
+                    for category in get_daily_inspection_rows()]    
 
 def get_daily_inspection_efficiency():
     efficiency_array = get_daily_inspection_completed()
 
-    for i, category in enumerate(get_rows()):
+    for i, category in enumerate(get_daily_inspection_rows()):
         for j, [month, year] in enumerate(get_last_times()):            
             time_consumings = 0
-            completed_qs = DailyInspection.objects.filter(category=category[0], rectification_status="completed", created__startswith="{0}-{1}-".format(year,month)) if category[0] else\
-                    DailyInspection.objects.filter(rectification_status="completed", created__startswith="{0}-{1}-".format(year,month))
+            completed_qs = get_model_queryset(DailyInspection, category[0],"completed",year,month)
+            # completed_qs = DailyInspection.objects.filter(category=category[0], rectification_status="completed", created__startswith="{0}-{1}-".format(year,month)) if category[0] else\
+            #         DailyInspection.objects.filter(rectification_status="completed", created__startswith="{0}-{1}-".format(year,month))
             for instance in completed_qs:
                 time_consumings = time_consumings + instance.time_consuming()
             efficiency_array[i][j]= time_consumings / completed_qs.count() if completed_qs.count() else '-'

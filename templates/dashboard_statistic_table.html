@@ -3,14 +3,11 @@
 {% load staticfiles %}
 
 <!--
-    object_list
     category
-    project_name
     indicator
     
     thead_css
     column_key
-    columns
     fields_display
 -->
 <style type="text/css">
@@ -80,7 +77,7 @@ a:hover {text-decoration: none;}
                 {% for columns in row.3 %}
                     {% for column in columns %}
                     {% if forloop.counter0  < 3 %}
-                        <td class="cell {% if forloop.first %} table-total {% elif forloop.counter0 == 1 and column > 0%} table-warning {% endif %}" >
+                        <td class="cell {% if forloop.first %} table-total {% elif forloop.counter0 == 1 and column > 0%} table-warning {% endif %} {% if forloop.parentloop.last%}table-subtotal{% endif %}" >
                         {% if forloop.counter0 == 0 %}
                             <a href="{{columns.4}}">{{column}}</a>
                         {% elif forloop.counter0 == 1 %}
