@@ -220,6 +220,10 @@ class DailyInspection(models.Model):
                 return True
         return False
 
+    def time_consuming(self):
+        print type(self.updated)
+        return (self.updated-self.created).days
+
     class Meta:
         verbose_name = _("Daily Inspection")
         verbose_name_plural = _("Daily Inspection")

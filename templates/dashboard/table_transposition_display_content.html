@@ -3,17 +3,21 @@
 {% load staticfiles %}
 
 <!--
-	formset
-	
+	object_list
+	category
 	project_name
+	indicator
+	
+	thead_css
+	column_key
 	columns
-	rows_fields
+	fields_display
 -->
 
 <div style="overflow-x:auto;">
     <table class="table-transposition-display table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
         <thead>
-            <tr class="table-primary">
+            <tr class={% if thead_css %}{{thead_css}}{% else %}"table-primary"{% endif %}>
                 {% if groups %}
                 <th>{% trans "category" %}</th>                
                 {% endif %}      

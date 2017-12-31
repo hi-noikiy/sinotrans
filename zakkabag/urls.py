@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^$', home, name='home'),
     url(r'^home$', home, name='home'),
     url(r'^test$', test, name='test'),
-    url(r'^dashboard/$', DashboardViewSINO),
+    url(r'^dashboard/$', DashboardViewSINO, name='dashboard'),
     url(r'^contact/$', contact, name='contact'),   
     url(r'^about/$', about, name='about'),    
     url(r'^about/sitemap$', sitemap, name='sitemap'),

@@ -1,0 +1,97 @@
+{% load i18n %}
+{% load myform %}
+{% load staticfiles %}
+
+<!--
+    object_list
+    category
+    project_name
+    indicator
+    
+    thead_css
+    column_key
+    columns
+    fields_display
+-->
+<style type="text/css">
+    .table-total, .table-total a{
+        color: #af730d;
+    }
+
+/*    tbody tr:hover .table-total{
+        background-color: #c09853;
+    }*/
+
+    .table-warning, .table-warning a{
+        color: red;
+    }
+
+/*    .table-warning td:hover{
+        color: red!important;
+    }*/
+
+    .table-subtotal, .table-subtotal a{
+        background-color: #428bca!important;
+        color:white;
+    }
+
+    .table-subtotal th, .table-subtotal td{
+        background-color: #428bca!important;
+        color:white;
+    }
+
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:active {text-decoration: none;}
+a:hover {text-decoration: none;}
+
+
+</style>
+
+<div style="overflow-x:auto;">
+    <table class="table-transposition-display table-align-center table table-bordered table-hover table-striped table-container table-condensed" >
+        <thead>
+            {% for header in headers %}
+                <tr class="header{{forloop.counter}}">
+                {% for cell in header %}
+                {{cell.3}}
+                <th rowspan={{cell.1}} colspan={{cell.2}}>{{cell.0}}</th>
+                {% endfor %}
+                 </tr>
+            {% endfor %}                
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr class="{% if forloop.last %}table-subtotal{% endif %}">
+                {% if groups %}           
+                    {% for group in groups %}
+                        {% if group.0 == row.0.0 %}
+                        <th class="table-group" rowspan={{group.2}}>{% trans group.1 %}</th>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}    
+
+                <th>{{row.0.1}}</th>
+
+                {% if indicator %}
+                <th class="table-indicator">{{row.1}}</th>
+                {% endif %}
+
+                {% for columns in row.3 %}
+                    {% for column in columns %}
+                    {% if forloop.counter0  < 3 %}
+                        <td class="cell {% if forloop.first %} table-total {% elif forloop.counter0 == 1 and column > 0%} table-warning {% endif %}" >
+                        {% if forloop.counter0 == 1 %}
+                            <a href="{{columns.3}}">{{column}}</a>
+                        {% else %}
+                            {{column}}
+                        {% endif %}                  
+                        </td>
+                    {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>

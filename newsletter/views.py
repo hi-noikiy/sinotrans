@@ -9,9 +9,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView
 # from django.utils.http import is_safe_url
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-
 from inspection.models import DailyInspection, shelf_inspection
 from .forms import SignUpForm,ContactForm
 from .models import Banner, Article
@@ -189,20 +186,4 @@ class ArticleListView(ListView):
             (_("Newsletter"),reverse("article_list", kwargs={})),
         ])
         return super(ArticleListView, self).dispatch(request,args,kwargs)   
-
-
-
-
-class ChartData(APIView):
-    authentication_classes = []
-    permission_classes = []
-
-    def get(self, request, format=None):
-        qs_count = User.objects.all().count()
-        labels = ["Users", "Blue", "Yellow", "Green", "Purple", "Orange"]
-        default_items = [qs_count, 23, 2, 3, 12, 2]
-        data = {
-                "labels": labels,
-                "default": default_items,
-        }
-        return Response(data)    
+ 

@@ -1,4 +1,31 @@
 {% extends 'base.html' %}
+{% load i18n %}
+
+<style>
+{% block style %}
+
+.panel{
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.panel-info {
+    border:none!important;
+}
+
+.panel-info>.panel-heading {
+    color: #3a87ad;
+    background: none!important;
+    border-top:none!important;
+    border-bottom: 1px solid #bce8f1;
+}
+
+.table-transposition-display thead tr:nth-child(1) th:nth-child(1){
+    width: 100px;
+}
+{% endblock %}
+</style>
 
 
 <script>
@@ -25,16 +52,22 @@ $.ajax({
 
 <div class='row'>
     <div class='col-sm-12'>
-        <h1>Hello World</h1>
 
-        <div class='col-sm-6'>
+<!--         <div class='col-sm-6'>
             <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
-        <div class='col-sm-6'>
-            <canvas id="myChart2" width="400" height="400"></canvas>
-        </div>
+        </div> -->
 
-
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>{% trans "Daily Inspection" %}</h3>
+            </div>
+            <div class="panel-body scale-product" >
+            <div>
+                <div class='col-sm-12'>
+                {% include "dashboard_statistic_table.html" with thead_css="table-primary-light" object_list=object_list_dailyinspection columns=columns_dailyinspection project_name=project_name_dailyinspection rows=rows_dailyinspection%}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

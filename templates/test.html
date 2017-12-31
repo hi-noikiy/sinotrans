@@ -1,93 +1,66 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>间断滚动</title>
-<style>
-#Marquee{ height:88px; overflow:hidden;}
-#Marquee div{ border:1px solid #DDD3FE; background:#EEECF4; height:88px;}
-
-.marquee1 {
-　　white-space: nowrap;　　/* 文字不折行 */
-　　overflow:-webkit-marquee;　　/* 只有设置为marquee才有滚动效果 */
-　　width: 170px;　　/* 不是必须的 */
-　　-webkit-marquee-direction:left;　　/* 文字滚动方向 可选值为left | right | up | down */
-　　-webkit-marquee-speed:normal;　　/* 文字滚动速度 可选值为slow | normal | fast */
-　　-webkit-marquee-style:scroll;　　/* 文字滚动方式 可选值为scroll | slide | alternate */
-　　-webkit-marquee-repetition:1; 　　/* 文字滚动次数 number | infinite ， infinite即无限次循环滚动 */
-}
-
-</style>
-</head>
-<body>
-<div id='Marquee' style='top:0px;'>
-<div class='top_def'>
-<span class='mr20 pl20 u bc'>用户数量达到 23132 位</span>
-<span class='mr20 pl20 t'>教师使用数量 23123 位</span>
-<span class='mr20 pl20 s'>学生使用数量 2131232 位</span>
-<span class='mr20 pl20 d'>资料总数 2313214224 道题</span>
-</div>
-<div >
-<span class='mr20 pl20 u'>新的内容</span>
-<span class='mr20 pl20 t'>新的内容</span>
-<span class='mr20 pl20 s'>新的内容</span>
-<span class='mr20 pl20 d'>新的内容</span>
-</div>
-<div>
-<span class='mr20 pl20 u'>可以不断增加</span>
-<span class='mr20 pl20 t'>可以不断增加</span>
-<span class='mr20 pl20 s'>可以不断增加</span>
-<span class='mr20 pl20 d'>可以不断增加</span>
-</div> 
-</div>
-
-<marquee direction="left" behavior="scroll" scrollamount="5" scrolldelay="0" loop="-1" width="1000" height="50" bgcolor="#0099FF" hspace="10" vspace="10">
-指整个Marquee对齐方式; (2)behavior:设置滚动的方式: scroll:表示由一端滚动到另一端,会重复,缺陷是不能无缝滚动。 slide:表示由一段滚动到另一端,不会重复...
-</marquee>
-</div>
-
+<title>MESSAGER插件-Download by http://www.codefans.net</title>
+<script src="jquery-1.2.6.pack.js"></script>
+<script src="jquery.messager.js"></script>
 <script>
-var Mar = document.getElementById("Marquee");
-var child_div=Mar.getElementsByTagName("div")
-var picH = 90;//移动高度
-var scrollstep=3;//移动步幅,越大越快
-var scrolltime=20;//移动频度(毫秒)越大越慢
-var stoptime=3000;//间断时间(毫秒)
-var tmpH = 0;
-Mar.innerHTML += Mar.innerHTML;
-function start(){
-    if(tmpH < picH){
-        tmpH += scrollstep;
-        if(tmpH > picH )tmpH = picH ;
-        Mar.scrollTop = tmpH;
-        setTimeout(start,scrolltime);
-    }else{
-        tmpH = 0;
-        Mar.appendChild(child_div[0]);
-        Mar.scrollTop = 0;
-        setTimeout(start,stoptime);
-    }
-}
-onload=function(){setTimeout(start,stoptime)};var Mar = document.getElementById("Marquee");
-var child_div=Mar.getElementsByTagName("div")
-var picH = 90;//移动高度
-var scrollstep=3;//移动步幅,越大越快
-var scrolltime=20;//移动频度(毫秒)越大越慢
-var stoptime=3000;//间断时间(毫秒)
-var tmpH = 0;
-Mar.innerHTML += Mar.innerHTML;
-function start(){
-    if(tmpH < picH){
-        tmpH += scrollstep;
-        if(tmpH > picH )tmpH = picH ;
-        Mar.scrollTop = tmpH;
-        setTimeout(start,scrolltime);
-    }else{
-        tmpH = 0;
-        Mar.appendChild(child_div[0]);
-        Mar.scrollTop = 0;
-        setTimeout(start,stoptime);
-    }
-}
-onload=function(){setTimeout(start,stoptime)};
-</script></body>
+$(document).ready(function(){
+    $.messager.show(0,'送你一个Jquery Messager消息弹出插件！');
+    $("#showMessager300x200").click(function(){
+        $.messager.lays(300, 200);
+        $.messager.show(0, '<a href="#">300x200的消息</a><br>源码爱好者（CoreFans.net）提供各类编程源码、书籍教程、JavaScript/CSS特效代码以及常用软件下载等，做有质量的学习型源码下载站。');
+    });
+    $("#showMessagerFadeIn").click(function(){
+        $.messager.anim('fade', 2000);
+        $.messager.show(0, 'fadeIn动画消息');
+    });
+    $("#showMessagerShow").click(function(){
+        $.messager.anim('show', 1000);
+        $.messager.show(0, 'show动画消息');
+    });
+    $("#showMessagerajax").click(function(){
+        $.messager.anim('show', 1000);
+        $.messager.show('源码爱好者', '使用“源码爱好者”作标题');
+    });
+    $("#showMessagerDim").click(function(){
+        $.messager.show('<font color=red>自定义标题</font>', '<font color=green style="font-size:14px;font-weight:bold;">自定义内容</font>');
+    });
+    $("#showMessagerSec").click(function(){
+        $.messager.show(0, '一秒钟关闭消息', 1000);
+    });
+    $("#showMessagerNoClose").click(function(){
+        $.messager.show('不会关闭的消息', '要自己点关闭的X才可以哦！', 0);
+    });
+});
+</script>
+<style type="text/css">
+<!--
+body,td,th { font-size: 12px; }
+body { background-color: #fefefe; }
+p   { width:80%; height:auto; padding:10px; background-color:#D6F097; border:solid 1px #FF9900; color:#333; margin-left:auto; margin-right:auto;}
+input   { background-color:#F5D99E; color:#333; border:solid 1px #993300; font-size:12px;}
+p.new input { background-color:#FF0000; color:#fff;}
+-->
+</style></head>
+
+<body>
+<h2>JQUEYR PLUGIN - Messager v1.3_1226版权所有 &copy; <a href="http://www.corrie.net.cn" target="_blank">www.corrie.net.cn</a>赵戈</h2>
+<p><b>版本1.4更新：</b><Br />1、支持鼠标over时不关闭消息提示框<br /><b>版本1.3更新：</b><br />
+1、可以设置不自动关闭，停留在固定位置。<br />
+2、增加了对UA的判断能力和效果解析<br />
+3、针对chrome下的错位给予了一定的修补，目前效果还算可以<br />
+4、针对代码段做了调整优化<br /></p>
+<p><input type="button" id="showMessager300x200" value="显示一个300x200的消息" /></p>
+<p><input type="button" id="showMessagerFadeIn" value="显示一个fadeIn动画消息" /></p>
+<p><input type="button" id="showMessagerShow" value="显示一个show动画消息" /></p>
+<p><input type="button" id="showMessagerajax" value="显示一个show动画消息，不含html" /></p>
+<p><input type="button" id="showMessagerDim" value="显示定义内容和标题消息" /></p>
+<p><input type="button" id="showMessagerSec" value="一秒钟关闭消息" /></p>
+<p class="new"><input type="button" id="showMessagerNoClose" value="不自动关闭消息" /></p>
+<br />
+<span>作者：</span><a href="http://www.corrie.net.cn">赵戈</a><br />
+<span>整理：</span><a href="http://www.ajaxa.cn">CodeFans.net</a><br />
+</body>
 </html>

@@ -54,8 +54,72 @@ def sitemap(request):
 #     else:  
 #         raise Http404()  
 
+from inspection.models import month_choice
+from inspection.models import DailyInspection
+import time, datetime
+from datetime import timedelta
+from django.utils import timezone
+from django.utils.translation import ugettext as _
+from inspection.api import (get_daily_inspection_total,
+    get_daily_inspection_uncompleted, 
+    get_daily_inspection_efficiency, 
+    get_daily_inspection_uncompleted_url,
+    get_rows
+    )
+
+def get_last_times():
+    year = timezone.now().year #time.localtime()[0]
+    return [[i, year] for i in range(1,13)]
+
 def DashboardViewSINO(request):
-    return render(request,"dashboard_statistic.html")
+
+    row_groups = []
+
+    indicators = []
+
+    row_headers = DailyInspection.daily_insepction_category
+
+    # (display, rowspan, columnspan)
+    column_header1 = [
+        [ [month[1],1,3] for month in month_choice ]
+    ]
+    if row_groups:
+        column_header1.insert(0,[_("category"),2,1])
+
+    if indicators:
+        column_header1.insert(0,[_("indicator"),2,1])
+
+    column_header1[0].insert(0,[_("category"),2,1])
+
+    column_header2 = [[
+        (_("total number"),1,1),
+        (_("Uncompleted"),1,1),
+        (_("efficiency"),1,1),
+        ]*12]
+
+    context = {}   
+    context["headers"] = column_header1 + column_header2 
+
+    # print context["headers"]
+
+    data1 = get_daily_inspection_total()
+    data2 = get_daily_inspection_uncompleted()
+    data3 = get_daily_inspection_efficiency()
+    data4 = get_daily_inspection_uncompleted_url()
+
+    data = [ zip(a,b,c,d) for a,b,c,d in zip(data1,data2,data3,data4)]
+
+    print data
+                                                       
+    rows = get_rows()
+    indicator = ["na"]*len(rows)
+    group = ["na"]*len(rows)
+    context["columns_dailyinspection"] = month_choice
+    context["rows_dailyinspection"] = zip(rows,indicator,group,data)
+    context["project_name_dailyinspection"] = "Daily Inspection"
+    context["object_list_dailyinspection"] = data
+    # print context["rows_dailyinspection"]
+    return render(request,"dashboard_statistic.html",context)
 
 def test(request):
     return render(request, "test.html", {})  
