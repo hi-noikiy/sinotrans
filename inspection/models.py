@@ -23,7 +23,7 @@ class InspectionMixin(models.Model):
 
     check_person = models.CharField(_('Check Person'), max_length=30, blank=True) 
     owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
-    forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    due_date = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)    
     check_result = models.CharField(_('Check Result'), choices=equipment_use_condition, max_length=30, blank=True) 
     check_date = models.DateField(_('Check Date'),auto_now_add=True, auto_now=False)
@@ -380,7 +380,7 @@ class shelf_inspection_record(models.Model):
     owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
     gradient = models.DecimalField(_('Gradient'), decimal_places=1, max_digits=20, blank=True, null=True)
     check_date = models.DateField(_('Check Date'),auto_now_add=True, auto_now=False)
-    forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    due_date = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     comments = models.TextField(_('Comments'), max_length=30, blank=True,null=True)
 
@@ -497,7 +497,7 @@ class ExtinguisherInspection(models.Model):
     check_result = models.CharField(_('Check Result'), choices=equipment_use_condition, max_length=30, blank=False, null=False, default="normal")      
     check_person = models.CharField(_('Check Person'), max_length=30, blank=True) 
     owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
-    forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    due_date = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)    
     check_date = models.DateField(_('Check Date'),auto_now_add=True, auto_now=False)
 
@@ -552,7 +552,7 @@ class HydrantInspection(models.Model):
     check_result = models.CharField(_('Check Result'), choices=equipment_use_condition, max_length=30, blank=False, null=False, default="normal")     
     check_person = models.CharField(_('Check Person'), max_length=30, blank=True) 
     owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
-    forecast_complete_time = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
+    due_date = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)    
     check_date = models.DateField(_('Check Date'),auto_now_add=True, auto_now=False)
 

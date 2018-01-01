@@ -132,7 +132,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         "owner",
         "gradient",
         'check_date',
-        "forecast_complete_time",
+        "due_date",
         "completed_time",
         ]
 
@@ -143,7 +143,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         "is_locked",
         "owner",
         "gradient",
-        "forecast_complete_time",
+        "due_date",
         ]
 
     search_fields = [
@@ -153,7 +153,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         "is_locked",
         "check_person",
         "gradient",
-        # "forecast_complete_time",
+        # "due_date",
         "comments"]
 
     list_filter = [
@@ -161,7 +161,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         "shelf_inspection",
         "use_condition",
         "check_person",
-        "forecast_complete_time",
+        "due_date",
         ]
 
     ordering = ['shelf']
@@ -294,9 +294,9 @@ class ExtinguisherAdmin(admin.ModelAdmin):
         model = Extinguisher
 
 class ExtinguisherInspectionAdmin(admin.ModelAdmin):
-    list_display = ['extinguisher',"capacity","check_person","check_result","check_date","forecast_complete_time","completed_time"]
+    list_display = ['extinguisher',"capacity","check_person","check_result","check_date","due_date","completed_time"]
     list_search = ['extinguisher',"capacity","check_person","check_result","check_date"]
-    list_filter = ["extinguisher","check_person","check_result","check_date","forecast_complete_time","completed_time"]
+    list_filter = ["extinguisher","check_person","check_result","check_date","due_date","completed_time"]
 
     view_on_site = False
 
@@ -313,9 +313,9 @@ class HydrantAdmin(admin.ModelAdmin):
         model = Hydrant
 
 class HydrantInspectionAdmin(admin.ModelAdmin):
-    list_display = ['hydrant',"check_person","check_result","check_date","forecast_complete_time","completed_time"]
+    list_display = ['hydrant',"check_person","check_result","check_date","due_date","completed_time"]
     list_search = ['hydrant',"check_person","check_result","check_date"]
-    list_filter = ["hydrant","check_person","check_result","check_date","forecast_complete_time","completed_time"]
+    list_filter = ["hydrant","check_person","check_result","check_date","due_date","completed_time"]
 
     view_on_site = False
 

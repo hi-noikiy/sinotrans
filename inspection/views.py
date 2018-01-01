@@ -926,7 +926,7 @@ class ShelfInspectionRecordFilter(FilterSet):
     warehouse_channel = CharFilter(name='shelf__warehouse_channel', lookup_type='exact', distinct=True)
     use_condition = CharFilter(name='use_condition', lookup_type='exact', distinct=True)
     is_locked = CharFilter(name='is_locked', lookup_type='exact', distinct=True)
-    is_overdue = MethodFilter(name='forecast_complete_time', action='overdue_filter', distinct=True)
+    is_overdue = MethodFilter(name='due_date', action='overdue_filter', distinct=True)
 
     class Meta:
         model = shelf_inspection_record
@@ -938,7 +938,7 @@ class ShelfInspectionRecordFilter(FilterSet):
             'warehouse_channel',
             'use_condition',
             'is_locked',
-            'forecast_complete_time'
+            'due_date'
         ]
 
     #def gradient_custom_filter(self, queryset, name, value): # this is for latest version
@@ -960,7 +960,7 @@ class ShelfInspectionRecordFilter(FilterSet):
     def overdue_filter(self, queryset, value):
         if 'on' == value:
             qs = queryset.filter(**{
-                'forecast_complete_time__lte': timezone.now(),
+                'due_date__lte': timezone.now(),
             })
             return qs.distinct()
         
@@ -1130,7 +1130,7 @@ class ShelfInspectionCreateView(StaffRequiredMixin, CreateView):
                 shelf_inspection_record_instance.is_locked = False
                 shelf_inspection_record_instance.gradient = 0
                 shelf_inspection_record_instance.create_date = timezone.now()
-                # shelf_inspection_record_instance.forecast_complete_time = time.strftime('%Y-%m-%d',time.localtime(time.time()))
+                # shelf_inspection_record_instance.due_date = time.strftime('%Y-%m-%d',time.localtime(time.time()))
                 shelf_inspection_record_instance.save()            
 
             return redirect(reverse("shelf_inspection_detail_and_record_list_edit", kwargs={'pk': obj.id}))
@@ -1656,7 +1656,7 @@ class ExtinguisherInspectionListView(TableListViewMixin, ListView):
         object_list = context["object_list"]
 
         if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
-            object_list = self.model.objects.filter(check_result="breakdown", forecast_complete_time__lte=timezone.now())
+            object_list = self.model.objects.filter(check_result="breakdown", due_date__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(check_result="breakdown")
         else:
@@ -1730,7 +1730,7 @@ class HydrantInspectionListView(TableListViewMixin, ListView):
 
 
         if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
-            object_list = self.model.objects.filter(check_result="breakdown", forecast_complete_time__lte=timezone.now())
+            object_list = self.model.objects.filter(check_result="breakdown", due_date__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(check_result="breakdown")
         else:

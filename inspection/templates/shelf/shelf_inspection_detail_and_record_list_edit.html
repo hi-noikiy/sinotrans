@@ -170,10 +170,10 @@
         var owner = responseText.form_id + '-' + 'owner'        
         var elem_owner = $("#" + owner);        
         elem_owner.parent().prev().text(responseText.owner);        
-        // forecast_complete_time
-        var forecast_complete_time = responseText.form_id + '-' + 'forecast_complete_time'        
-        var elem_forecast_complete_time = $("#" + forecast_complete_time);        
-        elem_forecast_complete_time.parent().prev().text(responseText.forecast_complete_time);
+        // due_date
+        var due_date = responseText.form_id + '-' + 'due_date'        
+        var elem_due_date = $("#" + due_date);        
+        elem_due_date.parent().prev().text(responseText.due_date);
         
         close_edit_form($(form_id).parent().find('.close-fields'));
         

@@ -272,10 +272,10 @@ class ShelfInspectionRecordForm(forms.ModelForm):
         
         self.fields['gradient'].widget.attrs['step'] = 0.1
         # self.fields['gradient'].widget.attrs['emptyok'] = False
-        if self.fields['forecast_complete_time'].widget.attrs.get('class'):
-            self.fields['forecast_complete_time'].widget.attrs['class'] = self.fields['forecast_complete_time'].widget.attrs.get('class') + " calenda"
+        if self.fields['due_date'].widget.attrs.get('class'):
+            self.fields['due_date'].widget.attrs['class'] = self.fields['due_date'].widget.attrs.get('class') + " calenda"
         else:
-            self.fields['forecast_complete_time'].widget.attrs['class'] = "calenda"
+            self.fields['due_date'].widget.attrs['class'] = "calenda"
 
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
@@ -319,13 +319,13 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             else:
                 return None
 
-    def clean_forecast_complete_time(self):
-        forecast_complete_time = self.cleaned_data['forecast_complete_time']
-        if not forecast_complete_time:
+    def clean_due_date(self):
+        due_date = self.cleaned_data['due_date']
+        if not due_date:
             if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
                 raise forms.ValidationError(_('required when shelf is abnormal!'))
 
-        return forecast_complete_time
+        return due_date
 
     def clean_owner(self):
         owner = self.cleaned_data['owner']
@@ -614,13 +614,13 @@ class ExtinguisherInspectionForm(forms.ModelForm):
         super(ExtinguisherInspectionForm, self).__init__(*args, **kwargs)
         # self.fields['check_person'].widget.attrs['readonly'] = True
 
-    def clean_forecast_complete_time(self):
-        forecast_complete_time = self.cleaned_data['forecast_complete_time']
-        if not forecast_complete_time:
+    def clean_due_date(self):
+        due_date = self.cleaned_data['due_date']
+        if not due_date:
             if 'breakdown' == self.cleaned_data.get("check_result") :
                 raise forms.ValidationError(_('required when equipment is abnormal!'))
 
-        return forecast_complete_time
+        return due_date
 
     def clean_owner(self):
         owner = self.cleaned_data['owner']
@@ -661,13 +661,13 @@ class HydrantInspectionForm(forms.ModelForm):
         super(HydrantInspectionForm, self).__init__(*args, **kwargs)
         # self.fields['check_person'].widget.attrs['readonly'] = True
 
-    def clean_forecast_complete_time(self):
-        forecast_complete_time = self.cleaned_data['forecast_complete_time']
-        if not forecast_complete_time:
+    def clean_due_date(self):
+        due_date = self.cleaned_data['due_date']
+        if not due_date:
             if 'breakdown' == self.cleaned_data.get("check_result") :
                 raise forms.ValidationError(_('required when equipment is abnormal!'))
 
-        return forecast_complete_time
+        return due_date
 
     def clean_owner(self):
         owner = self.cleaned_data['owner']

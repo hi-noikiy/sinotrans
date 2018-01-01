@@ -101,12 +101,12 @@ class VehicleInspectionForm(forms.ModelForm):
         return rectification_qualified
 
     def clean_due_date(self):
-        forecast_complete_time = self.cleaned_data['due_date']
-        if not forecast_complete_time:
+        due_date = self.cleaned_data['due_date']
+        if not due_date:
             if 'no' == self.cleaned_data.get("rectification_qualified") :
                 raise forms.ValidationError(_('required when equipment is abnormal!'))
 
-        return forecast_complete_time
+        return due_date
 
 class ForkliftRepairForm(forms.ModelForm):
     try:
@@ -124,12 +124,12 @@ class ForkliftRepairForm(forms.ModelForm):
         self.fields['repaire_date'].widget.attrs['disabled'] = True
 
     def clean_due_date(self):
-        forecast_complete_time = self.cleaned_data['due_date']
-        if not forecast_complete_time:
+        due_date = self.cleaned_data['due_date']
+        if not due_date:
             if 'no' == self.cleaned_data.get("repaired") :
                 raise forms.ValidationError(_('required when equipment is abnormal!'))
 
-        return forecast_complete_time
+        return due_date
         
     class Meta:
         model = ForkliftRepair
