@@ -6,8 +6,9 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from datetime import datetime, timedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models.signals import pre_save
 
-from inspection.models import month_choice
+from inspection.models import month_choice, DailyInspection
 from inspection.utils import PercentageField
 # Create your models here.
 class EquipmentType(models.Model):
@@ -116,8 +117,11 @@ class SprayPumpRoomInspection(models.Model):
     no_sundries_in_pump_house = models.BooleanField(_('no sundries in pump house'), blank=True, default=False)
     pump_house_clean_and_tidy = models.BooleanField(_('pump house clean and tidy'), blank=True, default=False)
 
+    rectification_status = models.CharField(_('Rectification Status'), max_length=30, choices = DailyInspection.daily_insepction_correction_status, blank=False, default = 'uncompleted')
+    owner = models.CharField(_('Owner'), max_length=30, blank=False, null=False)
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
     date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(_('updated'),auto_now_add=False, auto_now=True)
 
     objects = SprayPumpRoomInspectionManager()
     def __unicode__(self):
@@ -144,6 +148,21 @@ class SprayPumpRoomInspection(models.Model):
     def get_create_url(self, year, month):
         return reverse("spraypumproominspection_create", kwargs={"year": year,"month": month })
 
+    def is_rectification_completed(self):
+        is_completed = True
+        for fieldname in self.__class__._meta.get_all_field_names():
+            field = self.__class__._meta.get_field(fieldname)
+
+            if field and isinstance(field, models.BooleanField):
+                f = getattr(self, fieldname)
+                if not f:
+                    is_completed = False
+                    break
+        return is_completed
+
+    def time_consuming(self):
+        return (self.updated.replace(tzinfo=None) - datetime.strptime(str(self.date_of_inspection),'%Y-%m-%d').replace(tzinfo=None)).days
+
 class SprayWarehouseInspection(models.Model):
     year = models.PositiveIntegerField(_("year"),
         validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year+1)],
@@ -159,8 +178,12 @@ class SprayWarehouseInspection(models.Model):
     pipe_connection_no_leakage = models.BooleanField(_('pipe connection no leakage'), blank=True, default=False)
     spray_head_no_leakage = models.BooleanField(_('spray head no leakage'), blank=True, default=False)
 
+    rectification_status = models.CharField(_('Rectification Status'), max_length=30, choices = DailyInspection.daily_insepction_correction_status, blank=False, default = 'uncompleted')
+    owner = models.CharField(_('Owner'), max_length=30, blank=False, null=False)
+
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
     date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(_('updated'), auto_now_add=False, auto_now=True)
 
     def __unicode__(self):
         return _("Spray Warehouse Inspection") + " %s" % (self.month)
@@ -185,7 +208,31 @@ class SprayWarehouseInspection(models.Model):
         return reverse("spraywarehouseinspection_list_edit", kwargs={}) 
 
     def get_create_url(self, year, month):
-        return reverse("spraywarehouseinspection_create", kwargs={"year": year,"month": month  })        
+        return reverse("spraywarehouseinspection_create", kwargs={"year": year,"month": month  })  
+
+    def is_rectification_completed(self):
+        is_completed = True
+        for fieldname in self.__class__._meta.get_all_field_names():
+            field = self.__class__._meta.get_field(fieldname)
+
+            if field and isinstance(field, models.BooleanField):
+                f = getattr(self, fieldname)
+                if not f:
+                    is_completed = False
+                    break
+        return is_completed
+
+    def time_consuming(self):
+        return (self.updated.replace(tzinfo=None) - datetime.strptime(str(self.date_of_inspection),'%Y-%m-%d').replace(tzinfo=None)).days
+
+def save_rectification_status(sender, instance, *args, **kwargs):
+    if instance.is_rectification_completed():
+        instance.rectification_status = 'completed'
+    else:
+        instance.rectification_status = 'uncompleted'
+
+pre_save.connect(save_rectification_status, sender=SprayPumpRoomInspection)
+pre_save.connect(save_rectification_status, sender=SprayWarehouseInspection)
 
 class HSSEKPI(models.Model):
     year = models.PositiveIntegerField(_("year"),

@@ -1,4 +1,5 @@
 from .models import DailyInspection, PI, WHPI, RTPI
+from equipments.models import EquipmentInspection, SprayPumpRoomInspection, SprayWarehouseInspection
 
 import time, datetime
 from datetime import timedelta
@@ -20,7 +21,7 @@ def get_model_queryset(model, category,rectification_status, year,month):
     q = None
 
     if year and month:
-        q = q & Q(created__startswith="{0}-{1}-".format(year,month)) if q else Q(created__startswith="{0}-{1}-".format(year,month))
+        q = q & Q(created__startswith="{0}-{1:0>2d}-".format(year,month)) if q else Q(created__startswith="{0}-{1:0>2d}-".format(year,month))
     else:
         q = q & Q(created__startswith="{0}-".format(year)) if q else Q(created__startswith="{0}-".format(year))
     if category:
@@ -63,8 +64,8 @@ def get_daily_inspection_uncompleted():
                 for month, year in get_last_times()] \
                     for category in get_daily_inspection_rows()]
 
-    return [[DailyInspection.objects.filter(category=category[0], rectification_status="uncompleted",created__startswith="{0}-{1}-".format(year,month)).count() if category[0] else\
-            DailyInspection.objects.filter(rectification_status="uncompleted",created__startswith="{0}-{1}-".format(year,month)).count()\
+    return [[DailyInspection.objects.filter(category=category[0], rectification_status="uncompleted",created__startswith="{0}-{1:0>2d}-".format(year,month)).count() if category[0] else\
+            DailyInspection.objects.filter(rectification_status="uncompleted",created__startswith="{0}-{1:0>2d}-".format(year,month)).count()\
                 for month, year in get_last_times()] \
                     for category in get_daily_inspection_rows()]             
 
@@ -103,8 +104,8 @@ def get_daily_inspection_efficiency():
         for j, [month, year] in enumerate(get_last_times()):            
             time_consumings = 0
             completed_qs = get_model_queryset(DailyInspection, category[0],"completed",year,month)
-            # completed_qs = DailyInspection.objects.filter(category=category[0], rectification_status="completed", created__startswith="{0}-{1}-".format(year,month)) if category[0] else\
-            #         DailyInspection.objects.filter(rectification_status="completed", created__startswith="{0}-{1}-".format(year,month))
+            # completed_qs = DailyInspection.objects.filter(category=category[0], rectification_status="completed", created__startswith="{0}-{1:0>2d}-".format(year,month)) if category[0] else\
+            #         DailyInspection.objects.filter(rectification_status="completed", created__startswith="{0}-{1:0>2d}-".format(year,month))
             for instance in completed_qs:
                 time_consumings = time_consumings + instance.time_consuming()
             efficiency_array[i][j]= time_consumings / completed_qs.count() if completed_qs.count() else '-'
@@ -126,7 +127,7 @@ def get_pi_model_queryset(category,rectification_status, year,month):
     q = None
 
     if year and month:
-        q = q & Q(created__startswith="{0}-{1}-".format(year,month)) if q else Q(created__startswith="{0}-{1}-".format(year,month))
+        q = q & Q(created__startswith="{0}-{1:0>2d}-".format(year,month)) if q else Q(created__startswith="{0}-{1:0>2d}-".format(year,month))
     else:
         q = q & Q(created__startswith="{0}-".format(year)) if q else Q(created__startswith="{0}-".format(year))
 
@@ -189,4 +190,78 @@ def get_pi_uncompleted_url():
 
     return [[get_pi_model_url(category[0],'uncompleted',year,month) \
                 for month, year in get_last_times()] \
-                    for category in get_pi_rows()]                      
+                    for category in get_pi_rows()] 
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>
+def get_spray_rows():
+    return (('SprayPumpRoomInspection', _('Spray Pump Room')),) + (('SprayWarehouseInspection', _('Spray Warehouse')),) #+ (('', _('Total')),)
+
+def get_spary_model_queryset(model_name,rectification_status, year,month):
+
+    model = None
+    from equipments import models
+    model = getattr(models,model_name)()
+
+    q = None
+
+    if year and month:
+        q = q & Q(year=year,month="{0:0>2d}".format(month)) if q else Q(year=year,month="{0:0>2d}".format(month))
+    else:
+        q = q & Q(year=year) if q else Q(year=year)
+
+    if rectification_status:
+        q = q & Q(rectification_status__exact=rectification_status) if q else Q(rectification_status__exact=rectification_status)
+
+    print q
+    qs = model.__class__.objects.filter(q) if q else model.objects.all()
+
+    return qs
+
+def get_spray_total():
+    return [[get_spary_model_queryset(model_name[0],"",year,month).count()\
+                for month, year in get_last_times()] \
+                    for model_name in get_spray_rows()]
+
+def get_spray_uncompleted():
+    return [[get_spary_model_queryset(model_name[0],"uncompleted",year,month).count()\
+                for month, year in get_last_times()] \
+                    for model_name in get_spray_rows()]
+
+def get_spray_efficiency():
+    efficiency_array = get_spray_uncompleted()
+
+    for i, model_name in enumerate(get_spray_rows()):
+        for j, [month, year] in enumerate(get_last_times()):            
+            time_consumings = 0
+            completed_qs = get_spary_model_queryset(model_name[0],"completed",year,month)
+            for instance in completed_qs:
+                time_consumings = time_consumings + instance.time_consuming()
+            efficiency_array[i][j]= time_consumings / completed_qs.count() if completed_qs.count() else '-'
+    return efficiency_array
+
+def get_spary_model_url(category,rectification_status, year,month):
+    url = None
+    if category == "SprayPumpRoomInspection":
+        url = reverse("spraypumproominspection_list_display", kwargs={}) 
+    elif category == "SprayWarehouseInspection":
+        url = reverse("spraywarehouseinspection_list_display", kwargs={}) 
+
+    q = None
+
+    if year:
+        q = "?year={0}".format(year) 
+    else:
+        q = ""   
+
+    return "{0}{1}".format(url, q)
+
+def get_spray_total_url():
+    return [[get_spary_model_url(category[0],'',year,month) \
+                for month, year in get_last_times()] \
+                    for category in get_spray_rows()]       
+
+def get_spray_uncompleted_url():
+
+    return [[get_spary_model_url(category[0],'uncompleted',year,month) \
+                for month, year in get_last_times()] \
+                    for category in get_spray_rows()]                     

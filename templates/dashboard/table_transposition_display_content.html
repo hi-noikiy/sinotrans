@@ -69,12 +69,12 @@
                                 {% endif %}
                             {% endif %}
                             
-                            {% if column_key == row.0.name and self.request.is_staff %}
+                            {% if column_key == row.0.name and request.user.is_staff %}
                             <a href="{{object.get_absolute_url }}"><i class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i></a>
                             {% endif %}
                         {% endif %}             
                     {% endfor %}
-                    {% if column_key == row.0.name and not column.0 in columns_exist and request.GET.year and self.request.is_staff %}
+                    {% if column_key == row.0.name and not column.0 in columns_exist and request.GET.year and request.user.is_staff %}
                     <a href="{{create_url}}{{column.0}}"><i class="fa fa-1x fa-plus-square-o" aria-hidden="true"></i></a>
                     {% endif %}                       
                     </td>

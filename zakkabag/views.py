@@ -73,7 +73,14 @@ from inspection.api import (
     get_whpi_efficiency, 
     get_pi_uncompleted_url,
     get_pi_total_url,
-    get_pi_rows    
+    get_pi_rows,
+
+    get_spray_rows,
+    get_spray_total,
+    get_spray_uncompleted,
+    get_spray_efficiency,
+    get_spray_uncompleted_url,
+    get_spray_total_url,
     )
 
 def get_last_times():
@@ -134,6 +141,19 @@ def DashboardViewSINO(request):
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
     context["rows_pi"] = zip(rows,indicator,group,data)
+
+    rows = get_spray_rows()
+    data1 = get_spray_total()
+    print data1
+    data2 = get_spray_uncompleted()
+    data3 = get_spray_efficiency()
+    data4 = get_spray_uncompleted_url()
+    data5 = get_spray_total_url()
+
+
+    data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
+    # print data    
+    context["rows_spray"] = zip(rows,indicator,group,data)
 
     return render(request,"dashboard_statistic.html",context)
 

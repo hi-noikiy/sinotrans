@@ -353,6 +353,7 @@ class SprayPumproomInspectionDetailView(DashboardTableDetailView):
             'pool_wall_dry_and_no_leak',
             'no_sundries_in_pump_house',
             'pump_house_clean_and_tidy',
+            'rectification_status'
         }
         context["fields_display"] = fields_display
 
@@ -375,6 +376,7 @@ class SprayWarehouseInspectionDetailView(DashboardTableDetailView):
             "pipe_valve_in_open_status",
             "pipe_connection_no_leakage",
             "spray_head_no_leakage",
+            "rectification_status"
         }
         context["fields_display"] = fields_display
 
@@ -473,9 +475,11 @@ class DashboardTableListDisplayView(ListView):
     excludes = [
         'id',
         'year',
+        'updated',
     ]
 
     fields_display = [
+        'rectification_status'
     ]
 
     column_key = 'month'  # default
@@ -558,11 +562,12 @@ class SprayPumproomInspectionListDisplayView(DashboardTableListDisplayView):
         ('no_corrosion_and_damage', _("valve"),4),
         ('water_level_normal_and_moisturizing_well', _("pool"),3),
         ('no_sundries_in_pump_house', _("sanitation"),2),
-        ('inspector', _("Inspector"),2),
+        ('rectification_status', _("Inspector"),4),
     ]
 
     fields_display = [
         'month',
+        'rectification_status'
     ]
 
 class SprayWarehouseInspectionFilter(FilterSet):
@@ -586,11 +591,12 @@ class SprayWarehouseInspectionListDisplayView(DashboardTableListDisplayView):
         ('month', "",1),
         ('valve_normal', _("The end test device"),5),  # left is align with model field
         ('pipe_network_pressure_normal', _("spray header and pipe network"),4),
-        ('inspector', _("Inspector"),2),
+        ('rectification_status', _("Inspector"),4),
     ]
 
     fields_display = [
         'month',
+        'rectification_status'
     ]
 
 class HSSEKPIFilter(FilterSet):

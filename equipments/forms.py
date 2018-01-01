@@ -134,6 +134,17 @@ class EquipmentInspectiontFilterForm(forms.Form):
     '''
 
 class SprayPumpRoomInspectionForm(forms.ModelForm):
+
+    try: 
+        owner = forms.ModelChoiceField(
+                label=_('Owner'),
+                queryset=get_user_model().objects.all(),
+                empty_label = None, #not show enmpty
+                required=True
+                )
+    except:
+        pass
+
     class Meta:
         model = SprayPumpRoomInspection
 
@@ -141,6 +152,7 @@ class SprayPumpRoomInspectionForm(forms.ModelForm):
             #'year',
             #'month',
             'inspector',
+            'rectification_status',
         }
 
     def __init__(self, *args, **kwargs):
@@ -157,11 +169,22 @@ spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInsp
                                             extra=0)
 
 class SprayWarehouseInspectionForm(forms.ModelForm):
+    try: 
+        owner = forms.ModelChoiceField(
+                label=_('Owner'),
+                queryset=get_user_model().objects.all(),
+                empty_label = None, #not show enmpty
+                required=True
+                )
+    except:
+        pass
+
     class Meta:
         model = SprayWarehouseInspection
 
         exclude = {
             'inspector',
+            'rectification_status',
         }
 
     def __init__(self, *args, **kwargs):

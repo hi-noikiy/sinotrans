@@ -1460,7 +1460,6 @@ msgid "Other Equipment"
 msgstr "其他设备"
 
 #: .\inspection\templates\storage_security.html:91
-#, fuzzy
 #| msgid "HSSE KPI"
 msgid "WH HSSE KPI"
 msgstr "HSSE KPI"
@@ -4154,8 +4153,8 @@ msgstr "总数"
 msgid "efficiency"
 msgstr "效率"
 
-#~ msgid "Spray Pump Room"
-#~ msgstr "喷淋泵房"
+msgid "Spray Pump Room"
+msgstr "喷淋泵房"
 
 #~ msgid "Projects"
 #~ msgstr "项目"
