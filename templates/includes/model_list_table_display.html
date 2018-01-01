@@ -22,8 +22,8 @@
     {% if line_per_page%}
     {% autopaginate object_list line_per_page %}
     {% endif %}
-    
-    {% if object_list.count == 0 %}
+
+    {% if not object_list or object_list.count == 0 %}
         {% trans "Nothing found" %}
     {% else %}
         <table class="table table-striped table-hover table-responsive table-condensed {% if not table_class %}table-align-center{% else %}{{table_class}}{% endif %}"> <!-- default value : table-align-center -->
