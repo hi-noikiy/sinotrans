@@ -4151,7 +4151,7 @@ msgstr "总数"
 
 #: .\zakkabag\views.py:88
 msgid "efficiency"
-msgstr "效率"
+msgstr "整改耗时"
 
 msgid "Spray Pump Room"
 msgstr "喷淋泵房"
