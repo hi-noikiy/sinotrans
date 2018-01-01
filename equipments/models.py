@@ -45,7 +45,7 @@ class AbstractEquipmentInspection(models.Model):
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
     owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
     comments = models.TextField(_('Comments'), max_length=130, blank=True, null=True)   
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+    created = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(_('Latest Update'),auto_now_add=False, auto_now=True)
     due_date = models.DateField(_('Due Date'), auto_now_add=False, auto_now=False, null=True, blank=True)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
@@ -54,7 +54,7 @@ class AbstractEquipmentInspection(models.Model):
         verbose_name = _('Equipment Inspection')
         verbose_name_plural = _('Equipment Inspection')
         abstract = True
-        unique_together = (('equipment','inspector','date_of_inspection'),)
+        unique_together = (('equipment','inspector','created'),)
 
     def get_absolute_url(self):
         return reverse("equipmentinsepction_detail", kwargs={"pk": self.id})    
@@ -70,7 +70,7 @@ class EquipmentInspectionManager(models.Manager):
         start = timezone.now().date()
         end = start + timedelta(days=1)
 
-        return self.get_query_set().filter(date_of_inspection__range=(start, end))
+        return self.get_query_set().filter(created__range=(start, end))
 
 
 class EquipmentInspection(AbstractEquipmentInspection):
@@ -120,7 +120,7 @@ class SprayPumpRoomInspection(models.Model):
     rectification_status = models.CharField(_('Rectification Status'), max_length=30, choices = DailyInspection.daily_insepction_correction_status, blank=False, default = 'uncompleted')
     owner = models.CharField(_('Owner'), max_length=30, blank=False, null=False)
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+    created = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(_('updated'),auto_now_add=False, auto_now=True)
 
     objects = SprayPumpRoomInspectionManager()
@@ -161,7 +161,7 @@ class SprayPumpRoomInspection(models.Model):
         return is_completed
 
     def time_consuming(self):
-        return (self.updated.replace(tzinfo=None) - datetime.strptime(str(self.date_of_inspection),'%Y-%m-%d').replace(tzinfo=None)).days
+        return (self.updated.replace(tzinfo=None) - datetime.strptime(str(self.created),'%Y-%m-%d').replace(tzinfo=None)).days
 
 class SprayWarehouseInspection(models.Model):
     year = models.PositiveIntegerField(_("year"),
@@ -182,7 +182,7 @@ class SprayWarehouseInspection(models.Model):
     owner = models.CharField(_('Owner'), max_length=30, blank=False, null=False)
 
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+    created = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(_('updated'), auto_now_add=False, auto_now=True)
 
     def __unicode__(self):
@@ -223,7 +223,7 @@ class SprayWarehouseInspection(models.Model):
         return is_completed
 
     def time_consuming(self):
-        return (self.updated.replace(tzinfo=None) - datetime.strptime(str(self.date_of_inspection),'%Y-%m-%d').replace(tzinfo=None)).days
+        return (self.updated.replace(tzinfo=None) - datetime.strptime(str(self.created),'%Y-%m-%d').replace(tzinfo=None)).days
 
 def save_rectification_status(sender, instance, *args, **kwargs):
     if instance.is_rectification_completed():
@@ -256,7 +256,7 @@ class HSSEKPI(models.Model):
     save_working_hours = models.PositiveIntegerField(_('save working hours'), blank=False, null=False, default=0)
 
     inspector = models.CharField(_('Inspector'), max_length=30, blank=False,null=False)
-    date_of_inspection = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
+    created = models.DateField(_('Date of Inspection'), auto_now_add=True, auto_now=False)
 
     def __unicode__(self):
         return _("HSSE KPI") + " %s" % (self.month)

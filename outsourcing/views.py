@@ -553,7 +553,7 @@ class VehicleInspectionListView(TableListViewMixin, ListView):
                 "carrier",
                 "load_or_unload",
                 "rectification_qualified",
-                "date_of_inspection",                
+                "created",                
                 "due_date",
                 # "completed_time"
         ]

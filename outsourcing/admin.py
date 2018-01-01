@@ -280,7 +280,7 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
 
     list_display = [
                 "vehicle", 
-                "date_of_inspection",
+                "created",
                 "driver",                
                 "inspector",
                 "owner",
@@ -302,7 +302,7 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
     search_fields = (
                 "vehicle", 
                 "driver",
-                "date_of_inspection",
+                "created",
                 "inspector",
                 "carrier",
                 "rectification_qualified",
@@ -317,7 +317,7 @@ class VehicleInspectionAdmin(admin.ModelAdmin):
                 )
     ordering = (
                 "vehicle",
-                "date_of_inspection",
+                "created",
                 ) 
 
     view_on_site = False

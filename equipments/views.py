@@ -56,8 +56,8 @@ class EquipmentInsepctionFilter(FilterSet):
     category_id = CharFilter(name='equipment__type__id', lookup_type='exact', distinct=True)
     use_condition = CharFilter(name='use_condition', lookup_type='exact', distinct=True)
     inspector = CharFilter(name='inspector', lookup_type='exact', distinct=True)
-    date_of_inspection_start = DateFilter(name='date_of_inspection', lookup_type='gte', distinct=True)
-    date_of_inspection_end = DateFilter(name='date_of_inspection', lookup_type='lte', distinct=True)
+    date_of_inspection_start = DateFilter(name='created', lookup_type='gte', distinct=True)
+    date_of_inspection_end = DateFilter(name='created', lookup_type='lte', distinct=True)
 
     class Meta:
         model = EquipmentInspection
@@ -684,7 +684,7 @@ class DashboardTableListEditView(StaffRequiredMixin, ListView):
         context["column_key"] = "month"
         context["project_name"] = self.model._meta.verbose_name
         context["hidden_fields"] = excludes
-        context["date_field_list"] = ["date_of_inspection"]
+        context["date_field_list"] = ["created"]
 
         context["top_filter_form"] = self.filter_form(data=self.request.GET or None) 
 

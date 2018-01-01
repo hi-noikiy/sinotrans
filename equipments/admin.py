@@ -35,9 +35,9 @@ class EquipmentAdmin(admin.ModelAdmin):
         model = Equipment
 
 class EquipmentInspectionAdmin(admin.ModelAdmin):
-    list_display = ["equipment","use_condition","inspector","date_of_inspection","updated","owner","due_date","completed_time"]
+    list_display = ["equipment","use_condition","inspector","created","updated","owner","due_date","completed_time"]
     list_editable = ["use_condition","owner","due_date"]
-    list_filter = ["equipment","use_condition","inspector","date_of_inspection"]
+    list_filter = ["equipment","use_condition","inspector","created"]
     form = EquipmentInspectionForm
 
     view_on_site = False
@@ -111,7 +111,7 @@ class SprayWarehouseInspectionAdmin(admin.ModelAdmin):
         "pipe_connection_no_leakage",
         "spray_head_no_leakage",
         "inspector",
-        "date_of_inspection",
+        "created",
         ]
     list_editable = [
         "valve_normal",
