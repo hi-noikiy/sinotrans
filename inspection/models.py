@@ -681,7 +681,7 @@ class PI(models.Model):
     rectification_measures = models.TextField(_('rectification measures'), max_length=30, blank=False,null=False)
     rectification_status = models.CharField(_('rectification status'), choices = PI_correction_status, max_length=30, blank=False,null=False, default = 'uncompleted')
     created = models.DateTimeField(_('Inspection Created Date'), auto_now_add=True, auto_now=False)
-    planned_complete_date = models.DateField(_('planned complete date'), auto_now_add=False, auto_now=False)
+    due_date = models.DateField(_('planned complete date'), auto_now_add=False, auto_now=False)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     image_before = models.ImageField(_('picture before rectification'), upload_to=image_upload_to_pi, blank=False,null=False)
     image_after = models.ImageField(_('picture after rectification'), upload_to=image_upload_to_pi, null=True, blank=True)

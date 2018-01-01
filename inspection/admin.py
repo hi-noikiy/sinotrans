@@ -248,7 +248,7 @@ class PIAdmin(admin.ModelAdmin):
         "root_cause",
         "feedback_person",
         "rectification_measures",
-        "planned_complete_date",
+        "due_date",
         "image_before"
         ]
     list_search = [

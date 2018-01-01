@@ -510,7 +510,7 @@ class PIForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PIForm, self).__init__(*args, **kwargs)
-        self.fields['planned_complete_date'].widget.attrs['class'] ="calenda"
+        self.fields['due_date'].widget.attrs['class'] ="calenda"
 
     def clean_image_after(self):
         if not hasattr(self,'instance') or not hasattr(self.instance, 'pk') or not self.instance.pk:

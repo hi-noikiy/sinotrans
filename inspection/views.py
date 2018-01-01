@@ -1417,7 +1417,7 @@ class PIListView(TableListViewMixin, ListView):
         object_list = context["object_list"]
 
         if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
-            object_list = self.model.objects.filter(rectification_status="uncompleted", planned_complete_date__lte=timezone.now())
+            object_list = self.model.objects.filter(rectification_status="uncompleted", due_date__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(rectification_status="uncompleted")
         else:
@@ -1525,7 +1525,7 @@ class ShelfAnnualInspectionListView(TableListViewMixin, ListView):
 
     #     object_list = context["object_list"]
     #     if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
-    #         object_list = self.model.objects.filter(rectification_status="uncompleted", planned_complete_date__lte=timezone.now())
+    #         object_list = self.model.objects.filter(rectification_status="uncompleted", due_date__lte=timezone.now())
     #     elif self.request.GET.get('uncompleted'):
     #         object_list = self.model.objects.filter(rectification_status="uncompleted")
     #     context["object_list"] = object_list                   
