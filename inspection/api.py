@@ -265,3 +265,85 @@ def get_spray_uncompleted_url():
     return [[get_spary_model_url(category[0],'uncompleted',year,month) \
                 for month, year in get_last_times()] \
                     for category in get_spray_rows()]                     
+
+# >>>>>>>>>>>>>>>
+def get_hydrant_rows():
+    return (('ExtinguisherInspection', _('extinguisher')),) + (('HydrantInspection', _('hydrant')),) #+ (('', _('Total')),)
+
+def get_hydrant_model_queryset(model_name,check_result, year,month, is_efficiency=False):
+
+    model = None
+    from inspection import models
+    model = getattr(models,model_name)()
+
+    q = None
+
+    if year and month:
+        q = q & Q(check_date__startswith="{0}-{1:0>2d}-".format(year,month)) if q else Q(check_date__startswith="{0}-{1:0>2d}-".format(year,month))
+    else:
+        q = q & Q(check_date__startswith="{0}-".format(year)) if q else Q(check_date__startswith="{0}-".format(year))
+
+    if check_result:
+        q = q & Q(check_result__exact=check_result) if q else Q(check_result__exact=check_result)
+
+    if is_efficiency:
+        q = q & Q(completed_time__gte="{0}-01-01".format(year)) if q else Q(check_result__exact="{0}-01-01".format(year))
+
+    qs = model.__class__.objects.filter(q) if q else model.objects.all()
+
+    return qs
+
+def get_hydrant_total():
+    return [[get_hydrant_model_queryset(model_name[0],"",year,month).count()\
+                for month, year in get_last_times()] \
+                    for model_name in get_hydrant_rows()]
+
+def get_hydrant_uncompleted():
+    return [[get_hydrant_model_queryset(model_name[0],"breakdown",year,month).count()\
+                for month, year in get_last_times()] \
+                    for model_name in get_hydrant_rows()]
+
+def get_hydrant_efficiency():
+    efficiency_array = get_whpi_uncompleted()
+
+    for i, model_name in enumerate(get_hydrant_rows()):
+        for j, [month, year] in enumerate(get_last_times()):            
+            time_consumings = 0
+            completed_qs = get_hydrant_model_queryset(model_name[0],"normal",year,month,is_efficiency=True)
+            print completed_qs
+            for instance in completed_qs:
+                time_consumings = time_consumings + instance.time_consuming()
+            efficiency_array[i][j]= time_consumings / completed_qs.count() if completed_qs.count() else '-'
+    return efficiency_array
+
+def get_hydrant_model_url(model_name,check_result, year,month):
+    url = None
+    if model_name == "ExtinguisherInspection":
+        url = reverse("extinguisherinspection_list", kwargs={}) 
+    elif model_name == "HydrantInspection":
+        url = reverse("hydrantinspection_list", kwargs={}) 
+
+    q = None
+
+    if year and month:
+        q = "{0}&start={1}-{2}-01&end={1}-{2}-{3}".format(q,year,month,calendar.monthrange(year, month)[1]) if q else\
+            "?start={0}-{1}-01&end={0}-{1}-{2}".format(year,month,calendar.monthrange(year, month)[1])
+    else:
+        q = "{0}&start={1}-01-01&end={1}-12-31".format(q,year) if q else\
+            "?start={0}-01-01&end={0}-12-31".format(year)        
+    if check_result:
+        q = "{0}&check_result={1}".format(q,check_result) if q else\
+            "?check_result={0}".format(check_result)
+
+    return "{0}{1}".format(url, q)
+
+def get_hydrant_total_url():
+    return [[get_hydrant_model_url(model_name[0],'',year,month) \
+                for month, year in get_last_times()] \
+                    for model_name in get_hydrant_rows()]       
+
+def get_hydrant_uncompleted_url():
+
+    return [[get_hydrant_model_url(model_name[0],'breakdown',year,month) \
+                for month, year in get_last_times()] \
+                    for model_name in get_hydrant_rows()] 

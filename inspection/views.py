@@ -1433,7 +1433,6 @@ class PIListView(TableListViewMixin, ListView):
             if query:
                 object_list = object_list.filter(query)
 
-        print object_list
         context["object_list"] = object_list                   
 
         return context 
@@ -1660,7 +1659,22 @@ class ExtinguisherInspectionListView(TableListViewMixin, ListView):
             object_list = self.model.objects.filter(check_result="breakdown", forecast_complete_time__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(check_result="breakdown")
+        else:
+            check_result = self.request.GET.get('check_result', None)
+            start = self.request.GET.get('start', None)
+            end = self.request.GET.get('end', None)
 
+            query = None
+            if start:
+                query = Q(check_date__gte=start)
+            if end:
+                query = query & Q(check_date__lte=end) if query else Q(check_date__lte=end)
+            if check_result:
+                query = query & Q(check_result__exact=check_result) if query else Q(check_result__exact=check_result)
+                
+            if query:
+                object_list = object_list.filter(query)
+                
         if object_list and not self.request.user.is_staff:
             object_list = object_list.filter(check_result='normal')
 
@@ -1719,6 +1733,21 @@ class HydrantInspectionListView(TableListViewMixin, ListView):
             object_list = self.model.objects.filter(check_result="breakdown", forecast_complete_time__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(check_result="breakdown")
+        else:
+            check_result = self.request.GET.get('check_result', None)
+            start = self.request.GET.get('start', None)
+            end = self.request.GET.get('end', None)
+
+            query = None
+            if start:
+                query = Q(check_date__gte=start)
+            if end:
+                query = query & Q(check_date__lte=end) if query else Q(check_date__lte=end)
+            if check_result:
+                query = query & Q(check_result__exact=check_result) if query else Q(check_result__exact=check_result)
+                
+            if query:
+                object_list = object_list.filter(query)
 
         if object_list and not self.request.user.is_staff:
             object_list = object_list.filter(check_result='normal')

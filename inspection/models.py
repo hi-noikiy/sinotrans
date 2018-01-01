@@ -519,6 +519,10 @@ class ExtinguisherInspection(models.Model):
     def get_absolute_url_list(self):
         return reverse("extinguisherinspection_list", kwargs={})
 
+    def time_consuming(self):
+        return (self.completed_time.replace(tzinfo=None) - datetime.strptime(str(self.check_date),'%Y-%m-%d').replace(tzinfo=None)).days
+
+
 class Hydrant(models.Model):
     name = models.CharField(_('Name'), max_length=30, blank=True) 
     accessories = models.CharField(_('Accessories'), max_length=30, blank=True)   
@@ -569,6 +573,9 @@ class HydrantInspection(models.Model):
 
     def get_absolute_url_list(self):
         return reverse("hydrantinspection_list", kwargs={})
+
+    def time_consuming(self):
+        return (self.completed_time.replace(tzinfo=None) - datetime.strptime(str(self.check_date),'%Y-%m-%d').replace(tzinfo=None)).days
 
 class Rehearsal(models.Model):
     title = models.CharField(_('Title'), max_length=30, blank=False, null=False)   
