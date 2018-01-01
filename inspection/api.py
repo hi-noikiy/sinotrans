@@ -212,7 +212,6 @@ def get_spary_model_queryset(model_name,rectification_status, year,month):
     if rectification_status:
         q = q & Q(rectification_status__exact=rectification_status) if q else Q(rectification_status__exact=rectification_status)
 
-    print q
     qs = model.__class__.objects.filter(q) if q else model.objects.all()
 
     return qs
@@ -310,7 +309,6 @@ def get_hydrant_efficiency():
         for j, [month, year] in enumerate(get_last_times()):            
             time_consumings = 0
             completed_qs = get_hydrant_model_queryset(model_name[0],"normal",year,month,is_efficiency=True)
-            print completed_qs
             for instance in completed_qs:
                 time_consumings = time_consumings + instance.time_consuming()
             efficiency_array[i][j]= time_consumings / completed_qs.count() if completed_qs.count() else '-'
