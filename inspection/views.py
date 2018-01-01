@@ -1126,7 +1126,7 @@ class ShelfInspectionCreateView(StaffRequiredMixin, CreateView):
                 shelf_inspection_record_instance.shelf = shelf_instance
                 shelf_inspection_record_instance.shelf_inspection = obj
                 shelf_inspection_record_instance.use_condition = 1             
-                shelf_inspection_record_instance.check_person = self.request.user.get_full_name()
+                shelf_inspection_record_instance.inspector = self.request.user.get_full_name()
                 shelf_inspection_record_instance.is_locked = False
                 shelf_inspection_record_instance.gradient = 0
                 shelf_inspection_record_instance.create_date = timezone.now()
@@ -1233,8 +1233,8 @@ class ShelfInspectionRecordUpdateView(StaffRequiredMixin, UpdateView):
 
     def form_valid(self, form, *args, **kwargs):
         obj = form.save(commit = False)
-        if not obj.check_person:
-            obj.check_person = self.request.user.get_full_name()
+        if not obj.inspector:
+            obj.inspector = self.request.user.get_full_name()
         instance = self.model.objects.get(pk=obj.pk)
         if obj.turn_normal(instance):
             obj.completed_time = timezone.now()  
@@ -1630,7 +1630,7 @@ class ExtinguisherInspectionCreateView(StaffRequiredMixin, CreateViewMixin, Crea
 
     def form_valid(self, form):
         instance = form.save(commit = False)
-        instance.check_person = self.request.user.get_full_name()
+        instance.inspector = self.request.user.get_full_name()
         instance.save()
         return super(ExtinguisherInspectionCreateView, self).form_valid(form)  
 
@@ -1703,7 +1703,7 @@ class HydrantInspectionCreateView(StaffRequiredMixin, CreateViewMixin, CreateVie
 
     def form_valid(self, form):
         instance = form.save(commit = False)
-        instance.check_person = self.request.user.get_full_name()
+        instance.inspector = self.request.user.get_full_name()
         instance.save()
         return super(HydrantInspectionCreateView, self).form_valid(form)  
 

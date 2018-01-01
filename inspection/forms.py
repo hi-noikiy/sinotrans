@@ -341,7 +341,7 @@ class ShelfInspectionRecordForm(forms.ModelForm):
         exclude = [
             'shelf_inspection',
             'comments',
-            'check_person',
+            'inspector',
             'check_date',
             'completed_time',
         ]
@@ -601,7 +601,7 @@ class ExtinguisherInspectionForm(forms.ModelForm):
                 required=False
                 )   
 
-        # check_person = forms.ChoiceField(
+        # inspector = forms.ChoiceField(
         #         label=_('Check Person'),
         #         choices=set((ins, ins) for ins in get_user_model().objects.all()),
         #         empty_label = None, #not show enmpty
@@ -612,7 +612,7 @@ class ExtinguisherInspectionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ExtinguisherInspectionForm, self).__init__(*args, **kwargs)
-        # self.fields['check_person'].widget.attrs['readonly'] = True
+        # self.fields['inspector'].widget.attrs['readonly'] = True
 
     def clean_due_date(self):
         due_date = self.cleaned_data['due_date']
@@ -635,7 +635,7 @@ class ExtinguisherInspectionForm(forms.ModelForm):
 
         exclude = [
             "completed_time",
-            "check_person",
+            "inspector",
         ]
 
 
@@ -648,7 +648,7 @@ class HydrantInspectionForm(forms.ModelForm):
                 required=False
                 )   
 
-        # check_person = forms.ChoiceField(
+        # inspector = forms.ChoiceField(
         #         label=_('Check Person'),
         #         choices=set((ins, ins) for ins in get_user_model().objects.all()),
         #         empty_label = None, #not show enmpty
@@ -659,7 +659,7 @@ class HydrantInspectionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(HydrantInspectionForm, self).__init__(*args, **kwargs)
-        # self.fields['check_person'].widget.attrs['readonly'] = True
+        # self.fields['inspector'].widget.attrs['readonly'] = True
 
     def clean_due_date(self):
         due_date = self.cleaned_data['due_date']
@@ -682,5 +682,5 @@ class HydrantInspectionForm(forms.ModelForm):
 
         exclude = [
             "completed_time",
-            "check_person",
+            "inspector",
         ]    

@@ -128,7 +128,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         # "shelf_inspection",
         "use_condition",
         "is_locked",
-        "check_person",
+        "inspector",
         "owner",
         "gradient",
         'check_date',
@@ -151,7 +151,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         # "shelf_inspection__check_date",
         "use_condition",
         "is_locked",
-        "check_person",
+        "inspector",
         "gradient",
         # "due_date",
         "comments"]
@@ -160,7 +160,7 @@ class ShelfInspectionRecordAdmin(admin.ModelAdmin):
         "shelf__is_gradient_measurement_mandatory",
         "shelf_inspection",
         "use_condition",
-        "check_person",
+        "inspector",
         "due_date",
         ]
 
@@ -294,9 +294,9 @@ class ExtinguisherAdmin(admin.ModelAdmin):
         model = Extinguisher
 
 class ExtinguisherInspectionAdmin(admin.ModelAdmin):
-    list_display = ['extinguisher',"capacity","check_person","check_result","check_date","due_date","completed_time"]
-    list_search = ['extinguisher',"capacity","check_person","check_result","check_date"]
-    list_filter = ["extinguisher","check_person","check_result","check_date","due_date","completed_time"]
+    list_display = ['extinguisher',"capacity","inspector","check_result","check_date","due_date","completed_time"]
+    list_search = ['extinguisher',"capacity","inspector","check_result","check_date"]
+    list_filter = ["extinguisher","inspector","check_result","check_date","due_date","completed_time"]
 
     view_on_site = False
 
@@ -313,9 +313,9 @@ class HydrantAdmin(admin.ModelAdmin):
         model = Hydrant
 
 class HydrantInspectionAdmin(admin.ModelAdmin):
-    list_display = ['hydrant',"check_person","check_result","check_date","due_date","completed_time"]
-    list_search = ['hydrant',"check_person","check_result","check_date"]
-    list_filter = ["hydrant","check_person","check_result","check_date","due_date","completed_time"]
+    list_display = ['hydrant',"inspector","check_result","check_date","due_date","completed_time"]
+    list_search = ['hydrant',"inspector","check_result","check_date"]
+    list_filter = ["hydrant","inspector","check_result","check_date","due_date","completed_time"]
 
     view_on_site = False
 
