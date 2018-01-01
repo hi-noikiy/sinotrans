@@ -7,6 +7,7 @@ from django.forms.widgets import Media
 from django.contrib.admin.templatetags.admin_static import static
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from .models import (
     OfficeInspection,
@@ -221,6 +222,13 @@ class ShelfInspectionForm(forms.ModelForm):
 
         exclude = [
         ]
+
+    def clean(self):
+  
+        if shelf_inspection.objects.filter(check_date=timezone.now().today()).count():
+            raise forms.ValidationError(_('shelf inspection for today already exist!'))
+
+        return self.cleaned_data
 
 class ShelfGradientInspectionForm(forms.ModelForm):
     class Meta:

@@ -1126,7 +1126,7 @@ class ShelfInspectionCreateView(StaffRequiredMixin, CreateView):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.save()
-            for shelf_instance in shelf.objects.all():
+            for shelf_instance in shelf.objects.filter(is_gradient_measurement_mandatory=True):
                 shelf_inspection_record_instance = shelf_inspection_record()
                 shelf_inspection_record_instance.shelf = shelf_instance
                 shelf_inspection_record_instance.shelf_inspection = obj
