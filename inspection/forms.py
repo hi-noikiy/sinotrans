@@ -252,11 +252,18 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             )
 
     try:
+        CHOICE_LIST = []
+        for ins in UserModel.objects.all():
+            if not (ins, ins) in CHOICE_LIST:
+                CHOICE_LIST.append((ins, ins))
+        CHOICE_LIST.sort()
+        CHOICE_LIST.insert(0, ('', '----'))
+
         owner = forms.ChoiceField(
                 label=_('Owner'),
-                choices = set((ins, ins) for ins in UserModel.objects.all()),
+                choices = CHOICE_LIST, #set((ins, ins) for ins in UserModel.objects.all()),
                 # widget=forms.RadioSelect(),
-                required=True
+                required=False
                 )   
          
         use_condition = forms.ChoiceField(
@@ -285,9 +292,15 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             #self.fields['use_condition'].empty_label = None
 
     def clean(self):
-        #self.cleaned_data['shelf'] = self.clean_shelf()        
+  
         self.cleaned_data['id'] = self.clean_id()
-        #print self.cleaned_data
+
+        due_date = self.cleaned_data['due_date']
+        owner = self.cleaned_data['owner']
+        if not due_date or not owner:
+            if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+                raise forms.ValidationError(_('required when shelf is abnormal!'))
+
         return self.cleaned_data
 
     def clean_id(self):
@@ -319,21 +332,23 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             else:
                 return None
 
-    def clean_due_date(self):
-        due_date = self.cleaned_data['due_date']
-        if not due_date:
-            if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
-                raise forms.ValidationError(_('required when shelf is abnormal!'))
+    # def clean_due_date(self):
+    #     due_date = self.cleaned_data['due_date']
+    #     if not due_date:
+    #         if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+    #             raise forms.ValidationError(_('required when shelf is abnormal!'))
 
-        return due_date
+    #     return due_date
 
-    def clean_owner(self):
-        owner = self.cleaned_data['owner']
-        if not owner:
-            if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
-                raise forms.ValidationError(_('required when shelf is abnormal!'))
+    # def clean_owner(self):
 
-        return owner
+    #     # can't get gradient because it's in after position in db
+    #     owner = self.cleaned_data['owner']
+    #     if not owner:        
+    #         if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+    #             raise forms.ValidationError(_('required when shelf is abnormal!'))
+
+    #     return owner
         
     class Meta:
         model = shelf_inspection_record

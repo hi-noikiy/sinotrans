@@ -1077,6 +1077,11 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
                             if form.cleaned_data.get(fieldname, None) is not None: # be careful for False
                                 setattr(instance, fieldname, form.cleaned_data.get(fieldname))
                                 json_data.update({fieldname: instance.my_get_field_display(fieldname)})
+                            else: # workaround, to be clean later
+                                if "due_date" == fieldname:
+                                    setattr(instance, fieldname, None)
+                                    json_data.update({fieldname: ""})
+
 
                     instance.save()
                     return HttpResponse(json.dumps(json_data))
