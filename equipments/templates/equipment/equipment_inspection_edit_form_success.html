@@ -16,7 +16,7 @@
           });
 
           if({{is_create_view}}) {
-            $('tbody tr:first').before('<tr class="equipment-inspection-item table-primary-hover"><td>{{ object.equipment }}</td><td>{{ object.get_use_condition }}</td><td>{{ object.owner }}</td><td>{% if object.completed_time %}{{ object.completed_time }}{% endif %}</td><td>{{ object.inspector }}</td><td>{{ object.created }}</td><td><a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a></td></tr>');
+            $('tbody tr:first').before('<tr class="equipment-inspection-item table-primary-hover"><td>{{ object.equipment }}</td><td>{{ object.get_use_condition }}</td><td>{{ object.owner }}</td><td>{% if object.completed_time %}{{ object.completed_time }}{% endif %}</td><td>{{ object.inspector }}</td><td>{{ object.check_date }}</td><td><a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a></td></tr>');
             $('tr.equipment-inspection-item a').click(function() {
                 $(this).parent().parent().siblings().removeClass('edit-item');
                 $(this).parent().parent().addClass('edit-item');
@@ -27,7 +27,7 @@
             $('tr.edit-item td:nth-child(3)').replaceWith('<td>{{ object.owner }}</td>');
             $('tr.edit-item td:nth-child(4)').replaceWith('<td>{% if object.completed_time %}{{ object.completed_time }}{% endif %}</td>');
             $('tr.edit-item td:nth-child(5)').replaceWith('<td>{{ object.inspector }}</td>');
-            $('tr.edit-item td:nth-child(6)').replaceWith('<td>{{ object.created }}</td>');
+            $('tr.edit-item td:nth-child(6)').replaceWith('<td>{{ object.check_date }}</td>');
           }
 
         </script>

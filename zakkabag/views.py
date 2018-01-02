@@ -89,6 +89,13 @@ from inspection.api import (
     get_hydrant_uncompleted_url,
     get_hydrant_total_url,
 
+    get_other_equipment_rows,
+    get_other_equipment_total,
+    get_other_equipment_uncompleted,
+    get_other_equipment_efficiency,
+    get_other_equipment_uncompleted_url,
+    get_other_equipment_total_url,
+
     )
 
 def get_last_times():
@@ -172,6 +179,19 @@ def DashboardViewSINO(request):
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
     context["rows_hydrant"] = zip(rows,indicator,group,data)
+
+    rows = get_other_equipment_rows()
+    data1 = get_other_equipment_total()
+    data2 = get_other_equipment_uncompleted()
+    data3 = get_other_equipment_efficiency()
+    data4 = get_other_equipment_uncompleted_url()
+    data5 = get_other_equipment_total_url()
+    indicator = ["na"]*len(rows)
+    group = ["na"]*len(rows)
+    
+    data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
+
+    context["rows_other_equipment"] = zip(rows,indicator,group,data)
 
     return render(request,"dashboard_statistic.html",context)
 

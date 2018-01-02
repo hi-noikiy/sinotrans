@@ -58,9 +58,7 @@ $.ajax({
                 <h3>{% trans "Daily Inspection" %}</h3>
             </div>
             <div class="panel-body" >
-
                 {% include "dashboard_statistic_table.html" with thead_css="table-primary-light"  rows=rows_dailyinspection%}
-
         </div>
     </div>
 </div>
@@ -73,9 +71,7 @@ $.ajax({
                 <h3>{% trans "PI/NM" %}</h3>
             </div>
             <div class="panel-body" >
-
                 {% include "dashboard_statistic_table.html" with thead_css="table-primary-light" rows=rows_pi no_row_subtoal=True %}
-
         </div>
     </div>
 </div>
@@ -88,9 +84,7 @@ $.ajax({
                 <h3>{% trans "Spray Equipment" %}</h3>
             </div>
             <div class="panel-body" >
-
                 {% include "dashboard_statistic_table.html" with thead_css="table-primary-light" rows=rows_spray no_row_subtoal=True %}
-
         </div>
     </div>
 </div>
@@ -104,9 +98,20 @@ $.ajax({
                 <h3>{% trans "hydrant Equipment" %}</h3>
             </div>
             <div class="panel-body" >
-
                 {% include "dashboard_statistic_table.html" with thead_css="table-primary-light" rows=rows_hydrant no_row_subtoal=True %}
+        </div>
+    </div>
+</div>
 
+<div class='row'>
+    <div class='col-sm-12'>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>{% trans "Other Equipment" %}</h3>
+            </div>
+            <div class="panel-body" >
+                {% include "dashboard_statistic_table.html" with thead_css="table-primary-light" rows=rows_other_equipment no_row_subtoal=False %}
         </div>
     </div>
 </div>

@@ -107,7 +107,7 @@
                                 <td> {{object.owner}}</td>
                                 <td> {% if object.completed_time %}{{object.completed_time}}{% endif %}</td>
                                 <td> {{object.inspector}}</td>
-                                <td> {{object.created}}</td>
+                                <td> {{object.check_date}}</td>
                                 <td>
                                     {% if request.user.is_staff %}
                                     <a class="fa fa-pencil" data-toggle="modal" href="{% url 'equipmentinsepction_update' pk=object.id  %}" data-target="#modal" title="edit item" data-tooltip></a>

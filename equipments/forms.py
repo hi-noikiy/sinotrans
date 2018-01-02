@@ -30,12 +30,25 @@ class EquipmentInspectionForm(forms.ModelForm):
     )
 
     try:
-        owner = forms.ModelChoiceField(
+        CHOICE_LIST = []
+        for ins in get_user_model().objects.all():
+            if not (ins, ins) in CHOICE_LIST:
+                CHOICE_LIST.append((ins, ins))
+        CHOICE_LIST.sort()
+        CHOICE_LIST.insert(0, ('', '----'))
+
+        owner = forms.ChoiceField(
                 label=_('Owner'),
-                queryset=get_user_model().objects.all(),
-                empty_label = None, #not show enmpty
-                required=True
-                )     
+                choices = CHOICE_LIST,
+                required=False
+                )   
+
+        # owner = forms.ModelChoiceField(
+        #         label=_('Owner'),
+        #         queryset=get_user_model().objects.all(),
+        #         empty_label = None, #not show enmpty
+        #         required=True
+        #         )     
     except:
         pass
 
@@ -61,6 +74,22 @@ class EquipmentInspectionForm(forms.ModelForm):
                     field.widget.attrs['class'] = 'form-control'
 
         self.fields['due_date'].widget.attrs['class'] = self.fields['due_date'].widget.attrs['class'] + ' calendar'
+
+    def clean_due_date(self):
+        due_date = self.cleaned_data['due_date']
+        if not due_date:
+            if 'breakdown' == self.cleaned_data.get("use_condition"):
+                raise forms.ValidationError(_('This field is required.'))
+
+        return due_date
+
+    def clean_owner(self):
+        owner = self.cleaned_data['owner']
+        if not owner:
+            if 'breakdown' == self.cleaned_data.get("use_condition"):
+                raise forms.ValidationError(_('This field is required.'))
+
+        return owner
 
 # class EquipmentInspectionModelFormSet(BaseModelFormSet):
 #     pass
@@ -159,10 +188,10 @@ class SprayPumpRoomInspectionForm(forms.ModelForm):
         super(SprayPumpRoomInspectionForm, self).__init__(*args, **kwargs)
         self.fields['year'].widget.attrs['readonly'] = True
         self.fields['month'].widget.attrs['readonly'] = True
-        # if 'class' in self.fields['created'].widget.attrs.keys():
-        #     self.fields['created'].widget.attrs['class'] = self.fields['created'].widget.attrs['class'] + "calenda"   
+        # if 'class' in self.fields['check_date'].widget.attrs.keys():
+        #     self.fields['check_date'].widget.attrs['class'] = self.fields['check_date'].widget.attrs['class'] + "calenda"   
         # else:
-        #     self.fields['created'].widget.attrs['class'] ="calenda"
+        #     self.fields['check_date'].widget.attrs['class'] ="calenda"
 
 spray_pumproom_inspection_model_formset = modelformset_factory(SprayPumpRoomInspection,
                                             form=SprayPumpRoomInspectionForm,

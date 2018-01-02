@@ -277,7 +277,7 @@ class VehicleInspection(models.Model):
 
     vehicle = models.ForeignKey(Vehicle, verbose_name=_("vehicle") )
     driver = models.ForeignKey(Driver, verbose_name=_("driver")) 
-    created = models.DateField(_("Date of Inspection"), blank=False, null=False,auto_now=False, auto_now_add=True)
+    created = models.DateTimeField(_("Date of Inspection"), blank=False, null=False,auto_now=False, auto_now_add=True)
     inspector = models.CharField(_("Inspector"), blank=False, null=False, max_length=30)
     owner = models.CharField(_("Owner"), blank=False, null=False, max_length=30)
     load_or_unload = models.CharField(_("load or unload"), choices = load_or_unload, blank=False, null=False, max_length=30, default='load')

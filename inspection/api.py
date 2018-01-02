@@ -194,7 +194,7 @@ def get_pi_uncompleted_url():
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>
 def get_spray_rows():
-    return (('SprayPumpRoomInspection', _('Spray Pump Room')),) + (('SprayWarehouseInspection', _('Spray Warehouse')),) #+ (('', _('Total')),)
+    return (('SprayPumpRoomInspection', _('Spray Pump Room')),) + (('SprayWarehouseInspection', _('Spray Warehouse')),) #
 
 def get_spary_model_queryset(model_name,rectification_status, year,month):
 
@@ -345,3 +345,82 @@ def get_hydrant_uncompleted_url():
     return [[get_hydrant_model_url(model_name[0],'breakdown',year,month) \
                 for month, year in get_last_times()] \
                     for model_name in get_hydrant_rows()] 
+
+
+# >>>>>>>>>>>>>>>
+from equipments.models import EquipmentType, Equipment, EquipmentInspection
+def get_other_equipment_rows():
+    return [(instance, instance.name ) for instance in EquipmentType.objects.all()] + [('', _('Total')),]
+
+def get_other_equipment_model_queryset(category,check_result, year,month, is_efficiency=False):
+
+    q = None
+    if category:
+        q = Q(equipment__type__id__exact=category.id) 
+
+    if year and month:
+        q = q & Q(check_date__startswith="{0}-{1:0>2d}-".format(year,month)) if q else Q(check_date__startswith="{0}-{1:0>2d}-".format(year,month))
+    else:
+        q = q & Q(check_date__startswith="{0}-".format(year)) if q else Q(check_date__startswith="{0}-".format(year))
+
+    if check_result:
+        q = q & Q(use_condition__exact=check_result) if q else Q(use_condition__exact=check_result)
+
+    if is_efficiency:
+        q = q & Q(completed_time__gte="{0}-01-01".format(year)) if q else Q(check_result__exact="{0}-01-01".format(year))
+
+    qs = EquipmentInspection.objects.filter(q) if q else EquipmentInspection.objects.all()
+
+    return qs
+
+def get_other_equipment_total():
+    return [[get_other_equipment_model_queryset(category[0],"",year,month).count()\
+                for month, year in get_last_times()] \
+                    for category in get_other_equipment_rows()]
+
+def get_other_equipment_uncompleted():
+    return [[get_other_equipment_model_queryset(category[0],"breakdown",year,month).count()\
+                for month, year in get_last_times()] \
+                    for category in get_other_equipment_rows()]
+
+def get_other_equipment_efficiency():
+    efficiency_array = get_other_equipment_uncompleted()
+
+    for i, category in enumerate(get_other_equipment_rows()):
+        for j, [month, year] in enumerate(get_last_times()):            
+            time_consumings = 0
+            completed_qs = get_other_equipment_model_queryset(category[0],"normal",year,month,is_efficiency=True)
+            for instance in completed_qs:
+                time_consumings = time_consumings + instance.time_consuming()
+            efficiency_array[i][j]= time_consumings / completed_qs.count() if completed_qs.count() else '-'
+    return efficiency_array
+
+def get_other_equipment_model_url(category,check_result, year,month):
+    
+    url = reverse("equipmentinsepction_list", kwargs={}) 
+    q = None
+    if category:
+        q = "?category_id={0}".format(category.id)
+
+    if year and month:
+        q = "{0}&date_of_inspection_start={1}-{2}-01&date_of_inspection_end={1}-{2}-{3}".format(q,year,month,calendar.monthrange(year, month)[1]) if q else\
+            "?date_of_inspection_start={0}-{1}-01&date_of_inspection_end={0}-{1}-{2}".format(year,month,calendar.monthrange(year, month)[1])
+    else:
+        q = "{0}&date_of_inspection_start={1}-01-01&date_of_inspection_end={1}-12-31".format(q,year) if q else\
+            "?date_of_inspection_start={0}-01-01&date_of_inspection_end={0}-12-31".format(year)        
+    if check_result:
+        q = "{0}&use_condition={1}".format(q,check_result) if q else\
+            "?use_condition={0}".format(check_result)
+
+    return "{0}{1}".format(url, q)
+
+def get_other_equipment_total_url():
+    return [[get_other_equipment_model_url(category[0],'',year,month) \
+                for month, year in get_last_times()] \
+                    for category in get_other_equipment_rows()]       
+
+def get_other_equipment_uncompleted_url():
+
+    return [[get_other_equipment_model_url(category[0],'breakdown',year,month) \
+                for month, year in get_last_times()] \
+                    for category in get_other_equipment_rows()] 
