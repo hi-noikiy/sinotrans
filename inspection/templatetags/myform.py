@@ -106,3 +106,10 @@ def gradient_normal(val):
     if val > -1.5 and val < 1.5:
         return True
     return False
+
+@register.filter(name='list_elem')
+def list_elem(list, index):
+    if len(list) < index + 1:
+        return None
+    return list[index]
+    

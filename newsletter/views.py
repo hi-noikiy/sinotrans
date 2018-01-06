@@ -66,7 +66,7 @@ def home(request):
 
     try:
         records_list = [(object, \
-            object.shelf_inspection_record_set.filter(use_condition=1).count(), \
+            object.shelf_inspection_record_set.filter(use_condition="normal").count(), \
             object.shelf_inspection_record_set.filter(is_locked=False).count(), \
             object.shelf_inspection_record_set.filter(gradient__gt=1.4).count()) for object in shelf_inspection.objects.all()]
         context["shelf_inspection_records"] = records_list[:10]

@@ -368,8 +368,8 @@ class ShelfInspectionRecordManager(models.Manager):
 
 class shelf_inspection_record(models.Model):
     shelf_inspection_record_use_condition = (
-        ('1', _('Normal')),
-        ('2', _('Breakdown')),
+        ('normal', _('Normal')),
+        ('breakdown', _('Breakdown')),
     )
 
     shelf = models.ForeignKey(shelf, verbose_name=_('Shelf'))
@@ -418,7 +418,7 @@ class shelf_inspection_record(models.Model):
 
     def is_normal(self):
         obj=self
-        return '1' == obj.use_condition and False == obj.is_locked and obj.gradient < 1.5 and obj.gradient > -1.5
+        return 'normal' == obj.use_condition and False == obj.is_locked and obj.gradient < 1.5 and obj.gradient > -1.5
 
     def turn_normal(self, instance):
         return instance.is_normal() == False and self.is_normal()

@@ -12,7 +12,8 @@
     fields_display
 -->
 <style type="text/css">
-    .table-total, .table-total a{
+    .table-transposition-display .table-total, 
+    .table-transposition-display .table-total a{
         color: #af730d;
     }
 
@@ -20,7 +21,8 @@
         background-color: #c09853;
     }*/
 
-    .table-warning, .table-warning a{
+    .table-transposition-display .table-warning, 
+    .table-transposition-display .table-warning a{
         color: red;
     }
 
@@ -28,16 +30,22 @@
         color: red!important;
     }*/
 
-    .table-subtotal, .table-subtotal a{
+    .table-transposition-display .table-subtotal, 
+    .table-transposition-display .table-subtotal a{
         background-color: #428bca!important;
         color:white;
     }
 
-    .table-subtotal th, .table-subtotal td{
+    .table-transposition-display .table-subtotal th, 
+    .table-transposition-display .table-subtotal td{
         background-color: #428bca!important;
         color:white;
     }
 
+.table-transposition-display a {
+    color: #428bca; 
+    text-decoration: none;
+}
 a:link {text-decoration: none;}
 a:visited {text-decoration: none;}
 a:active {text-decoration: none;}
@@ -77,12 +85,13 @@ a:hover {text-decoration: none;}
 
                 {% for columns in row.3 %}
                     {% for column in columns %}
-                    {% if forloop.counter0  < 3 %}
-                        <td class="cell {% if forloop.first %} table-total {% elif forloop.counter0 == 1 and column > 0%} table-warning {% endif %} {% if forloop.parentloop.last %}table-subtotal{% endif %}" >
+                    {% if forloop.counter0  < column_css|length %}
+                        <td class="cell {% if column > 0 %} {{column_css|list_elem:forloop.counter0}} {% endif %} {% if forloop.parentloop.last %}table-subtotal{% endif %}" >
+                        <!-- to be updated later, now the data length is fixed to 3 -->
                         {% if forloop.counter0 == 0 %}
-                            <a href="{{columns.4}}">{{column}}</a>
+                            <a href="{{columns.3}}">{{column}}</a>
                         {% elif forloop.counter0 == 1 %}
-                            <a href="{{columns.3}}">{{column}}</a>                            
+                            <a href="{{columns.4}}">{{column}}</a>                            
                         {% else %}
                             {{column}}
                         {% endif %}                  

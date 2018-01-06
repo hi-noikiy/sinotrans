@@ -96,6 +96,13 @@ from inspection.api import (
     get_other_equipment_uncompleted_url,
     get_other_equipment_total_url,
 
+    get_shelf_inspection_rows,
+    get_shelf_inspection_total,
+    get_shelf_inspection_uncompleted,
+    get_shelf_inspection_efficiency,
+    get_shelf_inspection_uncompleted_url,
+    get_shelf_inspection_total_url,
+    
     )
 
 def get_last_times():
@@ -112,7 +119,7 @@ def DashboardViewSINO(request):
 
     # (display, rowspan, columnspan)
     column_header1 = [
-        [ [month[1],1,3] for month in month_choice + (('', _('total number')),) ]
+        [ [month[1],1,3] for month in month_choice + (('', _('Total')),) ]
     ]
 
     column_header2 = [[
@@ -129,14 +136,17 @@ def DashboardViewSINO(request):
 
     column_header1[0].insert(0,[_("category"),2,1])
 
+    column_css = ['table-total','table-warning','']
+
     context = {}   
     context["headers"] = column_header1 + column_header2 
+    context["column_css"] = column_css # MUST = data field length
 
     data1 = get_daily_inspection_total()
     data2 = get_daily_inspection_uncompleted()
     data3 = get_daily_inspection_efficiency()
-    data4 = get_daily_inspection_uncompleted_url()
-    data5 = get_daily_inspection_total_url()
+    data4 = get_daily_inspection_total_url()
+    data5 = get_daily_inspection_uncompleted_url()
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]
                                                        
@@ -150,9 +160,9 @@ def DashboardViewSINO(request):
     rows = get_pi_rows()
     data1 = get_whpi_total()
     data2 = get_whpi_uncompleted()
-    data3 = get_whpi_efficiency()
-    data4 = get_pi_uncompleted_url()
-    data5 = get_pi_total_url()
+    data3 = get_whpi_efficiency()    
+    data4 = get_pi_total_url()
+    data5 = get_pi_uncompleted_url()
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
     context["rows_pi"] = zip(rows,indicator,group,data)
@@ -160,9 +170,9 @@ def DashboardViewSINO(request):
     rows = get_spray_rows()
     data1 = get_spray_total()
     data2 = get_spray_uncompleted()
-    data3 = get_spray_efficiency()
-    data4 = get_spray_uncompleted_url()
-    data5 = get_spray_total_url()
+    data3 = get_spray_efficiency()    
+    data4 = get_spray_total_url()
+    data5 = get_spray_uncompleted_url()
 
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
@@ -172,9 +182,9 @@ def DashboardViewSINO(request):
     rows = get_hydrant_rows()
     data1 = get_hydrant_total()
     data2 = get_hydrant_uncompleted()
-    data3 = get_hydrant_efficiency()
-    data4 = get_hydrant_uncompleted_url()
-    data5 = get_hydrant_total_url()
+    data3 = get_hydrant_efficiency()    
+    data4 = get_hydrant_total_url()
+    data5 = get_hydrant_uncompleted_url()
 
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
@@ -183,15 +193,28 @@ def DashboardViewSINO(request):
     rows = get_other_equipment_rows()
     data1 = get_other_equipment_total()
     data2 = get_other_equipment_uncompleted()
-    data3 = get_other_equipment_efficiency()
-    data4 = get_other_equipment_uncompleted_url()
-    data5 = get_other_equipment_total_url()
+    data3 = get_other_equipment_efficiency()    
+    data4 = get_other_equipment_total_url()
+    data5 = get_other_equipment_uncompleted_url()
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
-    
+
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
 
     context["rows_other_equipment"] = zip(rows,indicator,group,data)
+
+    rows = get_shelf_inspection_rows()
+    data1 = get_shelf_inspection_total()
+    data2 = get_shelf_inspection_uncompleted()
+    data3 = get_shelf_inspection_efficiency()    
+    data4 = get_shelf_inspection_total_url()
+    data5 = get_shelf_inspection_uncompleted_url()
+    indicator = ["na"]*len(rows)
+    group = ["na"]*len(rows)
+
+    data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
+
+    context["rows_shelf_inspection"] = zip(rows,indicator,group,data)
 
     return render(request,"dashboard_statistic.html",context)
 

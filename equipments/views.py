@@ -17,6 +17,7 @@ import csv
 import codecs
 from django.utils import timezone
 from inspection.mixins import StaffRequiredMixin
+from inspection.utils import gen_csv
 
 from .models import  (
     EquipmentInspection,
@@ -155,17 +156,19 @@ class EquipmentInspectionListView(FilterMixin, ListView):
         qs = self.get_queryset()
         f = EquipmentInsepctionFilter(self.request.GET, queryset=qs)
 
+        fields_display = [ "use_condition", ]
+        fields_fk = ["equipment",  ]
+        fields_datetime = ["updated","completed_time", ]
+        
+        return gen_csv(self.model, f.qs, "equipment_export.csv", fields_display, fields_fk, fields_datetime)
+
         response = HttpResponse(content_type='text/csv')        
         response['Content-Disposition'] = 'attachment; filename="equipment_export.csv"'
         response.write(codecs.BOM_UTF8) # add bom header
         writer = csv.writer(response)
 
         row = []
-        fields_display = [ "use_condition", ]
-        fields_fk = ["equipment",  ]
-        fields_datetime = ["updated","completed_time", ]
         for field in self.model._meta.get_fields():
-            print field.verbose_name
             row.append(field.verbose_name)
         writer.writerow(row)
 

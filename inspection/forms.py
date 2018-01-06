@@ -306,7 +306,7 @@ class ShelfInspectionRecordForm(forms.ModelForm):
         due_date = self.cleaned_data['due_date']
         owner = self.cleaned_data['owner']
         if not due_date or not owner:
-            if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+            if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
                 raise forms.ValidationError(_('required when shelf is abnormal!'))
 
         return self.cleaned_data
@@ -343,7 +343,7 @@ class ShelfInspectionRecordForm(forms.ModelForm):
     # def clean_due_date(self):
     #     due_date = self.cleaned_data['due_date']
     #     if not due_date:
-    #         if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+    #         if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
     #             raise forms.ValidationError(_('required when shelf is abnormal!'))
 
     #     return due_date
@@ -353,7 +353,7 @@ class ShelfInspectionRecordForm(forms.ModelForm):
     #     # can't get gradient because it's in after position in db
     #     owner = self.cleaned_data['owner']
     #     if not owner:        
-    #         if '2' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+    #         if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
     #             raise forms.ValidationError(_('required when shelf is abnormal!'))
 
     #     return owner

@@ -867,7 +867,7 @@ class ShelfInspectionListView(TableListViewMixin, ListView):
         #queryset = shelf_inspection.objects.all()
 
         records_list = [(object, \
-            object.shelf_inspection_record_set.filter(use_condition=2).count(), \
+            object.shelf_inspection_record_set.filter(use_condition="breakdown").count(), \
             object.shelf_inspection_record_set.filter(is_locked=True).count(), \
             object.shelf_inspection_record_set.filter(gradient__gt=1.4).count()) for object in shelf_inspection.objects.all()]
 
@@ -888,8 +888,8 @@ class ShelfInspectionListView(TableListViewMixin, ListView):
         #context["object_list"] = queryset
         context["records"] = records
 
-        # context["uncompleted_shelf_inspection_record"] = shelf_inspection_record.objects.filter(
-        #         Q(use_condition=2) |
+        # context["shelf_inspection_record"] = shelf_inspection_record.objects.filter(
+        #         Q(use_condition="breakdown") |
         #         Q(is_locked = True) |
         #         Q(gradient__gt = 1.4)
         #     ).distinct().order_by("shelf_inspection")
@@ -1130,7 +1130,7 @@ class ShelfInspectionCreateView(StaffRequiredMixin, CreateView):
                 shelf_inspection_record_instance = shelf_inspection_record()
                 shelf_inspection_record_instance.shelf = shelf_instance
                 shelf_inspection_record_instance.shelf_inspection = obj
-                shelf_inspection_record_instance.use_condition = 1             
+                shelf_inspection_record_instance.use_condition = "normal"
                 shelf_inspection_record_instance.inspector = self.request.user.get_full_name()
                 shelf_inspection_record_instance.is_locked = False
                 shelf_inspection_record_instance.gradient = 0
@@ -1267,12 +1267,34 @@ class ShelfInspectionRecordListView(TableListViewMixin, ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfInspectionRecordListView, self).get_context_data(*args, **kwargs)    
-        context["uncompleted_shelf_inspection_record"] = shelf_inspection_record.objects.filter(
-                Q(use_condition=2) |
-                Q(is_locked = True) |
-                Q(gradient__gt = 1.4)
-            ).distinct().order_by("shelf_inspection") if self.request.user.is_staff else None
+        object_list = context["object_list"]
+        if self.kwargs and self.kwargs.get("status", None) == 'abnormal':
+            object_list = shelf_inspection_record.objects.filter(
+                    Q(use_condition="breakdown") |
+                    Q(is_locked = True) |
+                    Q(gradient__gt = 1.4)
+                ).distinct().order_by("shelf_inspection") if self.request.user.is_staff else None
+        else:
+            check_result = self.request.GET.get('check_result', None)
+            start = self.request.GET.get('start', None)
+            end = self.request.GET.get('end', None)
 
+            query = None
+            if start:
+                query = Q(check_date__gte=start)
+            if end:
+                query = query & Q(check_date__lte=end) if query else Q(check_date__lte=end)
+            if check_result:
+                query = query & Q(use_condition__exact=check_result) if query else Q(use_condition__exact=check_result)
+
+            if query:
+                object_list = object_list.filter(query)
+
+        if object_list and not self.request.user.is_staff:
+            object_list = object_list.filter(check_result='normal')
+
+        context["shelf_inspection_record"] = object_list   
+                
         from .admin import ShelfInspectionRecordAdmin
         context["fields_shelf_inspection_record"] = [field.name for field in shelf_inspection_record._meta.get_fields() if field.name in ShelfInspectionRecordAdmin.list_display]
 

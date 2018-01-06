@@ -13,8 +13,9 @@
 
 {% block content %}
 
-{% if uncompleted_shelf_inspection_record and uncompleted_shelf_inspection_record.count %}
-    {% include "inlines/list_view.html" with object_foreign_set=uncompleted_shelf_inspection_record fields_foreign=fields_shelf_inspection_record fields_foreign_display=fields_shelf_inspection_record_display field_display_links=field_display_links title=title page_num=50 table_class='table-align-center' %}
+{% if shelf_inspection_record and shelf_inspection_record.count %}
+    {# include "inlines/list_view.html" with object_foreign_set=shelf_inspection_record fields_foreign=fields_shelf_inspection_record fields_foreign_display=fields_shelf_inspection_record_display field_display_links=field_display_links title=title page_num=50 table_class='table-align-center' #}
+    {% include "includes/model_list_table_display.html" with object_list=shelf_inspection_record fields=fields_shelf_inspection_record fields_display=fields_shelf_inspection_record_display field_display_links=field_display_links title=title line_per_page=50 table_class='table-align-center' %}
 {% else %}
     {% trans "Nothing found" %}
     <br><br>
