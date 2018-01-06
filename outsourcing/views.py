@@ -165,8 +165,8 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
     fields = ForkliftRepairAdmin.list_display
     fields_display = ["repaired",]
    
-    def get_queryset(self, *args, **kwargs):
-        return self.model.objects.filter(repaired="no") if self.request.user.is_staff else None
+    # def get_queryset(self, *args, **kwargs):
+    #     return self.model.objects.filter(repaired="no") if self.request.user.is_staff else None
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
@@ -175,6 +175,43 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
             (_('forklift repair'),request.path_info),
         ])
         return super(ForkliftRepairListView, self).dispatch(request,args,kwargs)   
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ForkliftRepairListView, self).get_context_data(*args, **kwargs)
+        object_list = context["object_list"]
+
+        if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
+            object_list = self.model.objects.filter(repaired="no", due_date__lte=timezone.now())
+        elif self.request.GET.get('uncompleted'):
+            object_list = self.model.objects.filter(repaired="no")
+        else:
+            check_result = self.request.GET.get('repaired', None)
+            start = self.request.GET.get('start', None)
+            end = self.request.GET.get('end', None)
+
+            query = None
+            if start:
+                query = Q(created__gte=start)
+            if end:
+                query = query & Q(created__lte=end) if query else Q(created__lte=end)
+            if check_result:
+                query = query & Q(repaired__exact=check_result) if query else Q(repaired__exact=check_result)
+        
+            if query:
+                print "1"
+                print object_list                    
+                object_list = object_list.filter(query)
+                print "2"
+                print object_list                    
+
+
+        if object_list and not self.request.user.is_staff:
+            object_list = object_list.filter(repaired='yes')
+
+        context["object_list"] = object_list                   
+
+        return context 
+
 
 class ForkliftRepairDetailView(TableDetailViewMixin, DetailView): 
     model = ForkliftRepair

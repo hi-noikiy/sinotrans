@@ -145,4 +145,17 @@ $.ajax({
     </div>
 </div>
 
+
+<div class='row'>
+    <div class='col-sm-12'>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>{% trans "forklift repair" %}<small> Total:{{forklift_count}}</small></h3>
+            </div>
+            <div class="panel-body" >
+                {% include "dashboard_statistic_table.html" with thead_css="table-primary-light" rows=rows_forklift_repair no_row_subtoal=True %}
+        </div>
+    </div>
+</div>
 {% endblock %}

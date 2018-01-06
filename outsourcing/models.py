@@ -160,6 +160,12 @@ class ForkliftRepair(models.Model):
         
     def get_absolute_url_list(self):
         return reverse("forklift_repair_list", kwargs={})
+
+    def time_consuming(self):
+        days = (datetime.strptime(str(self.repaire_date),'%Y-%m-%d').replace(tzinfo=None) - self.created.replace(tzinfo=None)).days
+
+        return days if days > 0 else 0
+
         
     """
     replace by built-in function get_repaired_display
