@@ -303,11 +303,11 @@ class ShelfInspectionRecordForm(forms.ModelForm):
   
         self.cleaned_data['id'] = self.clean_id()
 
-        due_date = self.cleaned_data['due_date']
-        owner = self.cleaned_data['owner']
-        if not due_date or not owner:
-            if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
-                raise forms.ValidationError(_('required when shelf is abnormal!'))
+        # due_date = self.cleaned_data['due_date']
+        # owner = self.cleaned_data['owner']
+        # if not due_date or not owner:
+        #     if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+        #         raise forms.ValidationError(_('some parameters are missing!'))
 
         return self.cleaned_data
 
@@ -340,23 +340,23 @@ class ShelfInspectionRecordForm(forms.ModelForm):
             else:
                 return None
 
-    # def clean_due_date(self):
-    #     due_date = self.cleaned_data['due_date']
-    #     if not due_date:
-    #         if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
-    #             raise forms.ValidationError(_('required when shelf is abnormal!'))
+    def clean_due_date(self):
+        due_date = self.cleaned_data['due_date']
+        if not due_date:
+            if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+                raise forms.ValidationError(_('required when shelf is abnormal!'))
 
-    #     return due_date
+        return due_date
 
-    # def clean_owner(self):
+    def clean_owner(self):
 
-    #     # can't get gradient because it's in after position in db
-    #     owner = self.cleaned_data['owner']
-    #     if not owner:        
-    #         if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
-    #             raise forms.ValidationError(_('required when shelf is abnormal!'))
+        # Owner must be after the dependency elem in model, otherwise it can't get the valude
+        owner = self.cleaned_data['owner']
+        if not owner:        
+            if 'breakdown' == self.cleaned_data.get("use_condition") or True == self.cleaned_data.get("is_locked") or self.cleaned_data.get("gradient") > 1.41 or self.cleaned_data.get("gradient") < -1.49:
+                raise forms.ValidationError(_('required when shelf is abnormal!'))
 
-    #     return owner
+        return owner
         
     class Meta:
         model = shelf_inspection_record

@@ -376,9 +376,9 @@ class shelf_inspection_record(models.Model):
     shelf_inspection = models.ForeignKey(shelf_inspection, default=None, verbose_name=_("shelf inspection"))
     use_condition = models.CharField(_('Use Condition'), choices = shelf_inspection_record_use_condition, max_length=30, blank=True) 
     is_locked = models.BooleanField(_('Locked'), blank=True)
+    gradient = models.DecimalField(_('Gradient'), decimal_places=1, max_digits=20, blank=True, null=True)    
     inspector = models.CharField(_('Check Person'), max_length=30, blank=True)
     owner = models.CharField(_('Owner'), max_length=30, blank=True, null=True)
-    gradient = models.DecimalField(_('Gradient'), decimal_places=1, max_digits=20, blank=True, null=True)
     check_date = models.DateField(_('Check Date'),auto_now_add=True, auto_now=False)
     due_date = models.DateField(_('Forecast Complete Time'), auto_now_add=False, auto_now=False, null=True, blank=True)
     completed_time = models.DateTimeField(_('rectification completed time'), auto_now_add=False, auto_now=False, null=True, blank=True)
@@ -425,6 +425,10 @@ class shelf_inspection_record(models.Model):
 
     def turn_abnormal(self, instance):
         return instance.is_normal() and self.is_normal() == False
+
+    def time_consuming(self):
+        return (self.completed_time.replace(tzinfo=None) - datetime.strptime(str(self.check_date),'%Y-%m-%d').replace(tzinfo=None)).days
+
 
     class Meta:
         verbose_name = _("shelf inspection record")
