@@ -46,13 +46,16 @@ urlpatterns = [
     url(r'^vehicle/inspection/create$', VehicleInspectionCreateView.as_view(), name='vehicle_inspection_create'),  
     url(r'^vehicle/inspection/detail/(?P<pk>\d+)/$', VehicleInspectionDetailView.as_view(), name='vehicle_inspection_detail'),
     url(r'^vehicle/inspection/update/(?P<pk>\d+)/$', VehicleInspectionUpdateView.as_view(), name='vehicle_inspection_update'),
+
     url(r'^driver$', DriverListView.as_view(), name='driver_list'),  
     url(r'^driver/detail/(?P<pk>\d+)/$', DriverDetailView.as_view(), name='driver_detail'),    
+
     url(r'^transportaionkpi$', TransportationKPIListDisplayView.as_view(), name='transportationkpi_list_display'),  
     url(r'^transportaionkpi/edit$', TransportationKPIListEditView.as_view(), name='transportationkpi_list_edit'),      
     url(r'^transportaionkpi/detail/(?P<pk>\d+)/$', TransportationKPIDetailView.as_view(), name='transportationkpi_detail'),   
     url(r'^transportaionkpi/update/(?P<pk>\d+)/$', TransportationKPIUpdateView.as_view(), name='transportationkpi_update'),   
     url(r'^transportaionkpi/create/(?P<year>\d+)/(?P<month>\d+)/(?P<project>\w+)/$', TransportationKPICreateView.as_view(), name='transportationkpi_create'),   
+    
     url(r'^forklift$', ForkliftListView.as_view(), name='forklift_list'),  
     url(r'^forklift/create$', ForkliftCreateView.as_view(), name='forklift_create'),  
     url(r'^forklift/detail/(?P<pk>\d+)/$', ForkliftDetailView.as_view(), name='forklift_detail'),    

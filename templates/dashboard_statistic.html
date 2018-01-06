@@ -50,6 +50,8 @@ $.ajax({
 
 {% block content %}
 
+<p style="color:gray;"> {% trans "total number" %} = {% trans "inspection total number" %}  |  {% trans "Uncompleted" %} = {% trans "rectification uncompleted" %}  |  {% trans "efficiency" %} = {% trans "completed rectification average cost days" %} </p>
+
 <div class='row'>
     <div class='col-sm-12'>
 
@@ -57,8 +59,9 @@ $.ajax({
             <div class="panel-heading">
                 <h3>{% trans "Daily Inspection" %}</h3>
             </div>
-            <div class="panel-body" >
+            <div class="panel-body" >                
                 {% include "dashboard_statistic_table.html" with thead_css="table-primary-light"  rows=rows_dailyinspection%}
+                
         </div>
     </div>
 </div>
@@ -121,10 +124,23 @@ $.ajax({
 
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3>{% trans "shelf inspection" %}</h3>
+                <h3>{% trans "shelf inspection" %}<small> Total:{{shelf_count}}</small></h3>
             </div>
             <div class="panel-body" >
                 {% include "dashboard_statistic_table.html" with thead_css="table-primary-light" rows=rows_shelf_inspection no_row_subtoal=True %}
+        </div>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-sm-12'>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>{% trans "vehicle inspection" %}<small> Total:{{vehicle_count}}</small></h3>
+            </div>
+            <div class="panel-body" >
+                {% include "dashboard_statistic_table.html" with thead_css="table-primary-light" rows=rows_vehicle_inspection no_row_subtoal=True %}
         </div>
     </div>
 </div>

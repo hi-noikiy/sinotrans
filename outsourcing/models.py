@@ -324,6 +324,10 @@ class VehicleInspection(models.Model):
     def is_rectification_qualified(self):
         return self.rectification_qualified == "yes"
 
+    def time_consuming(self):
+        return (self.completed_time - self.created).days
+
+
 class VehicleTransportationKPI(models.Model):
     TRANSPORTATION_PROJECT_OPTION = (
         ('01', _('shuttle bus')),

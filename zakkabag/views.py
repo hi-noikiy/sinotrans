@@ -102,7 +102,13 @@ from inspection.api import (
     get_shelf_inspection_efficiency,
     get_shelf_inspection_uncompleted_url,
     get_shelf_inspection_total_url,
-    
+
+    get_vehicle_inspection_rows,
+    get_vehicle_inspection_total,
+    get_vehicle_inspection_uncompleted,
+    get_vehicle_inspection_efficiency,
+    get_vehicle_inspection_uncompleted_url,
+    get_vehicle_inspection_total_url,
     )
 
 def get_last_times():
@@ -215,6 +221,23 @@ def DashboardViewSINO(request):
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
 
     context["rows_shelf_inspection"] = zip(rows,indicator,group,data)
+    from inspection.models import shelf
+    context["shelf_count"] = shelf.objects.all().count
+
+    rows = get_vehicle_inspection_rows()
+    data1 = get_vehicle_inspection_total()
+    data2 = get_vehicle_inspection_uncompleted()
+    data3 = get_vehicle_inspection_efficiency()    
+    data4 = get_vehicle_inspection_total_url()
+    data5 = get_vehicle_inspection_uncompleted_url()
+    indicator = ["na"]*len(rows)
+    group = ["na"]*len(rows)
+
+    data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
+
+    context["rows_vehicle_inspection"] = zip(rows,indicator,group,data)
+    from outsourcing.models import Vehicle
+    context["vehicle_count"] = Vehicle.objects.all().count
 
     return render(request,"dashboard_statistic.html",context)
 

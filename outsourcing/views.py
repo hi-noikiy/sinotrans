@@ -15,6 +15,7 @@ from django.utils import timezone
 from django.forms import models as model_forms
 from django.utils import timezone
 from datetime import datetime, timedelta
+from django.db.models import Q
 
 import collections
 
@@ -541,9 +542,36 @@ class VehicleInspectionListView(TableListViewMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(VehicleInspectionListView, self).get_context_data(*args, **kwargs)
 
-        from .admin import VehicleInspectionAdmin
+
+        object_list = context["object_list"]
+
+
+        if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
+            object_list = self.model.objects.filter(rectification_qualified="breakdown", due_date__lte=timezone.now())
+        elif self.request.GET.get('uncompleted'):
+            object_list = self.model.objects.filter(rectification_qualified="breakdown")
+        else:
+            rectification_qualified = self.request.GET.get('rectification_qualified', None)
+            start = self.request.GET.get('start', None)
+            end = self.request.GET.get('end', None)
+
+            query = None
+            if start:
+                query = Q(created__gte=start)
+            if end:
+                query = query & Q(created__lte=end) if query else Q(created__lte=end)
+            if rectification_qualified:
+                query = query & Q(rectification_qualified__exact=rectification_qualified) if query else Q(rectification_qualified__exact=rectification_qualified)
+                
+            if query:
+                object_list = object_list.filter(query)
+
+        if object_list and not self.request.user.is_staff:
+            object_list = self.model.objects.filter(rectification_qualified='no') if self.request.user.is_staff else None
+
+        context["object_list"] = object_list         
         
-        context["object_list"] = self.model.objects.filter(rectification_qualified='no') if self.request.user.is_staff else None
+        from .admin import VehicleInspectionAdmin
         context["fields"] = VehicleInspectionAdmin.list_display
         context["fields"] = [
                 "vehicle", 
