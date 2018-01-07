@@ -87,11 +87,27 @@ a:hover {text-decoration: none;}
                     {% for column in columns %}
                     {% if forloop.counter0  < column_css|length %}
                         <td class="cell {% if column > 0 %} {{column_css|list_elem:forloop.counter0}} {% endif %} {% if forloop.parentloop.last %}table-subtotal{% endif %}" >
-                        <!-- to be updated later, now the data length is fixed to 3 -->
-                        {% if forloop.counter0 == 0 %}
-                            <a href="{{columns.3}}">{{column}}</a>
+                        <!-- to be updated later, render it in backgroud -->
+                        {% if forloop.counter0 == 0  %}
+                            {% if column_css|length == 3 and columns.3 %}
+                                <a href="{{columns.3}}">{{column}}</a>
+                            {% elif column_css|length == 2 and columns.2 %}
+                                <a href="{{columns.2}}">{{column}}</a>
+                            {% elif column_css|length == 4 and columns.4 %}
+                                <a href="{{columns.4}}">{{column}}</a>
+                            {% else %}
+                                {{column}}                                
+                            {% endif %}
                         {% elif forloop.counter0 == 1 %}
-                            <a href="{{columns.4}}">{{column}}</a>                            
+                            {% if column_css|length == 3 and columns.4 %}
+                                <a href="{{columns.4}}">{{column}}</a>
+                            {% elif column_css|length == 2 and columns.3 %}
+                                <a href="{{columns.3}}">{{column}}</a>
+                            {% elif column_css|length == 4 and columns.5 %}
+                                <a href="{{columns.5}}">{{column}}</a>
+                            {% else %}
+                                {{column}} 
+                            {% endif %}          
                         {% else %}
                             {{column}}
                         {% endif %}                  
