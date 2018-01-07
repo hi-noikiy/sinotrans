@@ -16,6 +16,7 @@ from .models import (
 from .forms import AnnualTrainingPlanFilterForm, AnnualTraningPlanForm,TrainingRecordForm #, TransportationAnnualTraningPlanForm, WarehouseAnnualTraningPlanForm
 from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
 from django.forms import models as model_forms
+from django.db.models import Q
 
 
 class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
@@ -121,11 +122,15 @@ class TrainingCourseDetailView(TableDetailViewMixin, DetailView):
 
 class AnnualTrainingPlanFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)
+    start = CharFilter(name='planned_date', lookup_type='gte', distinct=True)
+    end = CharFilter(name='planned_date', lookup_type='lte', distinct=True)
 
     class Meta:
         model = AnnualTraningPlan
         fields = [
             'year',
+            'start',
+            'end',
         ]
 
 
@@ -151,8 +156,10 @@ class AnnualTrainingPlanListView(TableListViewMixin, ListView):
         if course_class:
             queryset = queryset.qs.filter(training_course__training_class=course_class)
             
-        context["object_list"] = queryset if self.request.GET or course_class else None
+        object_list = queryset if self.request.GET or course_class else None
 
+        context["object_list"] = object_list
+            
         context["object_list_overdue"] = queryset.filter(actual_date=None,planned_date__lte=timezone.now())
             
         context["top_filter_form"] = AnnualTrainingPlanFilterForm(data=self.request.GET or None) 

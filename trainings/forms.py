@@ -16,6 +16,7 @@ class AnnualTraningPlanForm(forms.ModelForm):
 
         super(AnnualTraningPlanForm, self).__init__(*args, **kwargs)
         self.fields['actual_date'].widget.attrs['disabled'] = True
+        self.fields['year'].widget.attrs['disabled'] = True
         
         if self.request:
             course_class = self.request.GET.get("class") or self.request.session.get("course_class")

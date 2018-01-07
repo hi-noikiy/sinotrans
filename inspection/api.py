@@ -726,3 +726,85 @@ def get_forklift_maint_uncompleted_url():
     return [[get_forklift_maint_model_url(model_name[0],'-',year,month) \
                 for month, year in get_last_times()] \
                     for model_name in get_forklift_maint_rows()] 
+
+
+# >>>>>>>>>>>>>>> annual training plan
+def get_annual_training_plan_rows():
+    return (('warehouse',_('Storage Security')), ('transportation',_('Transport Security')), ) #('', _('Total')),)
+
+def get_annual_training_plan_model_queryset(model_name,check_result, year,month, is_efficiency=False):
+
+    model = None
+    from trainings import models
+    model = getattr(models,'AnnualTraningPlan')()
+
+    q = None
+    if model_name:
+        q = Q(training_course__training_class__exact=model_name)
+
+    if year and month:
+        q = q & Q(planned_date__startswith="{0}-{1:0>2d}-".format(year,month)) if q else Q(planned_date__startswith="{0}-{1:0>2d}-".format(year,month))
+    else:
+        q = q & Q(planned_date__startswith="{0}-".format(year)) if q else Q(planned_date__startswith="{0}-".format(year))
+
+    if check_result == 'no':
+        q = q & ~Q(actual_date__startswith="{0}-".format(year)) if q else ~Q(actual_date__startswith="{0}-".format(year))
+    elif check_result == 'yes':
+        q = q & Q(actual_date__startswith="{0}-".format(year)) if q else Q(actual_date__startswith="{0}-".format(year))
+
+    qs = model.__class__.objects.filter(q) if q else model.objects.all()
+
+    return qs
+
+def get_annual_training_plan_total():
+    return [[get_annual_training_plan_model_queryset(model_name[0],"",year,month).count()\
+                for month, year in get_last_times()] \
+                    for model_name in get_annual_training_plan_rows()]
+
+def get_annual_training_plan_uncompleted():
+    return [[get_annual_training_plan_model_queryset(model_name[0],"no",year,month).count()\
+                for month, year in get_last_times()] \
+                    for model_name in get_annual_training_plan_rows()]
+
+def get_annual_training_plan_ratio():
+    efficiency_array = get_annual_training_plan_uncompleted()    
+
+    for i, model_name in enumerate(get_annual_training_plan_rows()):
+        for j, [month, year] in enumerate(get_last_times()):            
+            time_consumings = 0
+            completed_qs = get_annual_training_plan_model_queryset(model_name[0],"yes",year,month,is_efficiency=True)
+            total_qs = get_annual_training_plan_model_queryset(model_name[0],"-",year,month,is_efficiency=True)
+            for instance in completed_qs:
+                time_consumings = time_consumings + 1 if instance.on_schedule() else 0
+            efficiency_array[i][j]= "{0:.1%}".format(time_consumings*1.0 / total_qs.count()) if total_qs.count() else '-'
+    return efficiency_array
+
+def get_annual_training_plan_model_url(model_name,check_result, year,month):
+    url = reverse("annualtrainingplan_list", kwargs={}) 
+
+    q = None
+    if model_name:
+        q = "?class={0}".format(model_name)
+
+    if year and month:
+        q = "{0}&start={1}-{2}-01&end={1}-{2}-{3}".format(q,year,month,calendar.monthrange(year, month)[1]) if q else\
+            "?start={0}-{1}-01&end={0}-{1}-{2}".format(year,month,calendar.monthrange(year, month)[1])
+    else:
+        q = "{0}&start={1}-01-01&end={1}-12-31".format(q,year) if q else\
+            "?start={0}-01-01&end={0}-12-31".format(year)        
+    # if check_result:
+    #     q = "{0}&repaired={1}".format(q,check_result) if q else\
+    #         "?repaired={0}".format(check_result)
+
+    return "{0}{1}".format(url, q)
+
+def get_annual_training_plan_total_url():
+    return [[get_annual_training_plan_model_url(model_name[0],'',year,month) \
+                for month, year in get_last_times()] \
+                    for model_name in get_annual_training_plan_rows()]       
+
+def get_annual_training_plan_uncompleted_url():
+
+    return [[get_annual_training_plan_model_url(model_name[0],'no',year,month) \
+                for month, year in get_last_times()] \
+                    for model_name in get_annual_training_plan_rows()] 

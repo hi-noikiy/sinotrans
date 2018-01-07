@@ -97,7 +97,7 @@ class TrainingTranscript(models.Model):
 class AnnualTraningPlan(models.Model):
     year = models.PositiveIntegerField(_("year"),
         validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year+1)],
-        blank=False,null=False, help_text=_("Use the following format: < YYYY >"))    
+        blank=True,null=False, help_text=_("Use the following format: < YYYY >"))    
     training_course = models.ForeignKey(TrainingCourse, verbose_name=_("training"))
     planned_date = models.DateField(_('planned date'), auto_now_add=False, auto_now=False)
     actual_date = models.DateField(_('actual date'), auto_now_add=False, auto_now=False, blank=True, null=True)
@@ -118,11 +118,14 @@ class AnnualTraningPlan(models.Model):
 
     def get_absolute_url_list(self):
         return reverse("annualtrainingplan_list", kwargs={})
+
+    def on_schedule(self):
+        return False if self.actual_date.month > self.planned_date.month else True
         
 def update_actual_date(sender, instance, *args, **kwargs):
-
+    instance.year =  instance.planned_date.year
     if instance.training_record and instance.training_record.date and not instance.actual_date:
         instance.actual_date = instance.training_record.date
-        instance.save()
+        # instance.save()
 
-post_save.connect(update_actual_date, sender=AnnualTraningPlan)        
+pre_save.connect(update_actual_date, sender=AnnualTraningPlan)        
