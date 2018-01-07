@@ -1,0 +1,10 @@
+{% extends "default/list.html" %}
+{% load i18n %}
+
+{% block content_header %}
+<div class="pull-right">
+    <form id="export" method="POST" action="" style="float: left;padding-right: 10px;">{% csrf_token %}                        
+        <a class="fa fa-download fa-1x" href="javascript:;" onclick="document.getElementById('export').submit();">{% trans "download" %}</a>
+    </form>                             
+</div>
+{% endblock %}

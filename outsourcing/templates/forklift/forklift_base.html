@@ -20,6 +20,9 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="pull-right">
+            <form id="export" method="POST" action="" style="float: left;padding-right: 10px;">{% csrf_token %}                        
+                <a class="fa fa-download fa-1x" href="javascript:;" onclick="document.getElementById('export').submit();">{% trans "download" %}</a>
+            </form>             
             <a  href="{% url 'forklift_repair_list'  %}"><i style="color:red;" class="fa fa-warning fa-1x" aria-hidden="true"><span style="color:#428bca;">{% trans "abnormal" %}{% trans "forklift repair" %}</span></i></a>
             {% comment %}
             <a href='{% url "forklift_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% if LANGUAGE_CODE == "en" %}&nbsp{% endif %}{% trans "forklift" %}</i></a>

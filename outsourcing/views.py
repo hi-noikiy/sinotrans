@@ -55,16 +55,42 @@ class TransportSecurityView(TemplateView):
         context["year"] = timezone.now().year
         
         return context
+
+class ForkliftFilter(FilterSet):
+    category = CharFilter(name='category', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = Forklift
+        fields = [
+            'category',
+        ]
+
+
         
 # Create your views here.
 class ForkliftListView(TableListViewMixin, ListView): 
     model = Forklift
     template_name = "forklift/forklift_list.html"
+    filter_class = ForkliftFilter
 
     from .admin import ForkliftAdmin
     #fields = [field for field in model._meta.get_fields() if field.name in ForkliftAdmin.list_display]
     fields = ForkliftAdmin.list_display
     foreign_fields_images = ["forkliftimage_set",]
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "",]
+        fields_fk = ["", ]
+        fields_datetime = [""]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "forklist_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
     # def get_context_data(self, *args, **kwargs):
     #     context = super(ForkliftListView, self).get_context_data(*args, **kwargs)
@@ -156,10 +182,25 @@ class ForkliftUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView):
 
 class ForkliftCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = Forklift
+
+class ForkliftRepairFilter(FilterSet):
+    start = CharFilter(name='created', lookup_type='gte', distinct=True) # =  check_date__gte=start
+    end = CharFilter(name='created', lookup_type='lte', distinct=True)
+    check_result = CharFilter(name='repaired', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = ForkliftRepair
+        fields = [
+            'start',
+            'end',
+            'repaired',
+        ]
+
     
 class ForkliftRepairListView(TableListViewMixin, ListView): 
     model = ForkliftRepair
     template_name = "forklift/forklift_repair_list.html"
+    filter_class = ForkliftRepairFilter
 
     from .admin import ForkliftRepairAdmin
     #fields = [model._meta.get_field(field) for field in ForkliftRepairAdmin.list_display]
@@ -186,6 +227,8 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(repaired="no")
         else:
+            object_list = self.filter_class(self.request.GET, self.get_queryset())
+            """
             check_result = self.request.GET.get('repaired', None)
             start = self.request.GET.get('start', None)
             end = self.request.GET.get('end', None)
@@ -200,6 +243,7 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
         
             if query:
                 object_list = object_list.filter(query)
+            """
 
 
         if object_list and not self.request.user.is_staff:
@@ -208,6 +252,19 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
         context["object_list"] = object_list                   
 
         return context 
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "repaired", ]
+        fields_fk = ["forklift", ]
+        fields_datetime = ["due_date","created","updated","repaire_date"]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "forklist_repair_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
 
 
 class ForkliftRepairDetailView(TableDetailViewMixin, DetailView): 
@@ -316,9 +373,24 @@ class ForkliftMaintUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView):
         return self.form_class
 
 
+class ForkliftMaintFilter(FilterSet):
+    start = CharFilter(name='created', lookup_type='gte', distinct=True) # =  check_date__gte=start
+    end = CharFilter(name='created', lookup_type='lte', distinct=True)
+    # check_result = CharFilter(name='repaired', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = ForkliftMaint
+        fields = [
+            'start',
+            'end',
+            # 'repaired',
+        ]
+
+
 class ForkliftMaintListView(TableListViewMixin, ListView): 
     model = ForkliftMaint
     template_name = "forklift/forklift_maint_list.html"
+    filter_class = ForkliftMaintFilter
 
     from .admin import ForkliftMaintAdmin
     fields = ForkliftMaintAdmin.list_display
@@ -327,6 +399,8 @@ class ForkliftMaintListView(TableListViewMixin, ListView):
         context = super(ForkliftMaintListView, self).get_context_data(*args, **kwargs)
         object_list = context["object_list"]
 
+        object_list = self.filter_class(self.request.GET, self.get_queryset()).qs
+        """
         start = self.request.GET.get('start', None)
         end = self.request.GET.get('end', None)
 
@@ -338,7 +412,7 @@ class ForkliftMaintListView(TableListViewMixin, ListView):
 
         if query:
             object_list = object_list.filter(query)
-
+        """
 
         if object_list and not self.request.user.is_staff:
             object_list = object_list.filter(repaired='yes')
@@ -346,6 +420,20 @@ class ForkliftMaintListView(TableListViewMixin, ListView):
         context["object_list"] = object_list                   
 
         return context 
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "", ]
+        fields_fk = ["forklift", ]
+        fields_datetime = ["created","updated",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "forklist_maint_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
         
 class ForkliftMaintCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = ForkliftMaint
@@ -359,10 +447,27 @@ class ForkliftMaintCreateView(StaffRequiredMixin, CreateViewMixin, CreateView):
             # del self.request.session["shortcut_create_pk"]    
 
         return context
+
+class ForkliftAnnualInspectionFilter(FilterSet):
+    start = CharFilter(name='date', lookup_type='gte', distinct=True) # =  check_date__gte=start
+    end = CharFilter(name='date', lookup_type='lte', distinct=True)
+    # check_result = CharFilter(name='repaired', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = ForkliftAnnualInspection
+        fields = [
+            'start',
+            'end',
+            # 'repaired',
+        ]
+
+
         
 class ForkliftAnnualInspectionListView(TableListViewMixin, ListView): 
     model = ForkliftAnnualInspection
     template_name = "forklift/forklift_annual_inspection_list.html"
+    filter_class = ForkliftAnnualInspectionFilter
+    
     from .admin import ForkliftAnnualInspectionAdmin
     fields = ForkliftAnnualInspectionAdmin.list_display
 
@@ -377,6 +482,20 @@ class ForkliftAnnualInspectionListView(TableListViewMixin, ListView):
         context["comming_inspection"] = comming_inspection
 
         return context
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "", ]
+        fields_fk = ["forklift", ]
+        fields_datetime = ["date","next_date",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "forklist_annual_inspection_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
 class ForkliftAnnualInspectionDetailView(TableDetailViewMixin, DetailView): 
     model = ForkliftAnnualInspection
@@ -454,10 +573,22 @@ class ForkliftAnnualInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, Up
 
         return super(UpdateViewMixin, self).post(request, *args, **kwargs)       
 
+
+
+class DriverFilter(FilterSet):
+    training_qualified = CharFilter(name='training_qualified', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = Driver
+        fields = [
+            'training_qualified',
+        ]
+
     
 class DriverListView(TableListViewMixin, ListView): 
     model = Driver
     template_name = "transportation/driver_list.html"
+    filter_class = DriverFilter
 
     def get_context_data(self, *args, **kwargs):
         context = super(DriverListView, self).get_context_data(*args, **kwargs)
@@ -471,6 +602,20 @@ class DriverListView(TableListViewMixin, ListView):
         context["fields_display"] = ["",] 
 
         return context       
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "training_qualified", ]
+        fields_fk = [ ]
+        fields_datetime = []
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "driver_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
     # def dispatch(self, request, *args, **kwargs):
     #     request.breadcrumbs([
@@ -508,9 +653,20 @@ class DriverDetailView(DetailView):
         return super(DriverDetailView, self).dispatch(request,args,kwargs)           
 
 
+class VehicleFilter(FilterSet):
+    service_content = CharFilter(name='service_content', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = Vehicle
+        fields = [
+            'service_content',
+        ]
+
+
 class VehicleListView(ListView): 
     model = Vehicle
     template_name = "transportation/vehicle_list.html"
+    filter_class = VehicleFilter
 
     def get_context_data(self, *args, **kwargs):
         context = super(VehicleListView, self).get_context_data(*args, **kwargs)
@@ -520,10 +676,23 @@ class VehicleListView(ListView):
 
         context["object_list"] = self.model.objects.all()
         context["fields"] = [field for field in self.model._meta.get_fields() if field.name in fields]
-        context["fields_display"] = ["",] 
-
+        context["fields_display"] = ["GPS", "ABS", "antiroll_protection", "reversing_alarm", "side_edge_and_low_location_collision_guard_bar", "car_seat_headrest", "three_point_belt", "IVMS_or_VDR", "anti_drop_equipment"] 
 
         return context       
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = ["GPS", "ABS", "antiroll_protection", "reversing_alarm", "side_edge_and_low_location_collision_guard_bar", "car_seat_headrest", "three_point_belt", "IVMS_or_VDR", "anti_drop_equipment"] 
+        fields_fk = [ ]
+        fields_datetime = []
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "vehicle_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
@@ -593,22 +762,37 @@ class VehicleDetailView(TableDetailViewMixin, DetailView):
         ])
         return super(VehicleDetailView, self).dispatch(request,args,kwargs)    
 
+class VehicleInspectionFilter(FilterSet):
+    start = CharFilter(name='created', lookup_type='gte', distinct=True) # =  check_date__gte=start
+    end = CharFilter(name='created', lookup_type='lte', distinct=True)
+    rectification_qualified = CharFilter(name='rectification_qualified', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = VehicleInspection
+        fields = [
+            'start',
+            'end',
+            'rectification_qualified',
+        ]
+
+
 class VehicleInspectionListView(TableListViewMixin, ListView): 
     model = VehicleInspection
     template_name = "transportation/vehicle_inspection_list.html"
+    filter_class = VehicleInspectionFilter
 
     def get_context_data(self, *args, **kwargs):
         context = super(VehicleInspectionListView, self).get_context_data(*args, **kwargs)
 
-
         object_list = context["object_list"]
-
 
         if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
             object_list = self.model.objects.filter(rectification_qualified="breakdown", due_date__lte=timezone.now())
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(rectification_qualified="breakdown")
         else:
+            object_list = self.filter_class(self.request.GET, self.get_queryset()).qs
+            """
             rectification_qualified = self.request.GET.get('rectification_qualified', None)
             start = self.request.GET.get('start', None)
             end = self.request.GET.get('end', None)
@@ -623,6 +807,7 @@ class VehicleInspectionListView(TableListViewMixin, ListView):
                 
             if query:
                 object_list = object_list.filter(query)
+            """
 
         if object_list and not self.request.user.is_staff:
             object_list = self.model.objects.filter(rectification_qualified='no') if self.request.user.is_staff else None
@@ -659,6 +844,31 @@ class VehicleInspectionListView(TableListViewMixin, ListView):
 
 
         return context       
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [
+                    "load_or_unload",
+                    "rectification_qualified",
+                    "hardware_inspection_disqualification",        
+                    "no_driver_code_of_conduct",
+                    "overload_or_LSR_violation",
+                    "safety_policy_violation",
+                    "no_journey_plan_or_log",
+                    "vehichle_not_register",
+                    "no_vehicle_inspection_record",
+                    "no_DDC_certificate"
+            ] 
+        fields_fk = ["vehicle", "driver" ]
+        fields_datetime = []
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "vehicle_inspection_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([

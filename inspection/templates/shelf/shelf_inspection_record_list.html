@@ -13,6 +13,16 @@
 
 {% block content %}
 
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pull-right">
+            <form id="export" method="POST" action="" style="float: left;padding-right: 10px;">{% csrf_token %}                        
+                <a class="fa fa-download fa-1x" href="javascript:;" onclick="document.getElementById('export').submit();">{% trans "download" %}</a>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% if shelf_inspection_record and shelf_inspection_record.count %}
     {# include "inlines/list_view.html" with object_foreign_set=shelf_inspection_record fields_foreign=fields_shelf_inspection_record fields_foreign_display=fields_shelf_inspection_record_display field_display_links=field_display_links title=title page_num=50 table_class='table-align-center' #}
     {% include "includes/model_list_table_display.html" with object_list=shelf_inspection_record fields=fields_shelf_inspection_record fields_display=fields_shelf_inspection_record_display field_display_links=field_display_links title=title line_per_page=50 table_class='table-align-center' %}

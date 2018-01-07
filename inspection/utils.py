@@ -224,7 +224,7 @@ def gen_csv(model, qs, filename, fields_display, fields_fk, fields_datetime, exc
                         str = "{0}{1}()".format("obj.get_",field.name)
                         value = eval(str)
                     value = "%s" %  (value)
-                    if field.name in fields_multiple:
+                    if fields_multiple and field.name in fields_multiple:
                         row.append(value)
                     else:
                         row.append(value.encode('utf8'))

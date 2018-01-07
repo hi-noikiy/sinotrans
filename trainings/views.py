@@ -17,7 +17,7 @@ from .forms import AnnualTrainingPlanFilterForm, AnnualTraningPlanForm,TrainingR
 from inspection.mixins import TableDetailViewMixin, TableListViewMixin, UpdateViewMixin, CreateViewMixin, StaffRequiredMixin
 from django.forms import models as model_forms
 from django.db.models import Q
-
+from django.db import models
 
 class TrainingRecordDetailView(TableDetailViewMixin, DetailView):
     model = TrainingRecord
@@ -206,6 +206,20 @@ class AnnualTrainingPlanListView(TableListViewMixin, ListView):
         
         return context       
 
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [] 
+        fields_fk = ["training_record","training_course"]
+        fields_datetime = []
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "annual_training_plan_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
+        
     def dispatch(self, request, *args, **kwargs):
                
         request.breadcrumbs([
@@ -325,9 +339,20 @@ class TrainingTranscriptDetailView(TableDetailViewMixin, DetailView):
 
 class AnnualTraningPlanDetailView(TableDetailViewMixin, DetailView): 
     model = AnnualTraningPlan    
+
+class TrainingCourseFilter(FilterSet):
+    training_class= CharFilter(name='training_class', lookup_type='exact', distinct=True)
     
+    class Meta:
+        model = TrainingCourse
+        fields = [
+            'training_class',
+        ]
+        
 class TrainingCourseListView(TableListViewMixin, ListView): 
     model = TrainingCourse
+    template_name = "trainings/trainingcourse_list.html"
+    filter_class = TrainingCourseFilter
 
     from .admin import TrainingCourseAdmin
     fields = TrainingCourseAdmin.list_display
@@ -339,10 +364,38 @@ class TrainingCourseListView(TableListViewMixin, ListView):
         if self.request.session.get("course_class"):
             context["object_list"] = self.model.objects.filter(training_class=self.request.session.get("course_class"))
         return context
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = ["training_class", "category"] 
+        fields_fk = []
+        fields_datetime = []
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "training_course_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+        
+class TrainingRecordFilter(FilterSet):
+    start = CharFilter(name='date', lookup_type='gte', distinct=True) # =  check_date__gte=start
+    end = CharFilter(name='date', lookup_type='lte', distinct=True)
+    # rectification_qualified = CharFilter(name='rectification_qualified', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = TrainingRecord
+        fields = [
+            'start',
+            'end',
+            # 'rectification_qualified',
+        ]
         
 class TrainingRecordListView(TableListViewMixin, ListView): 
     model = TrainingRecord
-
+    template_name = "trainings/trainingrecord_list.html"
+    filter_class = TrainingRecordFilter
+    
     from .admin import TrainingRecordAdmin
     fields = TrainingRecordAdmin.list_display
     fields_files = ["sign_sheet", ]    
@@ -353,4 +406,18 @@ class TrainingRecordListView(TableListViewMixin, ListView):
         if self.request.session.get("course_class"):
             context["object_list"] = self.model.objects.filter(training_course__training_class=self.request.session.get("course_class"))
         return context
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [] 
+        fields_fk = ["training_course" ]
+        fields_datetime = []
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] 
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "training_record_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
         

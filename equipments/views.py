@@ -160,8 +160,9 @@ class EquipmentInspectionListView(FilterMixin, ListView):
         fields_display = [ "use_condition", ]
         fields_fk = ["equipment",  ]
         fields_datetime = ["updated","completed_time", ]
+        excludes = ["",]
         
-        return gen_csv(self.model, f.qs, "equipment_export.csv", fields_display, fields_fk, fields_datetime)
+        return gen_csv(self.model, f.qs, "equipment_export.csv", fields_display, fields_fk, fields_datetime, excludes)
 
         response = HttpResponse(content_type='text/csv')        
         response['Content-Disposition'] = 'attachment; filename="equipment_export.csv"'

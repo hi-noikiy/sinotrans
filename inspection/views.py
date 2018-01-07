@@ -80,9 +80,25 @@ class StorageSecurityView(TemplateView):
         
         return context
 
+class RehearsalFilter(FilterSet):
+    start = CharFilter(name='created', lookup_type='gte', distinct=True)
+    end = CharFilter(name='created', lookup_type='lte', distinct=True)
+    # rectification_status = CharFilter(name='rectification_status', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = Rehearsal
+        fields = [
+            'start',
+            'end',
+            # 'rectification_status',
+        ]
+
+
 class RehearsalListView(TableListViewMixin, ListView): 
     model = Rehearsal
     template_name = "rehersal/rehearsal_list.html"
+    filter_class = RehearsalFilter
+    
     from .admin import RehearsalAdmin
     fields = RehearsalAdmin.list_display
     fields_files = ["attachment"]
@@ -92,6 +108,20 @@ class RehearsalListView(TableListViewMixin, ListView):
         context = super(RehearsalListView, self).get_context_data(*args, **kwargs)
         
         return context       
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = []
+        fields_fk = [ ]
+        fields_datetime = ["date",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "rehersal_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
@@ -1287,9 +1317,25 @@ class ShelfInspectionRecordUpdateView(StaffRequiredMixin, UpdateView):
         return super(ShelfInspectionRecordUpdateView, self).dispatch(request,args,kwargs)  
 
 
+class ShelfInspectionRecordFilter2(FilterSet):
+    start = CharFilter(name='check_date', lookup_type='gte', distinct=True) # =  check_date__gte=start
+    end = CharFilter(name='check_date', lookup_type='lte', distinct=True)
+    check_result = CharFilter(name='use_condition', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = shelf_inspection_record
+        fields = [
+            'start',
+            'end',
+            'check_result',
+        ]
+
+
+
 class ShelfInspectionRecordListView(TableListViewMixin, ListView):
     model = shelf_inspection_record
     template_name = "shelf/shelf_inspection_record_list.html"
+    filter_class = ShelfInspectionRecordFilter2
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelfInspectionRecordListView, self).get_context_data(*args, **kwargs)    
@@ -1301,6 +1347,8 @@ class ShelfInspectionRecordListView(TableListViewMixin, ListView):
                     Q(gradient__gt = 1.4)
                 ).distinct().order_by("shelf_inspection") if self.request.user.is_staff else None
         else:
+            object_list =  self.filter_class(self.request.GET, self.get_queryset()).qs
+            """
             check_result = self.request.GET.get('check_result', None)
             start = self.request.GET.get('start', None)
             end = self.request.GET.get('end', None)
@@ -1315,6 +1363,7 @@ class ShelfInspectionRecordListView(TableListViewMixin, ListView):
 
             if query:
                 object_list = object_list.filter(query)
+            """
 
         if object_list and not self.request.user.is_staff:
             object_list = object_list.filter(check_result='normal')
@@ -1340,6 +1389,20 @@ class ShelfInspectionRecordListView(TableListViewMixin, ListView):
     #         (_('Shelf Inspection Record List'), request.path_info),
     #     ])
     #     return super(ShelfInspectionRecordListView, self).dispatch(request,args,kwargs)       
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "use_condition",  "is_locked",]
+        fields_fk = ["shelf", ]
+        fields_datetime = ["due_date","check_date","completed_time"]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)] + ["shelf_inspection",]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "shelf_inspection_record2.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
 
 from itertools import chain
@@ -1443,9 +1506,25 @@ class ShelfGradientInspectionView(DetailView):
 
         return super(ShelfGradientInspectionView, self).dispatch(request,args,kwargs)
 
+class PIFilter(FilterSet):
+    start = CharFilter(name='created', lookup_type='gte', distinct=True)
+    end = CharFilter(name='created', lookup_type='lte', distinct=True)
+    rectification_status = CharFilter(name='rectification_status', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = HydrantInspection
+        fields = [
+            'start',
+            'end',
+            'rectification_status',
+        ]
+
+
 class PIListView(TableListViewMixin, ListView): 
     model = PI
     template_name = "pi/pi_list.html"
+    filter_class = PIFilter
+    
     from .admin import PIAdmin
     fields = PIAdmin.list_display
     fields_display = [
@@ -1469,6 +1548,8 @@ class PIListView(TableListViewMixin, ListView):
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(rectification_status="uncompleted")
         else:
+            object_list = self.filter_class(self.request.GET, queryset=self.get_queryset())
+            """
             rectification_status = self.request.GET.get('rectification_status', None)
             start = self.request.GET.get('start', None)
             end = self.request.GET.get('end', None)
@@ -1480,15 +1561,28 @@ class PIListView(TableListViewMixin, ListView):
                 query = query & Q(created__lte=end) if query else Q(created__lte=end)
             if rectification_status:
                 query = query & Q(rectification_status__exact=rectification_status) if query else Q(rectification_status__exact=rectification_status)
-
-            print query
                 
             if query:
                 object_list = object_list.filter(query)
+            """
 
         context["object_list"] = object_list                   
 
         return context 
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "company_of_reporter", "department_of_reporter", "area", "category", "risk", "root_cause", "rectification_status",  "direct_reason", ]
+        fields_fk = ["",  ]
+        fields_datetime = ["due_date","completed_time","created",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "pi_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
 class PIDetailView(TableDetailViewMixin, DetailView): 
     model = PI
@@ -1562,14 +1656,34 @@ class RTPIUpdateView(PIUpdateView):
     form_class = RTPIForm
                 
 
+class ShelfAnnualInspectionFilter(FilterSet):
+    start = CharFilter(name='date', lookup_type='gte', distinct=True)
+    end = CharFilter(name='date', lookup_type='lte', distinct=True)
+    # rectification_status = CharFilter(name='rectification_status', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = ShelfAnnualInspection
+        fields = [
+            'start',
+            'end',
+            # 'rectification_status',
+        ]
+
+
 class ShelfAnnualInspectionListView(TableListViewMixin, ListView): 
     model = ShelfAnnualInspection
     template_name = "shelf/shelf_annual_inspection_list.html"
+    filter_class = ShelfAnnualInspectionFilter
+    
     from .admin import ShelfAnnualInspectionAdmin
     fields = ShelfAnnualInspectionAdmin.list_display
 
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(ShelfAnnualInspectionListView, self).get_context_data(*args, **kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShelfAnnualInspectionListView, self).get_context_data(*args, **kwargs)
+        object_list = self.filter_class(self.request.GET, queryset=self.get_queryset()).qs
+        context["object_list"] = object_list  
+        return context 
+        
 
     #     object_list = context["object_list"]
     #     if self.request.GET.get('uncompleted') and self.request.GET.get('overdue'):
@@ -1579,6 +1693,20 @@ class ShelfAnnualInspectionListView(TableListViewMixin, ListView):
     #     context["object_list"] = object_list                   
 
     #     return context 
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = []
+        fields_fk = ["shelf",  ]
+        fields_datetime = ["date","next_date",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "shelf_annual_inspection_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
 class ShelfAnnualInspectionDetailView(TableDetailViewMixin, DetailView): 
     model = ShelfAnnualInspection
@@ -1694,9 +1822,23 @@ class ExtinguisherInspectionDetailView(TableDetailViewMixin, DetailView):
         "check_result",
     ]
 
+class ExtinguisherInspectionFilter(FilterSet):
+    start = CharFilter(name='check_date', lookup_type='gte', distinct=True)
+    end = CharFilter(name='check_date', lookup_type='lte', distinct=True)
+    check_result = CharFilter(name='check_result', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = ExtinguisherInspection
+        fields = [
+            'start',
+            'end',
+            'check_result',
+        ]
+        
 class ExtinguisherInspectionListView(TableListViewMixin, ListView): 
     model = ExtinguisherInspection         
     template_name = "firefighting/extinguisherinspection_list.html"
+    filter_class = ExtinguisherInspectionFilter
 
     from .admin import ExtinguisherInspectionAdmin
     fields = ExtinguisherInspectionAdmin.list_display
@@ -1713,6 +1855,8 @@ class ExtinguisherInspectionListView(TableListViewMixin, ListView):
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(check_result="breakdown")
         else:
+            object_list = self.filter_class( self.request.GET, queryset=self.get_queryset()).qs
+            """
             check_result = self.request.GET.get('check_result', None)
             start = self.request.GET.get('start', None)
             end = self.request.GET.get('end', None)
@@ -1727,6 +1871,7 @@ class ExtinguisherInspectionListView(TableListViewMixin, ListView):
                 
             if query:
                 object_list = object_list.filter(query)
+            """
                 
         if object_list and not self.request.user.is_staff:
             object_list = object_list.filter(check_result='normal')
@@ -1734,6 +1879,20 @@ class ExtinguisherInspectionListView(TableListViewMixin, ListView):
         context["object_list"] = object_list                   
 
         return context 
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "check_result",   ]
+        fields_fk = ["extinguisher",  ]
+        fields_datetime = ["due_date","completed_time","check_date",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "extinguisher_inspection_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
 class HydrantInspectionUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView): 
     model = HydrantInspection
@@ -1767,9 +1926,24 @@ class HydrantInspectionDetailView(TableDetailViewMixin, DetailView):
         "check_result",
     ]
 
+class HydrantInspectionFilter(FilterSet):
+    start = CharFilter(name='check_date', lookup_type='gte', distinct=True)
+    end = CharFilter(name='check_date', lookup_type='lte', distinct=True)
+    check_result = CharFilter(name='check_result', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = HydrantInspection
+        fields = [
+            'start',
+            'end',
+            'check_result',
+        ]
+
+        
 class HydrantInspectionListView(TableListViewMixin, ListView): 
     model = HydrantInspection      
     template_name = "firefighting/hydrantinspection_list.html"
+    filter_class = HydrantInspectionFilter
 
     from .admin import HydrantInspectionAdmin
     fields = HydrantInspectionAdmin.list_display
@@ -1787,6 +1961,8 @@ class HydrantInspectionListView(TableListViewMixin, ListView):
         elif self.request.GET.get('uncompleted'):
             object_list = self.model.objects.filter(check_result="breakdown")
         else:
+            object_list = self.filter_class( self.request.GET, queryset=self.get_queryset()).qs
+            """
             check_result = self.request.GET.get('check_result', None)
             start = self.request.GET.get('start', None)
             end = self.request.GET.get('end', None)
@@ -1801,6 +1977,7 @@ class HydrantInspectionListView(TableListViewMixin, ListView):
                 
             if query:
                 object_list = object_list.filter(query)
+            """
 
         if object_list and not self.request.user.is_staff:
             object_list = object_list.filter(check_result='normal')
@@ -1808,3 +1985,17 @@ class HydrantInspectionListView(TableListViewMixin, ListView):
         context["object_list"] = object_list                   
 
         return context 
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "check_result",   ]
+        fields_fk = ["hydrant",  ]
+        fields_datetime = ["due_date","completed_time","check_date",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "hydrant_inspection_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+        

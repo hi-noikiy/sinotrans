@@ -39,6 +39,9 @@
 
 {% block content_header %}
 <div class="pull-right">
+    <form id="export" method="POST" action="" style="float: left;padding-right: 10px;">{% csrf_token %}                        
+        <a class="fa fa-download fa-1x" href="javascript:;" onclick="document.getElementById('export').submit();">{% trans "download" %}</a>
+    </form>    
     {% if request.user.is_staff %}
     <a href='{% url "hydrantinspection_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% trans "hydrant inspection" %}</i></a>
     {% endif %}
