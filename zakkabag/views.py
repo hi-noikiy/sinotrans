@@ -116,6 +116,13 @@ from inspection.api import (
     get_forklift_repair_efficiency,
     get_forklift_repair_uncompleted_url,
     get_forklift_repair_total_url,    
+
+    get_forklift_maint_rows,
+    get_forklift_maint_total,
+    get_forklift_maint_uncompleted,
+    get_forklift_maint_cost,
+    get_forklift_maint_uncompleted_url,
+    get_forklift_maint_total_url,        
     )
 
 def get_last_times():
@@ -261,6 +268,32 @@ def DashboardViewSINO(request):
     context["rows_forklift_repair"] = zip(rows,indicator,group,data)
     from outsourcing.models import Forklift
     context["forklift_count"] = Forklift.objects.all().count
+
+    #>>>>>>>>>>>>>>
+    rows = get_forklift_maint_rows()
+    data1 = get_forklift_maint_total()
+    # data2 = get_forklift_maint_uncompleted()
+    data3 = get_forklift_maint_cost()    
+    data4 = get_forklift_maint_total_url()
+    # data5 = get_forklift_maint_uncompleted_url()
+    indicator = ["na"]*len(rows)
+    group = ["na"]*len(rows)
+
+    data = [ zip(a,b,c) for a,b,c in zip(data1,data3,data4)]    
+
+    context["rows_forklift_maint"] = zip(rows,indicator,group,data)
+    context["column_css_forklift_maint"] = ['table-total','']
+    column_header1 = [
+        [ [month[1],1,2] for month in month_choice + (('', _('Total')),) ]
+    ]    
+    column_header2 = [[
+        (_("total number"),1,1),
+        (_("Expense"),1,1),
+        ]*len(column_header1[0])]
+
+    column_header1[0].insert(0,[_("category"),2,1])
+
+    context["headers_forklift_maint"] = column_header1 + column_header2 
 
     return render(request,"dashboard_statistic.html",context)
 

@@ -657,3 +657,72 @@ def get_forklift_repair_uncompleted_url():
     return [[get_forklift_repair_model_url(model_name[0],'no',year,month) \
                 for month, year in get_last_times()] \
                     for model_name in get_forklift_repair_rows()] 
+
+
+# >>>>>>>>>>>>>>> forklift maint
+def get_forklift_maint_rows():
+    return (('', _('Total')),)
+
+def get_forklift_maint_model_queryset(model_name,check_result, year,month):
+
+    model = None
+    from outsourcing import models
+    model = getattr(models,'ForkliftMaint')()
+
+    q = None
+
+    if year and month:
+        q = q & Q(created__startswith="{0}-{1:0>2d}-".format(year,month)) if q else Q(created__startswith="{0}-{1:0>2d}-".format(year,month))
+    else:
+        q = q & Q(created__startswith="{0}-".format(year)) if q else Q(created__startswith="{0}-".format(year))
+
+    qs = model.__class__.objects.filter(q) if q else model.objects.all()
+
+    return qs
+
+def get_forklift_maint_total():
+    return [[get_forklift_maint_model_queryset(model_name[0],"",year,month).count()\
+                for month, year in get_last_times()] \
+                    for model_name in get_forklift_maint_rows()]
+
+def get_forklift_maint_uncompleted():
+    return [[get_forklift_maint_model_queryset(model_name[0],"-",year,month).count()\
+                for month, year in get_last_times()] \
+                    for model_name in get_forklift_maint_rows()]
+
+def get_forklift_maint_cost():
+    efficiency_array = get_forklift_repair_uncompleted()
+
+    for i, model_name in enumerate(get_forklift_maint_rows()):
+        for j, [month, year] in enumerate(get_last_times()):            
+            costs = 0
+            completed_qs = get_forklift_maint_model_queryset(model_name[0],"-",year,month)
+            for instance in completed_qs:
+                costs = costs + instance.expense
+            efficiency_array[i][j]= costs / completed_qs.count() if completed_qs.count() else '-'
+    return efficiency_array
+
+def get_forklift_maint_model_url(model_name,check_result, year,month):
+    url = reverse("forklift_maint_list", kwargs={}) 
+
+    q = None
+
+    if year and month:
+        q = "{0}&start={1}-{2}-01&end={1}-{2}-{3}".format(q,year,month,calendar.monthrange(year, month)[1]) if q else\
+            "?start={0}-{1}-01&end={0}-{1}-{2}".format(year,month,calendar.monthrange(year, month)[1])
+    else:
+        q = "{0}&start={1}-01-01&end={1}-12-31".format(q,year) if q else\
+            "?start={0}-01-01&end={0}-12-31".format(year)        
+
+    return "{0}{1}".format(url, q)
+
+def get_forklift_maint_total_url():
+    return [[get_forklift_maint_model_url(model_name[0],'',year,month) \
+                for month, year in get_last_times()] \
+                    for model_name in get_forklift_maint_rows()]       
+
+def get_forklift_maint_uncompleted_url():
+
+    return [[get_forklift_maint_model_url(model_name[0],'-',year,month) \
+                for month, year in get_last_times()] \
+                    for model_name in get_forklift_maint_rows()] 

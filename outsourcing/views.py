@@ -198,11 +198,7 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
                 query = query & Q(repaired__exact=check_result) if query else Q(repaired__exact=check_result)
         
             if query:
-                print "1"
-                print object_list                    
                 object_list = object_list.filter(query)
-                print "2"
-                print object_list                    
 
 
         if object_list and not self.request.user.is_staff:
@@ -326,6 +322,30 @@ class ForkliftMaintListView(TableListViewMixin, ListView):
     from .admin import ForkliftMaintAdmin
     fields = ForkliftMaintAdmin.list_display
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ForkliftMaintListView, self).get_context_data(*args, **kwargs)
+        object_list = context["object_list"]
+
+        start = self.request.GET.get('start', None)
+        end = self.request.GET.get('end', None)
+
+        query = None
+        if start:
+            query = Q(created__gte=start)
+        if end:
+            query = query & Q(created__lte=end) if query else Q(created__lte=end)
+
+        if query:
+            object_list = object_list.filter(query)
+
+
+        if object_list and not self.request.user.is_staff:
+            object_list = object_list.filter(repaired='yes')
+
+        context["object_list"] = object_list                   
+
+        return context 
+        
 class ForkliftMaintCreateView(StaffRequiredMixin, CreateViewMixin, CreateView): 
     model = ForkliftMaint
 
