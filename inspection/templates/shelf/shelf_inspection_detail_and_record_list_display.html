@@ -46,6 +46,12 @@
         <hr>
     </div>
     <div class="col-sm-9 ">   
+        <div class="pull-right">
+            <form id="export" method="POST" action="" style="float: left;padding-right: 10px;">{% csrf_token %}
+                <a class="fa fa-download fa-1x" href="javascript:;" onclick="document.getElementById('export').submit();">{% trans "download" %}</a>
+            </form>
+        </div>
+
         {% include "includes/model_list_table_display.html" with object_list=shelf_inspection_record_set fields=fields_shelf_inspection_record fields_display=fields_shelf_inspection_record_display line_per_page=15 %}          
     </div>
 

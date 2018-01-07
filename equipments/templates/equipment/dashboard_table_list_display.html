@@ -9,12 +9,12 @@
 {% block style %}
 
 .display table thead tr th{
-	width:6%;
+    width:6%;
 }
 
 
 .display table thead tr th:nth-child(1){
-	width:10%;
+    width:10%;
 }
 
 .display table thead tr th:nth-child(2){
@@ -39,7 +39,7 @@
 {% endblock %} 
 
 <div class="row display">
-	<div class="col-sm-12">
+    <div class="col-sm-12">
         <div class="form-filter-flat">
             <form  method="GET" action="{{ object_list.0.get_list_display}}">
                 {{ top_filter_form }}
@@ -47,9 +47,18 @@
                 <a class="btn btn-default" href="{{ object_list.0.get_list_display}}"  >{% trans 'Clear Filters' %}</a>   
             </form>                    
         </div>
-	
-	{% include "dashboard/table_transposition_display_content.html" %}
-	</div>
+    </div>
+
+    <div class="col-sm-12">        
+    {% block content_operation %}
+    {% endblock %} 
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">   
+    {% include "dashboard/table_transposition_display_content.html" %}
+    </div>
 </div>
 
 {% block content_footer %}

@@ -16,6 +16,7 @@ from django.forms import models as model_forms
 from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Q
+from django.db import models
 
 import collections
 
@@ -918,11 +919,25 @@ class TransportationKPIListDisplayView(ListView):
             
         return context       
 
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "transportation_project", "month",  ]
+        fields_fk = ["",  ]
+        fields_datetime = ["",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "rt_hsse_kpi_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
+    """
     def post(self, request, *args, **kwargs):
         self.object_list = self.get_queryset() # copy from BaseListView::get
         context = self.get_context_data()
         return self.render_to_response(context)
-
+    """
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),

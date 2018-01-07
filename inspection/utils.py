@@ -1,5 +1,6 @@
 import os
 from django.core.files.storage import default_storage
+from django.db import models
 from django.db.models import FileField
 from django.core.cache import cache
 from django.conf import settings
@@ -183,34 +184,50 @@ import csv
 import codecs
 from django.utils.encoding import force_str, force_text
 
-def gen_csv(model, qs, filename, fields_display, fields_fk, fields_datetime):
+def gen_csv(model, qs, filename, fields_display, fields_fk, fields_datetime, excludes, fields_multiple=None):
         response = HttpResponse(content_type='text/csv')        
         response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
         response.write(codecs.BOM_UTF8) # add bom header
         writer = csv.writer(response)
+        print excludes
 
         row = []
-        fields_display = [ "use_condition", ]
-        fields_fk = ["equipment",  ]
-        fields_datetime = ["updated","completed_time", ]
+        # fields_display = [ "use_condition", ]
+        # fields_fk = ["equipment",  ]
+        # fields_datetime = ["updated","completed_time", ]
         for field in model._meta.get_fields():
+            if field.name in excludes:
+                continue
+            print field.name
             row.append(field.verbose_name)
         writer.writerow(row)
 
         for obj in qs:
             row = []
             for field in model._meta.get_fields():
+                if field.name in excludes:
+                    continue
+                    
                 #row.append(field.value_to_string(obj).encode('utf8'))
                 value = getattr(obj, field.name) 
                 if value:
                     if field.name in fields_datetime:
-                        value = value.strftime('%Y-%m-%d %H:%M:%S')             
+                        if isinstance(field, models.DateTimeField):
+                            value = value.strftime('%Y-%m-%d %H:%M:%S')
+                        else:
+                            value = value.strftime('%Y-%m-%d')                        
                     elif field.name in fields_display:
                         value = obj._get_FIELD_display(field)
                     elif field.name in fields_fk:
                         value = force_text(value, strings_only=True)
+                    elif fields_multiple and field.name in fields_multiple:
+                        str = "{0}{1}()".format("obj.get_",field.name)
+                        value = eval(str)
                     value = "%s" %  (value)
-                    row.append(value.encode('utf8'))
+                    if field.name in fields_multiple:
+                        row.append(value)
+                    else:
+                        row.append(value.encode('utf8'))
                 else:
                     row.append("")
             writer.writerow(row)    

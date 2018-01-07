@@ -13,6 +13,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
 from django_filters import FilterSet, CharFilter, NumberFilter, BooleanFilter, DateFilter, MethodFilter
 from django.utils.encoding import force_str, force_text
+from django.db import models
 import csv
 import codecs
 from django.utils import timezone
@@ -573,6 +574,20 @@ class SprayPumproomInspectionListDisplayView(DashboardTableListDisplayView):
         'rectification_status'
     ]
 
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "month", "rectification_status",  ]
+        fields_fk = ["",  ]
+        fields_datetime = ["check_date", "updated",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "spray_pumproom_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
+
 class SprayWarehouseInspectionFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)
 
@@ -601,6 +616,20 @@ class SprayWarehouseInspectionListDisplayView(DashboardTableListDisplayView):
         'month',
         'rectification_status'
     ]
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "month", "rectification_status",  ]
+        fields_fk = ["",  ]
+        fields_datetime = ["check_date", "updated",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "spray_warehouse_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
 
 class HSSEKPIFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)
@@ -648,6 +677,20 @@ class HSSEKPIListDisplayView(DashboardTableListDisplayView):
         
         return context      
 
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "month",  ]
+        fields_fk = ["",  ]
+        fields_datetime = ["created",]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "hsse_kpi_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+
+        
 class DashboardTableListEditView(StaffRequiredMixin, ListView):
     model = None    
     filter_class = None

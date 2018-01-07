@@ -37,7 +37,20 @@
                 <a class="btn btn-default" href="{% url 'transportationkpi_list_display' %}"  >{% trans 'Clear Filters' %}</a>   
             </form>                    
         </div>
-	
+	</div>
+    {% block content_operation %}
+    <div class="col-sm-12">
+        <div class="pull-right">
+            <form id="export" method="POST" action="" style="float: left;padding-right: 10px;">{% csrf_token %}
+                <a class="fa fa-download fa-1x" href="javascript:;" onclick="document.getElementById('export').submit();">{% trans "download" %}</a>
+            </form>
+        </div>
+    </div>
+    {% endblock %} 
+
+</div>
+<div class="row">
+    <div class="col-sm-12">
 	{% include "dashboard/table_transposition_display_content.html" %}
 	</div>
 </div>

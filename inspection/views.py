@@ -26,6 +26,8 @@ from .mixins import StaffRequiredMixin, TableListViewMixin, TableDetailViewMixin
 from django.db.models.fields.related import (
     ForeignObjectRel, ManyToOneRel, OneToOneField, add_lazy_relation,
 )
+from django.db import models
+
 from django.forms import models as model_forms
 
 # Create your views here.
@@ -65,7 +67,6 @@ from .forms import (
     shelf_inspection_record_Formset, 
     shelf_gradient_inspection_Formset,
     )
-
 
 # Create your views here.
 
@@ -587,6 +588,19 @@ class DailyInspectionListView(ChartMixin, FilterMixin, ListView):
                 pass
         return qs
 
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "category", "rectification_status", "location" ]
+        fields_fk = ["inspector",  ]
+        fields_datetime = ["due_date","created", "updated","completed_time"]
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["impact",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "daily_inspection_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+        
     def dispatch(self, request, *args, **kwargs):
         request.breadcrumbs([
             (_("Home"),reverse("home", kwargs={})),
@@ -999,6 +1013,18 @@ class ShelfInspectionDetailAndRecordListDisplayView(DetailView):  # Per Inspecti
 
         return context       
 
+    def post(self, *args, **kwargs):
+        qs = self.get_record_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = [ "use_condition",  "is_locked",]
+        fields_fk = ["shelf", ]
+        fields_datetime = ["due_date","check_date","completed_time"]
+        excludes = [field.name for field in shelf_inspection_record._meta.get_fields() if isinstance(field, models.ManyToOneRel)] + [ "shelf_inspection",]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(shelf_inspection_record, f.qs, "shelf_inspection_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
 
     def dispatch(self, request, *args, **kwargs):
         self.request.session["shortcut_back_url"] = request.get_full_path()
