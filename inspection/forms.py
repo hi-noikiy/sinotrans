@@ -491,6 +491,84 @@ class ShelfFilterForm(forms.Form):
         pass
 
 
+class ShelfInspectionRecordBatchCreateForm(forms.Form):
+
+            
+    try:            
+        CHOICE_LIST = []
+        for ins in shelf.objects.all().order_by('warehouse'):
+            if not (ins.warehouse, ins.warehouse) in CHOICE_LIST:
+                CHOICE_LIST.append((ins.warehouse, ins.warehouse))
+        CHOICE_LIST.sort()
+        CHOICE_LIST.insert(0, ('', '----'))
+
+
+        warehouse = forms.ChoiceField(
+                label=_('Warehouse'),
+                #choices = [(ins.warehouse, ins.warehouse) for ins in shelf.objects.all()].insert(0, ('', '----')) ,
+                choices = CHOICE_LIST,
+                widget=forms.Select(),
+                initial = None,
+                required=False
+                )    
+    except:
+        pass
+
+    try:            
+        CHOICE_LIST = []
+        for ins in shelf.objects.all().order_by('compartment'):
+            if not (ins.compartment, ins.compartment) in CHOICE_LIST:
+                CHOICE_LIST.append((ins.compartment, ins.compartment))
+        CHOICE_LIST.sort()
+        CHOICE_LIST.insert(0, ('', '----'))
+
+        compartment = forms.ChoiceField(
+                label=_('Compartment'),
+                choices = CHOICE_LIST,
+                widget=forms.Select(),
+                initial = None,
+                required=False
+                )  
+
+    except:
+        pass
+
+    try:            
+        CHOICE_LIST = []
+        for ins in shelf.objects.all().order_by('warehouse_channel'):
+            if not (ins.warehouse_channel, ins.warehouse_channel) in CHOICE_LIST:
+                CHOICE_LIST.append((ins.warehouse_channel, ins.warehouse_channel))
+        CHOICE_LIST.sort()
+        CHOICE_LIST.insert(0, ('', '----'))
+
+        warehouse_channel = forms.ChoiceField(
+                label=_('Warehouse Channel'),
+                choices = CHOICE_LIST,
+                widget=forms.Select(),
+                initial = None,
+                required=False
+                ) 
+    except:
+        pass
+
+    try:            
+        CHOICE_LIST = []
+        for ins in shelf.objects.all().order_by('group'):
+            if not (ins.group, ins.group) in CHOICE_LIST:
+                CHOICE_LIST.append((ins.group, ins.group))
+        CHOICE_LIST.sort()
+        CHOICE_LIST.insert(0, ('', '----'))
+
+        group = forms.ChoiceField(
+                label=_('group'),
+                choices = CHOICE_LIST,
+                widget=forms.Select(),
+                initial = None,
+                required=False
+                ) 
+    except:
+        pass
+        
 class ShelfUploadForm(forms.Form):
     excel = forms.FileField(
                 label=_('shelf upload'),

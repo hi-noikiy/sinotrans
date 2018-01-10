@@ -35,6 +35,7 @@ from .views import (
     ShelfAnnualInspectionDetailView,
     ShelfAnnualInspectionCreateView,
     ShelfAnnualInspectionUpdateView,
+    ShelfInspectionRecordBatchCreateView,
 
     RehearsalListView,
     RehearsalDetailView,
@@ -97,6 +98,9 @@ urlpatterns = [
     url(r'^shelfinspectionrecord/(?P<pk>\d+)/update/$', ShelfInspectionRecordUpdateView.as_view(), name='shelf_inspection_record_update'), 
     url(r'^shelfinspectionrecord/abnormal/$', ShelfInspectionRecordListView.as_view(), {'status':'abnormal'}, name='shelf_inspection_record_list_abnormal'),  
     url(r'^shelfinspectionrecord/$', ShelfInspectionRecordListView.as_view(), name='shelf_inspection_record_list'), 
+    url(r'^shelfinspectionrecord/(?P<inspection_id>\d+)/create$', ShelfInspectionRecordBatchCreateView.as_view(), name='shelf_inspection_record_batch_create'), 
+
+    
 
     url(r'^shelf$', ShelfListView.as_view(), name='shelf_list'),
     url(r'^shelf/(?P<pk>\d+)/$', ShelfDetailView.as_view(), name='shelf_detail'),  

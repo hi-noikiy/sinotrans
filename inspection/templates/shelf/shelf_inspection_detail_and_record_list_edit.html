@@ -225,7 +225,7 @@
             {% comment %} 
             <a href="{% url 'shelf_gradient_inspection' pk=object.id %}"><i class="fa fa-pencil-square" aria-hidden="true"> {% trans "shelf gradient inspection" %}</i></a>        
             {% endcomment %}
-            <a href=""><i class="fa fa-plus-square" aria-hidden="true"> {% trans "Create" %}{% trans "shelf inspection record" %}</i></a>                
+            <a href="{% url 'shelf_inspection_record_batch_create' inspection_id=object.id %}"><i class="fa fa-plus-square" aria-hidden="true"> {% trans "Create" %}{% trans "shelf inspection record" %}</i></a>
         </div>
         <div>
         {% if object_list.count == 0 %}

@@ -58,6 +58,7 @@ from .forms import (
     ShelfFilterForm, 
     ShelfInspectionForm, 
     ShelfUploadForm,
+    ShelfInspectionRecordBatchCreateForm,
     PIForm,
     WHPIForm,
     RTPIForm,
@@ -1077,7 +1078,7 @@ class ShelfInspectionDetailAndRecordListEditView(DetailView):
         pk = self.kwargs.get('pk', None)
         if pk:
             # shelf_inspection_instance = get_object_or_404(shelf_inspection, pk=pk)
-            queryset =  shelf_inspection_record.objects.filter(shelf_inspection__id = pk).order_by('shelf__id')
+            queryset =  shelf_inspection_record.objects.filter(shelf_inspection__id = pk).order_by('shelf__warehouse', 'shelf__compartment', 'shelf__warehouse_channel','shelf__group','shelf__number')
             filter_class = self.filter_class
             if filter_class and kwargs.get('filter'):
                 queryset = filter_class(self.request.GET, queryset=queryset).qs
@@ -1505,6 +1506,74 @@ class ShelfGradientInspectionView(DetailView):
         ])
 
         return super(ShelfGradientInspectionView, self).dispatch(request,args,kwargs)
+
+class ShelfInspectionRecordBatchCreateView(FormView):
+    template_name = "shelf/shelf_inspection_record_batch_create.html"
+    form_class = ShelfInspectionRecordBatchCreateForm
+
+    inspection_id = None
+
+    def get_success_url(self):
+        print self.inspection_id
+        return reverse("shelf_inspection_detail_and_record_list_edit", kwargs={'pk':self.inspection_id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.kwargs.get('inspection_id', None):
+            self.inspection_id = self.kwargs.pop('inspection_id')
+        self.inspection_id2 = kwargs.pop('inspection_id')
+        return super(ShelfInspectionRecordBatchCreateView,self).dispatch(request,args,kwargs)
+
+    def post(self, *args, **kwargs):
+
+        form = self.form_class(self.request.POST or None)
+
+        if form.is_valid():
+
+            warehouse = form.cleaned_data['warehouse']
+            compartment = form.cleaned_data['compartment']
+            warehouse_channel = form.cleaned_data['warehouse_channel']
+            group = form.cleaned_data['group']
+            shelf_inspection_instance = shelf_inspection.objects.get(pk=self.inspection_id)
+
+            query = None
+            if warehouse:
+                query = Q(warehouse__exact=warehouse)
+            if compartment:
+                query = query & Q(compartment__exact=compartment)
+            if warehouse_channel:
+                query = query & Q(warehouse_channel__exact=warehouse_channel)
+            if group:
+                query = query & Q(group__exact=group)
+            
+            # shelfs = shelf.objects.filter(warehouse=warehouse,compartment=compartment, warehouse_channel=warehouse_channel,group=group)  
+            if query:     
+                shelfs = shelf.objects.filter(query)   
+            
+                if shelfs: 
+                    for obj in shelfs:
+                        # instance, created = shelf_inspection_record.objects.get_or_create(\
+                        #     shelf=obj, \
+                        #     shelf_inspection=shelf_inspection_instance)
+
+                        instances = shelf_inspection_record.objects.filter(\
+                            shelf=obj, \
+                            shelf_inspection=shelf_inspection_instance)
+
+                        # if created:
+                        if not instances:
+                            instance = shelf_inspection_record()
+                            instance.shelf = obj
+                            instance.shelf_inspection = shelf_inspection_instance
+                            instance.use_condition='normal'
+                            instance.gradient =0
+                            instance.is_locked = False
+                            instance.inspector = self.request.user.get_full_name()
+                            instance.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
+
+
 
 class PIFilter(FilterSet):
     start = CharFilter(name='created', lookup_type='gte', distinct=True)
