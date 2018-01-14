@@ -46,6 +46,7 @@ from .models import (
     RTPI,    
     ExtinguisherInspection,
     HydrantInspection,
+    AnnualPlan,
 
     image_upload_to_dailyinspection,
     )
@@ -64,6 +65,7 @@ from .forms import (
     RTPIForm,
     ExtinguisherInspectionForm,
     HydrantInspectionForm,
+    AnnualPlanForm,
 
     shelf_inspection_record_Formset, 
     shelf_gradient_inspection_Formset,
@@ -81,6 +83,15 @@ class StorageSecurityView(TemplateView):
         
         return context
 
+class AnnualPlansView(TemplateView):
+    template_name = "annual_plans.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AnnualPlansView, self).get_context_data(*args, **kwargs)
+        context["year"] = timezone.now().year
+        
+        return context
+        
 class RehearsalFilter(FilterSet):
     start = CharFilter(name='created', lookup_type='gte', distinct=True)
     end = CharFilter(name='created', lookup_type='lte', distinct=True)
@@ -2068,3 +2079,55 @@ class HydrantInspectionListView(TableListViewMixin, ListView):
         from inspection.utils import gen_csv
         return gen_csv(self.model, f.qs, "hydrant_inspection_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
         
+
+class AnnualPlanFilter(FilterSet):
+    start = CharFilter(name='year', lookup_type='gte', distinct=True)
+    end = CharFilter(name='year', lookup_type='lte', distinct=True)
+    category = CharFilter(name='category', lookup_type='exact', distinct=True)
+    
+    class Meta:
+        model = AnnualPlan
+        fields = [
+            'start',
+            'end',
+            'category',
+        ]
+
+
+class AnnualPlanListView(TableListViewMixin, ListView): 
+    model = AnnualPlan    
+    template_name = "annualplan/annualplan_list.html"
+    filter_class = AnnualPlanFilter
+
+    fields_display = [
+        "jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec",
+    ]
+
+    def post(self, *args, **kwargs):
+        qs = self.get_queryset()
+        f = self.filter_class(self.request.GET, queryset=qs)
+
+        fields_display = self.fields_display
+        fields_fk = ["category",  ]
+        fields_datetime = []
+        excludes = [field.name for field in self.model._meta.get_fields() if isinstance(field, models.ManyToOneRel)]
+        fields_multiple = ["",]
+
+        from inspection.utils import gen_csv
+        return gen_csv(self.model, f.qs, "annual_plan_export.csv", fields_display, fields_fk, fields_datetime, excludes, fields_multiple)
+        
+
+class AnnualPlanUpdateView(StaffRequiredMixin, UpdateViewMixin, UpdateView):
+    model = AnnualPlan   
+    form_class = AnnualPlanForm 
+
+class AnnualPlanDetailView(TableDetailViewMixin, DetailView): 
+    model = AnnualPlan    
+
+    fields_display = [
+        "jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec",
+    ]
+
+class AnnualPlanCreateView(StaffRequiredMixin, CreateViewMixin, CreateView):
+    model = AnnualPlan  
+    form_class = AnnualPlanForm  

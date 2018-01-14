@@ -4,8 +4,6 @@
 {% load pagination_tags %}
 
 
-
-
 <!--  Parameter 
     fields
     fields_display
@@ -17,6 +15,8 @@
     foreign_fields_images
     allow_edit
     line_per_page
+    values_green
+    values_red
 
  -->
 
@@ -45,7 +45,7 @@
             {% for object in object_list %}
                 <tr class="table-primary-hover">
                     {% for fieldname in fields %}
-                    {% if forloop.first %}<th>{% else %}<td>{% endif %}
+                    {% if forloop.first %}<th>{% else %}<td {% if object|my_get_field_value:fieldname and object|my_get_field_value:fieldname in values_green %}style="background-color:green;"{% elif object|my_get_field_value:fieldname and object|my_get_field_value:fieldname in values_red %}style="background-color:red;"{%endif%}>{% endif %}
                             {% if forloop.first and fields|length > 1 and object.get_absolute_url and not allow_edit and not forbidden_links %}
                                 <a href="{{object.get_absolute_url}}">
                             {% elif fieldname in field_display_links %}

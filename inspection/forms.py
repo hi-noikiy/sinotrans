@@ -20,7 +20,8 @@ from .models import (
     WHPI,
     RTPI,
     ExtinguisherInspection,
-    HydrantInspection,       
+    HydrantInspection,   
+    AnnualPlan,    
 )
 
 RESULT_OPTION = (
@@ -500,7 +501,7 @@ class ShelfInspectionRecordBatchCreateForm(forms.Form):
             if not (ins.warehouse, ins.warehouse) in CHOICE_LIST:
                 CHOICE_LIST.append((ins.warehouse, ins.warehouse))
         CHOICE_LIST.sort()
-        CHOICE_LIST.insert(0, ('', '----'))
+        # CHOICE_LIST.insert(0, ('', '----'))
 
 
         warehouse = forms.ChoiceField(
@@ -520,7 +521,7 @@ class ShelfInspectionRecordBatchCreateForm(forms.Form):
             if not (ins.compartment, ins.compartment) in CHOICE_LIST:
                 CHOICE_LIST.append((ins.compartment, ins.compartment))
         CHOICE_LIST.sort()
-        CHOICE_LIST.insert(0, ('', '----'))
+        # CHOICE_LIST.insert(0, ('', '----'))
 
         compartment = forms.ChoiceField(
                 label=_('Compartment'),
@@ -539,7 +540,7 @@ class ShelfInspectionRecordBatchCreateForm(forms.Form):
             if not (ins.warehouse_channel, ins.warehouse_channel) in CHOICE_LIST:
                 CHOICE_LIST.append((ins.warehouse_channel, ins.warehouse_channel))
         CHOICE_LIST.sort()
-        CHOICE_LIST.insert(0, ('', '----'))
+        # CHOICE_LIST.insert(0, ('', '----'))
 
         warehouse_channel = forms.ChoiceField(
                 label=_('Warehouse Channel'),
@@ -557,7 +558,7 @@ class ShelfInspectionRecordBatchCreateForm(forms.Form):
             if not (ins.group, ins.group) in CHOICE_LIST:
                 CHOICE_LIST.append((ins.group, ins.group))
         CHOICE_LIST.sort()
-        CHOICE_LIST.insert(0, ('', '----'))
+        # CHOICE_LIST.insert(0, ('', '----'))
 
         group = forms.ChoiceField(
                 label=_('group'),
@@ -785,3 +786,28 @@ class HydrantInspectionForm(forms.ModelForm):
             "completed_time",
             "inspector",
         ]    
+
+class AnnualPlanForm(forms.ModelForm):
+    try:
+        owner = forms.ChoiceField(
+                label=_('Owner'),
+                choices = set((ins, ins) for ins in get_user_model().objects.all()),
+                # empty_label = None, #not show enmpty
+                required=True
+                )   
+
+        supporter = forms.ChoiceField(
+                label=_('supporter'),
+                choices=set((ins, ins) for ins in get_user_model().objects.all()),
+                # empty_label = None, #not show enmpty
+                required=True
+                )            
+    except:
+        print "something happended"
+
+    class Meta:     
+        model = AnnualPlan
+
+        exclude = [
+            
+        ]           

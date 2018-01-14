@@ -65,7 +65,13 @@ from .views import (
     HydrantInspectionDetailView,
     HydrantInspectionUpdateView,
 
+    AnnualPlanListView,
+    AnnualPlanCreateView,
+    AnnualPlanDetailView,
+    AnnualPlanUpdateView,
+
     StorageSecurityView,
+    AnnualPlansView,
 
 )
 
@@ -87,7 +93,8 @@ urlpatterns = [
     url(r'^dashboardview/api/dailyinspection/$', DashboardViewDailyInspection.as_view()),   
 
     url(r'^storagesec$', StorageSecurityView.as_view(), name='storage_sec'),
-
+    url(r'^annualplans', AnnualPlansView.as_view(), name='annual_plans'),
+    
     url(r'^shelfinspection$', ShelfInspectionListView.as_view(), name='shelf_inspection_list'),      
     url(r'^shelfinspection/(?P<pk>\d+)/$', ShelfInspectionDetailAndRecordListDisplayView.as_view(), name='shelf_inspection_detail_and_record_list_display'),
     url(r'^shelfinspection/(?P<pk>\d+)/edit/$', ShelfInspectionDetailAndRecordListEditView.as_view(), name='shelf_inspection_detail_and_record_list_edit'),  
@@ -140,4 +147,8 @@ urlpatterns = [
     url(r'^hydrantinspection/(?P<pk>\d+)/$', HydrantInspectionDetailView.as_view(), name='hydrantinspection_detail'),  
     url(r'^hydrantinspection/(?P<pk>\d+)/update/$', HydrantInspectionUpdateView.as_view(), name='hydrantinspection_update'),  
 
+    url(r'^annualplan$', AnnualPlanListView.as_view(), name='annualplan_list'),
+    url(r'^annualplan/create$', AnnualPlanCreateView.as_view(), name='annualplan_create'),
+    url(r'^annualplan/(?P<pk>\d+)/$', AnnualPlanDetailView.as_view(), name='annualplan_detail'),  
+    url(r'^annualplan/(?P<pk>\d+)/update/$', AnnualPlanUpdateView.as_view(), name='annualplan_update'),  
 ]

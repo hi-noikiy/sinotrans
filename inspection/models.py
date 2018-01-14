@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from fields import ThumbnailImageField
 from django.conf import settings
 from uuslug import slugify as uuslugify
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class InspectionMixin(models.Model):
@@ -768,3 +769,61 @@ class RTPI(PI):
         verbose_name = _("RTPI")
         verbose_name_plural = _("RTPI")        
         abstract=False        
+
+class AnnualPlanCategory(models.Model):
+    category = models.CharField(_('categoy'), max_length=30, blank=False, null=False)
+
+    class Meta:
+        verbose_name = _("annual plan category")
+        verbose_name_plural = _("annual plan category")        
+
+    def __unicode__(self): 
+        return" %s" % (self.category)        
+
+
+class AnnualPlan(models.Model):
+    Annual_Plan_Status = (
+        ('on schedue', _('on schedue')),
+        ('overdue', _('overdue')),
+        ('completed', _('completed')),
+    )
+
+    year = models.PositiveIntegerField(_("year"),
+        validators=[MinValueValidator(2000), MaxValueValidator(timezone.now().year+1)],
+        blank=True,null=False, help_text=_("Use the following format: < YYYY >"))    
+    category = models.ForeignKey(AnnualPlanCategory, verbose_name=_("category"))
+    title = models.CharField(_('Title'), max_length=130, blank=False, null=False)   
+    owner = models.CharField(_('owner'), max_length=30, blank=False,null=False)
+    supporter = models.CharField(_('supporter'), max_length=30, blank=False,null=False)
+    # planned_date = models.DateField(_('planned date'), auto_now_add=False, auto_now=False)
+    # actual_date = models.DateField(_('actual date'), auto_now_add=False, auto_now=False, blank=True, null=True)
+    jan = models.CharField(_('January'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    feb = models.CharField(_('February'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    mar = models.CharField(_('March'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    apr = models.CharField(_('April'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    may = models.CharField(_('May'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    jun = models.CharField(_('June'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    jul = models.CharField(_('July'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    aug = models.CharField(_('August'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    sep = models.CharField(_('September'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    oct = models.CharField(_('October'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    nov = models.CharField(_('November'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+    dec = models.CharField(_('December'), max_length=30, choices = Annual_Plan_Status, blank=True,null=True)
+
+
+    class Meta:
+        verbose_name = _("annual plan")
+        verbose_name_plural = _("annual plan")
+
+    def __unicode__(self): 
+        return "%s %s" % (self.title, self.year)        
+
+    def get_absolute_url(self):
+        return reverse("annualplan_detail", kwargs={"pk": self.pk })
+
+    def get_absolute_url_update(self):
+        return reverse("annualplan_update", kwargs={"pk": self.pk })
+
+    def get_absolute_url_list(self):
+        return reverse("annualplan_list", kwargs={})
+

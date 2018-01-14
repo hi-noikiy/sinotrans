@@ -1,0 +1,1 @@
+python manage-local.py compilemessages -l zh_hans

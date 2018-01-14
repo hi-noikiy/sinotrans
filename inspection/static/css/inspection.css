@@ -33,4 +33,15 @@ body.model-shelf_inspection_record #changelist table tbody tr th {
     width:11%!important;
 }
 
+/*annual plan*/
+body.model-annualplan #changelist table tbody tr td:first-child {
+    width:auto!important;
+}
+body.model-annualplan #changelist table tbody tr th {
+    width:6%!important;
+}
+
+body.model-annualplan #changelist table tbody tr td:nth-child(3){
+    width:10%!important;
+}
 

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+<style type="text/css">
+{% block style %}
+
+.object_list table>tbody>tr>td:nth-child(3){
+    text-align: left;
+}
+
+.object_list table>tbody>tr>td:nth-child(n+6){
+    width: 5%;
+}
+
+.object_list table>tbody>tr>td[value="计划中"]{
+    background-color: red;
+}
+
+/*
+.object_list table>thead>tr>th:nth-last-child(1){
+    width: 10%;
+}*/
+
+{% endblock %}  
+</style>
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pull-right">
+            <form id="export" method="POST" action="" style="float: left;padding-right: 10px;">{% csrf_token %}                        
+                <a class="fa fa-download fa-1x" href="javascript:;" onclick="document.getElementById('export').submit();">{% trans "download" %}</a>
+            </form>               
+            {% if request.user.is_staff %}
+            <a href='{% url "annualplan_create" %}'><i class="fa fa-plus-square-o" aria-hidden="true"> {% trans "Create" %}{% if LANGUAGE_CODE == "en" %}&nbsp{% endif %}{% trans "annual plan" %}</i></a>                          
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% include "includes/model_list_table_display.html" with line_per_page=20 table_class="table-bordered table-align-center" values_green='["completed"]' values_red='["overdue",]' %}
+{% endblock %}

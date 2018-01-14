@@ -1,0 +1,1 @@
+python manage-local.py makemessages -l zh_hans

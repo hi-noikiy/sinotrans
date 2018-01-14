@@ -21,11 +21,15 @@ from .models import (
     Hydrant,
     HydrantInspection,
 
+    AnnualPlan,
+    AnnualPlanCategory,
+
     )
     
 from .forms import (
     DailyInspectionForm,
     ShelfInspectionRecordForm,
+    AnnualPlanForm,
 )
 from django.core.urlresolvers import reverse
 from django.contrib.sites.shortcuts import get_current_site
@@ -322,6 +326,58 @@ class HydrantInspectionAdmin(admin.ModelAdmin):
     class Meta:
         model = HydrantInspection 
 
+class AnnualPlanCategoryAdmin(admin.ModelAdmin):
+    # list_display = ['hydrant',"inspector","check_result","check_date","due_date","completed_time"]
+    # list_search = ['hydrant',"inspector","check_result","check_date"]
+    # list_filter = ["hydrant","inspector","check_result","check_date","due_date","completed_time"]
+
+    view_on_site = False
+
+    class Meta:
+        model = AnnualPlanCategory
+
+class AnnualPlanAdmin(admin.ModelAdmin):
+    list_display = [
+        'year',
+        "category",
+        "title",
+        "owner",
+        "supporter",
+        "jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec",
+    ]
+    list_search = [
+        'year',
+        "category",
+        "title",
+        "owner",
+        "supporter",
+    ]
+    list_filter = [
+        'year',
+        "category",
+        # "title",
+        "owner",
+        "supporter",
+        "jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec",
+    ]
+
+    list_editable = [
+        "jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec",
+    ]
+
+    view_on_site = False
+
+    form = AnnualPlanForm
+
+    class Meta:
+        model = AnnualPlan 
+
+    class Media:
+        css = {
+            "all": ("css/model_admin.css", "css/inspection.css", )
+        }
+        js = ("js/jquery.min.js","js/model_admin.js",)
+
 admin.site.register(DailyInspection, DailyInspectionAdmin)
 # admin.site.register(OfficeInspection, OfficeInspectionAdmin)
 admin.site.register(shelf, ShelfAdmin)
@@ -336,6 +392,8 @@ admin.site.register(Extinguisher, ExtinguisherAdmin)
 admin.site.register(ExtinguisherInspection, ExtinguisherInspectionAdmin)
 admin.site.register(Hydrant, HydrantAdmin)
 admin.site.register(HydrantInspection, HydrantInspectionAdmin)
+admin.site.register(AnnualPlanCategory, AnnualPlanCategoryAdmin)
+admin.site.register(AnnualPlan, AnnualPlanAdmin)
 
 my_admin_site.register(DailyInspection, DailyInspectionAdmin)
 # my_admin_site.register(OfficeInspection, OfficeInspectionAdmin)
@@ -351,4 +409,5 @@ my_admin_site.register(Extinguisher, ExtinguisherAdmin)
 my_admin_site.register(ExtinguisherInspection, ExtinguisherInspectionAdmin)
 my_admin_site.register(Hydrant, HydrantAdmin)
 my_admin_site.register(HydrantInspection, HydrantInspectionAdmin)
-
+my_admin_site.register(AnnualPlanCategory, AnnualPlanCategoryAdmin)
+my_admin_site.register(AnnualPlan, AnnualPlanAdmin)
