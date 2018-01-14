@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 <style>
 {% block style %}
@@ -51,6 +52,24 @@ $.ajax({
 {% block content %}
 
 <p style="color:gray;"> {% trans "total number" %} = {% trans "inspection total number" %}  |  {% trans "Uncompleted" %} = {% trans "rectification uncompleted" %}  |  {% trans "efficiency" %} = {% trans "completed rectification average cost days" %} </p>
+
+<br>
+
+<div class='row'>
+    <div class='col-sm-3'>   
+        
+        <form method="get" action="">        
+            <div class="input-group">
+                <!-- {{form.year.errors}} <input class="form-control" type="number" name="year" placeholder="search" value="{{request.GET.year }}" /> -->
+                {{form.year}}
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                </span>
+            </div>        
+        </form>        
+    </div>
+</div>
+
 
 <div class='row'>
     <div class='col-sm-12'>

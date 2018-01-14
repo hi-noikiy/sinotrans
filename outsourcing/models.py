@@ -331,7 +331,10 @@ class VehicleInspection(models.Model):
         return self.rectification_qualified == "yes"
 
     def time_consuming(self):
-        return (self.completed_time - self.created).days
+        try:
+            return (self.completed_time - self.created).days
+        except:
+            return 0
 
 
 class VehicleTransportationKPI(models.Model):

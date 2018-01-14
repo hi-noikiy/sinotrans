@@ -8,6 +8,8 @@ from django.utils.translation import (
 )
 from django.utils.http import is_safe_url
 
+from .forms import DashboardForm
+
 def set_language(request):
     #print request.META.get('HTTP_REFERER', None)
     next = request.POST.get('next', request.GET.get('next'))
@@ -132,11 +134,22 @@ from inspection.api import (
     get_annual_training_plan_total_url,         
     )
 
-def get_last_times():
-    year = timezone.now().year #time.localtime()[0]
-    return [[i, year] for i in range(1,13)]
+# def get_last_times():
+#     year = timezone.now().year #time.localtime()[0]
+#     return [[i, year] for i in range(1,13)]
 
 def DashboardViewSINO(request):
+
+    year = timezone.now().year
+
+    form = DashboardForm(request.GET or None)
+
+    # if form.is_valid():
+    if request.GET.get('year', None):
+        year = int(request.GET.get('year'))
+    else:
+        print form.errors
+        return render(request,"dashboard_statistic.html",{'form':form})
 
     row_groups = []
 
@@ -169,11 +182,11 @@ def DashboardViewSINO(request):
     context["headers"] = column_header1 + column_header2 
     context["column_css"] = column_css # MUST = data field length
 
-    data1 = get_daily_inspection_total()
-    data2 = get_daily_inspection_uncompleted()
-    data3 = get_daily_inspection_efficiency()
-    data4 = get_daily_inspection_total_url()
-    data5 = get_daily_inspection_uncompleted_url()
+    data1 = get_daily_inspection_total(year)
+    data2 = get_daily_inspection_uncompleted(year)
+    data3 = get_daily_inspection_efficiency(year)
+    data4 = get_daily_inspection_total_url(year)
+    data5 = get_daily_inspection_uncompleted_url(year)
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]
                                                        
@@ -182,24 +195,23 @@ def DashboardViewSINO(request):
     group = ["na"]*len(rows)
     context["rows_dailyinspection"] = zip(rows,indicator,group,data)
 
-
     #
     rows = get_pi_rows()
-    data1 = get_whpi_total()
-    data2 = get_whpi_uncompleted()
-    data3 = get_whpi_efficiency()    
-    data4 = get_pi_total_url()
-    data5 = get_pi_uncompleted_url()
+    data1 = get_whpi_total(year)
+    data2 = get_whpi_uncompleted(year)
+    data3 = get_whpi_efficiency(year)    
+    data4 = get_pi_total_url(year)
+    data5 = get_pi_uncompleted_url(year)
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
     context["rows_pi"] = zip(rows,indicator,group,data)
 
     rows = get_spray_rows()
-    data1 = get_spray_total()
-    data2 = get_spray_uncompleted()
-    data3 = get_spray_efficiency()    
-    data4 = get_spray_total_url()
-    data5 = get_spray_uncompleted_url()
+    data1 = get_spray_total(year)
+    data2 = get_spray_uncompleted(year)
+    data3 = get_spray_efficiency(year)    
+    data4 = get_spray_total_url(year)
+    data5 = get_spray_uncompleted_url(year)
 
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
@@ -207,22 +219,22 @@ def DashboardViewSINO(request):
 
     #
     rows = get_hydrant_rows()
-    data1 = get_hydrant_total()
-    data2 = get_hydrant_uncompleted()
-    data3 = get_hydrant_efficiency()    
-    data4 = get_hydrant_total_url()
-    data5 = get_hydrant_uncompleted_url()
+    data1 = get_hydrant_total(year)
+    data2 = get_hydrant_uncompleted(year)
+    data3 = get_hydrant_efficiency(year)    
+    data4 = get_hydrant_total_url(year)
+    data5 = get_hydrant_uncompleted_url(year)
 
 
     data = [ zip(a,b,c,d,e) for a,b,c,d,e in zip(data1,data2,data3,data4,data5)]    
     context["rows_hydrant"] = zip(rows,indicator,group,data)
 
     rows = get_other_equipment_rows()
-    data1 = get_other_equipment_total()
-    data2 = get_other_equipment_uncompleted()
-    data3 = get_other_equipment_efficiency()    
-    data4 = get_other_equipment_total_url()
-    data5 = get_other_equipment_uncompleted_url()
+    data1 = get_other_equipment_total(year)
+    data2 = get_other_equipment_uncompleted(year)
+    data3 = get_other_equipment_efficiency(year)    
+    data4 = get_other_equipment_total_url(year)
+    data5 = get_other_equipment_uncompleted_url(year)
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
 
@@ -231,11 +243,11 @@ def DashboardViewSINO(request):
     context["rows_other_equipment"] = zip(rows,indicator,group,data)
 
     rows = get_shelf_inspection_rows()
-    data1 = get_shelf_inspection_total()
-    data2 = get_shelf_inspection_uncompleted()
-    data3 = get_shelf_inspection_efficiency()    
-    data4 = get_shelf_inspection_total_url()
-    data5 = get_shelf_inspection_uncompleted_url()
+    data1 = get_shelf_inspection_total(year)
+    data2 = get_shelf_inspection_uncompleted(year)
+    data3 = get_shelf_inspection_efficiency(year)    
+    data4 = get_shelf_inspection_total_url(year)
+    data5 = get_shelf_inspection_uncompleted_url(year)
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
 
@@ -246,11 +258,11 @@ def DashboardViewSINO(request):
     context["shelf_count"] = shelf.objects.all().count
 
     rows = get_vehicle_inspection_rows()
-    data1 = get_vehicle_inspection_total()
-    data2 = get_vehicle_inspection_uncompleted()
-    data3 = get_vehicle_inspection_efficiency()    
-    data4 = get_vehicle_inspection_total_url()
-    data5 = get_vehicle_inspection_uncompleted_url()
+    data1 = get_vehicle_inspection_total(year)
+    data2 = get_vehicle_inspection_uncompleted(year)
+    data3 = get_vehicle_inspection_efficiency(year)
+    data4 = get_vehicle_inspection_total_url(year)
+    data5 = get_vehicle_inspection_uncompleted_url(year)
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
 
@@ -263,11 +275,11 @@ def DashboardViewSINO(request):
 
     #>>>
     rows = get_forklift_repair_rows()
-    data1 = get_forklift_repair_total()
-    data2 = get_forklift_repair_uncompleted()
-    data3 = get_forklift_repair_efficiency()    
-    data4 = get_forklift_repair_total_url()
-    data5 = get_forklift_repair_uncompleted_url()
+    data1 = get_forklift_repair_total(year)
+    data2 = get_forklift_repair_uncompleted(year)
+    data3 = get_forklift_repair_efficiency(year)    
+    data4 = get_forklift_repair_total_url(year)
+    data5 = get_forklift_repair_uncompleted_url(year)
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
 
@@ -279,11 +291,11 @@ def DashboardViewSINO(request):
 
     #>>>
     rows = get_annual_training_plan_rows()
-    data1 = get_annual_training_plan_total()
-    data2 = get_annual_training_plan_uncompleted()
-    data3 = get_annual_training_plan_ratio()    
-    data4 = get_annual_training_plan_total_url()
-    data5 = get_annual_training_plan_uncompleted_url()
+    data1 = get_annual_training_plan_total(year)
+    data2 = get_annual_training_plan_uncompleted(year)
+    data3 = get_annual_training_plan_ratio(year)    
+    data4 = get_annual_training_plan_total_url(year)
+    data5 = get_annual_training_plan_uncompleted_url(year)
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
 
@@ -293,11 +305,11 @@ def DashboardViewSINO(request):
 
     #>>>>>>>>>>>>>>
     rows = get_forklift_maint_rows()
-    data1 = get_forklift_maint_total()
-    # data2 = get_forklift_maint_uncompleted()
-    data3 = get_forklift_maint_cost()    
-    data4 = get_forklift_maint_total_url()
-    # data5 = get_forklift_maint_uncompleted_url()
+    data1 = get_forklift_maint_total(year)
+    # data2 = get_forklift_maint_uncompleted(year)
+    data3 = get_forklift_maint_cost(year)    
+    data4 = get_forklift_maint_total_url(year)
+    # data5 = get_forklift_maint_uncompleted_url(year)
     indicator = ["na"]*len(rows)
     group = ["na"]*len(rows)
 
@@ -316,6 +328,8 @@ def DashboardViewSINO(request):
     column_header1[0].insert(0,[_("category"),2,1])
 
     context["headers_forklift_maint"] = column_header1 + column_header2 
+
+    context['form'] = DashboardForm(request.GET or None, initial={'year':timezone.now().year})
 
     return render(request,"dashboard_statistic.html",context)
 

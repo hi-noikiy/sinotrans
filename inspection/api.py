@@ -10,8 +10,11 @@ from django.db.models import Q
 
 import calendar
 
-def get_last_times():
-    year = timezone.now().year
+def get_last_times(in_year):
+    if not in_year:
+        year = timezone.now().year
+    else:
+        year = in_year
     times = [[i, year] for i in range(1,13)]
     times = times + [["",year],]
     return times
@@ -54,14 +57,14 @@ def get_daily_inspection_rows():
     return DailyInspection.daily_insepction_category + (('', _('Total')),)
 
 
-def get_daily_inspection_total():
+def get_daily_inspection_total(in_year):
     return [[get_model_queryset(DailyInspection, category[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_daily_inspection_rows()]
 
-def get_daily_inspection_uncompleted():
+def get_daily_inspection_uncompleted(in_year):
     return [[get_model_queryset(DailyInspection, category[0],"uncompleted",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_daily_inspection_rows()]
 
     return [[DailyInspection.objects.filter(category=category[0], rectification_status="uncompleted",created__startswith="{0}-{1:0>2d}-".format(year,month)).count() if category[0] else\
@@ -69,9 +72,9 @@ def get_daily_inspection_uncompleted():
                 for month, year in get_last_times()] \
                     for category in get_daily_inspection_rows()]             
 
-def get_daily_inspection_total_url():
+def get_daily_inspection_total_url(in_year):
     return [[get_model_url(category,'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_daily_inspection_rows()]   
 
     url = reverse("dailyinspection_list", kwargs={}) 
@@ -80,15 +83,15 @@ def get_daily_inspection_total_url():
                 for month, year in get_last_times()] \
                     for category in get_daily_inspection_rows()]    
 
-def get_daily_inspection_completed():
+def get_daily_inspection_completed(in_year):
     return [[get_model_queryset(DailyInspection, category[0],"completed",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_daily_inspection_rows()]
 
-def get_daily_inspection_uncompleted_url():
+def get_daily_inspection_uncompleted_url(in_year):
 
     return [[get_model_url(category,'uncompleted',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_daily_inspection_rows()]   
 
     url = reverse("dailyinspection_list", kwargs={}) 
@@ -97,11 +100,11 @@ def get_daily_inspection_uncompleted_url():
                 for month, year in get_last_times()] \
                     for category in get_daily_inspection_rows()]    
 
-def get_daily_inspection_efficiency():
-    efficiency_array = get_daily_inspection_completed()
+def get_daily_inspection_efficiency(in_year):
+    efficiency_array = get_daily_inspection_completed(in_year)
 
     for i, category in enumerate(get_daily_inspection_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_model_queryset(DailyInspection, category[0],"completed",year,month)
             # completed_qs = DailyInspection.objects.filter(category=category[0], rectification_status="completed", created__startswith="{0}-{1:0>2d}-".format(year,month)) if category[0] else\
@@ -138,21 +141,21 @@ def get_pi_model_queryset(category,rectification_status, year,month):
 
     return qs
 
-def get_whpi_total():
+def get_whpi_total(in_year):
     return [[get_pi_model_queryset(category[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_pi_rows()]
 
-def get_whpi_uncompleted():
+def get_whpi_uncompleted(in_year):
     return [[get_pi_model_queryset(category[0],"uncompleted",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_pi_rows()]
 
-def get_whpi_efficiency():
-    efficiency_array = get_whpi_uncompleted()
+def get_whpi_efficiency(in_year):
+    efficiency_array = get_whpi_uncompleted(in_year)
 
     for i, category in enumerate(get_pi_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_pi_model_queryset(category[0],"completed",year,month)
             for instance in completed_qs:
@@ -181,15 +184,15 @@ def get_pi_model_url(category,rectification_status, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_pi_total_url():
+def get_pi_total_url(in_year):
     return [[get_pi_model_url(category[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_pi_rows()]       
 
-def get_pi_uncompleted_url():
+def get_pi_uncompleted_url(in_year):
 
     return [[get_pi_model_url(category[0],'uncompleted',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_pi_rows()] 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -216,21 +219,21 @@ def get_spary_model_queryset(model_name,rectification_status, year,month):
 
     return qs
 
-def get_spray_total():
+def get_spray_total(in_year):
     return [[get_spary_model_queryset(model_name[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_spray_rows()]
 
-def get_spray_uncompleted():
+def get_spray_uncompleted(in_year):
     return [[get_spary_model_queryset(model_name[0],"uncompleted",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_spray_rows()]
 
-def get_spray_efficiency():
-    efficiency_array = get_spray_uncompleted()
+def get_spray_efficiency(in_year):
+    efficiency_array = get_spray_uncompleted(in_year)
 
     for i, model_name in enumerate(get_spray_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_spary_model_queryset(model_name[0],"completed",year,month)
             for instance in completed_qs:
@@ -254,15 +257,15 @@ def get_spary_model_url(category,rectification_status, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_spray_total_url():
+def get_spray_total_url(in_year):
     return [[get_spary_model_url(category[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_spray_rows()]       
 
-def get_spray_uncompleted_url():
+def get_spray_uncompleted_url(in_year):
 
     return [[get_spary_model_url(category[0],'uncompleted',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_spray_rows()]                     
 
 # >>>>>>>>>>>>>>>
@@ -292,21 +295,21 @@ def get_hydrant_model_queryset(model_name,check_result, year,month, is_efficienc
 
     return qs
 
-def get_hydrant_total():
+def get_hydrant_total(in_year):
     return [[get_hydrant_model_queryset(model_name[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_hydrant_rows()]
 
-def get_hydrant_uncompleted():
+def get_hydrant_uncompleted(in_year):
     return [[get_hydrant_model_queryset(model_name[0],"breakdown",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_hydrant_rows()]
 
-def get_hydrant_efficiency():
-    efficiency_array = get_hydrant_uncompleted()
+def get_hydrant_efficiency(in_year):
+    efficiency_array = get_hydrant_uncompleted(in_year)
 
     for i, model_name in enumerate(get_hydrant_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_hydrant_model_queryset(model_name[0],"normal",year,month,is_efficiency=True)
             for instance in completed_qs:
@@ -335,15 +338,15 @@ def get_hydrant_model_url(model_name,check_result, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_hydrant_total_url():
+def get_hydrant_total_url(in_year):
     return [[get_hydrant_model_url(model_name[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_hydrant_rows()]       
 
-def get_hydrant_uncompleted_url():
+def get_hydrant_uncompleted_url(in_year):
 
     return [[get_hydrant_model_url(model_name[0],'breakdown',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_hydrant_rows()] 
 
 
@@ -373,21 +376,21 @@ def get_other_equipment_model_queryset(category,check_result, year,month, is_eff
 
     return qs
 
-def get_other_equipment_total():
+def get_other_equipment_total(in_year):
     return [[get_other_equipment_model_queryset(category[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_other_equipment_rows()]
 
-def get_other_equipment_uncompleted():
+def get_other_equipment_uncompleted(in_year):
     return [[get_other_equipment_model_queryset(category[0],"breakdown",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_other_equipment_rows()]
 
-def get_other_equipment_efficiency():
-    efficiency_array = get_other_equipment_uncompleted()
+def get_other_equipment_efficiency(in_year):
+    efficiency_array = get_other_equipment_uncompleted(in_year)
 
     for i, category in enumerate(get_other_equipment_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_other_equipment_model_queryset(category[0],"normal",year,month,is_efficiency=True)
             for instance in completed_qs:
@@ -414,15 +417,15 @@ def get_other_equipment_model_url(category,check_result, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_other_equipment_total_url():
+def get_other_equipment_total_url(in_year):
     return [[get_other_equipment_model_url(category[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_other_equipment_rows()]       
 
-def get_other_equipment_uncompleted_url():
+def get_other_equipment_uncompleted_url(in_year):
 
     return [[get_other_equipment_model_url(category[0],'breakdown',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for category in get_other_equipment_rows()] 
 
 
@@ -453,21 +456,21 @@ def get_shelf_inspection_model_queryset(model_name,check_result, year,month, is_
 
     return qs
 
-def get_shelf_inspection_total():
+def get_shelf_inspection_total(in_year):
     return [[get_shelf_inspection_model_queryset(model_name[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_shelf_inspection_rows()]
 
-def get_shelf_inspection_uncompleted():
+def get_shelf_inspection_uncompleted(in_year):
     return [[get_shelf_inspection_model_queryset(model_name[0],"breakdown",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_shelf_inspection_rows()]
 
-def get_shelf_inspection_efficiency():
-    efficiency_array = get_shelf_inspection_uncompleted()
+def get_shelf_inspection_efficiency(in_year):
+    efficiency_array = get_shelf_inspection_uncompleted(in_year)
 
     for i, model_name in enumerate(get_shelf_inspection_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_shelf_inspection_model_queryset(model_name[0],"normal",year,month,is_efficiency=True)
             for instance in completed_qs:
@@ -492,15 +495,15 @@ def get_shelf_inspection_model_url(model_name,check_result, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_shelf_inspection_total_url():
+def get_shelf_inspection_total_url(in_year):
     return [[get_shelf_inspection_model_url(model_name[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_shelf_inspection_rows()]       
 
-def get_shelf_inspection_uncompleted_url():
+def get_shelf_inspection_uncompleted_url(in_year):
 
     return [[get_shelf_inspection_model_url(model_name[0],'breakdown',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_shelf_inspection_rows()] 
 
 # >>>>>>>>>>>>>>> vehicle inspection
@@ -530,21 +533,21 @@ def get_vehicle_inspection_model_queryset(model_name,check_result, year,month, i
 
     return qs
 
-def get_vehicle_inspection_total():
+def get_vehicle_inspection_total(in_year):
     return [[get_vehicle_inspection_model_queryset(model_name[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_vehicle_inspection_rows()]
 
-def get_vehicle_inspection_uncompleted():
+def get_vehicle_inspection_uncompleted(in_year):
     return [[get_vehicle_inspection_model_queryset(model_name[0],"no",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_vehicle_inspection_rows()]
 
-def get_vehicle_inspection_efficiency():
-    efficiency_array = get_vehicle_inspection_uncompleted()
+def get_vehicle_inspection_efficiency(in_year):
+    efficiency_array = get_vehicle_inspection_uncompleted(in_year)
 
     for i, model_name in enumerate(get_vehicle_inspection_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_vehicle_inspection_model_queryset(model_name[0],"yes",year,month,is_efficiency=True)
             for instance in completed_qs:
@@ -569,15 +572,15 @@ def get_vehicle_inspection_model_url(model_name,check_result, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_vehicle_inspection_total_url():
+def get_vehicle_inspection_total_url(in_year):
     return [[get_vehicle_inspection_model_url(model_name[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_vehicle_inspection_rows()]       
 
-def get_vehicle_inspection_uncompleted_url():
+def get_vehicle_inspection_uncompleted_url(in_year):
 
     return [[get_vehicle_inspection_model_url(model_name[0],'no',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_vehicle_inspection_rows()] 
 
 
@@ -608,21 +611,21 @@ def get_forklift_repair_model_queryset(model_name,check_result, year,month, is_e
 
     return qs
 
-def get_forklift_repair_total():
+def get_forklift_repair_total(in_year):
     return [[get_forklift_repair_model_queryset(model_name[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_forklift_repair_rows()]
 
-def get_forklift_repair_uncompleted():
+def get_forklift_repair_uncompleted(in_year):
     return [[get_forklift_repair_model_queryset(model_name[0],"no",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_forklift_repair_rows()]
 
-def get_forklift_repair_efficiency():
-    efficiency_array = get_forklift_repair_uncompleted()
+def get_forklift_repair_efficiency(in_year):
+    efficiency_array = get_forklift_repair_uncompleted(in_year)
 
     for i, model_name in enumerate(get_forklift_repair_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_forklift_repair_model_queryset(model_name[0],"yes",year,month,is_efficiency=True)
             for instance in completed_qs:
@@ -647,15 +650,15 @@ def get_forklift_repair_model_url(model_name,check_result, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_forklift_repair_total_url():
+def get_forklift_repair_total_url(in_year):
     return [[get_forklift_repair_model_url(model_name[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_forklift_repair_rows()]       
 
-def get_forklift_repair_uncompleted_url():
+def get_forklift_repair_uncompleted_url(in_year):
 
     return [[get_forklift_repair_model_url(model_name[0],'no',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_forklift_repair_rows()] 
 
 
@@ -680,21 +683,21 @@ def get_forklift_maint_model_queryset(model_name,check_result, year,month):
 
     return qs
 
-def get_forklift_maint_total():
+def get_forklift_maint_total(in_year):
     return [[get_forklift_maint_model_queryset(model_name[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_forklift_maint_rows()]
 
-def get_forklift_maint_uncompleted():
+def get_forklift_maint_uncompleted(in_year):
     return [[get_forklift_maint_model_queryset(model_name[0],"-",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_forklift_maint_rows()]
 
-def get_forklift_maint_cost():
-    efficiency_array = get_forklift_repair_uncompleted()
+def get_forklift_maint_cost(in_year):
+    efficiency_array = get_forklift_repair_uncompleted(in_year)
 
     for i, model_name in enumerate(get_forklift_maint_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             costs = 0
             completed_qs = get_forklift_maint_model_queryset(model_name[0],"-",year,month)
             for instance in completed_qs:
@@ -716,15 +719,15 @@ def get_forklift_maint_model_url(model_name,check_result, year,month):
 
     return "{0}{1}".format(url, q)
 
-def get_forklift_maint_total_url():
+def get_forklift_maint_total_url(in_year):
     return [[get_forklift_maint_model_url(model_name[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_forklift_maint_rows()]       
 
-def get_forklift_maint_uncompleted_url():
+def get_forklift_maint_uncompleted_url(in_year):
 
     return [[get_forklift_maint_model_url(model_name[0],'-',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_forklift_maint_rows()] 
 
 
@@ -756,21 +759,21 @@ def get_annual_training_plan_model_queryset(model_name,check_result, year,month,
 
     return qs
 
-def get_annual_training_plan_total():
+def get_annual_training_plan_total(in_year):
     return [[get_annual_training_plan_model_queryset(model_name[0],"",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_annual_training_plan_rows()]
 
-def get_annual_training_plan_uncompleted():
+def get_annual_training_plan_uncompleted(in_year):
     return [[get_annual_training_plan_model_queryset(model_name[0],"no",year,month).count()\
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_annual_training_plan_rows()]
 
-def get_annual_training_plan_ratio():
-    efficiency_array = get_annual_training_plan_uncompleted()    
+def get_annual_training_plan_ratio(in_year):
+    efficiency_array = get_annual_training_plan_uncompleted(in_year)    
 
     for i, model_name in enumerate(get_annual_training_plan_rows()):
-        for j, [month, year] in enumerate(get_last_times()):            
+        for j, [month, year] in enumerate(get_last_times(in_year)):            
             time_consumings = 0
             completed_qs = get_annual_training_plan_model_queryset(model_name[0],"yes",year,month,is_efficiency=True)
             total_qs = get_annual_training_plan_model_queryset(model_name[0],"-",year,month,is_efficiency=True)
@@ -792,19 +795,19 @@ def get_annual_training_plan_model_url(model_name,check_result, year,month):
     else:
         q = "{0}&start={1}-01-01&end={1}-12-31".format(q,year) if q else\
             "?start={0}-01-01&end={0}-12-31".format(year)        
-    # if check_result:
-    #     q = "{0}&repaired={1}".format(q,check_result) if q else\
-    #         "?repaired={0}".format(check_result)
+    if 'no' == check_result:
+        q = "{0}&uncompleted=True".format(q) if q else\
+            "?uncompleted=True"
 
     return "{0}{1}".format(url, q)
 
-def get_annual_training_plan_total_url():
+def get_annual_training_plan_total_url(in_year):
     return [[get_annual_training_plan_model_url(model_name[0],'',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_annual_training_plan_rows()]       
 
-def get_annual_training_plan_uncompleted_url():
+def get_annual_training_plan_uncompleted_url(in_year):
 
     return [[get_annual_training_plan_model_url(model_name[0],'no',year,month) \
-                for month, year in get_last_times()] \
+                for month, year in get_last_times(in_year)] \
                     for model_name in get_annual_training_plan_rows()] 

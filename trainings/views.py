@@ -124,7 +124,19 @@ class AnnualTrainingPlanFilter(FilterSet):
     year = CharFilter(name='year', lookup_type='exact', distinct=True)
     start = CharFilter(name='planned_date', lookup_type='gte', distinct=True)
     end = CharFilter(name='planned_date', lookup_type='lte', distinct=True)
+    uncompleted = MethodFilter(name='actual_date', action='uncompleted_custom_filter', distinct=True)
 
+    def uncompleted_custom_filter(self, queryset, value):
+        if 'True' == value:
+            print "haha"
+            qs  = queryset.filter(**{
+                'actual_date': None,
+            })
+
+            return qs.distinct()
+        
+        return queryset
+        
     class Meta:
         model = AnnualTraningPlan
         fields = [
@@ -134,6 +146,7 @@ class AnnualTrainingPlanFilter(FilterSet):
         ]
 
 
+        
 class AnnualTrainingPlanListView(TableListViewMixin, ListView): 
     model = AnnualTraningPlan
     template_name = "trainings/annualtrainingplan_list.html"
