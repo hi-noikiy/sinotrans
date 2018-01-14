@@ -23,12 +23,12 @@
 
 
 <style>
-{% block head_css_extend_before_main_css %}
+{% block head_css_extend_before_main_css1 %}
 {{form.media.css}}
 {% endblock %}
 </style>
 
-{% block javascript_extended %}
+{% block javascript_extended1 %}
 {{form.media.js}}
 <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static 'admin/' %}{% endfilter %}";</script> 
 {% endblock %}
@@ -44,6 +44,20 @@
     </div>
 </div>
 {% endblock %}
+
+<script>
+{% block jquery %}
+    $('input.vDateField').datepicker({
+        dateFormat: "yy-mm-dd", //$(this).val() can define format in widget
+        numberOfMonths: 1,
+        changeYear: true,
+        changeMonth: true,
+        showButtonPanel: true,
+        showWeek: true,
+    });
+{% endblock%}    
+</script>
+
 
 {% block content %}
 

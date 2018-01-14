@@ -399,6 +399,10 @@ class shelf_inspection_record(models.Model):
     def get_absolute_url_update(self):
         return reverse("shelf_inspection_record_update", kwargs={"pk": self.id })
 
+    def get_absolute_url_list(self):
+        return reverse("shelf_inspection_record_list", kwargs={})
+
+
     # can be replaced by field.value_to_string(object)
     # for jason tranmit
     def my_get_field_display(self,fieldname):
