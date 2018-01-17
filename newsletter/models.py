@@ -37,7 +37,7 @@ def image_upload_to_banner(instance, filename):
 
 class Banner(models.Model):
     image = models.ImageField(verbose_name=_("image"), upload_to=image_upload_to_banner)
-    title = models.CharField(verbose_name=_('title'), max_length=120, null=True, blank=True)
+    title = models.CharField(verbose_name=_('title'), max_length=120, null=False, blank=False)
     text = models.CharField(verbose_name=_('text'), max_length=220, null=True, blank=True)
     active = models.BooleanField(verbose_name=_('active'), default=True)
 
