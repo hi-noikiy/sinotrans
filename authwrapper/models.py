@@ -144,7 +144,7 @@ class MyAbstractUser(AbstractBaseUser, PermissionsMixin):
         })
 
     phone = PhoneNumberNullField(_('phone'), max_length=30, blank=True, null=True, unique=True,
-        help_text=_('Required. digits and + only.'),
+        # help_text=_('Required. digits and + only.'),
         error_messages={
             'unique': _("A user with that phone number already exists."),
         })
