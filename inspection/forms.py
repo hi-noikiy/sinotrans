@@ -427,7 +427,12 @@ class ShelfFilterForm(forms.Form):
                 required=False
                 )   
     except:
-        pass
+        type = forms.ChoiceField(
+                label=_('Shelf Type'),
+                choices = ['error'],
+                widget=forms.RadioSelect(),
+                required=False
+                )   
 
     is_gradient_measurement_mandatory = forms.BooleanField(
             label=_('Gradient Check Only'),
