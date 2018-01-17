@@ -19,6 +19,21 @@
     width:120px;
 }
 
+@media (max-width: 767px){
+    .nav-bar{
+        margin-right:-20px;
+        margin-top: 35px;
+    }
+}
+/*@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { .row2{background-color: green;  }}*/
+/*@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { background-color: black;  }*/
+@media (min-width: 768px) {
+    .nav-bar {
+        margin-right:20%;
+    }
+}
+
+
 {% endblock %}
 
 {% block head_css_extend_before_main_css/// %}
@@ -36,9 +51,10 @@
 {% endblock %}    
 
 {% block content %}
+
 <div class="row">
-    <div class="col-sm-3">
-        <div class="nav-bar" style="margin-right:20%;">
+    <div class="col-xs-3">
+        <div class="nav-bar">
             <p class="nav-title">{% trans "Insepction Categories" %}</p>
             <ul class="nav nav-pills nav-stacked">
               <li><a href="{% url 'equipmentinsepction_list' %}">{% trans 'All' %}</a></li>
@@ -48,10 +64,10 @@
             </ul>
         </div>
     </div>
-    <div class="col-sm-9">
+    <div class="col-xs-9">
         <div class="row">
             <div class="col-sm-12 col-xs-0">
-                <div>
+                <div class="collapse navbar-collapse">
                 <div class="form-filter-inline">
                     <form class="form-inline" method="GET" action="{% url 'equipmentinsepction_list' %}">
                         {% for field in filter_form %}
