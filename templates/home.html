@@ -49,8 +49,10 @@
 {% endblock %}
 </script>
 
-{% block carousel %}  
+{% block carousel %}
+  {% if objects %}
   {% include "carousel.html" with objects=banners %}
+  {% endif %}
 {% endblock %}
 
 
