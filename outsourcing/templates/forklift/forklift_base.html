@@ -3,9 +3,37 @@
 {% load pagination_tags %}
 {% load i18n %}
 
+<style type="text/css">
+{% block style %}
+@media (max-width: 767px){
+    .nav-bar {
+        padding-bottom: 10px;
+    }
+
+    /*copy from list-inline*/
+    .nav-bar ul.list-inline {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .nav-bar ul li{
+        display: inline-block;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-bar {
+        margin-right:20%;
+    }
+}
+{% endblock %}
+</style>
+
 
 {% block left_bar %}
-<div class="nav-bar" style="margin-right:20%;">
+<div class="nav-bar">
     <p class="nav-title">{% trans "Outsource Management" %}</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="{% url 'forklift_list' %}">{% trans "forklift" %}</a></li>
