@@ -247,7 +247,7 @@ class ForkliftRepairListView(TableListViewMixin, ListView):
 
 
         if object_list and not self.request.user.is_staff:
-            object_list = object_list.filter(repaired='yes')
+            object_list = object_list.qs.filter(repaired='yes')
 
         context["object_list"] = object_list                   
 
@@ -412,10 +412,10 @@ class ForkliftMaintListView(TableListViewMixin, ListView):
 
         if query:
             object_list = object_list.filter(query)
-        """
 
         if object_list and not self.request.user.is_staff:
             object_list = object_list.filter(repaired='yes')
+        """
 
         context["object_list"] = object_list                   
 

@@ -4,14 +4,6 @@
 {% load i18n %}
 
 
-<style type="text/css">
-{% block style %}
-
-
-{% endblock %}
-</style>
-
-
 {% block lists %}
 {% if object_list and object_list.count %}
     {% include "includes/model_list_table_display.html" with page_num=20 %}
